@@ -32,7 +32,7 @@
 
 ### O que é o FinCore?
 
-O **FinCore** (anteriormente referenciado como Moneyflow) é uma aplicação web do tipo **Progressive Web App (PWA)** para controle financeiro pessoal e empresarial. Ele permite que usuários gerenciem receitas, despesas, investimentos, metas financeiras, contas bancárias, fornecedores, transações e relatórios — tudo em uma interface moderna, responsiva e offline-first.
+O **FinCore** É uma aplicação web do tipo **Progressive Web App (PWA)** para controle financeiro pessoal e empresarial. Ele permite que usuários gerenciem receitas, despesas, investimentos, metas financeiras, contas bancárias, fornecedores, transações e relatórios — tudo em uma interface moderna, responsiva e offline-first.
 
 ### Proposta de Valor
 

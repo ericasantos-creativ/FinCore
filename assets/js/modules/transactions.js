@@ -1,0 +1,191 @@
+import { DB } from '../db.js';
+import { Store } from '../store.js';
+import { Router } from '../router.js';
+import { Utils } from '../utils.js';
+
+function formatDate(date) {
+  return Utils.formatDate(date);
+}
+
+function buildRow(tx) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${formatDate(tx.data)}</td>
+    <td>${tx.descricao || '-'}</td>
+    <td>${tx.categoria || '-'}</td>
+    <td>${tx.conta_id || '-'}</td>
+    <td>${tx.tipo === 'receita' ? 'Receita' : tx.tipo === 'despesa' ? 'Despesa' : 'Transferência'}</td>
+    <td>${Utils.formatCurrency(tx.valor)}</td>
+    <td>${tx.status || 'pendente'}</td>
+  `;
+  return tr;
+}
+
+function createTransactionTable(transactions) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'data-table';
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  thead.innerHTML = `
+    <tr>
+      <th>Data</th>
+      <th>Descrição</th>
+      <th>Categoria</th>
+      <th>Conta</th>
+      <th>Tipo</th>
+      <th>Valor</th>
+      <th>Status</th>
+    </tr>
+  `;
+  const tbody = document.createElement('tbody');
+  transactions.forEach((tx) => tbody.appendChild(buildRow(tx)));
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  wrapper.appendChild(table);
+  return wrapper;
+}
+
+function openModal() {
+  const container = document.getElementById('modal-container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Nova transação">
+      <div class="modal__content">
+        <header class="modal__header">
+          <h2 class="modal__title">Nova Transação</h2>
+          <button class="btn btn--icon btn--ghost" data-action="close" aria-label="Fechar">✕</button>
+        </header>
+        <form id="transaction-form" class="modal__body">
+          <div class="form-group">
+            <label for="tx-date">Data</label>
+            <input id="tx-date" name="date" type="date" required value="${new Date().toISOString().slice(0, 10)}" />
+          </div>
+          <div class="form-group">
+            <label for="tx-description">Descrição</label>
+            <input id="tx-description" name="description" type="text" required maxlength="120" />
+          </div>
+          <div class="form-group">
+            <label for="tx-value">Valor</label>
+            <input id="tx-value" name="value" type="number" step="0.01" required placeholder="0,00" />
+          </div>
+          <div class="form-group">
+            <label for="tx-type">Tipo</label>
+            <select id="tx-type" name="type" required>
+              <option value="receita">Receita</option>
+              <option value="despesa">Despesa</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tx-status">Status</label>
+            <select id="tx-status" name="status" required>
+              <option value="efetivada">Efetivada</option>
+              <option value="pendente">Pendente</option>
+              <option value="cancelada">Cancelada</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tx-category">Categoria</label>
+            <input id="tx-category" name="category" type="text" placeholder="Ex: Alimentação" />
+          </div>
+          <div class="modal__footer">
+            <button type="button" class="btn btn--secondary" data-action="close">Cancelar</button>
+            <button type="submit" class="btn btn--primary">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+
+  container.hidden = false;
+
+  const form = document.getElementById('transaction-form');
+  const closeButtons = container.querySelectorAll('[data-action="close"]');
+
+  function close() {
+    container.hidden = true;
+    container.innerHTML = '';
+  }
+
+  closeButtons.forEach((btn) => btn.addEventListener('click', close));
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const record = {
+      id: Utils.generateId(),
+      user_id: Store.getState().user?.id || null,
+      empresa_id: Store.getState().activeCompany || null,
+      conta_id: null,
+      categoria_id: null,
+      fornecedor_id: null,
+      tipo: data.get('type'),
+      descricao: data.get('description'),
+      valor: Number(data.get('value')) || 0,
+      data: data.get('date'),
+      status: data.get('status'),
+      recorrente: false,
+      frequencia: null,
+      observacao: null,
+      anexo: null,
+      tags: [],
+      transferencia_conta_destino: null,
+      criado_em: new Date().toISOString(),
+      atualizado_em: new Date().toISOString()
+    };
+
+    try {
+      await DB.add('transactions', record);
+      await Transactions.loadList();
+      Utils.showToast('Transação salva!', 'success');
+      close();
+    } catch (error) {
+      Utils.showToast('Erro ao salvar transação.', 'error');
+      console.error(error);
+    }
+  });
+}
+
+export const Transactions = {
+  async init() {
+    console.log('[Transactions] Inicializando módulo de transações...');
+    const btn = document.getElementById('btn-new-transaction');
+    console.log('[Transactions] Botão "Nova Transação":', btn);
+    btn?.addEventListener('click', () => this.openModal());
+    Router.registerScreenHandler('transactions', () => this.loadList());
+    await this.loadList();
+    console.log('[Transactions] Módulo inicializado');
+  },
+
+  async loadList() {
+    console.log('[Transactions] loadList() chamado');
+    const container = document.getElementById('transactions-list');
+    console.log('[Transactions] Container encontrado:', !!container);
+    if (!container) {
+      console.warn('[Transactions] Container #transactions-list não encontrado!');
+      return;
+    }
+
+    const transactions = await DB.getAll('transactions');
+    console.log('[Transactions] Total de transações:', transactions ? transactions.length : 0);
+    Store.setState({ transactions });
+
+    if (!transactions || transactions.length === 0) {
+      console.log('[Transactions] Exibindo placeholder (nenhuma transação)');
+      container.innerHTML = `<div class="placeholder">Nenhuma transação registrada ainda.</div>`;
+      return;
+    }
+
+    console.log('[Transactions] Renderizando tabela com', transactions.length, 'transações');
+    const sorted = transactions.sort((a, b) => new Date(b.data) - new Date(a.data));
+    const table = createTransactionTable(sorted);
+    container.innerHTML = '';
+    container.appendChild(table);
+    console.log('[Transactions] Tabela renderizada com sucesso');
+  },
+
+  openModal,
+  async save(data) {
+    // placeholder for future
+  }
+};

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1A6BFF" />
+  <title>FinCore — Controle Financeiro</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/variables.css" />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/screens.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <!-- Splash Screen -->
+  <section id="splash-screen" class="screen screen--splash" aria-label="Splash screen">
+    <div class="splash__content">
+      <div class="splash__logo" aria-hidden="true">
+        <span class="logo__icon">💠</span>
+        <span class="logo__text">FinCore</span>
+      </div>
+      <div class="splash__tagline">Seu financeiro. Sob controle.</div>
+      <div class="splash__progress" aria-hidden="true">
+        <div class="splash__progress-bar" id="splash-progress"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auth Screen -->
+  <section id="auth-screen" class="screen screen--auth" aria-label="Tela de login" hidden>
+    <div class="auth__container">
+      <header class="auth__header">
+        <h1 class="auth__title">Olá!</h1>
+        <p class="auth__subtitle">Faça login para acessar sua conta.</p>
+      </header>
+      <form id="login-form" class="auth__form" novalidate>
+        <div class="form-group">
+          <label for="login-email">E-mail</label>
+          <input id="login-email" name="email" type="email" required autocomplete="email" placeholder="seu@exemplo.com" />
+          <small class="form-message" aria-live="polite"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Senha</label>
+          <div class="input-group">
+            <input id="login-password" name="password" type="password" required minlength="8" autocomplete="current-password" placeholder="••••••••" />
+            <button type="button" class="btn btn--icon btn--ghost" id="toggle-password" aria-label="Alternar visibilidade da senha">👁️</button>
+          </div>
+          <small class="form-message" aria-live="polite"></small>
+        </div>
+
+        <div class="form-row">
+          <label class="checkbox">
+            <input type="checkbox" id="remember-me" name="remember" />
+            <span>Manter conectado</span>
+          </label>
+          <a class="link" href="#" id="forgot-password">Esqueci minha senha</a>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block">Entrar</button>
+        <p class="auth__footer">
+          Não tem conta? <a href="#" id="register-link">Criar conta</a>
+        </p>
+      </form>
+
+      <div id="register-screen" class="auth__register" hidden>
+        <header class="auth__header">
+          <h1 class="auth__title">Bem-vindo(a)</h1>
+          <p class="auth__subtitle">Crie sua conta FinCore em 30 segundos.</p>
+        </header>
+        <form id="register-form" class="auth__form" novalidate>
+          <div class="form-group">
+            <label for="register-name">Nome completo</label>
+            <input id="register-name" name="name" type="text" required autocomplete="name" placeholder="Seu nome" />
+            <small class="form-message" aria-live="polite"></small>
+          </div>
+          <div class="form-group">
+            <label for="register-email">E-mail</label>
+            <input id="register-email" name="email" type="email" required autocomplete="email" placeholder="seu@exemplo.com" />
+            <small class="form-message" aria-live="polite"></small>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Senha</label>
+            <input id="register-password" name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="••••••••" />
+            <small class="form-message" aria-live="polite"></small>
+          </div>
+          <button type="submit" class="btn btn--primary btn--block">Criar conta</button>
+          <p class="auth__footer">
+            Já tem conta? <a href="#" id="login-link">Entrar</a>
+          </p>
+        </form>
+      </div>
+
+      <div id="reset-password-screen" class="auth__reset" hidden>
+        <header class="auth__header">
+          <h1 class="auth__title">Redefinir Senha</h1>
+          <p class="auth__subtitle">Informe seu e-mail para receber um link de redefinição.</p>
+        </header>
+        <form id="reset-password-form" class="auth__form" novalidate>
+          <div class="form-group">
+            <label for="reset-email">E-mail</label>
+            <input id="reset-email" name="email" type="email" required autocomplete="email" placeholder="seu@exemplo.com" />
+            <small class="form-message" aria-live="polite"></small>
+          </div>
+          <button type="submit" class="btn btn--primary btn--block">Enviar Link</button>
+          <p class="auth__footer">
+            <a href="#" id="back-to-login">Voltar ao login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Shell -->
+  <div id="app-shell" hidden>
+    <aside id="sidebar" class="sidebar" aria-label="Navegação principal">
+      <div class="sidebar__brand">
+        <span class="logo__icon">💠</span>
+        <span class="logo__text">FinCore</span>
+      </div>
+      <button class="nav__item" data-screen="profile" type="button">
+        <span class="nav__icon">👤</span>
+        <span class="nav__label">Perfil</span>
+      </button>
+      <nav class="nav" aria-label="Menu">
+        <button class="nav__item" data-screen="dashboard" type="button">
+          <span class="nav__icon">🏠</span>
+          <span class="nav__label">Dashboard</span>
+        </button>
+        <button class="nav__item" data-screen="reports" type="button">
+          <span class="nav__icon">📋</span>
+          <span class="nav__label">Relatório</span>
+        </button>
+        <button class="nav__item" data-screen="transactions" type="button">
+          <span class="nav__icon">💸</span>
+          <span class="nav__label">Transações</span>
+        </button>
+        <button class="nav__item" data-screen="accounts" type="button">
+          <span class="nav__icon">🏦</span>
+          <span class="nav__label">Contas</span>
+        </button>
+        <button class="nav__item" data-screen="settings" type="button">
+          <span class="nav__icon">⚙️</span>
+          <span class="nav__label">Configurações</span>
+        </button>
+      </nav>
+      <div class="sidebar__footer">
+        <button id="logout" class="btn btn--ghost" type="button">Sair</button>
+        <button id="toggle-theme" class="btn btn--ghost" type="button" aria-label="Alternar tema">Tema</button>
+      </div>
+    </aside>
+
+    <div class="app">
+      <header id="header" class="header">
+        <div class="header__left">
+          <button id="sidebar-toggle" class="btn btn--icon btn--ghost" aria-label="Abrir menu">☰</button>
+          <div class="header__title" id="header-title">Dashboard</div>
+        </div>
+        <div class="header__right">
+          <button id="btn-search" class="btn btn--icon btn--ghost" aria-label="Buscar">🔍</button>
+          <div class="avatar" aria-label="Perfil do usuário" role="button">
+            <span class="avatar__initials" id="user-initials">FA</span>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content" class="main-content">
+        <section id="screen-dashboard" class="screen" aria-label="Dashboard">
+          <header class="screen__header">
+            <h1 class="screen__title">Dashboard</h1>
+            <p class="screen__subtitle">Visão geral das suas finanças.</p>
+          </header>
+          <div class="dashboard-grid" id="dashboard-grid">
+            <!-- Cards renderizados pelo JS -->
+          </div>
+        </section>
+
+        <section id="screen-reports" class="screen" aria-label="Relatório">
+          <header class="screen__header">
+            <h1 class="screen__title">Relatório</h1>
+            <p class="screen__subtitle">Análise detalhada de suas finanças.</p>
+          </header>
+          <div id="reports-content" class="reports-content">
+            <div class="placeholder">Em breve: relatórios detalhados e gráficos avançados.</div>
+          </div>
+        </section>
+
+        <section id="screen-transactions" class="screen" aria-label="Transações">
+          <header class="screen__header">
+            <div class="screen__header-row">
+              <div>
+                <h1 class="screen__title">Transações</h1>
+                <p class="screen__subtitle">Registre e gerencie suas movimentações.</p>
+              </div>
+              <button id="btn-new-transaction" class="btn btn--primary" type="button">Nova Transação</button>
+            </div>
+          </header>
+          <div id="transactions-list" class="data-table">
+            <!-- Lista de transações será renderizada aqui -->
+          </div>
+        </section>
+
+        <section id="screen-accounts" class="screen" aria-label="Contas">
+          <header class="screen__header">
+            <div class="screen__header-row">
+              <div>
+                <h1 class="screen__title">Contas</h1>
+                <p class="screen__subtitle">Gerencie suas contas bancárias e carteiras.</p>
+              </div>
+              <button id="btn-new-account" class="btn btn--primary" type="button">Nova Conta</button>
+            </div>
+          </header>
+          <div id="accounts-list" class="data-table">
+            <!-- Lista de contas será renderizada aqui -->
+          </div>
+        </section>
+
+        <section id="screen-settings" class="screen" aria-label="Configurações">
+          <header class="screen__header">
+            <h1 class="screen__title">Configurações</h1>
+            <p class="screen__subtitle">Preferências e backup.</p>
+          </header>
+          <div class="placeholder">Em breve: configurações do app.</div>
+        </section>
+
+        <section id="screen-profile" class="screen" aria-label="Perfil">
+          <header class="screen__header">
+            <h1 class="screen__title">Perfil</h1>
+            <p class="screen__subtitle">Dados pessoais e configurações da conta.</p>
+          </header>
+          <div class="profile-content">
+            <div class="profile-card">
+              <div class="profile-avatar" id="profile-avatar">FA</div>
+              <div class="profile-info">
+                <h2 class="profile-name" id="profile-name">Fáuston Aguiar</h2>
+                <p class="profile-email" id="profile-email">seu@exemplo.com</p>
+              </div>
+              <div class="profile-slogan-ball" id="profile-slogan-ball" title="Seu slogan">
+                <span id="profile-slogan-icon">✨</span>
+              </div>
+            </div>
+
+            <div class="profile-section">
+              <h3 class="profile-section__title">Foto do Slogan</h3>
+              <div class="form-group">
+                <label for="profile-slogan-input">Escolha uma imagem para seu slogan</label>
+                <div class="file-input-wrapper">
+                  <input 
+                    id="profile-slogan-input" 
+                    type="file" 
+                    class="file-input" 
+                    accept="image/*"
+                  />
+                  <label for="profile-slogan-input" class="file-input-label">
+                    <span class="file-input-icon">📸</span>
+                    <span class="file-input-text">Clique para selecionar uma imagem</span>
+                  </label>
+                </div>
+                <small class="form-message" id="profile-slogan-message"></small>
+              </div>
+            </div>
+
+            <div class="placeholder">Em breve: mais opções de edição de perfil.</div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="bottom-nav" aria-label="Navegação inferior">
+        <button class="bottom-nav__item" data-screen="dashboard" type="button">
+          <span>🏠</span>
+          <span>Início</span>
+        </button>
+        <button class="bottom-nav__item" data-screen="reports" type="button">
+          <span>📋</span>
+          <span>Relatório</span>
+        </button>
+        <button class="bottom-nav__item" data-screen="transactions" type="button">
+          <span>💸</span>
+          <span>Transações</span>
+        </button>
+        <button class="bottom-nav__item" data-screen="accounts" type="button">
+          <span>🏦</span>
+          <span>Contas</span>
+        </button>
+        <button class="bottom-nav__item" data-screen="profile" type="button">
+          <span>👤</span>
+          <span>Perfil</span>
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Global UI containers -->
+  <div id="modal-container" class="modal-container" aria-hidden="true"></div>
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+  <div id="confirm-dialog" class="confirm-dialog" hidden></div>
+  <div id="search-overlay" class="search-overlay" hidden>
+    <div class="search-overlay__content">
+      <input id="search-input" class="input" type="search" placeholder="Buscar... (Ctrl+K)" aria-label="Buscar" />
+    </div>
+  </div>
+  <div id="loading-overlay" class="loading-overlay" hidden>
+    <div class="spinner" aria-label="Carregando"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
