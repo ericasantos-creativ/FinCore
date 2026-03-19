@@ -104,16 +104,18 @@ export const Profile = {
     const emailEl = document.getElementById('profile-email');
     const avatarEl = document.getElementById('profile-avatar');
 
+    const displayName = user.nome || user.name || 'Usuário';
+
     if (nameEl) {
-      nameEl.textContent = user.name || 'Usuário';
+      nameEl.textContent = displayName;
     }
 
     if (emailEl) {
       emailEl.textContent = user.email || 'email@exemplo.com';
     }
 
-    if (avatarEl && user.name) {
-      const initials = user.name
+    if (avatarEl && displayName) {
+      const initials = displayName
         .split(' ')
         .map((n) => n[0])
         .join('')

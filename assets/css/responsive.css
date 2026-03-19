@@ -42,4 +42,28 @@
   .dashboard-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .dashboard-layout {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    grid-template-areas:
+      "metrics portfolio"
+      "chart portfolio"
+      "table portfolio";
+  }
+
+  .panel--metrics {
+    grid-area: metrics;
+  }
+
+  .panel--portfolio {
+    grid-area: portfolio;
+  }
+
+  .panel--chart {
+    grid-area: chart;
+  }
+
+  .panel--table {
+    grid-area: table;
+  }
 }

@@ -18,7 +18,34 @@ function createStatCard({ title, value, icon, trend }) {
 
 export const Dashboard = {
   init() {
-    this.grid = document.getElementById('dashboard-grid');
+    this.grid = document.getElementById('dashboard-metrics');
+    this.chartIncome = document.getElementById('chart-income');
+    this.chartExpenses = document.getElementById('chart-expenses');
+    this.chartLine = document.getElementById('chart-line');
+    this.rangeButtons = document.querySelectorAll('[data-range]');
+    this.granularityButtons = document.querySelectorAll('[data-granularity]');
+    this.range = '90d';
+    this.granularity = 'day';
+
+    this.rangeButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        this.rangeButtons.forEach((item) => item.classList.remove('pill--active'));
+        btn.classList.add('pill--active');
+        this.range = btn.getAttribute('data-range') || '90d';
+        this.updateChartSummary();
+        this.updateChartLine();
+      });
+    });
+
+    this.granularityButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        this.granularityButtons.forEach((item) => item.classList.remove('pill--active'));
+        btn.classList.add('pill--active');
+        this.granularity = btn.getAttribute('data-granularity') || 'day';
+        this.updateChartLine();
+      });
+    });
+
     Store.subscribe(() => this.refreshAll());
     Router.registerScreenHandler('dashboard', () => this.refreshAll());
     this.refreshAll();
@@ -28,10 +55,14 @@ export const Dashboard = {
     if (!this.grid) return;
     const state = Store.getState();
     const transactions = state.transactions || [];
+    const activeCompany = state.activeCompany;
+    const filtered = activeCompany
+      ? transactions.filter((tx) => tx.empresa_id === activeCompany)
+      : transactions;
 
-    const totalBalance = this.calculateBalance(transactions);
-    const income = this.calculateIncome(transactions);
-    const expenses = this.calculateExpenses(transactions);
+    const totalBalance = this.calculateBalance(filtered);
+    const income = this.calculateIncome(filtered);
+    const expenses = this.calculateExpenses(filtered);
     const net = income - expenses;
 
     this.grid.innerHTML = '';
@@ -71,6 +102,158 @@ export const Dashboard = {
         trend: ''
       })
     );
+
+    this.updateChartSummary(filtered);
+    this.updateChartLine(filtered);
+  },
+
+  updateChartSummary(transactions = null) {
+    const state = Store.getState();
+    const list = transactions || state.transactions || [];
+    const activeCompany = state.activeCompany;
+    const filtered = activeCompany
+      ? list.filter((tx) => tx.empresa_id === activeCompany)
+      : list;
+
+    const rangeStart = this.getRangeStart();
+    const ranged = filtered.filter((tx) => {
+      const date = new Date(tx.data);
+      return date >= rangeStart;
+    });
+
+    const income = ranged
+      .filter((tx) => tx.tipo === 'receita')
+      .reduce((sum, tx) => sum + (Number(tx.valor) || 0), 0);
+
+    const expenses = ranged
+      .filter((tx) => tx.tipo === 'despesa')
+      .reduce((sum, tx) => sum + (Number(tx.valor) || 0), 0);
+
+    if (this.chartIncome) this.chartIncome.textContent = Utils.formatCurrency(income);
+    if (this.chartExpenses) this.chartExpenses.textContent = Utils.formatCurrency(expenses);
+  },
+
+  updateChartLine(transactions = null) {
+    if (!this.chartLine) return;
+    const state = Store.getState();
+    const list = transactions || state.transactions || [];
+    const activeCompany = state.activeCompany;
+    const filtered = activeCompany
+      ? list.filter((tx) => tx.empresa_id === activeCompany)
+      : list;
+
+    const rangeStart = this.getRangeStart();
+    const ranged = filtered.filter((tx) => {
+      const date = new Date(tx.data);
+      return date >= rangeStart;
+    });
+
+    const series = this.aggregateByGranularity(ranged);
+    if (!series.length) {
+      this.chartLine.setAttribute('d', '');
+      return;
+    }
+
+    const values = series.map((point) => point.value);
+    const min = Math.min(...values, 0);
+    const max = Math.max(...values, 1);
+    const range = max - min || 1;
+
+    const step = 100 / Math.max(series.length - 1, 1);
+    const points = series.map((point, index) => {
+      const x = index * step;
+      const y = 40 - ((point.value - min) / range) * 40;
+      return { x, y };
+    });
+
+    const d = this.buildSmoothPath(points);
+
+    this.chartLine.setAttribute('d', d);
+  },
+
+  getRangeStart() {
+    const now = new Date();
+    const start = new Date(now);
+
+    switch (this.range) {
+      case '7d':
+        start.setDate(now.getDate() - 6);
+        break;
+      case '30d':
+        start.setDate(now.getDate() - 29);
+        break;
+      case '1y':
+        start.setFullYear(now.getFullYear() - 1);
+        break;
+      case '90d':
+      default:
+        start.setDate(now.getDate() - 89);
+        break;
+    }
+
+    start.setHours(0, 0, 0, 0);
+    return start;
+  },
+
+  aggregateByGranularity(transactions) {
+    const buckets = new Map();
+    transactions.forEach((tx) => {
+      const date = new Date(tx.data);
+      let key = '';
+
+      if (this.granularity === 'week') {
+        const weekStart = new Date(date);
+        const day = weekStart.getDay();
+        const diff = weekStart.getDate() - day + (day === 0 ? -6 : 1);
+        weekStart.setDate(diff);
+        weekStart.setHours(0, 0, 0, 0);
+        key = weekStart.toISOString().slice(0, 10);
+      } else if (this.granularity === 'month') {
+        key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      } else {
+        key = date.toISOString().slice(0, 10);
+      }
+
+      const current = buckets.get(key) || 0;
+      const amount = Number(tx.valor) || 0;
+      const value = tx.tipo === 'receita' ? amount : -amount;
+      buckets.set(key, current + value);
+    });
+
+    return Array.from(buckets.entries())
+      .sort(([a], [b]) => (a > b ? 1 : -1))
+      .map(([label, value]) => ({ label, value }));
+  },
+
+  buildSmoothPath(points) {
+    if (points.length === 0) return '';
+    if (points.length === 1) {
+      const p = points[0];
+      return `M ${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
+    }
+
+    const smoothing = 0.18;
+    const path = [`M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`];
+
+    for (let i = 0; i < points.length - 1; i++) {
+      const current = points[i];
+      const next = points[i + 1];
+      const prev = points[i - 1] || current;
+      const after = points[i + 2] || next;
+
+      const control1x = current.x + (next.x - prev.x) * smoothing;
+      const control1y = current.y + (next.y - prev.y) * smoothing;
+      const control2x = next.x - (after.x - current.x) * smoothing;
+      const control2y = next.y - (after.y - current.y) * smoothing;
+
+      path.push(
+        `C ${control1x.toFixed(2)} ${control1y.toFixed(2)} ` +
+        `${control2x.toFixed(2)} ${control2y.toFixed(2)} ` +
+        `${next.x.toFixed(2)} ${next.y.toFixed(2)}`
+      );
+    }
+
+    return path.join(' ');
   },
 
   calculateBalance(transactions) {

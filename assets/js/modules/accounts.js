@@ -169,14 +169,18 @@ export const Accounts = {
     if (!container) return;
 
     const accounts = await DB.getAll('accounts');
-    Store.setState({ accounts });
+    const activeCompany = Store.getState().activeCompany;
+    const filtered = activeCompany
+      ? accounts.filter((acc) => acc.empresa_id === activeCompany)
+      : accounts;
+    Store.setState({ accounts: filtered });
 
-    if (!accounts || accounts.length === 0) {
+    if (!filtered || filtered.length === 0) {
       container.innerHTML = `<div class="placeholder">Nenhuma conta cadastrada ainda.</div>`;
       return;
     }
 
-    const sorted = accounts.sort((a, b) => (a.nome || '').localeCompare(b.nome || ''));
+    const sorted = filtered.sort((a, b) => (a.nome || '').localeCompare(b.nome || ''));
     const table = createAccountsTable(sorted);
     container.innerHTML = '';
     container.appendChild(table);
@@ -184,7 +188,7 @@ export const Accounts = {
     container.querySelectorAll('button[data-action="edit"]').forEach((btn) => {
       btn.addEventListener('click', async () => {
         const id = btn.getAttribute('data-id');
-        const acc = accounts.find((a) => a.id === id);
+        const acc = filtered.find((a) => a.id === id);
         if (acc) openModal(acc);
       });
     });

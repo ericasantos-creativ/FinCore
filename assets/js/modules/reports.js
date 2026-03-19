@@ -13,22 +13,26 @@ export const Reports = {
 
     const state = Store.getState();
     const transactions = state.transactions || [];
+    const activeCompany = state.activeCompany;
+    const filtered = activeCompany
+      ? transactions.filter((tx) => tx.empresa_id === activeCompany)
+      : transactions;
 
     // Calcular receitas e despesas
-    const income = transactions
-      .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+    const income = filtered
+      .filter((t) => t.tipo === 'receita')
+      .reduce((sum, t) => sum + (parseFloat(t.valor) || 0), 0);
 
-    const expenses = transactions
-      .filter(t => t.type === 'expense')
-      .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+    const expenses = filtered
+      .filter((t) => t.tipo === 'despesa')
+      .reduce((sum, t) => sum + (parseFloat(t.valor) || 0), 0);
 
     const profit = income - expenses;
     const profitPercent = income > 0 ? ((profit / income) * 100).toFixed(1) : 0;
 
     // Contar transações por tipo
-    const incomeCount = transactions.filter(t => t.type === 'income').length;
-    const expenseCount = transactions.filter(t => t.type === 'expense').length;
+    const incomeCount = filtered.filter((t) => t.tipo === 'receita').length;
+    const expenseCount = filtered.filter((t) => t.tipo === 'despesa').length;
 
     this.render(income, expenses, profit, profitPercent, incomeCount, expenseCount);
   },

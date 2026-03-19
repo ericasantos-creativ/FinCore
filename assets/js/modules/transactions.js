@@ -159,16 +159,15 @@ export const Transactions = {
 
   async loadList() {
     console.log('[Transactions] loadList() chamado');
-    const container = document.getElementById('transactions-list');
-    console.log('[Transactions] Container encontrado:', !!container);
-    if (!container) {
-      console.warn('[Transactions] Container #transactions-list não encontrado!');
-      return;
-    }
-
     const transactions = await DB.getAll('transactions');
     console.log('[Transactions] Total de transações:', transactions ? transactions.length : 0);
     Store.setState({ transactions });
+
+    const container = document.getElementById('transactions-list');
+    console.log('[Transactions] Container encontrado:', !!container);
+    if (!container) {
+      return;
+    }
 
     if (!transactions || transactions.length === 0) {
       console.log('[Transactions] Exibindo placeholder (nenhuma transação)');

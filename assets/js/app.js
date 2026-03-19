@@ -8,6 +8,11 @@ import { Reports } from './modules/reports.js';
 import { Transactions } from './modules/transactions.js';
 import { Accounts } from './modules/accounts.js';
 import { Profile } from './modules/profile.js';
+import { Companies } from './modules/companies.js';
+import { Categories } from './modules/categories.js';
+import { Goals } from './modules/goals.js';
+import { Investments } from './modules/investments.js';
+import { Suppliers } from './modules/suppliers.js';
 import { Utils } from './utils.js';
 
 async function registerServiceWorker() {
@@ -62,6 +67,116 @@ function updateHeaderUser(user) {
   if (el) el.textContent = initials;
 }
 
+async function loadCompanies() {
+  try {
+    const companies = await DB.getAll('companies');
+    Store.setState({ companies });
+
+    const current = Store.getState().activeCompany;
+    if (!current) {
+      const active = companies.find((company) => company.ativa) || companies[0];
+      Store.setState({ activeCompany: active?.id ?? null });
+    }
+  } catch (error) {
+    console.error('[FinCore] Erro ao carregar empresas:', error);
+  }
+}
+
+function refreshAfterCompanyChange() {
+  Dashboard.refreshAll?.();
+  Reports.loadReports?.();
+  Transactions.loadList?.();
+  Accounts.loadList?.();
+  Companies.loadList?.();
+  Categories.loadList?.();
+  Goals.loadList?.();
+  Investments.loadList?.();
+  Suppliers.loadList?.();
+}
+
+function renderCompanyMenu() {
+  const menu = document.getElementById('company-menu');
+  const label = document.getElementById('company-pill-label');
+  if (!menu || !label) return;
+
+  const { companies = [], activeCompany } = Store.getState();
+  const active = companies.find((company) => company.id === activeCompany);
+  label.textContent = active?.nome || 'Todas empresas';
+
+  const items = [
+    { id: null, nome: 'Todas empresas' },
+    ...companies
+  ];
+
+  menu.innerHTML = items
+    .map((company) => {
+      const isActive = (company.id || null) === (activeCompany || null);
+      return `
+        <div class="company-menu__item ${isActive ? 'active' : ''}" data-id="${company.id ?? ''}">
+          <span>${company.nome || 'Todas empresas'}</span>
+          ${isActive ? '<span>✓</span>' : ''}
+        </div>
+      `;
+    })
+    .join('');
+
+  menu.querySelectorAll('.company-menu__item').forEach((item) => {
+    item.addEventListener('click', async () => {
+      const id = item.getAttribute('data-id') || null;
+      const currentUser = Store.getState().user;
+      Store.setState({
+        activeCompany: id,
+        user: currentUser ? { ...currentUser, default_company: id } : currentUser
+      });
+
+      if (currentUser?.id) {
+        try {
+          await DB.update('users', currentUser.id, { default_company: id });
+        } catch (error) {
+          console.error('[FinCore] Erro ao salvar empresa ativa:', error);
+        }
+      }
+
+      renderCompanyMenu();
+      refreshAfterCompanyChange();
+      menu.hidden = true;
+      const pill = document.getElementById('company-pill');
+      if (pill) pill.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+function initCompanySwitcher() {
+  const pill = document.getElementById('company-pill');
+  const menu = document.getElementById('company-menu');
+  const wrapper = document.getElementById('company-switcher');
+  if (!pill || !menu || !wrapper) return;
+
+  if (pill.dataset.initialized === 'true') {
+    renderCompanyMenu();
+    return;
+  }
+
+  pill.dataset.initialized = 'true';
+
+  pill.addEventListener('click', () => {
+    const isHidden = menu.hidden;
+    menu.hidden = !isHidden;
+    pill.setAttribute('aria-expanded', String(isHidden));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!wrapper.contains(event.target)) {
+      menu.hidden = true;
+      pill.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  Store.subscribe(() => {
+    renderCompanyMenu();
+  });
+}
+
 function setupAuthListeners() {
   console.log('[FinCore] setupAuthListeners() chamada - usando event delegation');
   
@@ -104,8 +219,10 @@ function setupAuthListeners() {
         console.log('[FinCore] Login bem-sucedido!');
         const user = await Auth.getCurrentUser();
         Store.setState({ user });
+        await loadCompanies();
         updateHeaderUser(user);
         showAppShell();
+        initCompanySwitcher();
         Router.init();
         console.log('[FinCore] Inicializando Dashboard...');
         Dashboard.init();
@@ -115,6 +232,16 @@ function setupAuthListeners() {
         Transactions.init();
         console.log('[FinCore] Inicializando Accounts...');
         Accounts.init();
+        console.log('[FinCore] Inicializando Companies...');
+        Companies.init();
+        console.log('[FinCore] Inicializando Categories...');
+        Categories.init();
+        console.log('[FinCore] Inicializando Goals...');
+        Goals.init();
+        console.log('[FinCore] Inicializando Investments...');
+        Investments.init();
+        console.log('[FinCore] Inicializando Suppliers...');
+        Suppliers.init();
         console.log('[FinCore] Inicializando Profile...');
         Profile.init();
         console.log('[FinCore] Módulos inicializados com sucesso');
@@ -166,12 +293,21 @@ function setupAuthListeners() {
         await Auth.register({ name, email, password });
         const user = await Auth.getCurrentUser();
         Store.setState({ user });
+        await loadCompanies();
         updateHeaderUser(user);
         showAppShell();
+        initCompanySwitcher();
         Router.init();
         Dashboard.init();
+        Reports.init();
         Transactions.init();
         Accounts.init();
+        Companies.init();
+        Categories.init();
+        Goals.init();
+        Investments.init();
+        Suppliers.init();
+        Profile.init();
         Utils.showToast('Conta criada com sucesso!', 'success');
       } catch (error) {
         console.error('[FinCore] Erro no registro:', error);
@@ -197,27 +333,8 @@ function setupAuthListeners() {
       }
 
       try {
-        console.log('[FinCore] Buscando usuário...');
-        const users = await DB.getAll('users');
-        const user = users.find((u) => u.email.toLowerCase() === email.toLowerCase());
-        
-        if (!user) {
-          Utils.showToast('Nenhuma conta encontrada com este e-mail.', 'error');
-          return;
-        }
-
-        // Gera nova senha temporária
-        const newPassword = Utils.generateId().substring(0, 12);
-        const salt = Utils.generateId();
-        const hash = newPassword; // Simplificado para MVP
-        
-        await DB.update('users', user.id, {
-          password_hash: hash,
-          password_salt: salt,
-          atualizado_em: new Date().toISOString()
-        });
-
-        Utils.showToast(`Link de recuperação enviado para ${email}. Nova senha: ${newPassword}`, 'success');
+        await Auth.requestPasswordReset(email);
+        Utils.showToast(`Link de recuperação enviado para ${email}.`, 'success');
         setTimeout(() => {
           document.getElementById('reset-password-screen').hidden = true;
           document.getElementById('login-form').hidden = false;
@@ -347,6 +464,7 @@ async function runSplash() {
   return new Promise((resolve) => {
     setTimeout(() => {
       console.log('[FinCore] Splash Promise resolvida - saindo do splash');
+      splash.hidden = true;
       resolve();
     }, 2600);
   });
@@ -355,17 +473,28 @@ async function runSplash() {
 async function init() {
   try {
     console.log('[FinCore] Iniciando aplicação...');
+
+    // Fallback global para não travar na splash
+    const splashFallback = setTimeout(() => {
+      const splash = document.getElementById('splash-screen');
+      if (splash && !splash.hidden) {
+        splash.hidden = true;
+        showAuthScreen();
+      }
+    }, 4500);
     
     Theme.init();
     console.log('[FinCore] Tema inicializado');
     
-    await DB.init();
-    console.log('[FinCore] IndexedDB inicializado');
-    
     await registerServiceWorker();
     console.log('[FinCore] Service Worker registrado');
 
-    const authenticated = Auth.isAuthenticated();
+    let authenticated = false;
+    try {
+      authenticated = await Auth.isAuthenticated();
+    } catch (authError) {
+      console.error('[FinCore] Erro ao verificar autenticação:', authError);
+    }
     console.log('[FinCore] Autenticação verificada:', authenticated);
     
     await runSplash();
@@ -375,12 +504,21 @@ async function init() {
       console.log('[FinCore] Carregando app para usuário autenticado...');
       const user = await Auth.getCurrentUser();
       Store.setState({ user });
+      await loadCompanies();
       updateHeaderUser(user);
       showAppShell();
+      initCompanySwitcher();
       Router.init();
       Dashboard.init();
+      Reports.init();
       Transactions.init();
       Accounts.init();
+      Companies.init();
+      Categories.init();
+      Goals.init();
+      Investments.init();
+      Suppliers.init();
+      Profile.init();
       console.log('[FinCore] App carregado!');
     } else {
       console.log('[FinCore] Exibindo tela de login...');
@@ -392,8 +530,12 @@ async function init() {
 
     setupAppListeners();
     console.log('[FinCore] Listeners da app configurados. App pronto!');
+    clearTimeout(splashFallback);
   } catch (error) {
     console.error('[FinCore] ERRO FATAL:', error);
+    const splash = document.getElementById('splash-screen');
+    if (splash) splash.hidden = true;
+    showAuthScreen();
   }
 }
 
