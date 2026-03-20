@@ -1,3 +1,4 @@
+// Arquivo removido. Não utilizar.
 import { DB } from '../db.js';
 import { Store } from '../store.js';
 import { Router } from '../router.js';

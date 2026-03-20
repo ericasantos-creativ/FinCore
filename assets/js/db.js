@@ -76,6 +76,7 @@ const FIELD_MAP = {
     nome: 'name',
     cnpj_cpf: 'document',
     categoria: 'category',
+    email: 'email',
     telefone: 'phone',
     endereco: 'address',
     conta: 'bank_account',

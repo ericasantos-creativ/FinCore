@@ -6,7 +6,7 @@ import { Store } from './store.js';
 import { Dashboard } from './modules/dashboard.js';
 import { Reports } from './modules/reports.js';
 import { Transactions } from './modules/transactions.js';
-import { Accounts } from './modules/accounts.js';
+// import { Accounts } from './modules/accounts.js';
 import { Profile } from './modules/profile.js';
 import { Companies } from './modules/companies.js';
 import { Categories } from './modules/categories.js';
@@ -86,7 +86,7 @@ function refreshAfterCompanyChange() {
   Dashboard.refreshAll?.();
   Reports.loadReports?.();
   Transactions.loadList?.();
-  Accounts.loadList?.();
+  // Accounts.loadList?.();
   Companies.loadList?.();
   Categories.loadList?.();
   Goals.loadList?.();
@@ -230,8 +230,8 @@ function setupAuthListeners() {
         Reports.init();
         console.log('[FinCore] Inicializando Transactions...');
         Transactions.init();
-        console.log('[FinCore] Inicializando Accounts...');
-        Accounts.init();
+        // console.log('[FinCore] Inicializando Accounts...');
+        // Accounts.init();
         console.log('[FinCore] Inicializando Companies...');
         Companies.init();
         console.log('[FinCore] Inicializando Categories...');
@@ -301,7 +301,7 @@ function setupAuthListeners() {
         Dashboard.init();
         Reports.init();
         Transactions.init();
-        Accounts.init();
+        // Accounts.init();
         Companies.init();
         Categories.init();
         Goals.init();
@@ -512,7 +512,7 @@ async function init() {
       Dashboard.init();
       Reports.init();
       Transactions.init();
-      Accounts.init();
+      // Accounts.init();
       Companies.init();
       Categories.init();
       Goals.init();
