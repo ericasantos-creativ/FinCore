@@ -19,14 +19,6 @@ const DEFAULT_PORTFOLIO_SETTINGS = {
       enabled: true
     },
     {
-      id: 'investments',
-      label: 'Investimentos',
-      icon: '🏦',
-      value: 7890.44,
-      type: 'income',
-      enabled: true
-    },
-    {
       id: 'goals',
       label: 'Metas',
       icon: '🎯',
@@ -66,26 +58,10 @@ export const Dashboard = {
     this.chartExpenses = document.getElementById('chart-expenses');
     this.chartLineIncome = document.getElementById('chart-line-income');
     this.chartLineExpense = document.getElementById('chart-line-expense');
-    this.portfolioContainer = document.getElementById('portfolio-cards');
-    this.portfolioFilterButtons = document.querySelectorAll('[data-portfolio-filter]');
-    this.portfolioEditButton = document.getElementById('portfolio-edit');
     this.rangeButtons = document.querySelectorAll('[data-range]');
     this.granularityButtons = document.querySelectorAll('[data-granularity]');
     this.range = '90d';
     this.granularity = 'day';
-    this.portfolioFilter = 'all';
-    this.portfolioFilters = { ...DEFAULT_PORTFOLIO_SETTINGS.filters };
-    this.portfolioCards = DEFAULT_PORTFOLIO_SETTINGS.cards.map((card) => ({ ...card }));
-    this.portfolioStorageKey = '';
-
-    this.portfolioFilterButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-portfolio-filter') || 'all';
-        this.setPortfolioFilter(filter);
-      });
-    });
-
-    this.portfolioEditButton?.addEventListener('click', () => this.openPortfolioEditor());
 
     this.rangeButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -171,7 +147,7 @@ export const Dashboard = {
 
     this.updateChartSummary(filtered);
     this.updateChartLine(filtered);
-    this.refreshPortfolio();
+    // Carteira ativa removida.
     this.renderRecentTransactions(filtered, filteredAccounts);
   },
 
@@ -202,254 +178,6 @@ export const Dashboard = {
     });
   },
 
-  refreshPortfolio() {
-    this.loadPortfolioSettings();
-    this.renderPortfolioFilters();
-    this.renderPortfolioCards();
-  },
-
-  getPortfolioStorageKey() {
-    const userId = Store.getState().user?.id || 'guest';
-    const companyId = Store.getState().activeCompany || 'all';
-    return `fincore:portfolio:${userId}:${companyId}`;
-  },
-
-  normalizePortfolioCard(card) {
-    const type = ['income', 'expense', 'all'].includes(card.type) ? card.type : 'all';
-    return {
-      id: card.id || Utils.generateId(),
-      label: card.label || 'Item',
-      icon: card.icon || '💳',
-      value: Number(card.value) || 0,
-      type,
-      enabled: card.enabled !== false
-    };
-  },
-
-  loadPortfolioSettings() {
-    const key = this.getPortfolioStorageKey();
-    if (this.portfolioStorageKey === key && this.portfolioCards.length) return;
-    this.portfolioStorageKey = key;
-
-    let parsed = null;
-    const raw = localStorage.getItem(key);
-    if (raw) {
-      try {
-        parsed = JSON.parse(raw);
-      } catch (error) {
-        console.warn('[FinCore] Dados de carteira corrompidos, usando padrao.');
-      }
-    }
-
-    this.portfolioFilters = {
-      ...DEFAULT_PORTFOLIO_SETTINGS.filters,
-      ...(parsed?.filters || {})
-    };
-
-    const cards = Array.isArray(parsed?.cards) && parsed.cards.length
-      ? parsed.cards
-      : DEFAULT_PORTFOLIO_SETTINGS.cards;
-    this.portfolioCards = cards.map((card) => this.normalizePortfolioCard(card));
-  },
-
-  savePortfolioSettings() {
-    const key = this.getPortfolioStorageKey();
-    const payload = {
-      filters: this.portfolioFilters,
-      cards: this.portfolioCards
-    };
-    localStorage.setItem(key, JSON.stringify(payload));
-  },
-
-  renderPortfolioFilters() {
-    if (!this.portfolioFilterButtons?.length) return;
-    this.portfolioFilterButtons.forEach((btn) => {
-      const filter = btn.getAttribute('data-portfolio-filter') || 'all';
-      const label = this.portfolioFilters[filter] || btn.textContent || DEFAULT_PORTFOLIO_SETTINGS.filters[filter] || '';
-      btn.textContent = label;
-      btn.classList.toggle('pill--active', filter === this.portfolioFilter);
-    });
-  },
-
-  renderPortfolioCards() {
-    if (!this.portfolioContainer) return;
-    const cards = this.portfolioCards.filter((card) => card.enabled !== false);
-    const filtered = this.portfolioFilter === 'all'
-      ? cards
-      : cards.filter((card) => card.type === this.portfolioFilter);
-
-    this.portfolioContainer.innerHTML = '';
-
-    if (!filtered.length) {
-      const empty = document.createElement('div');
-      empty.className = 'placeholder';
-      empty.textContent = 'Sem itens para exibir neste filtro.';
-      this.portfolioContainer.appendChild(empty);
-      return;
-    }
-
-    filtered.forEach((card) => {
-      const article = document.createElement('article');
-      article.className = 'portfolio-card';
-
-      const icon = document.createElement('div');
-      icon.className = 'portfolio-card__icon';
-      icon.textContent = card.icon;
-
-      const info = document.createElement('div');
-      const label = document.createElement('div');
-      label.className = 'portfolio-card__label';
-      label.textContent = card.label;
-
-      const value = document.createElement('div');
-      value.className = 'portfolio-card__value';
-      value.textContent = Utils.formatCurrency(card.value);
-
-      info.append(label, value);
-      article.append(icon, info);
-      this.portfolioContainer.appendChild(article);
-    });
-  },
-
-  setPortfolioFilter(filter) {
-    this.portfolioFilter = filter || 'all';
-    this.renderPortfolioFilters();
-    this.renderPortfolioCards();
-  },
-
-  openPortfolioEditor() {
-    const container = document.getElementById('modal-container');
-    if (!container) return;
-
-    const escapeHtml = (value) => String(value)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-
-    const filterAll = escapeHtml(this.portfolioFilters.all);
-    const filterIncome = escapeHtml(this.portfolioFilters.income);
-    const filterExpense = escapeHtml(this.portfolioFilters.expense);
-
-    container.innerHTML = `
-      <div class="modal" role="dialog" aria-modal="true" aria-label="Editar carteira ativa">
-        <div class="modal__content">
-          <header class="modal__header">
-            <h2 class="modal__title">Editar carteira ativa</h2>
-            <button class="btn btn--ghost btn--icon" type="button" data-action="close" aria-label="Fechar">✕</button>
-          </header>
-          <form id="portfolio-editor-form" class="modal__body">
-            <div class="portfolio-editor__section">
-              <h3 class="portfolio-editor__title">Filtros</h3>
-              <div class="portfolio-editor__grid">
-                <div class="form-group">
-                  <label for="portfolio-filter-all">Texto - Tudo</label>
-                  <input id="portfolio-filter-all" name="filterAll" type="text" value="${filterAll}" />
-                </div>
-                <div class="form-group">
-                  <label for="portfolio-filter-income">Texto - Ganhos</label>
-                  <input id="portfolio-filter-income" name="filterIncome" type="text" value="${filterIncome}" />
-                </div>
-                <div class="form-group">
-                  <label for="portfolio-filter-expense">Texto - Despesas</label>
-                  <input id="portfolio-filter-expense" name="filterExpense" type="text" value="${filterExpense}" />
-                </div>
-              </div>
-            </div>
-            <div class="portfolio-editor__section">
-              <h3 class="portfolio-editor__title">Cards</h3>
-              ${this.portfolioCards
-                .map((card) => {
-                  const enabled = card.enabled ? 'checked' : '';
-                  return `
-                    <div class="portfolio-editor__card" data-card-id="${escapeHtml(card.id)}">
-                      <div class="portfolio-editor__row">
-                        <div class="form-group">
-                          <label>Icone</label>
-                          <input type="text" maxlength="4" value="${escapeHtml(card.icon)}" data-field="icon" />
-                        </div>
-                        <div class="form-group">
-                          <label>Nome</label>
-                          <input type="text" value="${escapeHtml(card.label)}" data-field="label" />
-                        </div>
-                      </div>
-                      <div class="portfolio-editor__row">
-                        <div class="form-group">
-                          <label>Valor</label>
-                          <input type="number" step="0.01" value="${escapeHtml(card.value)}" data-field="value" />
-                        </div>
-                        <div class="form-group">
-                          <label>Tipo</label>
-                          <select data-field="type">
-                            <option value="all" ${card.type === 'all' ? 'selected' : ''}>Tudo</option>
-                            <option value="income" ${card.type === 'income' ? 'selected' : ''}>Ganhos</option>
-                            <option value="expense" ${card.type === 'expense' ? 'selected' : ''}>Despesas</option>
-                          </select>
-                        </div>
-                      </div>
-                      <label class="checkbox">
-                        <input type="checkbox" data-field="enabled" ${enabled} />
-                        <span>Ativo</span>
-                      </label>
-                    </div>
-                  `;
-                })
-                .join('')}
-            </div>
-          </form>
-          <div class="modal__footer">
-            <button class="btn btn--secondary" type="button" data-action="close">Cancelar</button>
-            <button class="btn btn--primary" type="submit" form="portfolio-editor-form">Salvar</button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    const closeModal = () => {
-      container.innerHTML = '';
-    };
-
-    container.querySelectorAll('[data-action="close"]').forEach((btn) => {
-      btn.addEventListener('click', closeModal);
-    });
-
-    const form = container.querySelector('#portfolio-editor-form');
-    form?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const newFilters = {
-        all: form.querySelector('[name="filterAll"]')?.value.trim() || DEFAULT_PORTFOLIO_SETTINGS.filters.all,
-        income: form.querySelector('[name="filterIncome"]')?.value.trim() || DEFAULT_PORTFOLIO_SETTINGS.filters.income,
-        expense: form.querySelector('[name="filterExpense"]')?.value.trim() || DEFAULT_PORTFOLIO_SETTINGS.filters.expense
-      };
-
-      const newCards = Array.from(form.querySelectorAll('[data-card-id]')).map((row) => {
-        const id = row.getAttribute('data-card-id') || Utils.generateId();
-        const label = row.querySelector('[data-field="label"]')?.value.trim() || 'Item';
-        const icon = row.querySelector('[data-field="icon"]')?.value.trim() || '💳';
-        const rawValue = row.querySelector('[data-field="value"]')?.value || '0';
-        const value = Number.parseFloat(rawValue.replace(',', '.')) || 0;
-        const type = row.querySelector('[data-field="type"]')?.value || 'all';
-        const enabled = row.querySelector('[data-field="enabled"]')?.checked ?? true;
-        return this.normalizePortfolioCard({
-          id,
-          label,
-          icon,
-          value,
-          type,
-          enabled
-        });
-      });
-
-      this.portfolioFilters = newFilters;
-      this.portfolioCards = newCards;
-      this.savePortfolioSettings();
-      this.renderPortfolioFilters();
-      this.renderPortfolioCards();
-      Utils.showToast('Carteira atualizada!', 'success');
-      closeModal();
-    });
-  },
 
   updateChartSummary(transactions = null) {
     const state = Store.getState();

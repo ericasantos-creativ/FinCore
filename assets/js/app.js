@@ -6,12 +6,9 @@ import { Store } from './store.js';
 import { Dashboard } from './modules/dashboard.js';
 import { Reports } from './modules/reports.js';
 import { Transactions } from './modules/transactions.js';
-import { Accounts } from './modules/accounts.js';
 import { Profile } from './modules/profile.js';
 import { Companies } from './modules/companies.js';
-import { Categories } from './modules/categories.js';
 import { Goals } from './modules/goals.js';
-import { Investments } from './modules/investments.js';
 import { Suppliers } from './modules/suppliers.js';
 import { Utils } from './utils.js';
 import { LocalData } from './local-data.js';
@@ -97,11 +94,8 @@ function refreshAfterCompanyChange() {
   Dashboard.refreshAll?.();
   Reports.loadReports?.();
   Transactions.loadList?.();
-  Accounts.loadList?.();
   Companies.loadList?.();
-  Categories.loadList?.();
   Goals.loadList?.();
-  Investments.loadList?.();
   Suppliers.loadList?.();
 }
 
@@ -241,16 +235,10 @@ function setupAuthListeners() {
         Reports.init();
         console.log('[FinCore] Inicializando Transactions...');
         Transactions.init();
-        console.log('[FinCore] Inicializando Accounts...');
-        Accounts.init();
         console.log('[FinCore] Inicializando Companies...');
         Companies.init();
-        console.log('[FinCore] Inicializando Categories...');
-        Categories.init();
         console.log('[FinCore] Inicializando Goals...');
         Goals.init();
-        console.log('[FinCore] Inicializando Investments...');
-        Investments.init();
         console.log('[FinCore] Inicializando Suppliers...');
         Suppliers.init();
         console.log('[FinCore] Inicializando Profile...');
@@ -312,11 +300,8 @@ function setupAuthListeners() {
         Dashboard.init();
         Reports.init();
         Transactions.init();
-        Accounts.init();
         Companies.init();
-        Categories.init();
         Goals.init();
-        Investments.init();
         Suppliers.init();
         Profile.init();
         Utils.showToast('Conta criada com sucesso!', 'success');
@@ -543,11 +528,8 @@ async function init() {
       Dashboard.init();
       Reports.init();
       Transactions.init();
-      Accounts.init();
       Companies.init();
-      Categories.init();
       Goals.init();
-      Investments.init();
       Suppliers.init();
       Profile.init();
       console.log('[FinCore] App carregado!');

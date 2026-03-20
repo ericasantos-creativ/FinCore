@@ -147,21 +147,9 @@
           <span class="nav__icon">🏢</span>
           <span class="nav__label">Empresas</span>
         </button>
-        <button class="nav__item" data-screen="categories" type="button">
-          <span class="nav__icon">🧩</span>
-          <span class="nav__label">Categorias</span>
-        </button>
-        <button class="nav__item" data-screen="accounts" type="button">
-          <span class="nav__icon">🏦</span>
-          <span class="nav__label">Contas</span>
-        </button>
         <button class="nav__item" data-screen="goals" type="button">
           <span class="nav__icon">🎯</span>
           <span class="nav__label">Metas</span>
-        </button>
-        <button class="nav__item" data-screen="investments" type="button">
-          <span class="nav__icon">📈</span>
-          <span class="nav__label">Investimentos</span>
         </button>
         <button class="nav__item" data-screen="suppliers" type="button">
           <span class="nav__icon">🤝</span>
@@ -214,27 +202,13 @@
             <section class="panel panel--metrics">
               <div class="panel__header">
                 <div>
+                  <div class="panel__kicker">Total</div>
                   <h2 class="panel__title">Resumo Geral</h2>
                   <p class="panel__subtitle">Saldo consolidado e performance do mês.</p>
                 </div>
                 <button class="btn btn--ghost" type="button">Ver detalhes</button>
               </div>
               <div class="dashboard-grid" id="dashboard-metrics"></div>
-            </section>
-
-            <section class="panel panel--portfolio">
-              <div class="panel__header">
-                <h2 class="panel__title">Carteira Ativa</h2>
-                <div class="panel__actions">
-                  <div class="pill-group" id="portfolio-filters">
-                    <button class="pill pill--active" type="button" data-portfolio-filter="all">Tudo</button>
-                    <button class="pill" type="button" data-portfolio-filter="income">Ganhos</button>
-                    <button class="pill" type="button" data-portfolio-filter="expense">Despesas</button>
-                  </div>
-                  <button class="btn btn--ghost btn--icon" type="button" id="portfolio-edit" aria-label="Editar carteira ativa">✎</button>
-                </div>
-              </div>
-              <div class="portfolio-cards" id="portfolio-cards"></div>
             </section>
 
             <section class="panel panel--chart">
@@ -320,34 +294,6 @@
           <div id="companies-list" class="data-table"></div>
         </section>
 
-        <section id="screen-categories" class="screen" aria-label="Categorias">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Categorias</h1>
-                <p class="screen__subtitle">Organize receitas e despesas por categoria.</p>
-              </div>
-              <button id="btn-new-category" class="btn btn--primary" type="button">Nova Categoria</button>
-            </div>
-          </header>
-          <div id="categories-list" class="data-table"></div>
-        </section>
-
-        <section id="screen-accounts" class="screen" aria-label="Contas">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Contas</h1>
-                <p class="screen__subtitle">Gerencie suas contas bancárias e carteiras.</p>
-              </div>
-              <button id="btn-new-account" class="btn btn--primary" type="button">Nova Conta</button>
-            </div>
-          </header>
-          <div id="accounts-list" class="data-table">
-            <!-- Lista de contas será renderizada aqui -->
-          </div>
-        </section>
-
         <section id="screen-goals" class="screen" aria-label="Metas">
           <header class="screen__header">
             <div class="screen__header-row">
@@ -359,19 +305,6 @@
             </div>
           </header>
           <div id="goals-list" class="data-table"></div>
-        </section>
-
-        <section id="screen-investments" class="screen" aria-label="Investimentos">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Investimentos</h1>
-                <p class="screen__subtitle">Controle sua carteira de investimentos.</p>
-              </div>
-              <button id="btn-new-investment" class="btn btn--primary" type="button">Novo Investimento</button>
-            </div>
-          </header>
-          <div id="investments-list" class="data-table"></div>
         </section>
 
         <section id="screen-suppliers" class="screen" aria-label="Fornecedores">
@@ -482,6 +415,13 @@
             </div>
 
             <div class="profile-section">
+              <h3 class="profile-section__title">Empresas</h3>
+              <div class="profile-settings__actions">
+                <button class="btn btn--primary" type="button" id="profile-new-company">Nova Empresa</button>
+              </div>
+            </div>
+
+            <div class="profile-section">
               <h3 class="profile-section__title">Seguranca</h3>
               <form id="profile-password-form" class="profile-settings">
                 <div class="profile-settings__grid">
@@ -511,10 +451,6 @@
         <button class="bottom-nav__item" data-screen="reports" type="button">
           <span>📋</span>
           <span>Relatório</span>
-        </button>
-        <button class="bottom-nav__item" data-screen="accounts" type="button">
-          <span>🏦</span>
-          <span>Contas</span>
         </button>
         <button class="bottom-nav__item" data-screen="profile" type="button">
           <span>👤</span>

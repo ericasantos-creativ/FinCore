@@ -80,29 +80,33 @@ function renderCompanySummary(companies) {
     <div class="companies-summary__list">
       ${filteredCompanies.length
         ? filteredCompanies
-        .map((company) => {
-          const isActive = company.id === activeCompany;
-          const color = company.cor || '#2e7bff';
-          const safeName = escapeHtml(company.nome || 'Sem nome');
-          const safeSegment = escapeHtml(company.segmento || 'Sem segmento');
-          const safeCnpj = escapeHtml(company.cnpj || 'CNPJ nao informado');
-          return `
-            <div class="companies-summary__item ${isActive ? 'is-active' : ''}" data-id="${company.id}">
-              <div class="companies-summary__info">
-                <span class="companies-summary__dot" style="background:${color}"></span>
-                <div>
-                  <div class="companies-summary__name">${safeName}</div>
-                  <div class="companies-summary__meta">${safeSegment}</div>
-                  <div class="companies-summary__meta">${safeCnpj}</div>
+          .map((company) => {
+            const isActive = company.id === activeCompany;
+            const color = company.cor || '#2e7bff';
+            const safeId = escapeHtml(company.id);
+            const safeName = escapeHtml(company.nome || 'Sem nome');
+            const safeSegment = escapeHtml(company.segmento || 'Sem segmento');
+            const safeCnpj = escapeHtml(company.cnpj || 'CNPJ nao informado');
+            return `
+              <div class="companies-summary__item ${isActive ? 'is-active' : ''}" data-id="${safeId}">
+                <div class="companies-summary__info">
+                  <span class="companies-summary__dot" style="background:${color}"></span>
+                  <div>
+                    <div class="companies-summary__name">${safeName}</div>
+                    <div class="companies-summary__meta">${safeSegment}</div>
+                    <div class="companies-summary__meta">${safeCnpj}</div>
+                  </div>
+                </div>
+                <div class="companies-summary__actions">
+                  <button class="btn btn--ghost" type="button" data-action="edit" data-id="${safeId}">Editar</button>
+                  <button class="btn btn--ghost" type="button" data-action="activate" data-id="${safeId}">
+                    ${isActive ? 'Ativa' : 'Ativar'}
+                  </button>
                 </div>
               </div>
-              <button class="btn btn--ghost" type="button" data-action="activate" data-id="${company.id}">
-                ${isActive ? 'Ativa' : 'Ativar'}
-              </button>
-            </div>
-          `;
-        })
-        .join('')
+            `;
+          })
+          .join('')
         : '<div class="placeholder">Nenhuma empresa encontrada.</div>'}
     </div>
   `;
@@ -131,6 +135,14 @@ function renderCompanySummary(companies) {
 
       renderCompanySummary(companies);
       Utils.showToast('Empresa ativa atualizada.', 'success');
+    });
+  });
+
+  container.querySelectorAll('[data-action="edit"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const company = companies.find((item) => item.id === id);
+      if (company) openModal(company);
     });
   });
 }
@@ -271,3 +283,7 @@ export const Companies = {
     });
   }
 };
+
+export function openCompanyModal(company = null) {
+  openModal(company);
+}

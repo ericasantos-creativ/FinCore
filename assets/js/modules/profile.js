@@ -4,6 +4,7 @@ import { Utils } from '../utils.js';
 import { DB } from '../db.js';
 import { Theme } from '../theme.js';
 import { Auth } from '../auth.js';
+import { openCompanyModal } from './companies.js';
 
 export const Profile = {
   init() {
@@ -22,6 +23,7 @@ export const Profile = {
     const sloganBall = document.getElementById('profile-slogan-ball');
     const form = document.getElementById('profile-settings-form');
     const passwordForm = document.getElementById('profile-password-form');
+    const newCompanyBtn = document.getElementById('profile-new-company');
 
     if (fileInput) {
       fileInput.addEventListener('change', (e) => {
@@ -63,6 +65,8 @@ export const Profile = {
     if (passwordForm) {
       passwordForm.addEventListener('submit', (event) => this.handlePasswordSubmit(event));
     }
+
+    newCompanyBtn?.addEventListener('click', () => openCompanyModal());
   },
 
   handleFileSelect(event) {
