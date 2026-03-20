@@ -22,6 +22,23 @@
 
 .screen--auth {
   min-height: 100vh;
+  position: relative;
+  background: url("../IMAGENS/bg-login.jpg") center/cover no-repeat;
+}
+
+.screen--auth::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(178, 214, 248, 0.68) 0%, rgba(120, 176, 224, 0.82) 70%),
+    linear-gradient(160deg, rgba(150, 208, 255, 0.55), rgba(86, 140, 196, 0.7));
+  pointer-events: none;
+}
+
+.screen--auth > * {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes fadeOut {

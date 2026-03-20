@@ -3,8 +3,8 @@
 body {
   font-family: var(--font-primary);
   color: var(--color-text-primary);
-  background: radial-gradient(1200px 700px at 20% -10%, rgba(46, 123, 255, 0.18), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(86, 199, 255, 0.14), transparent 55%),
+  background: radial-gradient(1200px 700px at 15% -10%, rgba(138, 91, 255, 0.26), transparent 60%),
+    radial-gradient(900px 500px at 85% 0%, rgba(192, 140, 255, 0.18), transparent 55%),
     var(--color-bg-primary);
   min-height: 100vh;
   overflow-x: hidden;

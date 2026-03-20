@@ -26,6 +26,7 @@ function mapProfileToUser(profile) {
     tema: profile.theme || 'dark',
     notificacoes: profile.notifications_enabled ?? true,
     avatar: profile.avatar_url || '',
+    slogan: profile.slogan_image_base64 || '',
     default_company: profile.active_company_id || null
   };
 }
@@ -44,7 +45,11 @@ export const Auth = {
 
     const profile = await fetchProfile(userId);
     const user = mapProfileToUser(profile);
-    Store.setState({ user, activeCompany: user?.default_company || null });
+    Store.setState({
+      user,
+      activeCompany: user?.default_company || null,
+      slogan: user?.slogan || ''
+    });
     return data.session;
   },
 
@@ -103,6 +108,11 @@ export const Auth = {
 
   async updatePassword(newPassword) {
     const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) throw error;
+  },
+
+  async updateEmail(newEmail) {
+    const { error } = await supabase.auth.updateUser({ email: newEmail });
     if (error) throw error;
   },
 

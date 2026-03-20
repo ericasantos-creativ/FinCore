@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `fincore-cache-${CACHE_VERSION}`;
 const ASSETS_TO_CACHE = [
   '/',
@@ -22,7 +22,8 @@ const ASSETS_TO_CACHE = [
   '/assets/js/modules/dashboard.js',
   '/assets/js/modules/transactions.js',
   '/assets/js/modules/accounts.js',
-  '/assets/icons/favicon.svg'
+  '/assets/icons/favicon.svg',
+  '/assets/IMAGENS/bg-login.jpg'
 ];
 
 self.addEventListener('install', (event) => {

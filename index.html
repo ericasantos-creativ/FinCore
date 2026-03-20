@@ -31,7 +31,7 @@
         <span class="logo__icon">💠</span>
         <span class="logo__text">FinCore</span>
       </div>
-      <div class="splash__tagline">Seu financeiro. Sob controle.</div>
+      <div class="splash__tagline">Transparencia em cada centavo.</div>
       <div class="splash__progress" aria-hidden="true">
         <div class="splash__progress-bar" id="splash-progress"></div>
       </div>
@@ -137,7 +137,7 @@
       <nav class="nav" aria-label="Menu">
         <button class="nav__item" data-screen="dashboard" type="button">
           <span class="nav__icon">🏠</span>
-          <span class="nav__label">Dashboard</span>
+          <span class="nav__label">Início</span>
         </button>
         <button class="nav__item" data-screen="reports" type="button">
           <span class="nav__icon">📋</span>
@@ -154,10 +154,6 @@
         <button class="nav__item" data-screen="goals" type="button">
           <span class="nav__icon">🎯</span>
           <span class="nav__label">Metas</span>
-        </button>
-        <button class="nav__item" data-screen="investments" type="button">
-          <span class="nav__icon">📈</span>
-          <span class="nav__label">Investimentos</span>
         </button>
         <button class="nav__item" data-screen="suppliers" type="button">
           <span class="nav__icon">🤝</span>
@@ -201,62 +197,22 @@
       </header>
 
       <main id="main-content" class="main-content">
-        <section id="screen-dashboard" class="screen" aria-label="Dashboard">
+        <section id="screen-dashboard" class="screen" aria-label="Visão geral">
           <header class="screen__header">
-            <h1 class="screen__title">Dashboard</h1>
+            <h1 class="screen__title"></h1>
             <p class="screen__subtitle">Visão geral das suas finanças.</p>
           </header>
           <div class="dashboard-layout">
             <section class="panel panel--metrics">
               <div class="panel__header">
                 <div>
+                  <div class="panel__kicker">Total</div>
                   <h2 class="panel__title">Resumo Geral</h2>
                   <p class="panel__subtitle">Saldo consolidado e performance do mês.</p>
                 </div>
                 <button class="btn btn--ghost" type="button">Ver detalhes</button>
               </div>
               <div class="dashboard-grid" id="dashboard-metrics"></div>
-            </section>
-
-            <section class="panel panel--portfolio">
-              <div class="panel__header">
-                <h2 class="panel__title">Carteira Ativa</h2>
-                <div class="pill-group">
-                  <button class="pill pill--active" type="button">Tudo</button>
-                  <button class="pill" type="button">Ganhos</button>
-                  <button class="pill" type="button">Despesas</button>
-                </div>
-              </div>
-              <div class="portfolio-cards">
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">💳</div>
-                  <div>
-                    <div class="portfolio-card__label">Conta Corrente</div>
-                    <div class="portfolio-card__value">R$ 12.304,11</div>
-                  </div>
-                </article>
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">🏦</div>
-                  <div>
-                    <div class="portfolio-card__label">Investimentos</div>
-                    <div class="portfolio-card__value">R$ 7.890,44</div>
-                  </div>
-                </article>
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">🎯</div>
-                  <div>
-                    <div class="portfolio-card__label">Metas</div>
-                    <div class="portfolio-card__value">R$ 4.230,00</div>
-                  </div>
-                </article>
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">📦</div>
-                  <div>
-                    <div class="portfolio-card__label">Fornecedores</div>
-                    <div class="portfolio-card__value">R$ 2.190,30</div>
-                  </div>
-                </article>
-              </div>
             </section>
 
             <section class="panel panel--chart">
@@ -283,7 +239,8 @@
               <div class="chart-placeholder">
                 <div class="chart-placeholder__line"></div>
                 <svg class="chart-svg" id="chart-svg" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
-                  <path id="chart-line" d="" />
+                  <path id="chart-line-income" d="" />
+                  <path id="chart-line-expense" d="" />
                 </svg>
                 <div class="chart-summary">
                   <div>
@@ -296,8 +253,10 @@
                   </div>
                 </div>
                 <div class="chart-placeholder__legend">
-                  <span class="legend-dot"></span>
-                  <span>Saldo medio</span>
+                  <span class="legend-dot legend-dot--income"></span>
+                  <span>Entradas</span>
+                  <span class="legend-dot legend-dot--expense"></span>
+                  <span>Saidas</span>
                 </div>
               </div>
             </section>
@@ -305,22 +264,12 @@
             <section class="panel panel--table">
               <div class="panel__header">
                 <h2 class="panel__title">Movimentacoes Recentes</h2>
-                <button class="btn btn--ghost" type="button">Exportar</button>
-              </div>
-              <div class="mini-table">
-                <div class="mini-table__row">
-                  <span>Pagamento fornecedor</span>
-                  <span class="mini-table__value negative">- R$ 1.250,00</span>
-                </div>
-                <div class="mini-table__row">
-                  <span>Receita de servicos</span>
-                  <span class="mini-table__value positive">+ R$ 3.840,00</span>
-                </div>
-                <div class="mini-table__row">
-                  <span>Meta de emergencia</span>
-                  <span class="mini-table__value positive">+ R$ 500,00</span>
+                <div class="panel__actions">
+                  <button class="btn btn--ghost" type="button">Exportar</button>
+                  <button class="btn btn--primary" id="btn-new-transaction" type="button">Nova Transacao</button>
                 </div>
               </div>
+              <div class="mini-table" id="recent-transactions"></div>
             </section>
           </div>
         </section>
@@ -331,6 +280,128 @@
             <p class="screen__subtitle">Análise detalhada de suas finanças.</p>
           </header>
           <div id="reports-content" class="reports-content">
+            <div class="report-chart-container">
+              <h2 class="report-chart-title">Gráfico Financeiro</h2>
+              <style>
+                .report-chart-container {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  height: 100%;
+                  min-height: 320px;
+                  margin: 0 auto;
+                  padding: 0;
+                }
+                .bar-animate {
+                  filter: drop-shadow(0 4px 16px #1a6bff55);
+                  transition: height 1s cubic-bezier(.4,2,.6,1), y 1s cubic-bezier(.4,2,.6,1);
+                  cursor: pointer;
+                }
+                .bar-animate:hover {
+                  filter: drop-shadow(0 0 24px #fff) brightness(1.3);
+                }
+                .bar-label {
+                  font-family: 'JetBrains Mono', 'Inter', monospace;
+                  font-size: 1.2vw;
+                  fill: #8ecfff;
+                  letter-spacing: 1px;
+                }
+                .bar-axis {
+                  stroke: #2a2e39;
+                  stroke-width: 2;
+                }
+                .bar-tooltip {
+                  position: absolute;
+                  background: #181c24ee;
+                  color: #fff;
+                  border-radius: 6px;
+                  padding: 6px 14px;
+                  font-size: 1.1vw;
+                  font-family: 'JetBrains Mono', 'Inter', monospace;
+                  pointer-events: none;
+                  z-index: 1000;
+                  box-shadow: 0 2px 16px #1a6bff55;
+                  border: 1px solid #1A6BFF;
+                  opacity: 0;
+                  transition: opacity 0.2s;
+                }
+                @media (max-width: 900px) {
+                  .report-chart-container { height: 45vh; }
+                }
+                @media (max-width: 600px) {
+                  .report-chart-container { height: 32vh; }
+                  .bar-label, .bar-tooltip { font-size: 12px !important; }
+                }
+              </style>
+              <div style="position:relative;width:100%;height:60vh;min-height:320px;max-width:1100px;">
+                <svg id="report-bar-chart" width="100%" height="100%" viewBox="0 0 1000 550" aria-label="Gráfico de barras" style="background:#181c24;border-radius:14px;box-shadow:0 2px 24px #1a6bff22;display:block;width:100%;height:100%;">
+                  <defs>
+                    <linearGradient id="bar1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#444"/>
+                      <stop offset="100%" stop-color="#111"/>
+                    </linearGradient>
+                    <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#888"/>
+                      <stop offset="100%" stop-color="#222"/>
+                    </linearGradient>
+                    <linearGradient id="bar3" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#222"/>
+                      <stop offset="100%" stop-color="#000"/>
+                    </linearGradient>
+                    <linearGradient id="bar4" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#666"/>
+                      <stop offset="100%" stop-color="#222"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Eixos -->
+                  <line x1="60" y1="500" x2="900" y2="500" class="bar-axis" />
+                  <line x1="60" y1="60" x2="60" y2="500" class="bar-axis" />
+                  <!-- Barras (animadas via JS) -->
+                  <rect id="bar-0" x="120" y="500" width="120" height="0" fill="url(#bar1)" class="bar-animate" />
+                  <rect id="bar-1" x="300" y="500" width="120" height="0" fill="url(#bar2)" class="bar-animate" />
+                  <rect id="bar-2" x="480" y="500" width="120" height="0" fill="url(#bar3)" class="bar-animate" />
+                  <rect id="bar-3" x="660" y="500" width="120" height="0" fill="url(#bar4)" class="bar-animate" />
+                  <!-- Labels -->
+                  <text x="180" y="540" class="bar-label" text-anchor="middle">Janeiro</text>
+                  <text x="360" y="540" class="bar-label" text-anchor="middle">Fevereiro</text>
+                  <text x="540" y="540" class="bar-label" text-anchor="middle">Março</text>
+                  <text x="720" y="540" class="bar-label" text-anchor="middle">Abril</text>
+                  <text x="50" y="505" class="bar-label" text-anchor="end">0</text>
+                  <text x="50" y="405" class="bar-label" text-anchor="end">5k</text>
+                  <text x="50" y="305" class="bar-label" text-anchor="end">10k</text>
+                  <text x="50" y="205" class="bar-label" text-anchor="end">15k</text>
+                  <text x="50" y="105" class="bar-label" text-anchor="end">20k</text>
+                </svg>
+                <div id="bar-tooltip" class="bar-tooltip"></div>
+              </div>
+              <script>
+                // Dados de exemplo (pode integrar com backend futuramente)
+                const barData = [10, 20, 6, 15]; // em milhares
+                const maxValue = 20; // valor máximo do eixo Y (milhares)
+                const barHeights = barData.map(v => (v / maxValue) * 440);
+                const tooltip = document.getElementById('bar-tooltip');
+                [0,1,2,3].forEach((i) => {
+                  const bar = document.getElementById('bar-' + i);
+                  setTimeout(() => {
+                    bar.setAttribute('y', 500 - barHeights[i]);
+                    bar.setAttribute('height', barHeights[i]);
+                  }, 200 + i * 180);
+                  bar.addEventListener('mousemove', (e) => {
+                    tooltip.textContent = `${['Janeiro','Fevereiro','Março','Abril'][i]}: R$ ${(barData[i]*1000).toLocaleString('pt-BR')}`;
+                    tooltip.style.opacity = 1;
+                    const svgRect = bar.ownerSVGElement.getBoundingClientRect();
+                    tooltip.style.left = (e.clientX - svgRect.left + 20) + 'px';
+                    tooltip.style.top = (e.clientY - svgRect.top - 30) + 'px';
+                  });
+                  bar.addEventListener('mouseleave', () => {
+                    tooltip.style.opacity = 0;
+                  });
+                });
+              </script>
+            </div>
+>>>>>>> d88591de04d505b2d54f5a3334064753ca2f368d
           </div>
         </section>
 
@@ -344,9 +415,9 @@
               <button id="btn-new-company" class="btn btn--primary" type="button">Nova Empresa</button>
             </div>
           </header>
+          <div id="companies-summary" class="companies-summary"></div>
           <div id="companies-list" class="data-table"></div>
         </section>
-
         <section id="screen-accounts" class="screen" aria-label="Contas">
           <header class="screen__header">
             <div class="screen__header-row">
@@ -375,19 +446,6 @@
           <div id="goals-list" class="data-table"></div>
         </section>
 
-        <section id="screen-investments" class="screen" aria-label="Investimentos">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Investimentos</h1>
-                <p class="screen__subtitle">Controle sua carteira de investimentos.</p>
-              </div>
-              <button id="btn-new-investment" class="btn btn--primary" type="button">Novo Investimento</button>
-            </div>
-          </header>
-          <div id="investments-list" class="data-table"></div>
-        </section>
-
         <section id="screen-suppliers" class="screen" aria-label="Fornecedores">
           <header class="screen__header">
             <div class="screen__header-row">
@@ -404,9 +462,96 @@
         <section id="screen-settings" class="screen" aria-label="Configurações">
           <header class="screen__header">
             <h1 class="screen__title">Configurações</h1>
-            <p class="screen__subtitle">Preferências e backup.</p>
+            <p class="screen__subtitle">Personalize sua experiência no FinCore.</p>
           </header>
-          <div class="placeholder">Em breve: configurações do app.</div>
+          <div class="settings-panel">
+            <form id="settings-form" class="settings-form">
+              <fieldset>
+                <legend>Preferências Gerais</legend>
+                <div class="form-group">
+                  <label for="theme-select">Tema do sistema</label>
+                  <select id="theme-select" name="theme">
+                    <option value="dark">Escuro</option>
+                    <option value="light">Claro</option>
+                    <option value="auto">Automático</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="lang-select">Idioma</label>
+                  <select id="lang-select" name="lang">
+                    <option value="pt-BR">Português (Brasil)</option>
+                    <option value="en-US">English (US)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="currency-select">Moeda padrão</label>
+                  <select id="currency-select" name="currency">
+                    <option value="BRL">Real (R$)</option>
+                    <option value="USD">Dólar (US$)</option>
+                    <option value="EUR">Euro (€)</option>
+                  </select>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Notificações</legend>
+                <div class="form-group">
+                  <label class="checkbox">
+                    <input type="checkbox" name="notify-transactions" checked />
+                    <span>Notificar novas transações</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox">
+                    <input type="checkbox" name="notify-goals" />
+                    <span>Notificar progresso de metas</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox">
+                    <input type="checkbox" name="notify-backup" checked />
+                    <span>Lembrar de fazer backup mensal</span>
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Backup e Segurança</legend>
+                <div class="form-group">
+                  <button type="button" class="btn btn--secondary">Exportar dados</button>
+                  <button type="button" class="btn btn--secondary">Importar dados</button>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox">
+                    <input type="checkbox" name="auto-backup" />
+                    <span>Backup automático na nuvem</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="password-change">Alterar senha</label>
+                  <input id="password-change" name="password-change" type="password" placeholder="Nova senha" />
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Avançado</legend>
+                <div class="form-group">
+                  <label class="checkbox">
+                    <input type="checkbox" name="dev-mode" />
+                    <span>Ativar modo desenvolvedor</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="api-key">Chave de API</label>
+                  <input id="api-key" name="api-key" type="text" placeholder="Sua chave de API" />
+                </div>
+                <div class="form-group">
+                  <label for="custom-css">CSS Personalizado</label>
+                  <textarea id="custom-css" name="custom-css" rows="2" placeholder="body { background: #000; }"></textarea>
+                </div>
+              </fieldset>
+              <div class="form-group" style="margin-top:18px;">
+                <button type="submit" class="btn btn--primary">Salvar configurações</button>
+              </div>
+            </form>
+          </div>
         </section>
 
         <section id="screen-profile" class="screen" aria-label="Perfil">
@@ -446,7 +591,80 @@
               </div>
             </div>
 
-            <div class="placeholder">Em breve: mais opções de edição de perfil.</div>
+            <div class="profile-section">
+              <h3 class="profile-section__title">Configuracoes da Conta</h3>
+              <form id="profile-settings-form" class="profile-settings">
+                <div class="profile-settings__grid">
+                  <div class="form-group">
+                    <label for="profile-full-name">Nome completo</label>
+                    <input id="profile-full-name" name="fullName" type="text" placeholder="Seu nome" />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-email-input">Email</label>
+                    <input id="profile-email-input" name="email" type="email" />
+                    <small class="form-message">Se alterar, confirme o novo email.</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-currency">Moeda</label>
+                    <select id="profile-currency" name="currency">
+                      <option value="BRL">BRL</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-locale">Idioma</label>
+                    <select id="profile-locale" name="locale">
+                      <option value="pt-BR">pt-BR</option>
+                      <option value="en-US">en-US</option>
+                      <option value="es-ES">es-ES</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-theme">Tema</label>
+                    <select id="profile-theme" name="theme">
+                      <option value="dark">Escuro</option>
+                      <option value="light">Claro</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="checkbox">
+                      <input id="profile-notifications" name="notifications" type="checkbox" />
+                      <span>Receber notificacoes</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="profile-settings__actions">
+                  <button class="btn btn--primary" type="submit">Salvar alteracoes</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="profile-section">
+              <h3 class="profile-section__title">Empresas</h3>
+              <div class="profile-settings__actions">
+                <button class="btn btn--primary" type="button" id="profile-new-company">Nova Empresa</button>
+              </div>
+            </div>
+
+            <div class="profile-section">
+              <h3 class="profile-section__title">Seguranca</h3>
+              <form id="profile-password-form" class="profile-settings">
+                <div class="profile-settings__grid">
+                  <div class="form-group">
+                    <label for="profile-new-password">Nova senha</label>
+                    <input id="profile-new-password" name="newPassword" type="password" minlength="8" placeholder="Minimo 8 caracteres" />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-confirm-password">Confirmar nova senha</label>
+                    <input id="profile-confirm-password" name="confirmPassword" type="password" minlength="8" placeholder="Repita a senha" />
+                  </div>
+                </div>
+                <div class="profile-settings__actions">
+                  <button class="btn btn--primary" type="submit">Atualizar senha</button>
+                </div>
+              </form>
+            </div>
           </div>
         </section>
       </main>
@@ -461,8 +679,7 @@
           <span>Relatório</span>
         </button>
         <button class="bottom-nav__item" data-screen="accounts" type="button">
-          <span>🏦</span>
-          <span>Contas</span>
+          <!-- Botão Contas removido -->
         </button>
         <button class="bottom-nav__item" data-screen="profile" type="button">
           <span>👤</span>

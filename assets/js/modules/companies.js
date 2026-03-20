@@ -40,6 +40,113 @@ function createCompaniesTable(companies) {
   return wrapper;
 }
 
+function renderCompanySummary(companies) {
+  const container = document.getElementById('companies-summary');
+  if (!container) return;
+
+  const escapeHtml = (value) => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+  if (!companies || companies.length <= 1) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const state = Store.getState();
+  const activeCompany = state.activeCompany;
+  const query = container.querySelector('input[data-role="company-search"]')?.value || '';
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredCompanies = normalizedQuery
+    ? companies.filter((company) => {
+        const name = (company.nome || '').toLowerCase();
+        const cnpj = (company.cnpj || '').toLowerCase();
+        const segment = (company.segmento || '').toLowerCase();
+        return name.includes(normalizedQuery) || cnpj.includes(normalizedQuery) || segment.includes(normalizedQuery);
+      })
+    : companies;
+
+  container.innerHTML = `
+    <div class="companies-summary__header">
+      <h3 class="companies-summary__title">Empresas logadas</h3>
+      <span class="companies-summary__count">${companies.length}</span>
+    </div>
+    <div class="companies-summary__search">
+      <input type="search" placeholder="Buscar empresa..." value="${escapeHtml(query)}" data-role="company-search" />
+    </div>
+    <div class="companies-summary__list">
+      ${filteredCompanies.length
+        ? filteredCompanies
+          .map((company) => {
+            const isActive = company.id === activeCompany;
+            const color = company.cor || '#2e7bff';
+            const safeId = escapeHtml(company.id);
+            const safeName = escapeHtml(company.nome || 'Sem nome');
+            const safeSegment = escapeHtml(company.segmento || 'Sem segmento');
+            const safeCnpj = escapeHtml(company.cnpj || 'CNPJ nao informado');
+            return `
+              <div class="companies-summary__item ${isActive ? 'is-active' : ''}" data-id="${safeId}">
+                <div class="companies-summary__info">
+                  <span class="companies-summary__dot" style="background:${color}"></span>
+                  <div>
+                    <div class="companies-summary__name">${safeName}</div>
+                    <div class="companies-summary__meta">${safeSegment}</div>
+                    <div class="companies-summary__meta">${safeCnpj}</div>
+                  </div>
+                </div>
+                <div class="companies-summary__actions">
+                  <button class="btn btn--ghost" type="button" data-action="edit" data-id="${safeId}">Editar</button>
+                  <button class="btn btn--ghost" type="button" data-action="activate" data-id="${safeId}">
+                    ${isActive ? 'Ativa' : 'Ativar'}
+                  </button>
+                </div>
+              </div>
+            `;
+          })
+          .join('')
+        : '<div class="placeholder">Nenhuma empresa encontrada.</div>'}
+    </div>
+  `;
+
+  const searchInput = container.querySelector('input[data-role="company-search"]');
+  searchInput?.addEventListener('input', () => {
+    renderCompanySummary(companies);
+  });
+
+  container.querySelectorAll('[data-action="activate"]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const id = btn.getAttribute('data-id');
+      const currentUser = Store.getState().user;
+      Store.setState({
+        activeCompany: id,
+        user: currentUser ? { ...currentUser, default_company: id } : currentUser
+      });
+
+      if (currentUser?.id) {
+        try {
+          await DB.update('users', currentUser.id, { default_company: id });
+        } catch (error) {
+          console.error('[FinCore] Erro ao salvar empresa ativa:', error);
+        }
+      }
+
+      renderCompanySummary(companies);
+      Utils.showToast('Empresa ativa atualizada.', 'success');
+    });
+  });
+
+  container.querySelectorAll('[data-action="edit"]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const company = companies.find((item) => item.id === id);
+      if (company) openModal(company);
+    });
+  });
+}
+
 function openModal(company = null) {
   const container = document.getElementById('modal-container');
   if (!container) return;
@@ -69,7 +176,7 @@ function openModal(company = null) {
           </div>
           <div class="form-group">
             <label for="company-color">Cor</label>
-            <input id="company-color" name="color" type="color" value="${company?.cor ?? '#1A6BFF'}" />
+            <input id="company-color" name="cor" type="color" value="${company?.cor ?? '#1A6BFF'}" />
           </div>
           <div class="form-group">
             <label class="checkbox">
@@ -107,7 +214,7 @@ function openModal(company = null) {
       nome: data.get('name'),
       cnpj: data.get('cnpj'),
       segmento: data.get('segment'),
-      cor: data.get('color'),
+      cor: data.get('cor'),
       ativa: data.get('active') === 'on',
       criado_em: company?.criado_em ?? new Date().toISOString(),
       atualizado_em: new Date().toISOString()
@@ -124,7 +231,13 @@ function openModal(company = null) {
       await Companies.loadList();
     } catch (error) {
       console.error(error);
-      Utils.showToast('Erro ao salvar empresa.', 'error');
+      let msg = 'Erro ao salvar empresa.';
+      if (error && error.message) {
+        msg += ' [' + error.message + ']';
+      } else if (typeof error === 'string') {
+        msg += ' [' + error + ']';
+      }
+      Utils.showToast(msg, 'error');
     }
   });
 }
@@ -144,14 +257,27 @@ export const Companies = {
     const companies = await DB.getAll('companies');
     Store.setState({ companies });
 
+    renderCompanySummary(companies);
+
     if (!companies || companies.length === 0) {
       container.innerHTML = `<div class="placeholder">Nenhuma empresa cadastrada ainda.</div>`;
       return;
     }
 
+    // Se houver mais de uma empresa, exibe uma lista simples no topo
+    let listHtml = '';
+    if (companies.length > 1) {
+      listHtml = `<div style="margin-bottom:18px;">
+        <strong>Empresas cadastradas:</strong>
+        <ul style="margin:8px 0 0 0;padding:0 0 0 18px;">
+          ${companies.map(c => `<li>${c.nome} (${c.cnpj || 'sem CNPJ'})</li>`).join('')}
+        </ul>
+      </div>`;
+    }
+
     const sorted = companies.sort((a, b) => (a.nome || '').localeCompare(b.nome || ''));
     const table = createCompaniesTable(sorted);
-    container.innerHTML = '';
+    container.innerHTML = listHtml;
     container.appendChild(table);
 
     container.querySelectorAll('button[data-action="edit"]').forEach((btn) => {
@@ -174,3 +300,7 @@ export const Companies = {
     });
   }
 };
+
+export function openCompanyModal(company = null) {
+  openModal(company);
+}

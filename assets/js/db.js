@@ -65,6 +65,7 @@ const FIELD_MAP = {
     nome: 'name',
     cnpj_cpf: 'document',
     categoria: 'category',
+    email: 'email',
     telefone: 'phone',
     endereco: 'address',
     conta: 'bank_account',
@@ -105,7 +106,9 @@ const FIELD_MAP = {
   },
   users: {
     nome: 'full_name',
+    email: 'email',
     avatar: 'avatar_url',
+    slogan: 'slogan_image_base64',
     moeda: 'currency',
     idioma: 'locale',
     tema: 'theme',
