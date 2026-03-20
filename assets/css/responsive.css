@@ -1,5 +1,21 @@
 /* Responsive tweaks */
 
+@media (max-width: 1024px) {
+  #app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .panel--chart,
+  .panel--table {
+    grid-column: 1 / -1;
+  }
+}
+/* Responsive tweaks */
+
 @media (max-width: 767px) {
   .sidebar {
     position: fixed;
@@ -45,25 +61,5 @@
 
   .dashboard-layout {
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-    grid-template-areas:
-      "metrics portfolio"
-      "chart portfolio"
-      "table portfolio";
-  }
-
-  .panel--metrics {
-    grid-area: metrics;
-  }
-
-  .panel--portfolio {
-    grid-area: portfolio;
-  }
-
-  .panel--chart {
-    grid-area: chart;
-  }
-
-  .panel--table {
-    grid-area: table;
   }
 }

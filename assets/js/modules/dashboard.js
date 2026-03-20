@@ -1,6 +1,41 @@
 import { Store } from '../store.js';
 import { Router } from '../router.js';
 import { Utils } from '../utils.js';
+import { LocalData } from '../local-data.js';
+
+const DEFAULT_PORTFOLIO_SETTINGS = {
+  filters: {
+    all: 'Tudo',
+    income: 'Ganhos',
+    expense: 'Despesas'
+  },
+  cards: [
+    {
+      id: 'checking',
+      label: 'Conta Corrente',
+      icon: '💳',
+      value: 12304.11,
+      type: 'income',
+      enabled: true
+    },
+    {
+      id: 'goals',
+      label: 'Metas',
+      icon: '🎯',
+      value: 4230.0,
+      type: 'expense',
+      enabled: true
+    },
+    {
+      id: 'suppliers',
+      label: 'Fornecedores',
+      icon: '📦',
+      value: 2190.3,
+      type: 'expense',
+      enabled: true
+    }
+  ]
+};
 
 function createStatCard({ title, value, icon, trend }) {
   const card = document.createElement('div');
@@ -21,7 +56,8 @@ export const Dashboard = {
     this.grid = document.getElementById('dashboard-metrics');
     this.chartIncome = document.getElementById('chart-income');
     this.chartExpenses = document.getElementById('chart-expenses');
-    this.chartLine = document.getElementById('chart-line');
+    this.chartLineIncome = document.getElementById('chart-line-income');
+    this.chartLineExpense = document.getElementById('chart-line-expense');
     this.rangeButtons = document.querySelectorAll('[data-range]');
     this.granularityButtons = document.querySelectorAll('[data-granularity]');
     this.range = '90d';
@@ -55,15 +91,21 @@ export const Dashboard = {
     if (!this.grid) return;
     const state = Store.getState();
     const transactions = state.transactions || [];
+    const accounts = state.accounts || [];
     const activeCompany = state.activeCompany;
     const filtered = activeCompany
-      ? transactions.filter((tx) => tx.empresa_id === activeCompany)
+      ? transactions.filter((tx) => tx.empresa_id === activeCompany || !tx.empresa_id)
       : transactions;
 
-    const totalBalance = this.calculateBalance(filtered);
-    const income = this.calculateIncome(filtered);
-    const expenses = this.calculateExpenses(filtered);
-    const net = income - expenses;
+    const filteredAccounts = activeCompany
+      ? accounts.filter((acc) => acc.empresa_id === activeCompany || !acc.empresa_id)
+      : accounts;
+
+    const resumo = LocalData.calcularResumo(filteredAccounts, filtered);
+    const totalBalance = resumo.totalBalance;
+    const income = resumo.receitaMes;
+    const expenses = resumo.despesaMes;
+    const net = resumo.saldoLiquido;
 
     this.grid.innerHTML = '';
 
@@ -105,7 +147,37 @@ export const Dashboard = {
 
     this.updateChartSummary(filtered);
     this.updateChartLine(filtered);
+    // Carteira ativa removida.
+    this.renderRecentTransactions(filtered, filteredAccounts);
   },
+
+  renderRecentTransactions(transactions, accounts) {
+    const container = document.getElementById('recent-transactions');
+    if (!container) return;
+
+    if (!transactions || transactions.length === 0) {
+      container.innerHTML = '<div class="placeholder">Nenhuma transação registrada ainda.</div>';
+      return;
+    }
+
+    const accountMap = new Map((accounts || []).map((acc) => [acc.id, acc.nome]));
+    const sorted = [...transactions].sort((a, b) => new Date(b.data) - new Date(a.data)).slice(0, 5);
+    container.innerHTML = '';
+
+    sorted.forEach((tx) => {
+      const row = document.createElement('div');
+      row.className = 'mini-table__row';
+      const sign = tx.tipo === 'despesa' ? '-' : '+';
+      const valueClass = tx.tipo === 'despesa' ? 'negative' : 'positive';
+      const accountName = accountMap.get(tx.conta_id) || 'Conta';
+      row.innerHTML = `
+        <span>${tx.descricao || accountName}</span>
+        <span class="mini-table__value ${valueClass}">${sign} ${Utils.formatCurrency(tx.valor)}</span>
+      `;
+      container.appendChild(row);
+    });
+  },
+
 
   updateChartSummary(transactions = null) {
     const state = Store.getState();
@@ -134,7 +206,7 @@ export const Dashboard = {
   },
 
   updateChartLine(transactions = null) {
-    if (!this.chartLine) return;
+    if (!this.chartLineIncome || !this.chartLineExpense) return;
     const state = Store.getState();
     const list = transactions || state.transactions || [];
     const activeCompany = state.activeCompany;
@@ -150,25 +222,35 @@ export const Dashboard = {
 
     const series = this.aggregateByGranularity(ranged);
     if (!series.length) {
-      this.chartLine.setAttribute('d', '');
+      this.chartLineIncome.setAttribute('d', '');
+      this.chartLineExpense.setAttribute('d', '');
       return;
     }
 
-    const values = series.map((point) => point.value);
-    const min = Math.min(...values, 0);
-    const max = Math.max(...values, 1);
+    const incomeValues = series.map((point) => point.income);
+    const expenseValues = series.map((point) => point.expense);
+    const min = 0;
+    const max = Math.max(...incomeValues, ...expenseValues, 1);
     const range = max - min || 1;
 
     const step = 100 / Math.max(series.length - 1, 1);
-    const points = series.map((point, index) => {
+    const incomePoints = series.map((point, index) => {
       const x = index * step;
-      const y = 40 - ((point.value - min) / range) * 40;
+      const y = 40 - ((point.income - min) / range) * 40;
       return { x, y };
     });
 
-    const d = this.buildSmoothPath(points);
+    const expensePoints = series.map((point, index) => {
+      const x = index * step;
+      const y = 40 - ((point.expense - min) / range) * 40;
+      return { x, y };
+    });
 
-    this.chartLine.setAttribute('d', d);
+    const incomePath = this.buildSmoothPath(incomePoints);
+    const expensePath = this.buildSmoothPath(expensePoints);
+
+    this.chartLineIncome.setAttribute('d', incomePath);
+    this.chartLineExpense.setAttribute('d', expensePath);
   },
 
   getRangeStart() {
@@ -214,15 +296,19 @@ export const Dashboard = {
         key = date.toISOString().slice(0, 10);
       }
 
-      const current = buckets.get(key) || 0;
+      const current = buckets.get(key) || { income: 0, expense: 0 };
       const amount = Number(tx.valor) || 0;
-      const value = tx.tipo === 'receita' ? amount : -amount;
-      buckets.set(key, current + value);
+      if (tx.tipo === 'receita') {
+        current.income += amount;
+      } else if (tx.tipo === 'despesa') {
+        current.expense += amount;
+      }
+      buckets.set(key, current);
     });
 
     return Array.from(buckets.entries())
-      .sort(([a], [b]) => (a > b ? 1 : -1))
-      .map(([label, value]) => ({ label, value }));
+        .sort(([a], [b]) => (a > b ? 1 : -1))
+        .map(([label, value]) => ({ label, ...value }));
   },
 
   buildSmoothPath(points) {

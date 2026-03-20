@@ -6,14 +6,12 @@ import { Store } from './store.js';
 import { Dashboard } from './modules/dashboard.js';
 import { Reports } from './modules/reports.js';
 import { Transactions } from './modules/transactions.js';
-import { Accounts } from './modules/accounts.js';
 import { Profile } from './modules/profile.js';
 import { Companies } from './modules/companies.js';
-import { Categories } from './modules/categories.js';
 import { Goals } from './modules/goals.js';
-import { Investments } from './modules/investments.js';
 import { Suppliers } from './modules/suppliers.js';
 import { Utils } from './utils.js';
+import { LocalData } from './local-data.js';
 
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
@@ -32,12 +30,22 @@ function showScreen(screenId) {
 }
 
 function showAppShell() {
+  const splash = document.getElementById('splash-screen');
+  if (splash) {
+    splash.hidden = true;
+    splash.classList.remove('fade-out');
+  }
   document.getElementById('auth-screen').hidden = true;
   document.getElementById('app-shell').hidden = false;
 }
 
 function showAuthScreen() {
   console.log('[FinCore] Exibindo tela de autenticação');
+  const splash = document.getElementById('splash-screen');
+  if (splash) {
+    splash.hidden = true;
+    splash.classList.remove('fade-out');
+  }
   document.getElementById('app-shell').hidden = true;
   document.getElementById('auth-screen').hidden = false;
   
@@ -86,11 +94,8 @@ function refreshAfterCompanyChange() {
   Dashboard.refreshAll?.();
   Reports.loadReports?.();
   Transactions.loadList?.();
-  Accounts.loadList?.();
   Companies.loadList?.();
-  Categories.loadList?.();
   Goals.loadList?.();
-  Investments.loadList?.();
   Suppliers.loadList?.();
 }
 
@@ -218,7 +223,7 @@ function setupAuthListeners() {
         await Auth.login(email, password, remember);
         console.log('[FinCore] Login bem-sucedido!');
         const user = await Auth.getCurrentUser();
-        Store.setState({ user });
+        Store.setState({ user, slogan: user?.slogan || '' });
         await loadCompanies();
         updateHeaderUser(user);
         showAppShell();
@@ -230,16 +235,10 @@ function setupAuthListeners() {
         Reports.init();
         console.log('[FinCore] Inicializando Transactions...');
         Transactions.init();
-        console.log('[FinCore] Inicializando Accounts...');
-        Accounts.init();
         console.log('[FinCore] Inicializando Companies...');
         Companies.init();
-        console.log('[FinCore] Inicializando Categories...');
-        Categories.init();
         console.log('[FinCore] Inicializando Goals...');
         Goals.init();
-        console.log('[FinCore] Inicializando Investments...');
-        Investments.init();
         console.log('[FinCore] Inicializando Suppliers...');
         Suppliers.init();
         console.log('[FinCore] Inicializando Profile...');
@@ -292,7 +291,7 @@ function setupAuthListeners() {
         console.log('[FinCore] Criando nova conta...');
         await Auth.register({ name, email, password });
         const user = await Auth.getCurrentUser();
-        Store.setState({ user });
+        Store.setState({ user, slogan: user?.slogan || '' });
         await loadCompanies();
         updateHeaderUser(user);
         showAppShell();
@@ -301,11 +300,8 @@ function setupAuthListeners() {
         Dashboard.init();
         Reports.init();
         Transactions.init();
-        Accounts.init();
         Companies.init();
-        Categories.init();
         Goals.init();
-        Investments.init();
         Suppliers.init();
         Profile.init();
         Utils.showToast('Conta criada com sucesso!', 'success');
@@ -406,12 +402,30 @@ function setupAppListeners() {
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
 
-  logoutBtn?.addEventListener('click', () => {
+  const handleLogout = async () => {
     console.log('[FinCore] Botão Sair clicado');
-    Auth.logout();
-    showAuthScreen();
-    setupAuthListeners(); // Re-configurar listeners para tela de login
-    Utils.showToast('Desconectado com sucesso!', 'success');
+    try {
+      await Auth.logout();
+      Utils.showToast('Desconectado com sucesso!', 'success');
+    } catch (error) {
+      console.error('[FinCore] Erro ao sair:', error);
+      Utils.showToast('Erro ao sair. Tente novamente.', 'error');
+    } finally {
+      showAuthScreen();
+      setupAuthListeners();
+      window.location.hash = '';
+    }
+  };
+
+  logoutBtn?.addEventListener('click', handleLogout);
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    const button = target?.closest('#logout');
+    if (button) {
+      event.preventDefault();
+      handleLogout();
+    }
   });
 
   themeToggle?.addEventListener('click', () => {
@@ -474,6 +488,8 @@ async function init() {
   try {
     console.log('[FinCore] Iniciando aplicação...');
 
+    LocalData.init();
+
     // Fallback global para não travar na splash
     const splashFallback = setTimeout(() => {
       const splash = document.getElementById('splash-screen');
@@ -503,7 +519,7 @@ async function init() {
     if (authenticated) {
       console.log('[FinCore] Carregando app para usuário autenticado...');
       const user = await Auth.getCurrentUser();
-      Store.setState({ user });
+      Store.setState({ user, slogan: user?.slogan || '' });
       await loadCompanies();
       updateHeaderUser(user);
       showAppShell();
@@ -512,11 +528,8 @@ async function init() {
       Dashboard.init();
       Reports.init();
       Transactions.init();
-      Accounts.init();
       Companies.init();
-      Categories.init();
       Goals.init();
-      Investments.init();
       Suppliers.init();
       Profile.init();
       console.log('[FinCore] App carregado!');

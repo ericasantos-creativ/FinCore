@@ -1,7 +1,7 @@
-import { DB } from '../db.js';
 import { Store } from '../store.js';
 import { Router } from '../router.js';
 import { Utils } from '../utils.js';
+import { LocalData } from '../local-data.js';
 
 function buildRow(account) {
   const tr = document.createElement('tr');
@@ -123,7 +123,6 @@ function openModal(account = null) {
 
     const record = {
       id: account?.id ?? Utils.generateId(),
-      user_id: Store.getState().user?.id ?? null,
       empresa_id: Store.getState().activeCompany ?? null,
       nome: data.get('name'),
       tipo: data.get('type'),
@@ -142,9 +141,9 @@ function openModal(account = null) {
 
     try {
       if (isEdit) {
-        await DB.update('accounts', record.id, record);
+        LocalData.updateConta(record.id, record);
       } else {
-        await DB.add('accounts', record);
+        LocalData.addConta(record);
       }
       Utils.showToast('Conta salva com sucesso!', 'success');
       close();
@@ -168,10 +167,10 @@ export const Accounts = {
     const container = document.getElementById('accounts-list');
     if (!container) return;
 
-    const accounts = await DB.getAll('accounts');
+    const accounts = Store.getState().accounts || [];
     const activeCompany = Store.getState().activeCompany;
     const filtered = activeCompany
-      ? accounts.filter((acc) => acc.empresa_id === activeCompany)
+      ? accounts.filter((acc) => acc.empresa_id === activeCompany || !acc.empresa_id)
       : accounts;
     Store.setState({ accounts: filtered });
 
@@ -198,7 +197,7 @@ export const Accounts = {
         const id = btn.getAttribute('data-id');
         const confirmed = await Utils.showConfirm('Tem certeza que deseja excluir esta conta?');
         if (!confirmed) return;
-        await DB.delete('accounts', id);
+        LocalData.deleteConta(id);
         Utils.showToast('Conta excluída.', 'success');
         await Accounts.loadList();
       });
