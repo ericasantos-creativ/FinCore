@@ -147,10 +147,6 @@
           <span class="nav__icon">🏢</span>
           <span class="nav__label">Empresas</span>
         </button>
-        <button class="nav__item" data-screen="categories" type="button">
-          <span class="nav__icon">🧩</span>
-          <span class="nav__label">Categorias</span>
-        </button>
         <button class="nav__item" data-screen="accounts" type="button">
           <span class="nav__icon">🏦</span>
           <span class="nav__label">Contas</span>
@@ -186,8 +182,8 @@
         </div>
         <div class="header__center">
           <div class="header__search" role="search">
-            <span class="header__search-icon">🔎</span>
-            <input type="search" placeholder="Buscar..." aria-label="Buscar" />
+            <input type="search" id="header-search-input" placeholder="Buscar..." aria-label="Buscar" />
+            <button id="header-search-btn" class="btn btn--icon btn--ghost" aria-label="Buscar">🔎</button>
           </div>
         </div>
         <div class="header__right">
@@ -335,7 +331,6 @@
             <p class="screen__subtitle">Análise detalhada de suas finanças.</p>
           </header>
           <div id="reports-content" class="reports-content">
-            <div class="placeholder">Em breve: relatórios detalhados e gráficos avançados.</div>
           </div>
         </section>
 
@@ -350,19 +345,6 @@
             </div>
           </header>
           <div id="companies-list" class="data-table"></div>
-        </section>
-
-        <section id="screen-categories" class="screen" aria-label="Categorias">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Categorias</h1>
-                <p class="screen__subtitle">Organize receitas e despesas por categoria.</p>
-              </div>
-              <button id="btn-new-category" class="btn btn--primary" type="button">Nova Categoria</button>
-            </div>
-          </header>
-          <div id="categories-list" class="data-table"></div>
         </section>
 
         <section id="screen-accounts" class="screen" aria-label="Contas">
@@ -496,7 +478,10 @@
   <div id="confirm-dialog" class="confirm-dialog" hidden></div>
   <div id="search-overlay" class="search-overlay" hidden>
     <div class="search-overlay__content">
-      <input id="search-input" class="input" type="search" placeholder="Buscar... (Ctrl+K)" aria-label="Buscar" />
+      <div class="search-overlay__header">
+        <input id="search-input" class="input" type="search" placeholder="Buscar..." aria-label="Buscar" />
+        <button id="search-close-btn" class="btn btn--icon btn--ghost" aria-label="Fechar busca">✕</button>
+      </div>
     </div>
   </div>
   <div id="loading-overlay" class="loading-overlay" hidden>
@@ -504,6 +489,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>

@@ -9,7 +9,6 @@ import { Transactions } from './modules/transactions.js';
 import { Accounts } from './modules/accounts.js';
 import { Profile } from './modules/profile.js';
 import { Companies } from './modules/companies.js';
-import { Categories } from './modules/categories.js';
 import { Goals } from './modules/goals.js';
 import { Investments } from './modules/investments.js';
 import { Suppliers } from './modules/suppliers.js';
@@ -88,7 +87,6 @@ function refreshAfterCompanyChange() {
   Transactions.loadList?.();
   Accounts.loadList?.();
   Companies.loadList?.();
-  Categories.loadList?.();
   Goals.loadList?.();
   Investments.loadList?.();
   Suppliers.loadList?.();
@@ -234,8 +232,6 @@ function setupAuthListeners() {
         Accounts.init();
         console.log('[FinCore] Inicializando Companies...');
         Companies.init();
-        console.log('[FinCore] Inicializando Categories...');
-        Categories.init();
         console.log('[FinCore] Inicializando Goals...');
         Goals.init();
         console.log('[FinCore] Inicializando Investments...');
@@ -303,7 +299,6 @@ function setupAuthListeners() {
         Transactions.init();
         Accounts.init();
         Companies.init();
-        Categories.init();
         Goals.init();
         Investments.init();
         Suppliers.init();
@@ -422,15 +417,80 @@ function setupAppListeners() {
     sidebar?.classList.toggle('open');
   });
 
-  document.addEventListener('keydown', (event) => {
-    if (event.ctrlKey && event.key.toLowerCase() === 'k') {
-      event.preventDefault();
+  // Remove atalho Ctrl+K para abrir/fechar busca: uso somente botão
+
+  // Funcionalidade de busca do header
+  const headerSearchBtn = document.getElementById('header-search-btn');
+  const headerSearchInput = document.getElementById('header-search-input');
+
+  if (headerSearchBtn && headerSearchInput) {
+    headerSearchBtn.addEventListener('click', () => {
+      const query = headerSearchInput.value.trim().toLowerCase();
+      if (query.length > 0) {
+        performSearch(query);
+        // Abrir overlay com resultados
+        const searchOverlay = document.getElementById('search-overlay');
+        if (searchOverlay) {
+          searchOverlay.hidden = false;
+          const overlayInput = document.getElementById('search-input');
+          if (overlayInput) {
+            overlayInput.value = headerSearchInput.value;
+            overlayInput.focus();
+          }
+        }
+      } else {
+        // Abrir overlay vazio
+        const searchOverlay = document.getElementById('search-overlay');
+        if (searchOverlay) {
+          searchOverlay.hidden = false;
+          const overlayInput = document.getElementById('search-input');
+          overlayInput?.focus();
+        }
+      }
+    });
+
+    headerSearchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        headerSearchBtn.click();
+      }
+    });
+  }
+
+  // Funcionalidade de busca do overlay
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (event) => {
+      const query = event.target.value.trim().toLowerCase();
+      if (query.length > 0) {
+        performSearch(query);
+      } else {
+        clearSearchResults();
+      }
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        const searchOverlay = document.getElementById('search-overlay');
+        if (searchOverlay) {
+          searchOverlay.hidden = true;
+        }
+        clearSearchResults();
+      }
+    });
+  }
+
+  // Botão de fechar do overlay
+  const searchCloseBtn = document.getElementById('search-close-btn');
+  if (searchCloseBtn) {
+    searchCloseBtn.addEventListener('click', () => {
       const searchOverlay = document.getElementById('search-overlay');
       if (searchOverlay) {
-        searchOverlay.hidden = !searchOverlay.hidden;
+        searchOverlay.hidden = true;
       }
-    }
-  });
+      clearSearchResults();
+    });
+  }
 }
 
 async function runSplash() {
@@ -514,7 +574,6 @@ async function init() {
       Transactions.init();
       Accounts.init();
       Companies.init();
-      Categories.init();
       Goals.init();
       Investments.init();
       Suppliers.init();
@@ -536,6 +595,156 @@ async function init() {
     const splash = document.getElementById('splash-screen');
     if (splash) splash.hidden = true;
     showAuthScreen();
+  }
+}
+
+function performSearch(query) {
+  const state = Store.getState();
+  const results = [];
+
+  // Buscar em transações
+  if (state.transactions) {
+    state.transactions.forEach(tx => {
+      if (tx.descricao?.toLowerCase().includes(query) ||
+          tx.categoria?.toLowerCase().includes(query) ||
+          tx.tipo?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'transaction',
+          title: tx.descricao || 'Transação sem descrição',
+          subtitle: `${tx.tipo} - ${Utils.formatCurrency(tx.valor)}`,
+          data: tx,
+          icon: tx.tipo === 'receita' ? '💰' : '💸'
+        });
+      }
+    });
+  }
+
+  // Buscar em contas
+  if (state.accounts) {
+    state.accounts.forEach(account => {
+      if (account.nome?.toLowerCase().includes(query) ||
+          account.tipo?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'account',
+          title: account.nome,
+          subtitle: `Conta ${account.tipo}`,
+          data: account,
+          icon: '🏦'
+        });
+      }
+    });
+  }
+
+  // Buscar em empresas
+  if (state.companies) {
+    state.companies.forEach(company => {
+      if (company.nome?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'company',
+          title: company.nome,
+          subtitle: 'Empresa',
+          data: company,
+          icon: '🏢'
+        });
+      }
+    });
+  }
+
+  // Buscar em metas
+  if (state.goals) {
+    state.goals.forEach(goal => {
+      if (goal.nome?.toLowerCase().includes(query) ||
+          goal.descricao?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'goal',
+          title: goal.nome,
+          subtitle: goal.descricao || 'Meta financeira',
+          data: goal,
+          icon: '🎯'
+        });
+      }
+    });
+  }
+
+  displaySearchResults(results.slice(0, 10)); // Limitar a 10 resultados
+}
+
+function displaySearchResults(results) {
+  const overlay = document.getElementById('search-overlay');
+  if (!overlay) return;
+
+  // Remover resultados anteriores
+  const existingResults = overlay.querySelector('.search-results');
+  if (existingResults) {
+    existingResults.remove();
+  }
+
+  if (results.length === 0) {
+    const noResults = document.createElement('div');
+    noResults.className = 'search-no-results';
+    noResults.textContent = 'Nenhum resultado encontrado';
+    overlay.appendChild(noResults);
+    return;
+  }
+
+  const resultsContainer = document.createElement('div');
+  resultsContainer.className = 'search-results';
+
+  results.forEach(result => {
+    const item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.innerHTML = `
+      <div class="search-result-icon">${result.icon}</div>
+      <div class="search-result-content">
+        <div class="search-result-title">${result.title}</div>
+        <div class="search-result-subtitle">${result.subtitle}</div>
+      </div>
+    `;
+
+    item.addEventListener('click', () => {
+      handleSearchResultClick(result);
+    });
+
+    resultsContainer.appendChild(item);
+  });
+
+  overlay.appendChild(resultsContainer);
+}
+
+function clearSearchResults() {
+  const overlay = document.getElementById('search-overlay');
+  if (!overlay) return;
+
+  const results = overlay.querySelector('.search-results');
+  const noResults = overlay.querySelector('.search-no-results');
+  if (results) results.remove();
+  if (noResults) noResults.remove();
+}
+
+function handleSearchResultClick(result) {
+  const overlay = document.getElementById('search-overlay');
+  if (overlay) overlay.hidden = true;
+
+  clearSearchResults();
+
+  // Navegar para a tela apropriada e destacar o item
+  switch (result.type) {
+    case 'transaction':
+      Router.navigate('dashboard'); // Transações estão no dashboard
+      // TODO: Destacar a transação específica
+      break;
+    case 'account':
+      Router.navigate('accounts');
+      // TODO: Abrir modal da conta
+      break;
+    case 'company':
+      Router.navigate('companies');
+      // TODO: Abrir modal da empresa
+      break;
+    case 'goal':
+      Router.navigate('goals');
+      // TODO: Abrir modal da meta
+      break;
   }
 }
 
