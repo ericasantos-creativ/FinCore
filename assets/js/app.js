@@ -6,10 +6,11 @@ import { Store } from './store.js';
 import { Dashboard } from './modules/dashboard.js';
 import { Reports } from './modules/reports.js';
 import { Transactions } from './modules/transactions.js';
+// import { Accounts } from './modules/accounts.js';
 import { Profile } from './modules/profile.js';
 import { Companies } from './modules/companies.js';
 import { Goals } from './modules/goals.js';
-import { Suppliers } from './modules/suppliers.js';
+import { Suppliers } from './suppliers.js';
 import { Utils } from './utils.js';
 import { LocalData } from './local-data.js';
 
@@ -94,6 +95,7 @@ function refreshAfterCompanyChange() {
   Dashboard.refreshAll?.();
   Reports.loadReports?.();
   Transactions.loadList?.();
+  // Accounts.loadList?.();
   Companies.loadList?.();
   Goals.loadList?.();
   Suppliers.loadList?.();
@@ -235,6 +237,8 @@ function setupAuthListeners() {
         Reports.init();
         console.log('[FinCore] Inicializando Transactions...');
         Transactions.init();
+        // console.log('[FinCore] Inicializando Accounts...');
+        // Accounts.init();
         console.log('[FinCore] Inicializando Companies...');
         Companies.init();
         console.log('[FinCore] Inicializando Goals...');
@@ -300,6 +304,7 @@ function setupAuthListeners() {
         Dashboard.init();
         Reports.init();
         Transactions.init();
+        // Accounts.init();
         Companies.init();
         Goals.init();
         Suppliers.init();
@@ -528,6 +533,7 @@ async function init() {
       Dashboard.init();
       Reports.init();
       Transactions.init();
+      // Accounts.init();
       Companies.init();
       Goals.init();
       Suppliers.init();

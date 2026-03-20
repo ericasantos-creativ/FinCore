@@ -176,7 +176,7 @@ function openModal(company = null) {
           </div>
           <div class="form-group">
             <label for="company-color">Cor</label>
-            <input id="company-color" name="color" type="color" value="${company?.cor ?? '#1A6BFF'}" />
+            <input id="company-color" name="cor" type="color" value="${company?.cor ?? '#1A6BFF'}" />
           </div>
           <div class="form-group">
             <label class="checkbox">
@@ -214,7 +214,7 @@ function openModal(company = null) {
       nome: data.get('name'),
       cnpj: data.get('cnpj'),
       segmento: data.get('segment'),
-      cor: data.get('color'),
+      cor: data.get('cor'),
       ativa: data.get('active') === 'on',
       criado_em: company?.criado_em ?? new Date().toISOString(),
       atualizado_em: new Date().toISOString()
@@ -231,7 +231,13 @@ function openModal(company = null) {
       await Companies.loadList();
     } catch (error) {
       console.error(error);
-      Utils.showToast('Erro ao salvar empresa.', 'error');
+      let msg = 'Erro ao salvar empresa.';
+      if (error && error.message) {
+        msg += ' [' + error.message + ']';
+      } else if (typeof error === 'string') {
+        msg += ' [' + error + ']';
+      }
+      Utils.showToast(msg, 'error');
     }
   });
 }
@@ -258,9 +264,20 @@ export const Companies = {
       return;
     }
 
+    // Se houver mais de uma empresa, exibe uma lista simples no topo
+    let listHtml = '';
+    if (companies.length > 1) {
+      listHtml = `<div style="margin-bottom:18px;">
+        <strong>Empresas cadastradas:</strong>
+        <ul style="margin:8px 0 0 0;padding:0 0 0 18px;">
+          ${companies.map(c => `<li>${c.nome} (${c.cnpj || 'sem CNPJ'})</li>`).join('')}
+        </ul>
+      </div>`;
+    }
+
     const sorted = companies.sort((a, b) => (a.nome || '').localeCompare(b.nome || ''));
     const table = createCompaniesTable(sorted);
-    container.innerHTML = '';
+    container.innerHTML = listHtml;
     container.appendChild(table);
 
     container.querySelectorAll('button[data-action="edit"]').forEach((btn) => {

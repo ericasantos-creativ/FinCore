@@ -1,38 +1,5 @@
-import { Store } from '../store.js';
-import { Router } from '../router.js';
-import { Utils } from '../utils.js';
-import { LocalData } from '../local-data.js';
-
-function buildRow(account) {
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td>${account.nome || '-'}</td>
-    <td>${account.tipo || '-'}</td>
-    <td>${account.banco || '-'}</td>
-    <td>${account.numero || '-'}</td>
-    <td>${Utils.formatCurrency(account.saldo_atual ?? account.saldo_inicial)}</td>
-    <td>${account.ativa ? 'Ativa' : 'Inativa'}</td>
-    <td>
-      <button class="btn btn--ghost" data-action="edit" data-id="${account.id}">Editar</button>
-      <button class="btn btn--ghost" data-action="delete" data-id="${account.id}">Excluir</button>
-    </td>
-  `;
-  return tr;
-}
-
-function createAccountsTable(accounts) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'data-table';
-  const table = document.createElement('table');
-  const thead = document.createElement('thead');
-  thead.innerHTML = `
-    <tr>
-      <th>Nome</th>
-      <th>Tipo</th>
-      <th>Banco</th>
-      <th>Conta</th>
-      <th>Saldo</th>
-      <th>Status</th>
+// Arquivo removido. Não utilizar.
+import { DB } from '../db.js';
       <th></th>
     </tr>
   `;
