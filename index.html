@@ -31,7 +31,7 @@
         <span class="logo__icon">💠</span>
         <span class="logo__text">FinCore</span>
       </div>
-      <div class="splash__tagline">Seu financeiro. Sob controle.</div>
+      <div class="splash__tagline">Transparencia em cada centavo.</div>
       <div class="splash__progress" aria-hidden="true">
         <div class="splash__progress-bar" id="splash-progress"></div>
       </div>
@@ -225,42 +225,16 @@
             <section class="panel panel--portfolio">
               <div class="panel__header">
                 <h2 class="panel__title">Carteira Ativa</h2>
-                <div class="pill-group">
-                  <button class="pill pill--active" type="button">Tudo</button>
-                  <button class="pill" type="button">Ganhos</button>
-                  <button class="pill" type="button">Despesas</button>
+                <div class="panel__actions">
+                  <div class="pill-group" id="portfolio-filters">
+                    <button class="pill pill--active" type="button" data-portfolio-filter="all">Tudo</button>
+                    <button class="pill" type="button" data-portfolio-filter="income">Ganhos</button>
+                    <button class="pill" type="button" data-portfolio-filter="expense">Despesas</button>
+                  </div>
+                  <button class="btn btn--ghost btn--icon" type="button" id="portfolio-edit" aria-label="Editar carteira ativa">✎</button>
                 </div>
               </div>
-              <div class="portfolio-cards">
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">💳</div>
-                  <div>
-                    <div class="portfolio-card__label">Conta Corrente</div>
-                    <div class="portfolio-card__value">R$ 12.304,11</div>
-                  </div>
-                </article>
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">🏦</div>
-                  <div>
-                    <div class="portfolio-card__label">Investimentos</div>
-                    <div class="portfolio-card__value">R$ 7.890,44</div>
-                  </div>
-                </article>
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">🎯</div>
-                  <div>
-                    <div class="portfolio-card__label">Metas</div>
-                    <div class="portfolio-card__value">R$ 4.230,00</div>
-                  </div>
-                </article>
-                <article class="portfolio-card">
-                  <div class="portfolio-card__icon">📦</div>
-                  <div>
-                    <div class="portfolio-card__label">Fornecedores</div>
-                    <div class="portfolio-card__value">R$ 2.190,30</div>
-                  </div>
-                </article>
-              </div>
+              <div class="portfolio-cards" id="portfolio-cards"></div>
             </section>
 
             <section class="panel panel--chart">
@@ -287,7 +261,8 @@
               <div class="chart-placeholder">
                 <div class="chart-placeholder__line"></div>
                 <svg class="chart-svg" id="chart-svg" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
-                  <path id="chart-line" d="" />
+                  <path id="chart-line-income" d="" />
+                  <path id="chart-line-expense" d="" />
                 </svg>
                 <div class="chart-summary">
                   <div>
@@ -300,8 +275,10 @@
                   </div>
                 </div>
                 <div class="chart-placeholder__legend">
-                  <span class="legend-dot"></span>
-                  <span>Saldo medio</span>
+                  <span class="legend-dot legend-dot--income"></span>
+                  <span>Entradas</span>
+                  <span class="legend-dot legend-dot--expense"></span>
+                  <span>Saidas</span>
                 </div>
               </div>
             </section>
@@ -309,22 +286,12 @@
             <section class="panel panel--table">
               <div class="panel__header">
                 <h2 class="panel__title">Movimentacoes Recentes</h2>
-                <button class="btn btn--ghost" type="button">Exportar</button>
-              </div>
-              <div class="mini-table">
-                <div class="mini-table__row">
-                  <span>Pagamento fornecedor</span>
-                  <span class="mini-table__value negative">- R$ 1.250,00</span>
-                </div>
-                <div class="mini-table__row">
-                  <span>Receita de servicos</span>
-                  <span class="mini-table__value positive">+ R$ 3.840,00</span>
-                </div>
-                <div class="mini-table__row">
-                  <span>Meta de emergencia</span>
-                  <span class="mini-table__value positive">+ R$ 500,00</span>
+                <div class="panel__actions">
+                  <button class="btn btn--ghost" type="button">Exportar</button>
+                  <button class="btn btn--primary" id="btn-new-transaction" type="button">Nova Transacao</button>
                 </div>
               </div>
+              <div class="mini-table" id="recent-transactions"></div>
             </section>
           </div>
         </section>
@@ -349,6 +316,7 @@
               <button id="btn-new-company" class="btn btn--primary" type="button">Nova Empresa</button>
             </div>
           </header>
+          <div id="companies-summary" class="companies-summary"></div>
           <div id="companies-list" class="data-table"></div>
         </section>
 
@@ -464,7 +432,73 @@
               </div>
             </div>
 
-            <div class="placeholder">Em breve: mais opções de edição de perfil.</div>
+            <div class="profile-section">
+              <h3 class="profile-section__title">Configuracoes da Conta</h3>
+              <form id="profile-settings-form" class="profile-settings">
+                <div class="profile-settings__grid">
+                  <div class="form-group">
+                    <label for="profile-full-name">Nome completo</label>
+                    <input id="profile-full-name" name="fullName" type="text" placeholder="Seu nome" />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-email-input">Email</label>
+                    <input id="profile-email-input" name="email" type="email" />
+                    <small class="form-message">Se alterar, confirme o novo email.</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-currency">Moeda</label>
+                    <select id="profile-currency" name="currency">
+                      <option value="BRL">BRL</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-locale">Idioma</label>
+                    <select id="profile-locale" name="locale">
+                      <option value="pt-BR">pt-BR</option>
+                      <option value="en-US">en-US</option>
+                      <option value="es-ES">es-ES</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-theme">Tema</label>
+                    <select id="profile-theme" name="theme">
+                      <option value="dark">Escuro</option>
+                      <option value="light">Claro</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="checkbox">
+                      <input id="profile-notifications" name="notifications" type="checkbox" />
+                      <span>Receber notificacoes</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="profile-settings__actions">
+                  <button class="btn btn--primary" type="submit">Salvar alteracoes</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="profile-section">
+              <h3 class="profile-section__title">Seguranca</h3>
+              <form id="profile-password-form" class="profile-settings">
+                <div class="profile-settings__grid">
+                  <div class="form-group">
+                    <label for="profile-new-password">Nova senha</label>
+                    <input id="profile-new-password" name="newPassword" type="password" minlength="8" placeholder="Minimo 8 caracteres" />
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-confirm-password">Confirmar nova senha</label>
+                    <input id="profile-confirm-password" name="confirmPassword" type="password" minlength="8" placeholder="Repita a senha" />
+                  </div>
+                </div>
+                <div class="profile-settings__actions">
+                  <button class="btn btn--primary" type="submit">Atualizar senha</button>
+                </div>
+              </form>
+            </div>
           </div>
         </section>
       </main>

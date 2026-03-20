@@ -14,6 +14,7 @@ import { Goals } from './modules/goals.js';
 import { Investments } from './modules/investments.js';
 import { Suppliers } from './modules/suppliers.js';
 import { Utils } from './utils.js';
+import { LocalData } from './local-data.js';
 
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
@@ -32,12 +33,22 @@ function showScreen(screenId) {
 }
 
 function showAppShell() {
+  const splash = document.getElementById('splash-screen');
+  if (splash) {
+    splash.hidden = true;
+    splash.classList.remove('fade-out');
+  }
   document.getElementById('auth-screen').hidden = true;
   document.getElementById('app-shell').hidden = false;
 }
 
 function showAuthScreen() {
   console.log('[FinCore] Exibindo tela de autenticação');
+  const splash = document.getElementById('splash-screen');
+  if (splash) {
+    splash.hidden = true;
+    splash.classList.remove('fade-out');
+  }
   document.getElementById('app-shell').hidden = true;
   document.getElementById('auth-screen').hidden = false;
   
@@ -218,7 +229,7 @@ function setupAuthListeners() {
         await Auth.login(email, password, remember);
         console.log('[FinCore] Login bem-sucedido!');
         const user = await Auth.getCurrentUser();
-        Store.setState({ user });
+        Store.setState({ user, slogan: user?.slogan || '' });
         await loadCompanies();
         updateHeaderUser(user);
         showAppShell();
@@ -292,7 +303,7 @@ function setupAuthListeners() {
         console.log('[FinCore] Criando nova conta...');
         await Auth.register({ name, email, password });
         const user = await Auth.getCurrentUser();
-        Store.setState({ user });
+        Store.setState({ user, slogan: user?.slogan || '' });
         await loadCompanies();
         updateHeaderUser(user);
         showAppShell();
@@ -406,12 +417,30 @@ function setupAppListeners() {
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
 
-  logoutBtn?.addEventListener('click', () => {
+  const handleLogout = async () => {
     console.log('[FinCore] Botão Sair clicado');
-    Auth.logout();
-    showAuthScreen();
-    setupAuthListeners(); // Re-configurar listeners para tela de login
-    Utils.showToast('Desconectado com sucesso!', 'success');
+    try {
+      await Auth.logout();
+      Utils.showToast('Desconectado com sucesso!', 'success');
+    } catch (error) {
+      console.error('[FinCore] Erro ao sair:', error);
+      Utils.showToast('Erro ao sair. Tente novamente.', 'error');
+    } finally {
+      showAuthScreen();
+      setupAuthListeners();
+      window.location.hash = '';
+    }
+  };
+
+  logoutBtn?.addEventListener('click', handleLogout);
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    const button = target?.closest('#logout');
+    if (button) {
+      event.preventDefault();
+      handleLogout();
+    }
   });
 
   themeToggle?.addEventListener('click', () => {
@@ -474,6 +503,8 @@ async function init() {
   try {
     console.log('[FinCore] Iniciando aplicação...');
 
+    LocalData.init();
+
     // Fallback global para não travar na splash
     const splashFallback = setTimeout(() => {
       const splash = document.getElementById('splash-screen');
@@ -503,7 +534,7 @@ async function init() {
     if (authenticated) {
       console.log('[FinCore] Carregando app para usuário autenticado...');
       const user = await Auth.getCurrentUser();
-      Store.setState({ user });
+      Store.setState({ user, slogan: user?.slogan || '' });
       await loadCompanies();
       updateHeaderUser(user);
       showAppShell();

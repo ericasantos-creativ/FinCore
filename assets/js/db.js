@@ -116,7 +116,9 @@ const FIELD_MAP = {
   },
   users: {
     nome: 'full_name',
+    email: 'email',
     avatar: 'avatar_url',
+    slogan: 'slogan_image_base64',
     moeda: 'currency',
     idioma: 'locale',
     tema: 'theme',
