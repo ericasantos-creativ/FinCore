@@ -10,7 +10,7 @@ import { Transactions } from './modules/transactions.js';
 import { Profile } from './modules/profile.js';
 import { Companies } from './modules/companies.js';
 import { Goals } from './modules/goals.js';
-import { Suppliers } from './suppliers.js';
+import { Suppliers } from './modules/suppliers.js';
 import { Utils } from './utils.js';
 import { LocalData } from './local-data.js';
 
@@ -74,6 +74,8 @@ function updateHeaderUser(user) {
     .join('');
   const el = document.getElementById('user-initials');
   if (el) el.textContent = initials;
+  const nameEl = document.getElementById('user-name');
+  if (nameEl) nameEl.textContent = user?.nome || 'Usuario';
 }
 
 async function loadCompanies() {
@@ -167,6 +169,7 @@ function initCompanySwitcher() {
   pill.dataset.initialized = 'true';
 
   pill.addEventListener('click', () => {
+    renderCompanyMenu();
     const isHidden = menu.hidden;
     menu.hidden = !isHidden;
     pill.setAttribute('aria-expanded', String(isHidden));
@@ -181,6 +184,198 @@ function initCompanySwitcher() {
 
   Store.subscribe(() => {
     renderCompanyMenu();
+  });
+
+  renderCompanyMenu();
+}
+
+function getSearchResults(query) {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return { sections: [], total: 0 };
+
+  const state = Store.getState();
+  const activeCompany = state.activeCompany;
+  const match = (value) => String(value || '').toLowerCase().includes(normalized);
+  const byCompany = (item) => !activeCompany || item?.empresa_id === activeCompany || item?.empresa_id == null;
+
+  const companies = (state.companies || [])
+    .filter((company) => match(company.nome) || match(company.cnpj) || match(company.segmento))
+    .map((company) => ({
+      label: company.nome || 'Empresa',
+      meta: company.segmento || company.cnpj || '',
+      screen: 'companies',
+      id: company.id
+    }));
+
+  const categories = (state.categories || [])
+    .filter((category) => match(category.nome) || match(category.tipo))
+    .filter(byCompany)
+    .map((category) => ({
+      label: category.nome || 'Categoria',
+      meta: category.tipo || '',
+      screen: 'categories',
+      id: category.id
+    }));
+
+  const goals = (state.goals || [])
+    .filter((goal) => match(goal.nome) || match(goal.descricao) || match(goal.categoria))
+    .filter(byCompany)
+    .map((goal) => ({
+      label: goal.nome || 'Meta',
+      meta: goal.categoria || '',
+      screen: 'goals',
+      id: goal.id
+    }));
+
+  const suppliers = (state.suppliers || [])
+    .filter((supplier) => match(supplier.nome) || match(supplier.categoria) || match(supplier.cnpj_cpf))
+    .filter(byCompany)
+    .map((supplier) => ({
+      label: supplier.nome || 'Fornecedor',
+      meta: supplier.categoria || supplier.cnpj_cpf || '',
+      screen: 'suppliers',
+      id: supplier.id
+    }));
+
+  const sections = [
+    { title: 'Empresas', items: companies },
+    { title: 'Categorias', items: categories },
+    { title: 'Metas', items: goals },
+    { title: 'Fornecedores', items: suppliers }
+  ].filter((section) => section.items.length);
+
+  const total = sections.reduce((sum, section) => sum + section.items.length, 0);
+  return { sections, total };
+}
+
+function renderSearchResults(query) {
+  const results = document.getElementById('search-results');
+  if (!results) return;
+  results.innerHTML = '';
+
+  const { sections, total } = getSearchResults(query);
+
+  if (!query.trim()) {
+    const empty = document.createElement('div');
+    empty.className = 'search-empty';
+    empty.textContent = 'Digite para buscar.';
+    results.appendChild(empty);
+    return;
+  }
+
+  if (!total) {
+    const empty = document.createElement('div');
+    empty.className = 'search-empty';
+    empty.textContent = 'Nenhum resultado encontrado.';
+    results.appendChild(empty);
+    return;
+  }
+
+  sections.forEach((section) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'search-section';
+
+    const title = document.createElement('div');
+    title.className = 'search-section__title';
+    title.textContent = section.title;
+    wrapper.appendChild(title);
+
+    const list = document.createElement('div');
+    list.className = 'search-section__list';
+
+    section.items.slice(0, 6).forEach((item) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'search-item';
+      button.dataset.screen = item.screen;
+      if (item.id) button.dataset.id = item.id;
+
+      const label = document.createElement('span');
+      label.className = 'search-item__label';
+      label.textContent = item.label;
+      button.appendChild(label);
+
+      if (item.meta) {
+        const meta = document.createElement('span');
+        meta.className = 'search-item__meta';
+        meta.textContent = item.meta;
+        button.appendChild(meta);
+      }
+
+      button.addEventListener('click', () => {
+        Router.navigate(item.screen);
+        closeSearchOverlay();
+      });
+
+      list.appendChild(button);
+    });
+
+    wrapper.appendChild(list);
+    results.appendChild(wrapper);
+  });
+}
+
+function openSearchOverlay(initialQuery = '') {
+  const overlay = document.getElementById('search-overlay');
+  const input = document.getElementById('search-input');
+  const headerInput = document.getElementById('header-search-input');
+  if (!overlay || !input) return;
+  overlay.hidden = false;
+  input.value = initialQuery || '';
+  if (headerInput && initialQuery) headerInput.value = initialQuery;
+  renderSearchResults(input.value);
+  input.focus();
+}
+
+function closeSearchOverlay() {
+  const overlay = document.getElementById('search-overlay');
+  const input = document.getElementById('search-input');
+  const headerInput = document.getElementById('header-search-input');
+  const results = document.getElementById('search-results');
+  if (!overlay || !input) return;
+  overlay.hidden = true;
+  input.value = '';
+  if (headerInput) headerInput.value = '';
+  if (results) results.innerHTML = '';
+}
+
+function initGlobalSearch() {
+  const overlay = document.getElementById('search-overlay');
+  const input = document.getElementById('search-input');
+  const headerInput = document.getElementById('header-search-input');
+  if (!overlay || !input || !headerInput) return;
+
+  if (overlay.dataset.initialized === 'true') return;
+  overlay.dataset.initialized = 'true';
+
+  headerInput.addEventListener('focus', () => {
+    openSearchOverlay(headerInput.value);
+  });
+
+  headerInput.addEventListener('input', () => {
+    openSearchOverlay(headerInput.value);
+  });
+
+  input.addEventListener('input', () => {
+    renderSearchResults(input.value);
+  });
+
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      closeSearchOverlay();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && overlay && !overlay.hidden) {
+      closeSearchOverlay();
+    }
+  });
+
+  Store.subscribe(() => {
+    if (!overlay.hidden) {
+      renderSearchResults(input.value);
+    }
   });
 }
 
@@ -406,6 +601,8 @@ function setupAppListeners() {
   const themeToggle = document.getElementById('toggle-theme');
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
+  const earningsInput = document.getElementById('summary-earnings');
+  const expensesInput = document.getElementById('summary-expenses');
 
   const handleLogout = async () => {
     console.log('[FinCore] Botão Sair clicado');
@@ -441,12 +638,41 @@ function setupAppListeners() {
     sidebar?.classList.toggle('open');
   });
 
+  initGlobalSearch();
+
+  const normalizeMoneyInput = (input) => {
+    if (!input) return;
+    const trimmed = String(input.value || '').trim();
+    if (!trimmed) {
+      input.value = '0,00';
+    }
+  };
+
+  const sanitizeMoneyInput = (input) => {
+    if (!input) return;
+    let value = String(input.value || '');
+    value = value.replace(/[^0-9,]/g, '');
+    const parts = value.split(',');
+    const integer = parts[0] || '';
+    const decimal = parts[1] ? parts[1].slice(0, 2) : '';
+    value = decimal ? `${integer},${decimal}` : integer;
+    input.value = value;
+  };
+
+  earningsInput?.addEventListener('input', () => sanitizeMoneyInput(earningsInput));
+  expensesInput?.addEventListener('input', () => sanitizeMoneyInput(expensesInput));
+  earningsInput?.addEventListener('blur', () => normalizeMoneyInput(earningsInput));
+  expensesInput?.addEventListener('blur', () => normalizeMoneyInput(expensesInput));
+
   document.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.key.toLowerCase() === 'k') {
       event.preventDefault();
-      const searchOverlay = document.getElementById('search-overlay');
-      if (searchOverlay) {
-        searchOverlay.hidden = !searchOverlay.hidden;
+      const overlay = document.getElementById('search-overlay');
+      if (!overlay) return;
+      if (overlay.hidden) {
+        openSearchOverlay();
+      } else {
+        closeSearchOverlay();
       }
     }
   });

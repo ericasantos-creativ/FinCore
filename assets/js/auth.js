@@ -53,7 +53,7 @@ export const Auth = {
     return data.session;
   },
 
-  async register({ name, email, password }) {
+  async register({ name, email, password, skipAutoLogin = false }) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -74,12 +74,17 @@ export const Auth = {
     }
 
     if (!data.session) {
+      if (skipAutoLogin) return null;
       const login = await supabase.auth.signInWithPassword({ email, password });
-      if (login.error) throw login.error;
+      if (login.error) {
+        const message = (login.error.message || '').toLowerCase();
+        if (message.includes('confirm')) return null;
+        throw login.error;
+      }
       return login.data.session;
     }
 
-    return data.session;
+    return data.session || null;
   },
 
   async logout() {

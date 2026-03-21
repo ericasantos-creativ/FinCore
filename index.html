@@ -6,691 +6,653 @@
   <meta name="theme-color" content="#1A6BFF" />
   <title>FinCore — Controle Financeiro</title>
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/css/reset.css" />
-  <link rel="stylesheet" href="assets/css/variables.css" />
-  <link rel="stylesheet" href="assets/css/base.css" />
-  <link rel="stylesheet" href="assets/css/layout.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
-  <link rel="stylesheet" href="assets/css/screens.css" />
-  <link rel="stylesheet" href="assets/css/responsive.css" />
-</head>
-<body>
-  <!-- Splash Screen -->
-  <section id="splash-screen" class="screen screen--splash" aria-label="Splash screen">
-    <div class="splash__content">
-      <div class="splash__logo" aria-hidden="true">
-        <span class="logo__icon">💠</span>
-        <span class="logo__text">FinCore</span>
-      </div>
-      <div class="splash__tagline">Transparencia em cada centavo.</div>
-      <div class="splash__progress" aria-hidden="true">
-        <div class="splash__progress-bar" id="splash-progress"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Auth Screen -->
-  <section id="auth-screen" class="screen screen--auth" aria-label="Tela de login" hidden>
-    <div class="auth__container">
-      <header class="auth__header">
-        <h1 class="auth__title">Olá!</h1>
-        <p class="auth__subtitle">Faça login para acessar sua conta.</p>
-      </header>
-      <form id="login-form" class="auth__form" novalidate>
-        <div class="form-group">
-          <label for="login-email">E-mail</label>
-          <input id="login-email" name="email" type="email" required autocomplete="email" placeholder="seu@exemplo.com" />
-          <small class="form-message" aria-live="polite"></small>
-        </div>
-
-        <div class="form-group">
-          <label for="login-password">Senha</label>
-          <div class="input-group">
-            <input id="login-password" name="password" type="password" required minlength="8" autocomplete="current-password" placeholder="••••••••" />
-            <button type="button" class="btn btn--icon btn--ghost" id="toggle-password" aria-label="Alternar visibilidade da senha">👁️</button>
+  <!DOCTYPE html>
+  <html lang="pt-BR" data-theme="light">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <meta name="description" content="FinCore - Sistema completo de gestão financeira com múltiplas empresas, análises e relatórios.">
+      <meta name="theme-color" content="#7c3aed">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      <meta name="apple-mobile-web-app-title" content="FinCore">
+      <link rel="manifest" href="manifest.json">
+      <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+      <title>FinCore - Sistema de Gestão Financeira</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+      <!-- SPLASH SCREEN / CAPA DE ABERTURA -->
+      <section id="splashScreen" class="splash-screen active">
+          <div class="splash-background">
+              <div class="splash-blob blob-1"></div>
+              <div class="splash-blob blob-2"></div>
+              <div class="splash-blob blob-3"></div>
           </div>
-          <small class="form-message" aria-live="polite"></small>
-        </div>
-
-        <div class="form-row">
-          <label class="checkbox">
-            <input type="checkbox" id="remember-me" name="remember" />
-            <span>Manter conectado</span>
-          </label>
-          <a class="link" href="#" id="forgot-password">Esqueci minha senha</a>
-        </div>
-
-        <button type="submit" class="btn btn--primary btn--block">Entrar</button>
-        <p class="auth__footer">
-          Não tem conta? <a href="#" id="register-link">Criar conta</a>
-        </p>
-      </form>
-
-      <div id="register-screen" class="auth__register" hidden>
-        <header class="auth__header">
-          <h1 class="auth__title">Bem-vindo(a)</h1>
-          <p class="auth__subtitle">Crie sua conta FinCore em 30 segundos.</p>
-        </header>
-        <form id="register-form" class="auth__form" novalidate>
-          <div class="form-group">
-            <label for="register-name">Nome completo</label>
-            <input id="register-name" name="name" type="text" required autocomplete="name" placeholder="Seu nome" />
-            <small class="form-message" aria-live="polite"></small>
+          <div class="splash-content">
+              <div class="splash-logo">
+                  <i class="fas fa-chart-line"></i>
+              </div>
+              <h1 class="splash-title">FinCore</h1>
+              <p class="splash-subtitle">Seu Gestor Financeiro Inteligente</p>
+              <div class="splash-loader">
+                  <div class="loader-bar"></div>
+              </div>
+              <p class="splash-text">Carregando...</p>
           </div>
-          <div class="form-group">
-            <label for="register-email">E-mail</label>
-            <input id="register-email" name="email" type="email" required autocomplete="email" placeholder="seu@exemplo.com" />
-            <small class="form-message" aria-live="polite"></small>
-          </div>
-          <div class="form-group">
-            <label for="register-password">Senha</label>
-            <input id="register-password" name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="••••••••" />
-            <small class="form-message" aria-live="polite"></small>
-          </div>
-          <button type="submit" class="btn btn--primary btn--block">Criar conta</button>
-          <p class="auth__footer">
-            Já tem conta? <a href="#" id="login-link">Entrar</a>
-          </p>
-        </form>
-      </div>
+      </section>
 
-      <div id="reset-password-screen" class="auth__reset" hidden>
-        <header class="auth__header">
-          <h1 class="auth__title">Redefinir Senha</h1>
-          <p class="auth__subtitle">Informe seu e-mail para receber um link de redefinição.</p>
-        </header>
-        <form id="reset-password-form" class="auth__form" novalidate>
-          <div class="form-group">
-            <label for="reset-email">E-mail</label>
-            <input id="reset-email" name="email" type="email" required autocomplete="email" placeholder="seu@exemplo.com" />
-            <small class="form-message" aria-live="polite"></small>
+      <!-- TELA DE LOGIN -->
+      <section id="loginScreen" class="login-screen active" role="main" aria-label="Tela de login do FinCore">
+          <!-- BANNER DE ACESSIBILIDADE -->
+          <div id="accessibilityBanner" class="accessibility-banner" style="display: none;">
+              <div class="accessibility-banner-content">
+                  <p>
+                      <i class="fas fa-universal-access"></i>
+                      <strong>Recursos de Acessibilidade Disponíveis:</strong>
+                  </p>
+                  <ul>
+                      <li><i class="fas fa-volume-up"></i> <strong>Leitor de Áudio:</strong> Lê em voz alta o conteúdo da página</li>
+                      <li><i class="fas fa-hands"></i> <strong>Intérprete LIBRAS:</strong> Exibe intérprete de Língua Brasileira de Sinais</li>
+                      <li><i class="fas fa-text-height"></i> <strong>Aumentar Fonte:</strong> Aumenta o tamanho da letra</li>
+                  </ul>
+                  <button onclick="closeAccessibilityBanner()" class="btn btn-small"><i class="fas fa-times"></i> Fechar</button>
+              </div>
           </div>
-          <button type="submit" class="btn btn--primary btn--block">Enviar Link</button>
-          <p class="auth__footer">
-            <a href="#" id="back-to-login">Voltar ao login</a>
-          </p>
-        </form>
-      </div>
-    </div>
-  </section>
+          <div class="login-container">
+              <div class="login-card">
+                  <div class="login-header">
+                      <i class="fas fa-wallet" aria-hidden="true"></i>
+                      <h1 aria-label="FinCore - Sistema de gestão financeira"> FinCore </h1>
+                      <p>Seu gestor financeiro pessoal</p>
+                  </div>
 
-  <!-- App Shell -->
-  <div id="app-shell" hidden>
-    <aside id="sidebar" class="sidebar" aria-label="Navegação principal">
-      <div class="sidebar__brand">
-        <span class="logo__icon">💠</span>
-        <span class="logo__text">FinCore</span>
-      </div>
-      <button class="nav__item" data-screen="profile" type="button">
-        <span class="nav__icon">👤</span>
-        <span class="nav__label">Perfil</span>
-      </button>
-      <nav class="nav" aria-label="Menu">
-        <button class="nav__item" data-screen="dashboard" type="button">
-          <span class="nav__icon">🏠</span>
-          <span class="nav__label">Início</span>
-        </button>
-        <button class="nav__item" data-screen="reports" type="button">
-          <span class="nav__icon">📋</span>
-          <span class="nav__label">Relatório</span>
-        </button>
-        <button class="nav__item" data-screen="companies" type="button">
-          <span class="nav__icon">🏢</span>
-          <span class="nav__label">Empresas</span>
-        </button>
-        <button class="nav__item" data-screen="categories" type="button">
-          <span class="nav__icon">🧩</span>
-          <span class="nav__label">Categorias</span>
-        </button>
-        <button class="nav__item" data-screen="goals" type="button">
-          <span class="nav__icon">🎯</span>
-          <span class="nav__label">Metas</span>
-        </button>
-        <button class="nav__item" data-screen="suppliers" type="button">
-          <span class="nav__icon">🤝</span>
-          <span class="nav__label">Fornecedores</span>
-        </button>
-        <button class="nav__item" data-screen="settings" type="button">
-          <span class="nav__icon">⚙️</span>
-          <span class="nav__label">Configurações</span>
-        </button>
-      </nav>
-      <div class="sidebar__footer">
-        <button id="logout" class="btn btn--ghost" type="button">Sair</button>
-        <button id="toggle-theme" class="btn btn--ghost" type="button" aria-label="Alternar tema">Tema</button>
-      </div>
-    </aside>
+                  <div id="loginForm" class="login-form">
+                      <h2>Entrar</h2>
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Senha</label>
+                        <input type="password" id="loginPassword" placeholder="Sua senha" autocomplete="new-password" spellcheck="false" required>
+                    </div>
+                      <button id="loginBtn" class="btn btn-primary">Entrar</button>
+                      <p class="toggle-form">Não tem conta? <a href="#" onclick="toggleLoginRegister(event)">Cadastre-se</a></p>
+                  </div>
 
-    <div class="app">
-      <header id="header" class="header">
-        <div class="header__left">
-          <button id="sidebar-toggle" class="btn btn--icon btn--ghost" aria-label="Abrir menu">☰</button>
-          <div class="header__title" id="header-title">Dashboard</div>
-        </div>
-        <div class="header__center">
-          <div class="header__search" role="search">
-            <span class="header__search-icon">🔎</span>
-            <input type="search" placeholder="Buscar..." aria-label="Buscar" />
+                  <div id="registerForm" class="login-form" style="display: none;">
+                      <h2>Criar Conta</h2>
+                    <div class="form-group">
+                        <label for="registerName">Nome</label>
+                        <input type="text" id="registerName" placeholder="Seu nome" autocomplete="off" spellcheck="false" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" placeholder="seu@email.com" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Senha</label>
+                        <input type="password" id="registerPassword" placeholder="Crie uma senha" autocomplete="new-password" spellcheck="false" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword2">Confirmar Senha</label>
+                        <input type="password" id="registerPassword2" placeholder="Confirme a senha" autocomplete="new-password" spellcheck="false" required>
+                    </div>
+                      <button id="registerBtn" class="btn btn-primary">Cadastrar</button>
+                      <p class="toggle-form">Já tem conta? <a href="#" onclick="toggleLoginRegister(event)">Faça login</a></p>
+                  </div>
+              </div>
           </div>
-        </div>
-        <div class="header__right">
-          <div class="company-switcher" id="company-switcher">
-            <button class="company-pill" id="company-pill" type="button" aria-haspopup="listbox" aria-expanded="false">
-              <span class="company-pill__label" id="company-pill-label">Todas empresas</span>
-              <span class="company-pill__chevron">▾</span>
-            </button>
-            <div class="company-menu" id="company-menu" role="listbox" hidden></div>
-          </div>
-          <div class="avatar" aria-label="Perfil do usuário" role="button">
-            <span class="avatar__initials" id="user-initials">FA</span>
-          </div>
-        </div>
-      </header>
+      </section>
 
-      <main id="main-content" class="main-content">
-        <section id="screen-dashboard" class="screen" aria-label="Visão geral">
-          <header class="screen__header">
-            <h1 class="screen__title"></h1>
-            <p class="screen__subtitle">Visão geral das suas finanças.</p>
+      <!-- TELA PRINCIPAL -->
+      <section id="mainScreen" class="main-screen">
+          <!-- HEADER -->
+          <header class="header">
+              <div class="header-content">
+                  <div class="logo">
+                      <i class="fas fa-chart-pie"></i>
+                      <span>FinCore</span>
+                  </div>
+                  <div class="accessibility-panel">
+                      <div class="language-selector">
+                          <button id="langBtn" class="btn btn-small btn-accessibility" title="Alterar idioma" onclick="toggleLanguageDropdown()">
+                              <i class="fas fa-globe"></i>
+                          </button>
+                          <div id="langDropdown" class="lang-dropdown" style="display: none;">
+                              <button onclick="changeLanguage('pt-BR')" class="lang-option active" data-lang="pt-BR">🇧🇷 Português</button>
+                              <button onclick="changeLanguage('en')" class="lang-option" data-lang="en">🇺🇸 English</button>
+                          </div>
+                      </div>
+                      <button id="audioReaderBtn" class="btn btn-small btn-accessibility" title="Ativar leitor de áudio" onclick="toggleAudioReader()">
+                          <i class="fas fa-volume-up"></i>
+                      </button>
+                      <button id="librasBtn" class="btn btn-small btn-accessibility" title="Ativar intérprete de LIBRAS" onclick="toggleLibras()">
+                          <i class="fas fa-hands"></i>
+                      </button>
+                      <button id="fontSizeBtn" class="btn btn-small btn-accessibility" title="Aumentar fonte" onclick="increaseFontSize()">
+                          <i class="fas fa-text-height"></i>
+                      </button>
+                  </div>
+                  <div class="user-info">
+                      <button id="themeToggleBtn" class="btn btn-small btn-info" title="Alternar tema" onclick="toggleTheme()">
+                          <i class="fas fa-moon"></i>
+                      </button>
+                      <span id="userName">Usuário</span>
+                      <button id="logoutBtn" class="btn btn-small btn-danger">Sair</button>
+                  </div>
+              </div>
           </header>
-          <div class="dashboard-layout">
-            <section class="panel panel--metrics">
-              <div class="panel__header">
-                <div>
-                  <div class="panel__kicker">Total</div>
-                  <h2 class="panel__title">Resumo Geral</h2>
-                  <p class="panel__subtitle">Saldo consolidado e performance do mês.</p>
-                </div>
-                <button class="btn btn--ghost" type="button">Ver detalhes</button>
-              </div>
-              <div class="dashboard-grid" id="dashboard-metrics"></div>
-            </section>
 
-            <section class="panel panel--chart">
-              <div class="panel__header">
-                <div>
-                  <h2 class="panel__title">Fluxo Financeiro</h2>
-                  <p class="panel__subtitle">Ultimos 90 dias</p>
-                </div>
-                <div class="pill-group">
-                  <button class="pill" type="button" data-range="7d">7D</button>
-                  <button class="pill" type="button" data-range="30d">30D</button>
-                  <button class="pill pill--active" type="button" data-range="90d">90D</button>
-                  <button class="pill" type="button" data-range="1y">1A</button>
-                </div>
+          <!-- NAVIGATION MENU -->
+          <nav class="nav-menu">
+              <div class="nav-container">
+                  <ul class="nav-list">
+                      <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                      <li><a href="#" class="nav-link" data-section="empresas"><i class="fas fa-building"></i> Empresas</a></li>
+                      <li><a href="#" class="nav-link" data-section="transacoes"><i class="fas fa-exchange-alt"></i> Transações</a></li>
+                      <li><a href="#" class="nav-link" data-section="relatorios"><i class="fas fa-file-chart-line"></i> Relatórios</a></li>
+                      <li><a href="#" class="nav-link" data-section="contas"><i class="fas fa-receipt"></i> Contas</a></li>
+                      <li><a href="#" class="nav-link" data-section="metas"><i class="fas fa-target"></i> Metas</a></li>
+                      <li><a href="#" class="nav-link" data-section="investimentos"><i class="fas fa-piggy-bank"></i> Investimentos</a></li>
+                      <li><a href="#" class="nav-link" data-section="fornecedores"><i class="fas fa-truck"></i> Fornecedores</a></li>
+                      <li><a href="#" class="nav-link" data-section="calendario"><i class="fas fa-calendar-alt"></i> Calendário</a></li>
+                      <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> Perfil</a></li>
+                  </ul>
               </div>
-              <div class="chart-controls">
-                <span class="chart-controls__label">Agrupar por</span>
-                <div class="pill-group">
-                  <button class="pill pill--active" type="button" data-granularity="day">Dia</button>
-                  <button class="pill" type="button" data-granularity="week">Semana</button>
-                  <button class="pill" type="button" data-granularity="month">Mes</button>
-                </div>
-              </div>
-              <div class="chart-placeholder">
-                <div class="chart-placeholder__line"></div>
-                <svg class="chart-svg" id="chart-svg" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
-                  <path id="chart-line-income" d="" />
-                  <path id="chart-line-expense" d="" />
-                </svg>
-                <div class="chart-summary">
-                  <div>
-                    <span class="chart-summary__label">Ganhos</span>
-                    <span class="chart-summary__value positive" id="chart-income">R$ 0,00</span>
-                  </div>
-                  <div>
-                    <span class="chart-summary__label">Gastos</span>
-                    <span class="chart-summary__value negative" id="chart-expenses">R$ 0,00</span>
-                  </div>
-                </div>
-                <div class="chart-placeholder__legend">
-                  <span class="legend-dot legend-dot--income"></span>
-                  <span>Entradas</span>
-                  <span class="legend-dot legend-dot--expense"></span>
-                  <span>Saidas</span>
-                </div>
-              </div>
-            </section>
+          </nav>
 
-            <section class="panel panel--table">
-              <div class="panel__header">
-                <h2 class="panel__title">Movimentacoes Recentes</h2>
-                <div class="panel__actions">
-                  <button class="btn btn--ghost" type="button">Exportar</button>
-                  <button class="btn btn--primary" id="btn-new-transaction" type="button">Nova Transacao</button>
-                </div>
+          <!-- INTÉRPRETE DE LIBRAS -->
+          <div id="librasWindow" class="libras-window" style="display: none;">
+              <div class="libras-close">
+                  <button onclick="toggleLibras()" title="Fechar intérprete">
+                      <i class="fas fa-times"></i>
+                  </button>
               </div>
-              <div class="mini-table" id="recent-transactions"></div>
-            </section>
+              <div class="libras-content">
+                  <div class="libras-video-placeholder">
+                      <i class="fas fa-video"></i>
+                  </div>
+                  <p class="libras-text">Intérprete de LIBRAS<br><small>Aguardando ativação de texto</small></p>
+              </div>
           </div>
-        </section>
 
-        <section id="screen-reports" class="screen" aria-label="Relatório">
-          <header class="screen__header">
-            <h1 class="screen__title">Relatório</h1>
-            <p class="screen__subtitle">Análise detalhada de suas finanças.</p>
-          </header>
-          <div id="reports-content" class="reports-content">
-            <div class="report-chart-container">
-              <h2 class="report-chart-title">Gráfico Financeiro</h2>
-              <style>
-                .report-chart-container {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  justify-content: center;
-                  width: 100%;
-                  height: 100%;
-                  min-height: 320px;
-                  margin: 0 auto;
-                  padding: 0;
-                }
-                .bar-animate {
-                  filter: drop-shadow(0 4px 16px #1a6bff55);
-                  transition: height 1s cubic-bezier(.4,2,.6,1), y 1s cubic-bezier(.4,2,.6,1);
-                  cursor: pointer;
-                }
-                .bar-animate:hover {
-                  filter: drop-shadow(0 0 24px #fff) brightness(1.3);
-                }
-                .bar-label {
-                  font-family: 'JetBrains Mono', 'Inter', monospace;
-                  font-size: 1.2vw;
-                  fill: #8ecfff;
-                  letter-spacing: 1px;
-                }
-                .bar-axis {
-                  stroke: #2a2e39;
-                  stroke-width: 2;
-                }
-                .bar-tooltip {
-                  position: absolute;
-                  background: #181c24ee;
-                  color: #fff;
-                  border-radius: 6px;
-                  padding: 6px 14px;
-                  font-size: 1.1vw;
-                  font-family: 'JetBrains Mono', 'Inter', monospace;
-                  pointer-events: none;
-                  z-index: 1000;
-                  box-shadow: 0 2px 16px #1a6bff55;
-                  border: 1px solid #1A6BFF;
-                  opacity: 0;
-                  transition: opacity 0.2s;
-                }
-                @media (max-width: 900px) {
-                  .report-chart-container { height: 45vh; }
-                }
-                @media (max-width: 600px) {
-                  .report-chart-container { height: 32vh; }
-                  .bar-label, .bar-tooltip { font-size: 12px !important; }
-                }
-              </style>
-              <div style="position:relative;width:100%;height:60vh;min-height:320px;max-width:1100px;">
-                <svg id="report-bar-chart" width="100%" height="100%" viewBox="0 0 1000 550" aria-label="Gráfico de barras" style="background:#181c24;border-radius:14px;box-shadow:0 2px 24px #1a6bff22;display:block;width:100%;height:100%;">
-                  <defs>
-                    <linearGradient id="bar1" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#444"/>
-                      <stop offset="100%" stop-color="#111"/>
-                    </linearGradient>
-                    <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#888"/>
-                      <stop offset="100%" stop-color="#222"/>
-                    </linearGradient>
-                    <linearGradient id="bar3" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#222"/>
-                      <stop offset="100%" stop-color="#000"/>
-                    </linearGradient>
-                    <linearGradient id="bar4" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#666"/>
-                      <stop offset="100%" stop-color="#222"/>
-                    </linearGradient>
-                  </defs>
-                  <!-- Eixos -->
-                  <line x1="60" y1="500" x2="900" y2="500" class="bar-axis" />
-                  <line x1="60" y1="60" x2="60" y2="500" class="bar-axis" />
-                  <!-- Barras (animadas via JS) -->
-                  <rect id="bar-0" x="120" y="500" width="120" height="0" fill="url(#bar1)" class="bar-animate" />
-                  <rect id="bar-1" x="300" y="500" width="120" height="0" fill="url(#bar2)" class="bar-animate" />
-                  <rect id="bar-2" x="480" y="500" width="120" height="0" fill="url(#bar3)" class="bar-animate" />
-                  <rect id="bar-3" x="660" y="500" width="120" height="0" fill="url(#bar4)" class="bar-animate" />
-                  <!-- Labels -->
-                  <text x="180" y="540" class="bar-label" text-anchor="middle">Janeiro</text>
-                  <text x="360" y="540" class="bar-label" text-anchor="middle">Fevereiro</text>
-                  <text x="540" y="540" class="bar-label" text-anchor="middle">Março</text>
-                  <text x="720" y="540" class="bar-label" text-anchor="middle">Abril</text>
-                  <text x="50" y="505" class="bar-label" text-anchor="end">0</text>
-                  <text x="50" y="405" class="bar-label" text-anchor="end">5k</text>
-                  <text x="50" y="305" class="bar-label" text-anchor="end">10k</text>
-                  <text x="50" y="205" class="bar-label" text-anchor="end">15k</text>
-                  <text x="50" y="105" class="bar-label" text-anchor="end">20k</text>
-                </svg>
-                <div id="bar-tooltip" class="bar-tooltip"></div>
-              </div>
-              <script>
-                // Dados de exemplo (pode integrar com backend futuramente)
-                const barData = [10, 20, 6, 15]; // em milhares
-                const maxValue = 20; // valor máximo do eixo Y (milhares)
-                const barHeights = barData.map(v => (v / maxValue) * 440);
-                const tooltip = document.getElementById('bar-tooltip');
-                [0,1,2,3].forEach((i) => {
-                  const bar = document.getElementById('bar-' + i);
-                  setTimeout(() => {
-                    bar.setAttribute('y', 500 - barHeights[i]);
-                    bar.setAttribute('height', barHeights[i]);
-                  }, 200 + i * 180);
-                  bar.addEventListener('mousemove', (e) => {
-                    tooltip.textContent = `${['Janeiro','Fevereiro','Março','Abril'][i]}: R$ ${(barData[i]*1000).toLocaleString('pt-BR')}`;
-                    tooltip.style.opacity = 1;
-                    const svgRect = bar.ownerSVGElement.getBoundingClientRect();
-                    tooltip.style.left = (e.clientX - svgRect.left + 20) + 'px';
-                    tooltip.style.top = (e.clientY - svgRect.top - 30) + 'px';
-                  });
-                  bar.addEventListener('mouseleave', () => {
-                    tooltip.style.opacity = 0;
-                  });
-                });
-              </script>
-            </div>
-          </div>
-        </section>
+          <!-- MAIN CONTENT -->
+          <main class="main-content">
+              <!-- DASHBOARD -->
+              <section id="dashboard-section" class="content-section">
+                  <div class="cards-container">
+                      <div class="card card-balance">
+                          <div class="card-icon">
+                              <i class="fas fa-piggy-bank"></i>
+                          </div>
+                          <div class="card-content">
+                              <h3>Saldo Total</h3>
+                              <p class="amount" id="totalBalance">R$ 0,00</p>
+                          </div>
+                      </div>
 
-        <section id="screen-companies" class="screen" aria-label="Empresas">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Empresas</h1>
-                <p class="screen__subtitle">Gerencie suas empresas e contextos financeiros.</p>
-              </div>
-              <button id="btn-new-company" class="btn btn--primary" type="button">Nova Empresa</button>
-            </div>
-          </header>
-          <div id="companies-summary" class="companies-summary"></div>
-          <div id="companies-list" class="data-table"></div>
-        </section>
-        <!-- Espaço da seção de contas removido completamente -->
-        <section id="screen-categories" class="screen" aria-label="Categorias">
-          <!-- Seção de contas removida -->
+                      <div class="card card-income">
+                          <div class="card-icon">
+                              <i class="fas fa-arrow-up"></i>
+                          </div>
+                          <div class="card-content">
+                              <h3>Ganhos</h3>
+                              <p class="amount income" id="totalIncome">R$ 0,00</p>
+                          </div>
+                      </div>
 
-        <section id="screen-goals" class="screen" aria-label="Metas">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Metas</h1>
-                <p class="screen__subtitle">Acompanhe objetivos financeiros.</p>
-              </div>
-              <button id="btn-new-goal" class="btn btn--primary" type="button">Nova Meta</button>
-            </div>
-          </header>
-          <div id="goals-list" class="data-table"></div>
-        </section>
-
-        <section id="screen-suppliers" class="screen" aria-label="Fornecedores">
-          <header class="screen__header">
-            <div class="screen__header-row">
-              <div>
-                <h1 class="screen__title">Fornecedores</h1>
-                <p class="screen__subtitle">Cadastre fornecedores e dados de pagamento.</p>
-              </div>
-              <button id="btn-new-supplier" class="btn btn--primary" type="button">Novo Fornecedor</button>
-            </div>
-          </header>
-          <div id="suppliers-list" class="data-table"></div>
-        </section>
-
-        <section id="screen-settings" class="screen" aria-label="Configurações">
-          <header class="screen__header">
-            <h1 class="screen__title">Configurações</h1>
-            <p class="screen__subtitle">Personalize sua experiência no FinCore.</p>
-          </header>
-          <div class="settings-panel">
-            <form id="settings-form" class="settings-form">
-              <fieldset>
-                <legend>Preferências Gerais</legend>
-                <div class="form-group">
-                  <label for="theme-select">Tema do sistema</label>
-                  <select id="theme-select" name="theme">
-                    <option value="dark">Escuro</option>
-                    <option value="light">Claro</option>
-                    <option value="auto">Automático</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="lang-select">Idioma</label>
-                  <select id="lang-select" name="lang">
-                    <option value="pt-BR">Português (Brasil)</option>
-                    <option value="en-US">English (US)</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="currency-select">Moeda padrão</label>
-                  <select id="currency-select" name="currency">
-                    <option value="BRL">Real (R$)</option>
-                    <option value="USD">Dólar (US$)</option>
-                    <option value="EUR">Euro (€)</option>
-                  </select>
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend>Notificações</legend>
-                <div class="form-group">
-                  <label class="checkbox">
-                    <input type="checkbox" name="notify-transactions" checked />
-                    <span>Notificar novas transações</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="checkbox">
-                    <input type="checkbox" name="notify-goals" />
-                    <span>Notificar progresso de metas</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="checkbox">
-                    <input type="checkbox" name="notify-backup" checked />
-                    <span>Lembrar de fazer backup mensal</span>
-                  </label>
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend>Backup e Segurança</legend>
-                <div class="form-group">
-                  <button type="button" class="btn btn--secondary">Exportar dados</button>
-                  <button type="button" class="btn btn--secondary">Importar dados</button>
-                </div>
-                <div class="form-group">
-                  <label class="checkbox">
-                    <input type="checkbox" name="auto-backup" />
-                    <span>Backup automático na nuvem</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="password-change">Alterar senha</label>
-                  <input id="password-change" name="password-change" type="password" placeholder="Nova senha" />
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend>Avançado</legend>
-                <div class="form-group">
-                  <label class="checkbox">
-                    <input type="checkbox" name="dev-mode" />
-                    <span>Ativar modo desenvolvedor</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="api-key">Chave de API</label>
-                  <input id="api-key" name="api-key" type="text" placeholder="Sua chave de API" />
-                </div>
-                <div class="form-group">
-                  <label for="custom-css">CSS Personalizado</label>
-                  <textarea id="custom-css" name="custom-css" rows="2" placeholder="body { background: #000; }"></textarea>
-                </div>
-              </fieldset>
-              <div class="form-group" style="margin-top:18px;">
-                <button type="submit" class="btn btn--primary">Salvar configurações</button>
-              </div>
-            </form>
-          </div>
-        </section>
-
-        <section id="screen-profile" class="screen" aria-label="Perfil">
-          <header class="screen__header">
-            <h1 class="screen__title">Perfil</h1>
-            <p class="screen__subtitle">Dados pessoais e configurações da conta.</p>
-          </header>
-          <div class="profile-content">
-            <div class="profile-card">
-              <div class="profile-avatar" id="profile-avatar">FA</div>
-              <div class="profile-info">
-                <h2 class="profile-name" id="profile-name">Fáuston Aguiar</h2>
-                <p class="profile-email" id="profile-email">seu@exemplo.com</p>
-              </div>
-              <div class="profile-slogan-ball" id="profile-slogan-ball" title="Seu slogan">
-                <span id="profile-slogan-icon">✨</span>
-              </div>
-            </div>
-
-            <div class="profile-section">
-              <h3 class="profile-section__title">Foto do Slogan</h3>
-              <div class="form-group">
-                <label for="profile-slogan-input">Escolha uma imagem para seu slogan</label>
-                <div class="file-input-wrapper">
-                  <input 
-                    id="profile-slogan-input" 
-                    type="file" 
-                    class="file-input" 
-                    accept="image/*"
-                  />
-                  <label for="profile-slogan-input" class="file-input-label">
-                    <span class="file-input-icon">📸</span>
-                    <span class="file-input-text">Clique para selecionar uma imagem</span>
-                  </label>
-                </div>
-                <small class="form-message" id="profile-slogan-message"></small>
-              </div>
-            </div>
-
-            <div class="profile-section">
-              <h3 class="profile-section__title">Configuracoes da Conta</h3>
-              <form id="profile-settings-form" class="profile-settings">
-                <div class="profile-settings__grid">
-                  <div class="form-group">
-                    <label for="profile-full-name">Nome completo</label>
-                    <input id="profile-full-name" name="fullName" type="text" placeholder="Seu nome" />
+                      <div class="card card-expense">
+                          <div class="card-icon">
+                              <i class="fas fa-arrow-down"></i>
+                          </div>
+                          <div class="card-content">
+                              <h3>Gastos</h3>
+                              <p class="amount expense" id="totalExpense">R$ 0,00</p>
+                          </div>
+                      </div>
                   </div>
-                  <div class="form-group">
-                    <label for="profile-email-input">Email</label>
-                    <input id="profile-email-input" name="email" type="email" />
-                    <small class="form-message">Se alterar, confirme o novo email.</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="profile-currency">Moeda</label>
-                    <select id="profile-currency" name="currency">
-                      <option value="BRL">BRL</option>
-                      <option value="USD">USD</option>
-                      <option value="EUR">EUR</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="profile-locale">Idioma</label>
-                    <select id="profile-locale" name="locale">
-                      <option value="pt-BR">pt-BR</option>
-                      <option value="en-US">en-US</option>
-                      <option value="es-ES">es-ES</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="profile-theme">Tema</label>
-                    <select id="profile-theme" name="theme">
-                      <option value="dark">Escuro</option>
-                      <option value="light">Claro</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="checkbox">
-                      <input id="profile-notifications" name="notifications" type="checkbox" />
-                      <span>Receber notificacoes</span>
-                    </label>
-                  </div>
-                </div>
-                <div class="profile-settings__actions">
-                  <button class="btn btn--primary" type="submit">Salvar alteracoes</button>
-                </div>
-              </form>
-            </div>
+              </section>
 
-            <div class="profile-section">
-              <h3 class="profile-section__title">Empresas</h3>
-              <div class="profile-settings__actions">
-                <button class="btn btn--primary" type="button" id="profile-new-company">Nova Empresa</button>
-              </div>
-            </div>
+              <!-- SEÇÃO TRANSAÇÕES -->
+              <section id="transacoes-section" class="content-section" style="display: none;">
+                  <!-- ADICIONAR TRANSAÇÃO -->
+                  <div class="add-transaction">
+                      <h2>Adicionar Transação</h2>
+                      <form id="transactionForm" class="form-transaction">
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label for="transType">Tipo</label>
+                                  <select id="transType" required>
+                                      <option value="ganho">Ganho</option>
+                                      <option value="gasto">Gasto</option>
+                                  </select>
+                              </div>
 
-            <div class="profile-section">
-              <h3 class="profile-section__title">Seguranca</h3>
-              <form id="profile-password-form" class="profile-settings">
-                <div class="profile-settings__grid">
-                  <div class="form-group">
-                    <label for="profile-new-password">Nova senha</label>
-                    <input id="profile-new-password" name="newPassword" type="password" minlength="8" placeholder="Minimo 8 caracteres" />
+                              <div class="form-group">
+                                  <label for="transCategory">Categoria</label>
+                                  <select id="transCategory" required>
+                                      <option value="">Selecione uma categoria</option>
+                                  </select>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="transDescription">Descrição</label>
+                                  <input type="text" id="transDescription" placeholder="Ex: Salário, Compras..." required>
+                              </div>
+                          </div>
+
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label for="transAmount">Valor (R$)</label>
+                                  <input type="number" id="transAmount" placeholder="0.00" step="0.01" required>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="transDate">Data</label>
+                                  <input type="date" id="transDate" required>
+                              </div>
+
+                              <div class="form-group">
+                                  <button type="submit" class="btn btn-success">
+                                      <i class="fas fa-plus"></i> Adicionar
+                                  </button>
+                              </div>
+                          </div>
+                      </form>
                   </div>
-                  <div class="form-group">
-                    <label for="profile-confirm-password">Confirmar nova senha</label>
-                    <input id="profile-confirm-password" name="confirmPassword" type="password" minlength="8" placeholder="Repita a senha" />
+
+                  <!-- FILTROS E HISTÓRICO -->
+                  <div class="transactions-section">
+                      <div class="section-header">
+                          <h2>Histórico de Transações</h2>
+                      </div>
+
+                      <div class="filters">
+                          <div class="filter-group">
+                              <label for="filterType">Filtrar por Tipo:</label>
+                              <select id="filterType">
+                                  <option value="">Todos</option>
+                                  <option value="ganho">Ganhos</option>
+                                  <option value="gasto">Gastos</option>
+                              </select>
+                          </div>
+
+                          <div class="filter-group">
+                              <label for="filterCategory">Filtrar por Categoria:</label>
+                              <select id="filterCategory">
+                                  <option value="">Todas as categorias</option>
+                              </select>
+                          </div>
+
+                          <div class="filter-group">
+                              <input type="text" id="searchTransaction" placeholder="Buscar por descrição...">
+                          </div>
+
+                          <button id="clearFilters" class="btn btn-small">Limpar Filtros</button>
+                      </div>
+
+                      <div class="transactions-list" id="transactionsList">
+                          <p class="empty-message">Nenhuma transação registrada ainda</p>
+                      </div>
                   </div>
-                </div>
-                <div class="profile-settings__actions">
-                  <button class="btn btn--primary" type="submit">Atualizar senha</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </section>
-      </main>
+              </section>
 
-      <footer class="bottom-nav" aria-label="Navegação inferior">
-        <button class="bottom-nav__item" data-screen="dashboard" type="button">
-          <span>🏠</span>
-          <span>Início</span>
-        </button>
-        <button class="bottom-nav__item" data-screen="reports" type="button">
-          <span>📋</span>
-          <span>Relatório</span>
-        </button>
-        <button class="bottom-nav__item" data-screen="accounts" type="button">
-          <!-- Botão Contas removido -->
-        </button>
-        <button class="bottom-nav__item" data-screen="profile" type="button">
-          <span>👤</span>
-          <span>Perfil</span>
-        </button>
-      </footer>
-    </div>
-  </div>
+              <!-- SEÇÃO EMPRESAS -->
+              <section id="empresas-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Meus Negócios</h2>
+                      <button class="btn btn-success" id="addEmpresaBtn"><i class="fas fa-plus"></i> Nova Empresa</button>
+                  </div>
+                  <div id="empresasList" class="grid-container"></div>
+              </section>
 
-  <!-- Global UI containers -->
-  <div id="modal-container" class="modal-container" aria-hidden="true"></div>
-  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
-  <div id="confirm-dialog" class="confirm-dialog" hidden></div>
-  <div id="search-overlay" class="search-overlay" hidden>
-    <div class="search-overlay__content">
-      <input id="search-input" class="input" type="search" placeholder="Buscar... (Ctrl+K)" aria-label="Buscar" />
-    </div>
-  </div>
-  <div id="loading-overlay" class="loading-overlay" hidden>
-    <div class="spinner" aria-label="Carregando"></div>
-  </div>
+              <!-- SEÇÃO RELATÓRIOS -->
+              <section id="relatorios-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Relatórios e Análises</h2>
+                  </div>
+                  <div class="reports-container">
+                      <div class="report-card">
+                          <h3>Comparativo Mensal</h3>
+                          <canvas id="monthlyChart"></canvas>
+                      </div>
+                      <div class="report-card">
+                          <h3>Comparativo Bimestral</h3>
+                          <canvas id="bimonthlyChart"></canvas>
+                      </div>
+                      <div class="report-card">
+                          <h3>Comparativo Semestral</h3>
+                          <canvas id="semesterChart"></canvas>
+                      </div>
+                      <div class="report-card">
+                          <h3>Comparativo Anual</h3>
+                          <canvas id="annualChart"></canvas>
+                      </div>
+                      <div class="report-card">
+                          <h3>Análise de Cenários</h3>
+                          <div id="scenarioAnalysis"></div>
+                      </div>
+                      <div class="report-card">
+                          <h3>Distribuição por Categoria</h3>
+                          <canvas id="categoryChart"></canvas>
+                      </div>
+                  </div>
+                  <button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-download"></i> Gerar Relatório</button>
+              </section>
 
-  <!-- Scripts -->
-  <script type="module" src="assets/js/app.js"></script>
-</body>
-</html>
+              <!-- SEÇÃO CONTAS A PAGAR/RECEBER -->
+              <section id="contas-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Gestão de Contas</h2>
+                  </div>
+                  <div class="tabs-container">
+                      <button class="tab-btn active" data-tab="contas-pagar">Contas a Pagar</button>
+                      <button class="tab-btn" data-tab="contas-receber">Contas a Receber</button>
+                      <button class="tab-btn" data-tab="proLabore">Pró-Labore</button>
+                  </div>
+                  <div id="contas-pagar" class="tab-content active">
+                      <form class="form-conta" id="formContasPagar">
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label>Descrição</label>
+                                  <input type="text" placeholder="Ex: Aluguel, Fornecedor..." required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Fornecedor</label>
+                                  <input type="text" placeholder="Nome do fornecedor" required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Valor</label>
+                                  <input type="number" step="0.01" placeholder="0.00" required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Data Vencimento</label>
+                                  <input type="date" required>
+                              </div>
+                              <button type="submit" class="btn btn-success">Registrar</button>
+                          </div>
+                      </form>
+                      <div id="contasPagarList" class="accounts-list"></div>
+                  </div>
+                  <div id="contas-receber" class="tab-content">
+                      <form class="form-conta" id="formContasReceber">
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label>Descrição</label>
+                                  <input type="text" placeholder="Ex: Venda, Aluguel..." required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Cliente</label>
+                                  <input type="text" placeholder="Nome do cliente" required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Valor</label>
+                                  <input type="number" step="0.01" placeholder="0.00" required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Data Vencimento</label>
+                                  <input type="date" required>
+                              </div>
+                              <button type="submit" class="btn btn-success">Registrar</button>
+                          </div>
+                      </form>
+                      <div id="contasReceberList" class="accounts-list"></div>
+                  </div>
+                  <div id="proLabore" class="tab-content">
+                      <form id="formProLabore">
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label>Valor Mensal (Pró-Labore Fixo)</label>
+                                  <input type="number" id="proLaboreValor" step="0.01" placeholder="0.00" required>
+                              </div>
+                              <button type="submit" class="btn btn-success">Definir Pró-Labore</button>
+                          </div>
+                      </form>
+                      <div id="proLaboreInfo" class="info-box"></div>
+                  </div>
+              </section>
+
+              <!-- SEÇÃO METAS -->
+              <section id="metas-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Definição de Metas</h2>
+                      <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> Nova Meta</button>
+                  </div>
+                  <div id="metasList" class="goals-container"></div>
+              </section>
+
+              <!-- SEÇÃO INVESTIMENTOS -->
+              <section id="investimentos-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Central de Investimentos</h2>
+                      <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> Novo Investimento</button>
+                  </div>
+                  <div class="tabs-container">
+                      <button class="tab-btn active" data-tab="investimentos-ativos">Investimentos Ativos</button>
+                      <button class="tab-btn" data-tab="custos-fixos">Custos Fixos</button>
+                      <button class="tab-btn" data-tab="custos-variaveis">Custos Variáveis</button>
+                      <button class="tab-btn" data-tab="capital-giro">Capital de Giro</button>
+                  </div>
+                  <div id="investimentos-ativos" class="tab-content active">
+                      <div id="investimentosList" class="investments-container"></div>
+                  </div>
+                  <div id="custos-fixos" class="tab-content">
+                      <form id="formCustosFixos">
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label>Descrição</label>
+                                  <input type="text" placeholder="Ex: Aluguel, Salário..." required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Valor Mensal</label>
+                                  <input type="number" step="0.01" placeholder="0.00" required>
+                              </div>
+                              <button type="submit" class="btn btn-success">Adicionar</button>
+                          </div>
+                      </form>
+                      <div id="custosFizosList" class="costs-list"></div>
+                  </div>
+                  <div id="custos-variaveis" class="tab-content">
+                      <form id="formCustosVariaveis">
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label>Descrição</label>
+                                  <input type="text" placeholder="Ex: Comissão, Insumos..." required>
+                              </div>
+                              <div class="form-group">
+                                  <label>Percentual ou Valor</label>
+                                  <input type="text" placeholder="Ex: 10% ou R$ 100" required>
+                              </div>
+                              <button type="submit" class="btn btn-success">Adicionar</button>
+                          </div>
+                      </form>
+                      <div id="custosVariaveisList" class="costs-list"></div>
+                  </div>
+                  <div id="capital-giro" class="tab-content">
+                      <div id="capitalGiroAnalysis" class="info-box"></div>
+                  </div>
+              </section>
+
+              <!-- SEÇÃO FORNECEDORES -->
+              <section id="fornecedores-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Lista de Fornecedores</h2>
+                      <button class="btn btn-success" id="addFornecedorBtn"><i class="fas fa-plus"></i> Novo Fornecedor</button>
+                  </div>
+                  <form id="formFornecedor">
+                      <div class="form-row">
+                          <div class="form-group">
+                              <label>Nome</label>
+                              <input type="text" placeholder="Nome da empresa" required>
+                          </div>
+                          <div class="form-group">
+                              <label>Contato</label>
+                              <input type="text" placeholder="Telefone/Email" required>
+                          </div>
+                          <div class="form-group">
+                              <label>Categoria</label>
+                              <input type="text" placeholder="Produto/Serviço" required>
+                          </div>
+                          <div class="form-group">
+                              <label>Prazo de Pagamento</label>
+                              <input type="text" placeholder="Ex: 30 dias" required>
+                          </div>
+                          <button type="submit" class="btn btn-success">Adicionar</button>
+                      </div>
+                  </form>
+                  <div id="fornecedoresList" class="suppliers-list grid-container"></div>
+              </section>
+
+              <!-- SEÇÃO CALENDÁRIO -->
+              <section id="calendario-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Calendário de Pagamentos e Recebimentos</h2>
+                  </div>
+                  <div class="calendar-container">
+                      <div class="calendar-header">
+                          <button id="prevMonth" class="btn btn-small"><i class="fas fa-chevron-left"></i></button>
+                          <h3 id="monthYearDisplay"></h3>
+                          <button id="nextMonth" class="btn btn-small"><i class="fas fa-chevron-right"></i></button>
+                      </div>
+                      <table class="calendar-table" id="calendarTable"></table>
+                  </div>
+                  <div id="calendarEvents" class="calendar-events"></div>
+              </section>
+
+              <!-- SEÇÃO PERFIL -->
+              <section id="perfil-section" class="content-section" style="display: none;">
+                  <div class="section-header">
+                      <h2>Meu Perfil</h2>
+                  </div>
+
+                  <!-- CARD DE INFORMAÇÕES PESSOAIS -->
+                  <div class="profile-container">
+                      <div class="profile-card">
+                          <div class="profile-header">
+                              <div class="profile-avatar">
+                                  <i class="fas fa-user-circle"></i>
+                              </div>
+                              <div class="profile-info">
+                                  <h3 id="profileName">Usuário</h3>
+                                  <p id="profileEmail">email@example.com</p>
+                              </div>
+                          </div>
+                          <div class="divider"></div>
+
+                          <!-- SLOGAN DA EMPRESA -->
+                          <div class="profile-section">
+                              <h4><i class="fas fa-lightbulb"></i> Slogan da Empresa</h4>
+                              <div id="sloganDisplay" class="slogan-display">
+                                  <p id="currentSlogan" class="slogan-text">Nenhum slogan definido</p>
+                              </div>
+                              <form id="formSlogan" class="form-slogan" style="display: none;">
+                                  <input type="text" id="sloganInput" placeholder="Digite o slogan da sua empresa..." maxlength="200" required>
+                                  <div class="form-actions">
+                                      <button type="submit" class="btn btn-success">Salvar</button>
+                                      <button type="button" class="btn btn-secondary" onclick="cancelEditSlogan()">Cancelar</button>
+                                  </div>
+                              </form>
+                              <button id="editSloganBtn" class="btn btn-primary btn-sm" onclick="editSlogan()"><i class="fas fa-edit"></i> Editar</button>
+                          </div>
+
+                          <div class="divider"></div>
+
+                          <!-- MUDAR SENHA -->
+                          <div class="profile-section">
+                              <h4><i class="fas fa-lock"></i> Segurança</h4>
+                              <button id="changePasswordBtn" class="btn btn-warning" onclick="openChangePasswordForm()">
+                                  <i class="fas fa-key"></i> Mudar Senha
+                              </button>
+                              <form id="formChangePassword" class="form-password" style="display: none;">
+                                  <div class="form-group">
+                                      <label for="currentPassword">Senha Atual</label>
+                                      <input type="password" id="currentPassword" placeholder="Sua senha atual" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="newPassword">Nova Senha</label>
+                                      <input type="password" id="newPassword" placeholder="Nova senha" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="confirmPassword">Confirmar Nova Senha</label>
+                                      <input type="password" id="confirmPassword" placeholder="Confirme a senha" required>
+                                  </div>
+                                  <div class="form-actions">
+                                      <button type="submit" class="btn btn-success">Confirmar</button>
+                                      <button type="button" class="btn btn-secondary" onclick="cancelChangePassword()">Cancelar</button>
+                                  </div>
+                              </form>
+                          </div>
+
+                          <div class="divider"></div>
+
+                          <!-- COMPARTILHAR CONTA -->
+                          <div class="profile-section">
+                              <h4><i class="fas fa-share-alt"></i> Compartilhar Conta</h4>
+                              <p class="section-description">Permita que terceiros acessem sua conta financeira</p>
+                              <button id="shareAccountBtn" class="btn btn-info" onclick="openShareAccountForm()">
+                                  <i class="fas fa-user-plus"></i> Compartilhar com Terceiros
+                              </button>
+                              <form id="formShareAccount" class="form-share" style="display: none;">
+                                  <div class="form-group">
+                                      <label for="shareEmail">Email do Terceiro</label>
+                                      <input type="email" id="shareEmail" placeholder="email@example.com" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="sharePermission">Nível de Acesso</label>
+                                      <select id="sharePermission" required>
+                                          <option value="view">Visualização (Apenas leitura)</option>
+                                          <option value="edit">Edição (Pode modificar)</option>
+                                          <option value="admin">Administração (Acesso completo)</option>
+                                      </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="shareExpiry">Data de Expiração (Opcional)</label>
+                                      <input type="date" id="shareExpiry">
+                                  </div>
+                                  <div class="form-actions">
+                                      <button type="submit" class="btn btn-success">Compartilhar</button>
+                                      <button type="button" class="btn btn-secondary" onclick="cancelShareAccount()">Cancelar</button>
+                                  </div>
+                              </form>
+
+                              <!-- LISTA DE COMPARTILHAMENTOS ATIVOS -->
+                              <div id="sharedAccountsList" class="shared-accounts-list" style="display: none;">
+                                  <h5>Acessos Ativos</h5>
+                                  <div id="sharedAccountsContainer" class="accounts-shares"></div>
+                              </div>
+                          </div>
+
+                          <div class="divider"></div>
+
+                          <!-- MUDAR/TROCAR CONTA -->
+                          <div class="profile-section">
+                              <h4><i class="fas fa-sign-in-alt"></i> Conta</h4>
+                              <p class="section-description">Faça login com outra conta ou crie uma nova</p>
+                              <div class="account-actions">
+                                  <button id="switchAccountBtn" class="btn btn-secondary" onclick="switchAccount()">
+                                      <i class="fas fa-exchange-alt"></i> Trocar de Conta
+                                  </button>
+                                  <button id="deleteAccountBtn" class="btn btn-danger" onclick="deleteAccount()">
+                                      <i class="fas fa-trash"></i> Deletar Conta
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+          </main>
+      </section>
+
+      <!-- Chart.js for reports -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+      <!-- jsPDF for PDF export -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+      <!-- xlsx for Excel export -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+
+    <script type="module" src="assets/js/model-app.js?v=2"></script>
+    </body>
+    </html>

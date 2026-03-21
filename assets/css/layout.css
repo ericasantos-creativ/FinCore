@@ -209,6 +209,25 @@
   gap: 12px;
 }
 
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 6px;
+}
+
+.header-user__name {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.header-logout {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
 .company-switcher {
   position: relative;
 }
