@@ -9,7 +9,6 @@ const TABLE_MAP = {
   users: 'profiles',
   companies: 'companies',
   accounts: 'accounts',
-  categories: 'categories',
   transactions: 'transactions',
   goals: 'goals',
   investments: 'investments',
@@ -40,16 +39,6 @@ const FIELD_MAP = {
     cor: 'color_hex',
     icone: 'icon',
     ativa: 'is_active',
-    criado_em: 'created_at',
-    atualizado_em: 'updated_at'
-  },
-  categories: {
-    nome: 'name',
-    tipo: 'type',
-    icone: 'icon',
-    cor: 'color_hex',
-    pai_id: 'parent_id',
-    sistema: 'is_system',
     criado_em: 'created_at',
     atualizado_em: 'updated_at'
   },
@@ -160,10 +149,6 @@ function mapToDb(store, record) {
 function applyUserFilter(query, store) {
   const userId = Store.getState().user?.id;
   if (!userId) return query;
-
-  if (store === 'categories') {
-    return query.or(`user_id.eq.${userId},user_id.is.null`);
-  }
 
   if (store !== 'users') {
     return query.eq('user_id', userId);

@@ -674,8 +674,9 @@ function setupAppListeners() {
       } else {
         closeSearchOverlay();
       }
-    }
-  });
+      clearSearchResults();
+    });
+  }
 }
 
 async function runSplash() {
@@ -781,6 +782,156 @@ async function init() {
     const splash = document.getElementById('splash-screen');
     if (splash) splash.hidden = true;
     showAuthScreen();
+  }
+}
+
+function performSearch(query) {
+  const state = Store.getState();
+  const results = [];
+
+  // Buscar em transações
+  if (state.transactions) {
+    state.transactions.forEach(tx => {
+      if (tx.descricao?.toLowerCase().includes(query) ||
+          tx.categoria?.toLowerCase().includes(query) ||
+          tx.tipo?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'transaction',
+          title: tx.descricao || 'Transação sem descrição',
+          subtitle: `${tx.tipo} - ${Utils.formatCurrency(tx.valor)}`,
+          data: tx,
+          icon: tx.tipo === 'receita' ? '💰' : '💸'
+        });
+      }
+    });
+  }
+
+  // Buscar em contas
+  if (state.accounts) {
+    state.accounts.forEach(account => {
+      if (account.nome?.toLowerCase().includes(query) ||
+          account.tipo?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'account',
+          title: account.nome,
+          subtitle: `Conta ${account.tipo}`,
+          data: account,
+          icon: '🏦'
+        });
+      }
+    });
+  }
+
+  // Buscar em empresas
+  if (state.companies) {
+    state.companies.forEach(company => {
+      if (company.nome?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'company',
+          title: company.nome,
+          subtitle: 'Empresa',
+          data: company,
+          icon: '🏢'
+        });
+      }
+    });
+  }
+
+  // Buscar em metas
+  if (state.goals) {
+    state.goals.forEach(goal => {
+      if (goal.nome?.toLowerCase().includes(query) ||
+          goal.descricao?.toLowerCase().includes(query)) {
+        results.push({
+          type: 'goal',
+          title: goal.nome,
+          subtitle: goal.descricao || 'Meta financeira',
+          data: goal,
+          icon: '🎯'
+        });
+      }
+    });
+  }
+
+  displaySearchResults(results.slice(0, 10)); // Limitar a 10 resultados
+}
+
+function displaySearchResults(results) {
+  const overlay = document.getElementById('search-overlay');
+  if (!overlay) return;
+
+  // Remover resultados anteriores
+  const existingResults = overlay.querySelector('.search-results');
+  if (existingResults) {
+    existingResults.remove();
+  }
+
+  if (results.length === 0) {
+    const noResults = document.createElement('div');
+    noResults.className = 'search-no-results';
+    noResults.textContent = 'Nenhum resultado encontrado';
+    overlay.appendChild(noResults);
+    return;
+  }
+
+  const resultsContainer = document.createElement('div');
+  resultsContainer.className = 'search-results';
+
+  results.forEach(result => {
+    const item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.innerHTML = `
+      <div class="search-result-icon">${result.icon}</div>
+      <div class="search-result-content">
+        <div class="search-result-title">${result.title}</div>
+        <div class="search-result-subtitle">${result.subtitle}</div>
+      </div>
+    `;
+
+    item.addEventListener('click', () => {
+      handleSearchResultClick(result);
+    });
+
+    resultsContainer.appendChild(item);
+  });
+
+  overlay.appendChild(resultsContainer);
+}
+
+function clearSearchResults() {
+  const overlay = document.getElementById('search-overlay');
+  if (!overlay) return;
+
+  const results = overlay.querySelector('.search-results');
+  const noResults = overlay.querySelector('.search-no-results');
+  if (results) results.remove();
+  if (noResults) noResults.remove();
+}
+
+function handleSearchResultClick(result) {
+  const overlay = document.getElementById('search-overlay');
+  if (overlay) overlay.hidden = true;
+
+  clearSearchResults();
+
+  // Navegar para a tela apropriada e destacar o item
+  switch (result.type) {
+    case 'transaction':
+      Router.navigate('dashboard'); // Transações estão no dashboard
+      // TODO: Destacar a transação específica
+      break;
+    case 'account':
+      Router.navigate('accounts');
+      // TODO: Abrir modal da conta
+      break;
+    case 'company':
+      Router.navigate('companies');
+      // TODO: Abrir modal da empresa
+      break;
+    case 'goal':
+      Router.navigate('goals');
+      // TODO: Abrir modal da meta
+      break;
   }
 }
 

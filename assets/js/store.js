@@ -6,7 +6,6 @@ const initialState = {
   slogan: '',
   transactions: [],
   accounts: [],
-  categories: [],
   goals: [],
   investments: [],
   suppliers: [],
