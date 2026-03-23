@@ -3,11 +3,37 @@ import { Auth } from './auth.js';
 const DEMO_AUTH = true;
 const memoryStorage = new Map();
 
+function getCookie(key) {
+    const name = `${encodeURIComponent(key)}=`;
+    const parts = document.cookie.split(';');
+    for (const part of parts) {
+        const item = part.trim();
+        if (item.startsWith(name)) {
+            return decodeURIComponent(item.substring(name.length));
+        }
+    }
+    return null;
+}
+
+function setCookie(key, value, maxAgeSeconds = 31536000) {
+    const encodedKey = encodeURIComponent(key);
+    const encodedValue = encodeURIComponent(value);
+    document.cookie = `${encodedKey}=${encodedValue}; Max-Age=${maxAgeSeconds}; Path=/; SameSite=Lax`;
+}
+
+function deleteCookie(key) {
+    const encodedKey = encodeURIComponent(key);
+    document.cookie = `${encodedKey}=; Max-Age=0; Path=/; SameSite=Lax`;
+}
+
 function storageGet(key) {
     try {
-        return localStorage.getItem(key);
+        const value = localStorage.getItem(key);
+        if (value !== null) return value;
+        return getCookie(key);
     } catch {
-        return memoryStorage.has(key) ? memoryStorage.get(key) : null;
+        if (memoryStorage.has(key)) return memoryStorage.get(key);
+        return getCookie(key);
     }
 }
 
@@ -17,6 +43,7 @@ function storageSet(key, value) {
     } catch {
         memoryStorage.set(key, value);
     }
+    setCookie(key, value);
 }
 
 function storageRemove(key) {
@@ -25,6 +52,7 @@ function storageRemove(key) {
     } catch {
         memoryStorage.delete(key);
     }
+    deleteCookie(key);
 }
 
 function storageKeys() {
@@ -260,6 +288,8 @@ async function initApp() {
     initializeTheme();
     initAccessibility();
 
+    setupEventListeners();
+
     try {
         if (DEMO_AUTH) {
             const stored = getStoredUser();
@@ -290,8 +320,6 @@ async function initApp() {
         console.warn('[App] Erro ao verificar sessão:', error);
         setTimeout(() => transitionFromSplash('login'), 1600);
     }
-
-    setupEventListeners();
 
     document.addEventListener('click', (e) => {
         const langBtn = document.getElementById('langBtn');
@@ -601,8 +629,8 @@ function renderEmpresas() {
             <p><strong>CNPJ/CPF:</strong> ${emp.documento}</p>
             <p><strong>Saldo:</strong> ${formatCurrency(emp.saldo || 0)}</p>
             <div class="card-actions">
-                <button class="btn btn-small" onclick="editEmpresa(${emp.id}); event.stopPropagation();"><i class="fas fa-edit"></i> Editar</button>
-                <button class="btn btn-small btn-danger" onclick="deleteEmpresa(${emp.id}); event.stopPropagation();"><i class="fas fa-trash"></i> Deletar</button>
+                <button class="btn btn-small" onclick="editEmpresa(${emp.id}, event)"><i class="fas fa-edit"></i> Editar</button>
+                <button class="btn btn-small btn-danger" onclick="deleteEmpresa(${emp.id}, event)"><i class="fas fa-trash"></i> Deletar</button>
             </div>
         </div>
     `).join('');
@@ -636,24 +664,29 @@ function openEmpresaModal() {
     };
 
     empresas.push(empresa);
-    currentEmpresa = empresa;
     saveUserData();
     renderEmpresas();
-    showSuccessMessage('Empresa criada com sucesso!');
+    updateDashboard();
+    showSuccessMessage('Empresa criada com sucesso! Selecione para ver dados específicos.');
 }
 
-function editEmpresa(id) {
+function editEmpresa(id, e) {
+    if (e) e.stopPropagation();
     const emp = empresas.find(e => e.id === id);
+    if (!emp) return;
     const nome = prompt('Novo nome:', emp.nome);
-    if (nome) {
-        emp.nome = nome;
+    if (nome !== null) {
+        const trimmed = nome.trim();
+        if (!trimmed) return;
+        emp.nome = trimmed;
         saveUserData();
         renderEmpresas();
         showSuccessMessage('Empresa atualizada!');
     }
 }
 
-function deleteEmpresa(id) {
+function deleteEmpresa(id, e) {
+    if (e) e.stopPropagation();
     if (confirm('Deseja realmente deletar esta empresa?')) {
         empresas = empresas.filter(e => e.id !== id);
         if (currentEmpresa?.id === id) currentEmpresa = null;
@@ -2280,6 +2313,9 @@ window.cancelShareAccount = cancelShareAccount;
 window.removeShareAccess = removeShareAccess;
 window.switchAccount = switchAccount;
 window.deleteAccount = deleteAccount;
+window.selectEmpresa = selectEmpresa;
+window.editEmpresa = editEmpresa;
+window.deleteEmpresa = deleteEmpresa;
 window.exportPDF = exportPDF;
 window.exportExcel = exportExcel;
 window.exportCSV = exportCSV;
