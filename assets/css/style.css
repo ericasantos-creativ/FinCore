@@ -417,6 +417,11 @@ body {
 .user-info span {
     font-weight: 500;
     color: var(--text);
+    margin-left: 12px; /* afasta o nome para a direita */
+}
+
+.user-info button#logoutBtn {
+    margin-left: 8px;
 }
 
 /* ==================== ACESSIBILIDADE ==================== */

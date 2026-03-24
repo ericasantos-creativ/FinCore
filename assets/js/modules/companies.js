@@ -3,6 +3,8 @@ import { Store } from '../store.js';
 import { Router } from '../router.js';
 import { Utils } from '../utils.js';
 
+const t = window.t ? window.t : (key => key);
+
 function buildRow(company) {
   const tr = document.createElement('tr');
   tr.innerHTML = `
@@ -71,11 +73,11 @@ function renderCompanySummary(companies) {
 
   container.innerHTML = `
     <div class="companies-summary__header">
-      <h3 class="companies-summary__title">Empresas logadas</h3>
+      <h3 class="companies-summary__title">${t('companiesLogged')}</h3>
       <span class="companies-summary__count">${companies.length}</span>
     </div>
     <div class="companies-summary__search">
-      <input type="search" placeholder="Buscar empresa..." value="${escapeHtml(query)}" data-role="company-search" />
+      <input type="search" placeholder="${t('searchCompany')}" value="${escapeHtml(query)}" data-role="company-search" />
     </div>
     <div class="companies-summary__list">
       ${filteredCompanies.length
@@ -260,7 +262,7 @@ export const Companies = {
     renderCompanySummary(companies);
 
     if (!companies || companies.length === 0) {
-      container.innerHTML = `<div class="placeholder">Nenhuma empresa cadastrada ainda.</div>`;
+      container.innerHTML = `<div class="placeholder">${t('noCompaniesYet')}</div>`;
       return;
     }
 

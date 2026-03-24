@@ -129,11 +129,11 @@
                       <button id="audioReaderBtn" class="btn btn-small btn-accessibility" title="Ativar leitor de áudio" onclick="toggleAudioReader()">
                           <i class="fas fa-volume-up"></i>
                       </button>
-                      <button id="librasBtn" class="btn btn-small btn-accessibility" title="Ativar intérprete de LIBRAS" onclick="toggleLibras()">
-                          <i class="fas fa-hands"></i>
-                      </button>
                       <button id="fontSizeBtn" class="btn btn-small btn-accessibility" title="Aumentar fonte" onclick="increaseFontSize()">
-                          <i class="fas fa-text-height"></i>
+                          <i class="fas fa-search-plus"></i>
+                      </button>
+                      <button id="fontSizeDecreaseBtn" class="btn btn-small btn-accessibility" title="Diminuir fonte" onclick="decreaseFontSize()">
+                          <i class="fas fa-search-minus"></i>
                       </button>
                   </div>
                   <div class="user-info">
@@ -150,16 +150,16 @@
           <nav class="nav-menu">
               <div class="nav-container">
                   <ul class="nav-list">
-                      <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-                      <li><a href="#" class="nav-link" data-section="empresas"><i class="fas fa-building"></i> Empresas</a></li>
-                      <li><a href="#" class="nav-link" data-section="transacoes"><i class="fas fa-exchange-alt"></i> Transações</a></li>
-                      <li><a href="#" class="nav-link" data-section="relatorios"><i class="fas fa-file-chart-line"></i> Relatórios</a></li>
-                      <li><a href="#" class="nav-link" data-section="contas"><i class="fas fa-receipt"></i> Contas</a></li>
-                      <li><a href="#" class="nav-link" data-section="metas"><i class="fas fa-target"></i> Metas</a></li>
-                      <li><a href="#" class="nav-link" data-section="investimentos"><i class="fas fa-piggy-bank"></i> Investimentos</a></li>
-                      <li><a href="#" class="nav-link" data-section="fornecedores"><i class="fas fa-truck"></i> Fornecedores</a></li>
-                      <li><a href="#" class="nav-link" data-section="calendario"><i class="fas fa-calendar-alt"></i> Calendário</a></li>
-                      <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> Perfil</a></li>
+                      <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> <span class="nav-text" data-i18n="dashboard">Dashboard</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="empresas"><i class="fas fa-building"></i> <span class="nav-text" data-i18n="companies">Empresas</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="transacoes"><i class="fas fa-exchange-alt"></i> <span class="nav-text" data-i18n="transactions">Transações</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="relatorios"><i class="fas fa-file-chart-line"></i> <span class="nav-text" data-i18n="reports">Relatórios</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="contas"><i class="fas fa-receipt"></i> <span class="nav-text" data-i18n="payable">Contas</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="metas"><i class="fas fa-target"></i> <span class="nav-text" data-i18n="goals">Metas</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="investimentos"><i class="fas fa-piggy-bank"></i> <span class="nav-text" data-i18n="investments">Investimentos</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="fornecedores"><i class="fas fa-truck"></i> <span class="nav-text" data-i18n="suppliers">Fornecedores</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="calendario"><i class="fas fa-calendar-alt"></i> <span class="nav-text" data-i18n="calendar">Calendário</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> <span class="nav-text" data-i18n="profile">Perfil</span></a></li>
                   </ul>
               </div>
           </nav>
@@ -176,6 +176,9 @@
                       <i class="fas fa-video"></i>
                   </div>
                   <p class="libras-text">Intérprete de LIBRAS<br><small>Aguardando ativação de texto</small></p>
+                  <p style="color: #c0c8ff; font-size: 0.90rem; margin-top: 8px; text-align: center;">
+                      VLibras ativado: selecione texto ou navegue pela página e use o botão do widget VLibras no canto inferior direito para tradução.
+                  </p>
               </div>
           </div>
 
@@ -189,7 +192,7 @@
                               <i class="fas fa-piggy-bank"></i>
                           </div>
                           <div class="card-content">
-                              <h3>Saldo Total</h3>
+                              <h3 data-i18n="totalBalanceTitle">Saldo Total</h3>
                               <p class="amount" id="totalBalance">R$ 0,00</p>
                           </div>
                       </div>
@@ -199,7 +202,7 @@
                               <i class="fas fa-arrow-up"></i>
                           </div>
                           <div class="card-content">
-                              <h3>Ganhos</h3>
+                              <h3 data-i18n="income">Ganhos</h3>
                               <p class="amount income" id="totalIncome">R$ 0,00</p>
                           </div>
                       </div>
@@ -209,7 +212,7 @@
                               <i class="fas fa-arrow-down"></i>
                           </div>
                           <div class="card-content">
-                              <h3>Gastos</h3>
+                              <h3 data-i18n="expenses">Gastos</h3>
                               <p class="amount expense" id="totalExpense">R$ 0,00</p>
                           </div>
                       </div>
@@ -220,44 +223,44 @@
               <section id="transacoes-section" class="content-section" style="display: none;">
                   <!-- ADICIONAR TRANSAÇÃO -->
                   <div class="add-transaction">
-                      <h2>Adicionar Transação</h2>
+                      <h2 data-i18n="addTransaction">Adicionar Transação</h2>
                       <form id="transactionForm" class="form-transaction">
                           <div class="form-row">
                               <div class="form-group">
-                                  <label for="transType">Tipo</label>
+                                  <label for="transType" data-i18n="type">Tipo</label>
                                   <select id="transType" required>
-                                      <option value="ganho">Ganho</option>
-                                      <option value="gasto">Gasto</option>
+                                      <option value="ganho" data-i18n="gain">Ganho</option>
+                                      <option value="gasto" data-i18n="expense">Gasto</option>
                                   </select>
                               </div>
 
                               <div class="form-group">
-                                  <label for="transCategory">Categoria</label>
+                                  <label for="transCategory" data-i18n="category">Categoria</label>
                                   <select id="transCategory" required>
-                                      <option value="">Selecione uma categoria</option>
+                                      <option value="" data-i18n="selectCategory">Selecione uma categoria</option>
                                   </select>
                               </div>
 
                               <div class="form-group">
-                                  <label for="transDescription">Descrição</label>
-                                  <input type="text" id="transDescription" placeholder="Ex: Salário, Compras..." required>
+                                  <label for="transDescription" data-i18n="description">Descrição</label>
+                                  <input type="text" id="transDescription" data-i18n="examples" placeholder="Ex: Salário, Compras..." required>
                               </div>
                           </div>
 
                           <div class="form-row">
                               <div class="form-group">
-                                  <label for="transAmount">Valor (R$)</label>
-                                  <input type="number" id="transAmount" placeholder="0.00" step="0.01" required>
+                                  <label for="transAmount" data-i18n="amount">Valor (R$)</label>
+                                  <input type="number" id="transAmount" placeholder="0.00" data-i18n="placeholderAmount" step="0.01" required>
                               </div>
 
                               <div class="form-group">
-                                  <label for="transDate">Data</label>
+                                  <label for="transDate" data-i18n="date">Data</label>
                                   <input type="date" id="transDate" required>
                               </div>
 
                               <div class="form-group">
                                   <button type="submit" class="btn btn-success">
-                                      <i class="fas fa-plus"></i> Adicionar
+                                      <i class="fas fa-plus"></i> <span data-i18n="add">Adicionar</span>
                                   </button>
                               </div>
                           </div>
@@ -267,31 +270,31 @@
                   <!-- FILTROS E HISTÓRICO -->
                   <div class="transactions-section">
                       <div class="section-header">
-                          <h2>Histórico de Transações</h2>
+                          <h2 data-i18n="transactionHistory">Histórico de Transações</h2>
                       </div>
 
                       <div class="filters">
                           <div class="filter-group">
-                              <label for="filterType">Filtrar por Tipo:</label>
+                              <label for="filterType" data-i18n="filterByType">Filtrar por Tipo:</label>
                               <select id="filterType">
-                                  <option value="">Todos</option>
-                                  <option value="ganho">Ganhos</option>
-                                  <option value="gasto">Gastos</option>
+                                  <option value="" data-i18n="all">Todos</option>
+                                  <option value="ganho" data-i18n="gain">Ganhos</option>
+                                  <option value="gasto" data-i18n="expense">Gastos</option>
                               </select>
                           </div>
 
                           <div class="filter-group">
-                              <label for="filterCategory">Filtrar por Categoria:</label>
+                              <label for="filterCategory" data-i18n="filterByCategory">Filtrar por Categoria:</label>
                               <select id="filterCategory">
-                                  <option value="">Todas as categorias</option>
+                                  <option value="" data-i18n="allCategories">Todas as categorias</option>
                               </select>
                           </div>
 
                           <div class="filter-group">
-                              <input type="text" id="searchTransaction" placeholder="Buscar por descrição...">
+                              <input type="text" id="searchTransaction" data-i18n="searchDescription" placeholder="Buscar por descrição...">
                           </div>
 
-                          <button id="clearFilters" class="btn btn-small">Limpar Filtros</button>
+                          <button id="clearFilters" class="btn btn-small" data-i18n="clearFilters">Limpar Filtros</button>
                       </div>
 
                       <div class="transactions-list" id="transactionsList">
@@ -303,8 +306,8 @@
               <!-- SEÇÃO EMPRESAS -->
               <section id="empresas-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Meus Negócios</h2>
-                      <button class="btn btn-success" id="addEmpresaBtn"><i class="fas fa-plus"></i> Nova Empresa</button>
+                      <h2 data-i18n="myBusinesses">Meus Negócios</h2>
+                      <button class="btn btn-success" id="addEmpresaBtn"><i class="fas fa-plus"></i> <span data-i18n="newCompany">Nova Empresa</span></button>
                   </div>
                   <div id="empresasList" class="grid-container"></div>
               </section>
@@ -312,31 +315,31 @@
               <!-- SEÇÃO RELATÓRIOS -->
               <section id="relatorios-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Relatórios e Análises</h2>
+                      <h2 data-i18n="reportsAndAnalysis">Relatórios e Análises</h2>
                   </div>
                   <div class="reports-container">
                       <div class="report-card">
-                          <h3>Comparativo Mensal</h3>
+                          <h3 data-i18n="monthlyComparison">Comparativo Mensal</h3>
                           <canvas id="monthlyChart"></canvas>
                       </div>
                       <div class="report-card">
-                          <h3>Comparativo Bimestral</h3>
+                          <h3 data-i18n="bimonthlyComparison">Comparativo Bimestral</h3>
                           <canvas id="bimonthlyChart"></canvas>
                       </div>
                       <div class="report-card">
-                          <h3>Comparativo Semestral</h3>
+                          <h3 data-i18n="semesterComparison">Comparativo Semestral</h3>
                           <canvas id="semesterChart"></canvas>
                       </div>
                       <div class="report-card">
-                          <h3>Comparativo Anual</h3>
+                          <h3 data-i18n="annualComparison">Comparativo Anual</h3>
                           <canvas id="annualChart"></canvas>
                       </div>
                       <div class="report-card">
-                          <h3>Análise de Cenários</h3>
+                          <h3 data-i18n="scenarioAnalysis">Análise de Cenários</h3>
                           <div id="scenarioAnalysis"></div>
                       </div>
                       <div class="report-card">
-                          <h3>Distribuição por Categoria</h3>
+                          <h3 data-i18n="categoryDistribution">Distribuição por Categoria</h3>
                           <canvas id="categoryChart"></canvas>
                       </div>
                   </div>
@@ -346,33 +349,33 @@
               <!-- SEÇÃO CONTAS A PAGAR/RECEBER -->
               <section id="contas-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Gestão de Contas</h2>
+                      <h2 data-i18n="accountsManagement">Gestão de Contas</h2>
                   </div>
                   <div class="tabs-container">
-                      <button class="tab-btn active" data-tab="contas-pagar">Contas a Pagar</button>
-                      <button class="tab-btn" data-tab="contas-receber">Contas a Receber</button>
-                      <button class="tab-btn" data-tab="proLabore">Pró-Labore</button>
+                      <button class="tab-btn active" data-tab="contas-pagar" data-i18n="payableAccounts">Contas a Pagar</button>
+                      <button class="tab-btn" data-tab="contas-receber" data-i18n="receivableAccounts">Contas a Receber</button>
+                      <button class="tab-btn" data-tab="proLabore" data-i18n="proLabore">Pró-Labore</button>
                   </div>
                   <div id="contas-pagar" class="tab-content active">
                       <form class="form-conta" id="formContasPagar">
                           <div class="form-row">
                               <div class="form-group">
-                                  <label>Descrição</label>
-                                  <input type="text" placeholder="Ex: Aluguel, Fornecedor..." required>
+                                  <label data-i18n="descriptionLabel">Descrição</label>
+                                  <input type="text" data-i18n="descriptionExample" placeholder="Ex: Aluguel, Fornecedor..." required>
                               </div>
                               <div class="form-group">
-                                  <label>Fornecedor</label>
-                                  <input type="text" placeholder="Nome do fornecedor" required>
+                                  <label data-i18n="supplierLabel">Fornecedor</label>
+                                  <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome do fornecedor" required>
                               </div>
                               <div class="form-group">
-                                  <label>Valor</label>
-                                  <input type="number" step="0.01" placeholder="0.00" required>
+                                  <label data-i18n="amountLabel">Valor</label>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
                               </div>
                               <div class="form-group">
-                                  <label>Data Vencimento</label>
-                                  <input type="date" required>
+                                  <label data-i18n="dueDateLabel">Data Vencimento</label>
+                                  <input type="date" data-i18n="dueDatePlaceholder" required>
                               </div>
-                              <button type="submit" class="btn btn-success">Registrar</button>
+                              <button type="submit" class="btn btn-success" data-i18n="registerBtn">Registrar</button>
                           </div>
                       </form>
                       <div id="contasPagarList" class="accounts-list"></div>
@@ -381,22 +384,22 @@
                       <form class="form-conta" id="formContasReceber">
                           <div class="form-row">
                               <div class="form-group">
-                                  <label>Descrição</label>
-                                  <input type="text" placeholder="Ex: Venda, Aluguel..." required>
+                                  <label data-i18n="descriptionLabel">Descrição</label>
+                                  <input type="text" data-i18n="descriptionExample" placeholder="Ex: Venda, Aluguel..." required>
                               </div>
                               <div class="form-group">
-                                  <label>Cliente</label>
-                                  <input type="text" placeholder="Nome do cliente" required>
+                                  <label data-i18n="clientLabel">Cliente</label>
+                                  <input type="text" data-i18n="clientPlaceholder" placeholder="Nome do cliente" required>
                               </div>
                               <div class="form-group">
-                                  <label>Valor</label>
-                                  <input type="number" step="0.01" placeholder="0.00" required>
+                                  <label data-i18n="amountLabel">Valor</label>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
                               </div>
                               <div class="form-group">
-                                  <label>Data Vencimento</label>
-                                  <input type="date" required>
+                                  <label data-i18n="dueDateLabel">Data Vencimento</label>
+                                  <input type="date" data-i18n="dueDatePlaceholder" required>
                               </div>
-                              <button type="submit" class="btn btn-success">Registrar</button>
+                              <button type="submit" class="btn btn-success" data-i18n="registerBtn">Registrar</button>
                           </div>
                       </form>
                       <div id="contasReceberList" class="accounts-list"></div>
@@ -418,8 +421,8 @@
               <!-- SEÇÃO METAS -->
               <section id="metas-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Definição de Metas</h2>
-                      <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> Nova Meta</button>
+                      <h2 data-i18n="goalsSectionTitle">Definição de Metas</h2>
+                      <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> <span data-i18n="newGoal">Nova Meta</span></button>
                   </div>
                   <div id="metasList" class="goals-container"></div>
               </section>
@@ -427,14 +430,14 @@
               <!-- SEÇÃO INVESTIMENTOS -->
               <section id="investimentos-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Central de Investimentos</h2>
-                      <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> Novo Investimento</button>
+                      <h2 data-i18n="investmentsCenterTitle">Central de Investimentos</h2>
+                      <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> <span data-i18n="newInvestment">Novo Investimento</span></button>
                   </div>
                   <div class="tabs-container">
-                      <button class="tab-btn active" data-tab="investimentos-ativos">Investimentos Ativos</button>
-                      <button class="tab-btn" data-tab="custos-fixos">Custos Fixos</button>
-                      <button class="tab-btn" data-tab="custos-variaveis">Custos Variáveis</button>
-                      <button class="tab-btn" data-tab="capital-giro">Capital de Giro</button>
+                      <button class="tab-btn active" data-tab="investimentos-ativos" data-i18n="activeInvestments">Investimentos Ativos</button>
+                      <button class="tab-btn" data-tab="custos-fixos" data-i18n="fixedCosts">Custos Fixos</button>
+                      <button class="tab-btn" data-tab="custos-variaveis" data-i18n="variableCosts">Custos Variáveis</button>
+                      <button class="tab-btn" data-tab="capital-giro" data-i18n="workingCapital">Capital de Giro</button>
                   </div>
                   <div id="investimentos-ativos" class="tab-content active">
                       <div id="investimentosList" class="investments-container"></div>
@@ -443,14 +446,14 @@
                       <form id="formCustosFixos">
                           <div class="form-row">
                               <div class="form-group">
-                                  <label>Descrição</label>
-                                  <input type="text" placeholder="Ex: Aluguel, Salário..." required>
+                                  <label data-i18n="descriptionLabel">Descrição</label>
+                                  <input type="text" data-i18n="examples" placeholder="Ex: Aluguel, Salário..." required>
                               </div>
                               <div class="form-group">
-                                  <label>Valor Mensal</label>
-                                  <input type="number" step="0.01" placeholder="0.00" required>
+                                  <label data-i18n="monthlyValueLabel">Valor Mensal</label>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
                               </div>
-                              <button type="submit" class="btn btn-success">Adicionar</button>
+                              <button type="submit" class="btn btn-success"><span data-i18n="add">Adicionar</span></button>
                           </div>
                       </form>
                       <div id="custosFizosList" class="costs-list"></div>
@@ -459,14 +462,14 @@
                       <form id="formCustosVariaveis">
                           <div class="form-row">
                               <div class="form-group">
-                                  <label>Descrição</label>
-                                  <input type="text" placeholder="Ex: Comissão, Insumos..." required>
+                                  <label data-i18n="descriptionLabel">Descrição</label>
+                                  <input type="text" data-i18n="examples" placeholder="Ex: Comissão, Insumos..." required>
                               </div>
                               <div class="form-group">
-                                  <label>Percentual ou Valor</label>
-                                  <input type="text" placeholder="Ex: 10% ou R$ 100" required>
+                                  <label data-i18n="percentageOrValueLabel">Percentual ou Valor</label>
+                                  <input type="text" data-i18n="examples" placeholder="Ex: 10% ou R$ 100" required>
                               </div>
-                              <button type="submit" class="btn btn-success">Adicionar</button>
+                              <button type="submit" class="btn btn-success"><span data-i18n="add">Adicionar</span></button>
                           </div>
                       </form>
                       <div id="custosVariaveisList" class="costs-list"></div>
@@ -479,28 +482,28 @@
               <!-- SEÇÃO FORNECEDORES -->
               <section id="fornecedores-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Lista de Fornecedores</h2>
-                      <button class="btn btn-success" id="addFornecedorBtn"><i class="fas fa-plus"></i> Novo Fornecedor</button>
+                      <h2 data-i18n="suppliersListTitle">Lista de Fornecedores</h2>
+                      <button class="btn btn-success" id="addFornecedorBtn"><i class="fas fa-plus"></i> <span data-i18n="newSupplier">Novo Fornecedor</span></button>
                   </div>
                   <form id="formFornecedor">
                       <div class="form-row">
                           <div class="form-group">
-                              <label>Nome</label>
-                              <input type="text" placeholder="Nome da empresa" required>
+                              <label data-i18n="nameLabel">Nome</label>
+                              <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome da empresa" required>
                           </div>
                           <div class="form-group">
-                              <label>Contato</label>
-                              <input type="text" placeholder="Telefone/Email" required>
+                              <label data-i18n="contact">Contato</label>
+                              <input type="text" data-i18n="contactPlaceholder" placeholder="Telefone/Email" required>
                           </div>
                           <div class="form-group">
-                              <label>Categoria</label>
-                              <input type="text" placeholder="Produto/Serviço" required>
+                              <label data-i18n="category">Categoria</label>
+                              <input type="text" data-i18n="categoryPlaceholder" placeholder="Produto/Serviço" required>
                           </div>
                           <div class="form-group">
-                              <label>Prazo de Pagamento</label>
-                              <input type="text" placeholder="Ex: 30 dias" required>
+                              <label data-i18n="paymentTerms">Prazo de Pagamento</label>
+                              <input type="text" data-i18n="paymentTermsPlaceholder" placeholder="Ex: 30 dias" required>
                           </div>
-                          <button type="submit" class="btn btn-success">Adicionar</button>
+                          <button type="submit" class="btn btn-success"><span data-i18n="add">Adicionar</span></button>
                       </div>
                   </form>
                   <div id="fornecedoresList" class="suppliers-list grid-container"></div>
@@ -509,7 +512,7 @@
               <!-- SEÇÃO CALENDÁRIO -->
               <section id="calendario-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Calendário de Pagamentos e Recebimentos</h2>
+                      <h2 data-i18n="calendarTitle">Calendário de Pagamentos e Recebimentos</h2>
                   </div>
                   <div class="calendar-container">
                       <div class="calendar-header">
@@ -525,7 +528,7 @@
               <!-- SEÇÃO PERFIL -->
               <section id="perfil-section" class="content-section" style="display: none;">
                   <div class="section-header">
-                      <h2>Meu Perfil</h2>
+                      <h2 data-i18n="myProfile">Meu Perfil</h2>
                   </div>
 
                   <!-- CARD DE INFORMAÇÕES PESSOAIS -->
@@ -544,44 +547,44 @@
 
                           <!-- SLOGAN DA EMPRESA -->
                           <div class="profile-section">
-                              <h4><i class="fas fa-lightbulb"></i> Slogan da Empresa</h4>
+                          <h4><i class="fas fa-lightbulb"></i> <span data-i18n="companySlogan">Slogan da Empresa</span></h4>
                               <div id="sloganDisplay" class="slogan-display">
-                                  <p id="currentSlogan" class="slogan-text">Nenhum slogan definido</p>
+                                  <p id="currentSlogan" class="slogan-text" data-i18n="noSlogan">Nenhum slogan definido</p>
                               </div>
                               <form id="formSlogan" class="form-slogan" style="display: none;">
-                                  <input type="text" id="sloganInput" placeholder="Digite o slogan da sua empresa..." maxlength="200" required>
+                                  <input type="text" id="sloganInput" data-i18n="sloganInputPlaceholder" placeholder="Digite o slogan da sua empresa..." maxlength="200" required>
                                   <div class="form-actions">
-                                      <button type="submit" class="btn btn-success">Salvar</button>
-                                      <button type="button" class="btn btn-secondary" onclick="cancelEditSlogan()">Cancelar</button>
+                                      <button type="submit" class="btn btn-success" data-i18n="save">Salvar</button>
+                                      <button type="button" class="btn btn-secondary" onclick="cancelEditSlogan()" data-i18n="cancel">Cancelar</button>
                                   </div>
                               </form>
-                              <button id="editSloganBtn" class="btn btn-primary btn-sm" onclick="editSlogan()"><i class="fas fa-edit"></i> Editar</button>
+                              <button id="editSloganBtn" class="btn btn-primary btn-sm" onclick="editSlogan()"><i class="fas fa-edit"></i> <span data-i18n="edit">Editar</span></button>
                           </div>
 
                           <div class="divider"></div>
 
                           <!-- MUDAR SENHA -->
                           <div class="profile-section">
-                              <h4><i class="fas fa-lock"></i> Segurança</h4>
+                              <h4><i class="fas fa-lock"></i> <span data-i18n="securityTitle">Segurança</span></h4>
                               <button id="changePasswordBtn" class="btn btn-warning" onclick="openChangePasswordForm()">
-                                  <i class="fas fa-key"></i> Mudar Senha
+                                  <i class="fas fa-key"></i> <span data-i18n="changePassword">Mudar Senha</span>
                               </button>
                               <form id="formChangePassword" class="form-password" style="display: none;">
                                   <div class="form-group">
-                                      <label for="currentPassword">Senha Atual</label>
-                                      <input type="password" id="currentPassword" placeholder="Sua senha atual" required>
+                                      <label for="currentPassword" data-i18n="currentPassword">Senha Atual</label>
+                                      <input type="password" id="currentPassword" data-i18n="currentPasswordPlaceholder" placeholder="Sua senha atual" required>
                                   </div>
                                   <div class="form-group">
-                                      <label for="newPassword">Nova Senha</label>
-                                      <input type="password" id="newPassword" placeholder="Nova senha" required>
+                                      <label for="newPassword" data-i18n="newPassword">Nova Senha</label>
+                                      <input type="password" id="newPassword" data-i18n="newPasswordPlaceholder" placeholder="Nova senha" required>
                                   </div>
                                   <div class="form-group">
-                                      <label for="confirmPassword">Confirmar Nova Senha</label>
-                                      <input type="password" id="confirmPassword" placeholder="Confirme a senha" required>
+                                      <label for="confirmPassword" data-i18n="confirmNewPassword">Confirmar Nova Senha</label>
+                                      <input type="password" id="confirmPassword" data-i18n="confirmPasswordPlaceholder" placeholder="Confirme a senha" required>
                                   </div>
                                   <div class="form-actions">
-                                      <button type="submit" class="btn btn-success">Confirmar</button>
-                                      <button type="button" class="btn btn-secondary" onclick="cancelChangePassword()">Cancelar</button>
+                                      <button type="submit" class="btn btn-success" data-i18n="confirm">Confirmar</button>
+                                      <button type="button" class="btn btn-secondary" onclick="cancelChangePassword()" data-i18n="cancel">Cancelar</button>
                                   </div>
                               </form>
                           </div>
@@ -652,6 +655,14 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
       <!-- xlsx for Excel export -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+
+      <!-- VLibras para tradução LIBRAS -->
+      <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+      <script>
+        if (window.VLibras) {
+          new window.VLibras.Widget('https://vlibras.gov.br/app');
+        }
+      </script>
 
     <script type="module" src="assets/js/model-app.js?v=2"></script>
     </body>

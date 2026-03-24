@@ -71,6 +71,7 @@ const TRANSLATIONS = {
         'audioReaderTitle': 'Ativar leitor de áudio',
         'librasTitle': 'Ativar intérprete de LIBRAS',
         'fontSizeTitle': 'Aumentar fonte',
+        'fontSizeDecreaseTitle': 'Diminuir fonte',
         'themeToggleTitle': 'Alternar tema',
         'logoutBtn': 'Sair',
         'userName': 'Usuário',
@@ -103,12 +104,216 @@ const TRANSLATIONS = {
         'costs': 'Custos',
         'reports': 'Relatórios',
         'settings': 'Configurações',
+        'calendar': 'Calendário',
+        'profile': 'Perfil',
+        'totalBalanceTitle': 'Saldo Total',
+        'noCompanies': 'Nenhuma empresa cadastrada. Crie uma para começar!',
+        'noCompaniesYet': 'Nenhuma empresa cadastrada ainda.',
+        'companiesLogged': 'Empresas logadas',
+        'searchCompany': 'Buscar empresa...',
+        'noGoals': 'Nenhuma meta criada',
+        'goalProgress': 'completo',
+        'goal': 'Meta',
+        'achieved': 'Realizado',
+        'metaDescriptionPrompt': 'Descrição da meta:',
+        'metaTargetValuePrompt': 'Valor alvo:',
+        'metaDeadlinePrompt': 'Data limite (YYYY-MM-DD):',
+        'goalCreated': 'Meta criada com sucesso!',
+        'goalsSectionTitle': 'Definição de Metas',
+        'newGoal': 'Nova Meta',
+        'investmentsCenterTitle': 'Central de Investimentos',
+        'newInvestment': 'Novo Investimento',
+        'activeInvestments': 'Investimentos Ativos',
+        'fixedCosts': 'Custos Fixos',
+        'variableCosts': 'Custos Variáveis',
+        'workingCapital': 'Capital de Giro',
+        'monthlyValueLabel': 'Valor Mensal',
+        'percentageOrValueLabel': 'Percentual ou Valor',
+        'suppliersListTitle': 'Lista de Fornecedores',
+        'newSupplier': 'Novo Fornecedor',
+        'nameLabel': 'Nome',
+        'income': 'Ganhos',
+        'expenses': 'Gastos',
+        'addTransaction': 'Adicionar Transação',
+        'transactionHistory': 'Histórico de Transações',
+        'myBusinesses': 'Meus Negócios',
+        'newCompany': 'Nova Empresa',
+        'reportsAndAnalysis': 'Relatórios e Análises',
+        'monthlyComparison': 'Comparativo Mensal',
+        'bimonthlyComparison': 'Comparativo Bimestral',
+        'semesterComparison': 'Comparativo Semestral',
+        'annualComparison': 'Comparativo Anual',
+        'scenarioAnalysis': 'Análise de Cenários',
+        'categoryDistribution': 'Distribuição por Categoria',
+        'financialReport': 'Relatório Financeiro',
+        'generatedAt': 'Gerado em',
+        'generalSummary': 'Resumo Geral',
+        'totalIncomeLabel': 'Total de Ganhos',
+        'totalExpenseLabel': 'Total de Gastos',
+        'balanceLabel': 'Saldo',
+        'monthlyAverageExpense': 'Gasto Mensal Médio',
+        'totalTransactionsLabel': 'Total de Transações',
+        'expenseByCategory': 'Gasto por Categoria',
+        'close': 'Fechar',
+        'reportPdfDownloaded': 'Relatório em PDF baixado com sucesso!',
+        'reportExcelDownloaded': 'Relatório em EXCEL baixado com sucesso!',
+        'reportCsvDownloaded': 'Relatório em CSV baixado com sucesso!',
+        'accountsManagement': 'Gestão de Contas',
+        'receivableAccounts': 'Contas a Receber',
+        'proLabore': 'Pró-Labore',
+        'proLaboreConfigured': 'Pró-Labore Configurado',
+        'monthlyValue': 'Valor Mensal',
+        'annualValue': 'Anual',
+        'calendarTitle': 'Calendário de Pagamentos e Recebimentos',
+        'monthJanuary': 'Janeiro',
+        'monthFebruary': 'Fevereiro',
+        'monthMarch': 'Março',
+        'monthApril': 'Abril',
+        'monthMay': 'Maio',
+        'monthJune': 'Junho',
+        'monthJuly': 'Julho',
+        'monthAugust': 'Agosto',
+        'monthSeptember': 'Setembro',
+        'monthOctober': 'Outubro',
+        'monthNovember': 'Novembro',
+        'monthDecember': 'Dezembro',
+        'dayShortSun': 'Dom',
+        'dayShortMon': 'Seg',
+        'dayShortTue': 'Ter',
+        'dayShortWed': 'Qua',
+        'dayShortThu': 'Qui',
+        'dayShortFri': 'Sex',
+        'dayShortSat': 'Sab',
+        'contact': 'Contato',
+        'contactPlaceholder': 'Telefone/Email',
+        'categoryPlaceholder': 'Produto/Serviço',
+        'paymentTerms': 'Prazo de Pagamento',
+        'paymentTermsPlaceholder': 'Ex: 30 dias',
+        'myProfile': 'Meu Perfil',
+        'companySlogan': 'Slogan da Empresa',
+        'noSlogan': 'Nenhum slogan definido',
+        'sloganInputPlaceholder': 'Digite o slogan da sua empresa...',
+        'cancel': 'Cancelar',
+        'save': 'Salvar',
+        'edit': 'Editar',
 
         // Accessibility
         'audioReaderActive': 'Desativar leitor de áudio',
         'librasActive': 'Desativar intérprete de LIBRAS',
         'languageChanged': 'Idioma alterado para Português',
-        'fontSizeMessage': 'Tamanho da fonte:'
+        'fontSizeMessage': 'Tamanho da fonte:',
+        'librasWindowMessage': 'Intérprete de LIBRAS\n<small>Aguardando ativação de texto</small>',
+        'type': 'Tipo',
+        'gain': 'Ganho',
+        'expense': 'Gasto',
+        'category': 'Categoria',
+        'selectCategory': 'Selecione uma categoria',
+        'description': 'Descrição',
+        'securityTitle': 'Segurança',
+        'changePassword': 'Mudar Senha',
+        'currentPassword': 'Senha Atual',
+        'currentPasswordPlaceholder': 'Sua senha atual',
+        'newPassword': 'Nova Senha',
+        'newPasswordPlaceholder': 'Nova senha',
+        'confirmNewPassword': 'Confirmar Nova Senha',
+        'confirmPasswordPlaceholder': 'Confirme a senha',
+        'confirm': 'Confirmar',
+        'cancel': 'Cancelar',
+        'passwordMinLength6': 'A nova senha deve ter pelo menos 6 caracteres!',
+        'passwordsDontMatch': 'As senhas não conferem!',
+        'passwordChanged': 'Senha alterada com sucesso!',
+        'passwordChangeError': 'Erro ao alterar senha.',
+        'companySloganUpdated': 'Slogan atualizado com sucesso!',
+        'sales': 'Vendas',
+        'costsAndExpenses': 'Custos e Despesas',
+        'cashFlow': 'Fluxo de Caixa',
+        'total': 'Total',
+        'row-count': 'Linha',
+        'price': 'Preço',
+        'currency': 'Moeda',
+        'percentage': 'Percentual',
+        'download': 'Download',
+        'upload': 'Upload',
+        'search': 'Buscar',
+        'open': 'Abrir',
+        'close': 'Fechar',
+        'edit': 'Editar',
+        'delete': 'Deletar',
+        'save': 'Salvar',
+        'reset': 'Redefinir',
+        'language': 'Idioma',
+        'fontSize': 'Tamanho da Fonte',
+        'theme': 'Tema',
+        'profile': 'Perfil',
+        'settings': 'Configurações',
+        'notifications': 'Notificações',
+        'help': 'Ajuda',
+        'logout': 'Sair',
+        'login': 'Entrar',
+        'register': 'Cadastro',
+        'update': 'Atualizar',
+        'confirmExit': 'Deseja realmente sair?',
+        'editProfile': 'Editar Perfil',
+        'password': 'Senha',
+        'email': 'Email',
+        'name': 'Nome',
+        'surname': 'Sobrenome',
+        'address': 'Endereço',
+        'examples': 'Ex: Salário, Compras...',
+        'amount': 'Valor (R$)',
+        'placeholderAmount': '0.00',
+        'date': 'Data',
+        'add': 'Adicionar',
+        'filterByType': 'Filtrar por Tipo:',
+        'all': 'Todos',
+        'filterByCategory': 'Filtrar por Categoria:',
+        'allCategories': 'Todas as categorias',
+        'searchDescription': 'Buscar por descrição...',
+        'clearFilters': 'Limpar Filtros',
+        'passwordsDoNotMatch': 'As senhas não coincidem!',
+        'passwordMinLength4': 'A senha deve ter no mínimo 4 caracteres',
+        'accountCreated': 'Conta criada com sucesso!',
+        'accountCreatedCheckEmail': 'Conta criada! Verifique seu email para confirmar o acesso.',
+        'companyCreated': 'Empresa criada com sucesso! Selecione para ver dados específicos.',
+        'companyUpdated': 'Empresa atualizada!',
+        'confirmDeleteCompany': 'Deseja realmente deletar esta empresa?',
+        'companyDeleted': 'Empresa deletada!',
+        'accountPayableAdded': 'Conta a pagar adicionada!',
+        'accountReceivableAdded': 'Conta a receber adicionada!',
+        'proLaboreSet': 'Pró-Labore fixo definido em {amount}',
+        'supplierDeleted': 'Fornecedor deletado!',
+        'confirmDeleteSupplier': 'Deletar fornecedor?',
+        'investmentRegistered': 'Investimento registrado!',
+        'contact': 'Contato',
+        'paymentTerms': 'Prazo',
+        'supplierNamePrompt': 'Nome do fornecedor:',
+        'supplierContactPrompt': 'Contato (telefone/email):',
+        'supplierCategoryPrompt': 'Categoria (produto/serviço):',
+        'supplierPaymentTermsPrompt': 'Prazo de pagamento (ex: 30 dias):',
+        'supplierAdded': 'Fornecedor adicionado!',
+        'noTransactions': 'Nenhuma transação registrada ainda',
+        'noTransactionsFiltered': 'Nenhuma transação encontrada com os filtros aplicados',
+        'fillAllFields': 'Por favor, preencha todos os campos',
+        'valueGreaterZero': 'O valor deve ser maior que zero',
+        'transactionAdded': 'Transação adicionada com sucesso!',
+        'transactionRemoved': 'Transação removida com sucesso!',
+        'confirmDeleteTransaction': 'Deseja realmente deletar esta transação?',
+        'delete': 'Deletar',
+        'cnpjCpfLabel': 'CNPJ/CPF',
+        'balanceLabel': 'Saldo',
+        'edit': 'Editar',
+        'companySelected': '{company} selecionada!',
+        'descriptionLabel': 'Descrição',
+        'descriptionExample': 'Ex: Aluguel, Fornecedor...',
+        'supplierLabel': 'Fornecedor',
+        'supplierPlaceholder': 'Nome do fornecedor',
+        'clientLabel': 'Cliente',
+        'clientPlaceholder': 'Nome do cliente',
+        'amountLabel': 'Valor',
+        'amountPlaceholder': '0.00',
+        'dueDateLabel': 'Data Vencimento',
+        'dueDatePlaceholder': 'dd/mm/aaaa',
+        'registerBtn': 'Registrar'
     },
     'en': {
         // Header
@@ -147,12 +352,170 @@ const TRANSLATIONS = {
         'costs': 'Costs',
         'reports': 'Reports',
         'settings': 'Settings',
+        'calendar': 'Calendar',
+        'profile': 'Profile',
+        'totalBalanceTitle': 'Total Balance',
+        'noCompanies': 'No company registered. Create one to start!',
+        'noCompaniesYet': 'No company registered yet.',
+        'companiesLogged': 'Companies logged',
+        'searchCompany': 'Search company...',
+        'noGoals': 'No goals created',
+        'goalProgress': 'complete',
+        'goalsSectionTitle': 'Goals Definition',
+        'newGoal': 'New Goal',
+        'investmentsCenterTitle': 'Investments Center',
+        'newInvestment': 'New Investment',
+        'activeInvestments': 'Active Investments',
+        'fixedCosts': 'Fixed Costs',
+        'variableCosts': 'Variable Costs',
+        'workingCapital': 'Working Capital',
+        'monthlyValueLabel': 'Monthly Value',
+        'percentageOrValueLabel': 'Percentage or Value',
+        'suppliersListTitle': 'Suppliers List',
+        'newSupplier': 'New Supplier',
+        'nameLabel': 'Name',
+        'income': 'Income',
+        'expenses': 'Expenses',
+        'addTransaction': 'Add Transaction',
+        'transactionHistory': 'Transaction History',
+        'myBusinesses': 'My Businesses',
+        'newCompany': 'New Company',
+        'reportsAndAnalysis': 'Reports & Analysis',
+        'monthlyComparison': 'Monthly Comparison',
+        'bimonthlyComparison': 'Bimonthly Comparison',
+        'semesterComparison': 'Semester Comparison',
+        'annualComparison': 'Annual Comparison',
+        'scenarioAnalysis': 'Scenario Analysis',
+        'categoryDistribution': 'Category Distribution',
+        'financialReport': 'Financial Report',
+        'generatedAt': 'Generated at',
+        'generalSummary': 'General Summary',
+        'totalIncomeLabel': 'Total Income',
+        'totalExpenseLabel': 'Total Expense',
+        'balanceLabel': 'Balance',
+        'monthlyAverageExpense': 'Monthly Average Expense',
+        'totalTransactionsLabel': 'Total Transactions',
+        'expenseByCategory': 'Expense by Category',
+        'close': 'Close',
+        'reportPdfDownloaded': 'PDF report downloaded successfully!',
+        'reportExcelDownloaded': 'Excel report downloaded successfully!',
+        'reportCsvDownloaded': 'CSV report downloaded successfully!',
+        'accountsManagement': 'Accounts Management',
+        'payableAccounts': 'Payable Accounts',
+        'receivableAccounts': 'Receivable Accounts',
+        'proLabore': 'Pro-Labore',
+        'proLaboreConfigured': 'Pro-Labore Configured',
+        'monthlyValue': 'Monthly Value',
+        'annualValue': 'Annual',
+        'calendarTitle': 'Payments and Receivables Calendar',
+        'monthJanuary': 'January',
+        'monthFebruary': 'February',
+        'monthMarch': 'March',
+        'monthApril': 'April',
+        'monthMay': 'May',
+        'monthJune': 'June',
+        'monthJuly': 'July',
+        'monthAugust': 'August',
+        'monthSeptember': 'September',
+        'monthOctober': 'October',
+        'monthNovember': 'November',
+        'monthDecember': 'December',
+        'dayShortSun': 'Sun',
+        'dayShortMon': 'Mon',
+        'dayShortTue': 'Tue',
+        'dayShortWed': 'Wed',
+        'dayShortThu': 'Thu',
+        'dayShortFri': 'Fri',
+        'dayShortSat': 'Sat',
+        'contact': 'Contact',
+        'contactPlaceholder': 'Phone/Email',
+        'categoryPlaceholder': 'Product/Service',
+        'paymentTerms': 'Payment Terms',
+        'paymentTermsPlaceholder': 'Ex: 30 days',
+        'myProfile': 'My Profile',
+        'companySlogan': 'Company Slogan',
+        'noSlogan': 'No slogan set',
+        'sloganInputPlaceholder': 'Enter your company slogan...',
+        'cancel': 'Cancel',
+        'save': 'Save',
+        'edit': 'Edit',
+        'type': 'Type',
+        'gain': 'Gain',
+        'expense': 'Expense',
+        'category': 'Category',
+        'selectCategory': 'Select a category',
+        'description': 'Description',
+        'securityTitle': 'Security',
+        'changePassword': 'Change Password',
+        'currentPassword': 'Current Password',
+        'currentPasswordPlaceholder': 'Your current password',
+        'newPassword': 'New Password',
+        'newPasswordPlaceholder': 'New password',
+        'confirmNewPassword': 'Confirm New Password',
+        'confirmPasswordPlaceholder': 'Confirm password',
+        'confirm': 'Confirm',
+        'cancel': 'Cancel',
+        'passwordMinLength6': 'New password must be at least 6 characters!',
+        'passwordsDontMatch': 'Passwords do not match!',
+        'passwordChanged': 'Password changed successfully!',
+        'passwordChangeError': 'Error changing password.',
+        'companySloganUpdated': 'Slogan updated successfully!',
+
+        'examples': 'Ex: Salary, Shopping...',
+        'amount': 'Amount (R$)',
+        'placeholderAmount': '0.00',
+        'date': 'Date',
+        'add': 'Add',
+        'filterByType': 'Filter by type:',
+        'all': 'All',
+        'filterByCategory': 'Filter by category:',
+        'allCategories': 'All categories',
+        'searchDescription': 'Search by description...',
+        'clearFilters': 'Clear Filters',
+        'passwordsDoNotMatch': 'Passwords do not match!',
+        'passwordMinLength4': 'Password must be at least 4 characters',
+        'accountCreated': 'Account created successfully!',
+        'accountCreatedCheckEmail': 'Account created! Check your email to confirm access.',
+        'companyCreated': 'Company created successfully! Select it to view specific data.',
+        'companyUpdated': 'Company updated!',
+        'confirmDeleteCompany': 'Do you really want to delete this company?',
+        'companyDeleted': 'Company deleted!',
+        'accountPayableAdded': 'Payable account added!',
+        'accountReceivableAdded': 'Receivable account added!',
+        'proLaboreSet': 'Fixed Pro-Labore set to {amount}',
+        'supplierDeleted': 'Supplier deleted!',
+        'confirmDeleteSupplier': 'Delete supplier?',
+        'investmentRegistered': 'Investment registered!',
+        'noTransactions': 'No transactions recorded yet',
+        'noTransactionsFiltered': 'No transactions found with the applied filters',
+        'fillAllFields': 'Please fill in all fields',
+        'valueGreaterZero': 'Value must be greater than zero',
+        'transactionAdded': 'Transaction added successfully!',
+        'transactionRemoved': 'Transaction removed successfully!',
+        'confirmDeleteTransaction': 'Do you really want to delete this transaction?',
+        'delete': 'Delete',
+        'cnpjCpfLabel': 'CNPJ/CPF',
+        'balanceLabel': 'Balance',
+        'edit': 'Edit',
+        'companySelected': '{company} selected!',
+        'descriptionLabel': 'Description',
+        'descriptionExample': 'Ex: Rent, Supplier...',
+        'supplierLabel': 'Supplier',
+        'supplierPlaceholder': 'Supplier name',
+        'clientLabel': 'Client',
+        'clientPlaceholder': 'Client name',
+        'amountLabel': 'Amount',
+        'amountPlaceholder': '0.00',
+        'dueDateLabel': 'Due date',
+        'dueDatePlaceholder': 'yyyy-mm-dd',
+        'registerBtn': 'Register',
 
         // Accessibility
         'audioReaderActive': 'Deactivate audio reader',
         'librasActive': 'Deactivate LIBRAS interpreter',
         'languageChanged': 'Language changed to English',
-        'fontSizeMessage': 'Font size:'
+        'fontSizeMessage': 'Font size:',
+        'librasWindowMessage': 'LIBRAS interpreter\n<small>Waiting for text activation</small>'
     }
 };
 
@@ -195,6 +558,7 @@ function updateUILanguage() {
         audioBtn.title = audioReaderActive ? t('audioReaderActive') : t('audioReaderTitle');
     }
 
+    // Se botao libras removido, não faz nada, se manter ativo, atualiza também
     const librasBtn = document.getElementById('librasBtn');
     if (librasBtn) {
         librasBtn.title = librasActive ? t('librasActive') : t('librasTitle');
@@ -219,9 +583,106 @@ function updateUILanguage() {
     if (userDisplay && !currentUser) {
         userDisplay.textContent = t('userName');
     }
+
+    // Navegação
+    const navItems = [
+        { selector: '.nav-link[data-section="dashboard"]', key: 'dashboard' },
+        { selector: '.nav-link[data-section="empresas"]', key: 'companies' },
+        { selector: '.nav-link[data-section="transacoes"]', key: 'transactions' },
+        { selector: '.nav-link[data-section="relatorios"]', key: 'reports' },
+        { selector: '.nav-link[data-section="contas"]', key: 'payable' },
+        { selector: '.nav-link[data-section="metas"]', key: 'goals' },
+        { selector: '.nav-link[data-section="investimentos"]', key: 'investments' },
+        { selector: '.nav-link[data-section="fornecedores"]', key: 'suppliers' },
+        { selector: '.nav-link[data-section="calendario"]', key: 'calendar' },
+        { selector: '.nav-link[data-section="perfil"]', key: 'profile' }
+    ];
+
+    navItems.forEach(item => {
+        const textEl = document.querySelector(`${item.selector} .nav-text`);
+        if (textEl) {
+            textEl.textContent = t(item.key);
+        } else {
+            const el = document.querySelector(item.selector);
+            if (el) el.textContent = t(item.key);
+        }
+    });
+
+    // Formulários de login/cadastro
+    const textMap = [
+        { selector: 'label[for="loginEmail"]', key: 'email' },
+        { selector: 'label[for="loginPassword"]', key: 'password' },
+        { selector: 'label[for="registerName"]', key: 'name' },
+        { selector: 'label[for="registerEmail"]', key: 'email' },
+        { selector: 'label[for="registerPassword"]', key: 'password' },
+        { selector: 'label[for="registerPassword2"]', key: 'confirmPassword' }
+    ];
+
+    textMap.forEach(item => {
+        const el = document.querySelector(item.selector);
+        if (el) el.textContent = t(item.key);
+    });
+
+    const placeholderMap = [
+        { selector: '#loginEmail', key: 'yourEmail' },
+        { selector: '#loginPassword', key: 'yourPassword' },
+        { selector: '#registerName', key: 'name' },
+        { selector: '#registerEmail', key: 'yourEmail' },
+        { selector: '#registerPassword', key: 'createPassword' },
+        { selector: '#registerPassword2', key: 'confirmPwd' }
+    ];
+
+    placeholderMap.forEach(item => {
+        const el = document.querySelector(item.selector);
+        if (el) el.placeholder = t(item.key);
+    });
+
+    const buttonMap = [
+        { selector: '#loginBtn', key: 'login' },
+        { selector: '#registerBtn', key: 'register' },
+        { selector: '.toggle-form a', key: 'goLogin' }
+    ];
+
+    buttonMap.forEach(item => {
+        const el = document.querySelector(item.selector);
+        if (el) el.textContent = t(item.key);
+    });
+
+    const librasText = document.querySelector('.libras-text');
+    if (librasText) {
+        librasText.innerHTML = t('librasWindowMessage');
+    }
+
+    // Translating all elements with data-i18n
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+        const key = element.dataset.i18n;
+        if (!key) return;
+        const translated = t(key);
+        if (!translated) return;
+
+        const tag = element.tagName.toLowerCase();
+        if (tag === 'input' || tag === 'textarea') {
+            element.placeholder = translated;
+        } else {
+            element.innerHTML = translated;
+        }
+    });
+
+    // Re-render dynamic UI parts that depend on language key values
+    updateCategoryOptions();
+    renderTransactions();
+    updateDashboard();
+
+    // Re-render the calendar header/weekdays if the calendar section is visible (for language change)
+    const calendarioSection = document.getElementById('calendario-section');
+    if (calendarioSection && calendarioSection.style.display !== 'none') {
+        const today = new Date();
+        renderCalendar(today.getFullYear(), today.getMonth());
+    }
 }
 
-// ==================== DADOS E CONSTANTES ====================
+
+// ==================== DADOS E CONSTANTES ==================== 
 const CATEGORIES = {
     ganho: ['Salário', 'Freelance', 'Bonificação', 'Investimento', 'Outros'],
     gasto: ['Comida', 'Transporte', 'Saúde', 'Entretenimento', 'Educação', 'Trabalho', 'Contas', 'Outros']
@@ -441,17 +902,17 @@ async function handleRegister(e) {
     const password2 = document.getElementById('registerPassword2').value;
 
     if (!name || !email || !password || !password2) {
-        alert('Por favor, preencha todos os campos');
+        alert(t('fillAllFields'));
         return;
     }
 
     if (password !== password2) {
-        alert('As senhas não coincidem!');
+        alert(t('passwordsDoNotMatch'));
         return;
     }
 
     if (password.length < 4) {
-        alert('A senha deve ter no mínimo 4 caracteres');
+        alert(t('passwordMinLength4'));
         return;
     }
 
@@ -462,7 +923,7 @@ async function handleRegister(e) {
         loadUserData();
         showMainScreen();
         clearRegisterForm();
-        showSuccessMessage('Conta criada com sucesso!');
+        showSuccessMessage(t('accountCreated'));
         return;
     }
 
@@ -470,7 +931,7 @@ async function handleRegister(e) {
         await Auth.register({ name, email, password, skipAutoLogin: true });
         const session = await Auth.getSession();
         if (!session) {
-            showSuccessMessage('Conta criada! Verifique seu email para confirmar o acesso.');
+            showSuccessMessage(t('accountCreatedCheckEmail'));
             clearRegisterForm();
             toggleLoginRegister(e);
             return;
@@ -618,7 +1079,7 @@ function renderEmpresas() {
     if (!container) return;
 
     if (empresas.length === 0) {
-        container.innerHTML = '<p class="empty-message">Nenhuma empresa cadastrada. Crie uma para começar!</p>';
+        container.innerHTML = `<p class="empty-message">${t('noCompanies')}</p>`;
         return;
     }
 
@@ -626,11 +1087,11 @@ function renderEmpresas() {
         <div class="empresa-card" onclick="selectEmpresa(${emp.id})">
             <h3>${emp.nome}</h3>
             <p class="text-muted">${emp.tipo}</p>
-            <p><strong>CNPJ/CPF:</strong> ${emp.documento}</p>
-            <p><strong>Saldo:</strong> ${formatCurrency(emp.saldo || 0)}</p>
+            <p><strong>${t('cnpjCpfLabel')}:</strong> ${emp.documento}</p>
+            <p><strong>${t('balanceLabel')}:</strong> ${formatCurrency(emp.saldo || 0)}</p>
             <div class="card-actions">
-                <button class="btn btn-small" onclick="editEmpresa(${emp.id}, event)"><i class="fas fa-edit"></i> Editar</button>
-                <button class="btn btn-small btn-danger" onclick="deleteEmpresa(${emp.id}, event)"><i class="fas fa-trash"></i> Deletar</button>
+                <button class="btn btn-small" onclick="editEmpresa(${emp.id}, event)"><i class="fas fa-edit"></i> ${t('edit')}</button>
+                <button class="btn btn-small btn-danger" onclick="deleteEmpresa(${emp.id}, event)"><i class="fas fa-trash"></i> ${t('delete')}</button>
             </div>
         </div>
     `).join('');
@@ -640,7 +1101,9 @@ function selectEmpresa(id) {
     currentEmpresa = empresas.find(e => e.id === id);
     loadUserData();
     updateDashboard();
-    showSuccessMessage(`${currentEmpresa.nome} selecionada!`);
+    if (currentEmpresa) {
+        showSuccessMessage(t('companySelected').replace('{company}', currentEmpresa.nome));
+    }
 }
 
 function openEmpresaModal() {
@@ -667,7 +1130,7 @@ function openEmpresaModal() {
     saveUserData();
     renderEmpresas();
     updateDashboard();
-    showSuccessMessage('Empresa criada com sucesso! Selecione para ver dados específicos.');
+    showSuccessMessage(t('companyCreated'));
 }
 
 function editEmpresa(id, e) {
@@ -681,7 +1144,7 @@ function editEmpresa(id, e) {
         emp.nome = trimmed;
         saveUserData();
         renderEmpresas();
-        showSuccessMessage('Empresa atualizada!');
+        showSuccessMessage(t('companyUpdated'));
     }
 }
 
@@ -706,12 +1169,12 @@ function handleAddTransaction(e) {
     const date = document.getElementById('transDate').value;
 
     if (!category || !description || !amount || !date) {
-        alert('Por favor, preencha todos os campos');
+        alert(t('fillAllFields'));
         return;
     }
 
     if (amount <= 0) {
-        alert('O valor deve ser maior que zero');
+        alert(t('valueGreaterZero'));
         return;
     }
 
@@ -736,16 +1199,16 @@ function handleAddTransaction(e) {
     document.getElementById('transactionForm').reset();
     setTodayDate();
     updateCategoryOptions();
-    showSuccessMessage('Transação adicionada com sucesso!');
+    showSuccessMessage(t('transactionAdded'));
 }
 
 function deleteTransaction(id) {
-    if (confirm('Deseja realmente deletar esta transação?')) {
+    if (confirm(t('confirmDeleteTransaction'))) {
         transactions = transactions.filter(t => t.id !== id);
         saveUserData();
         renderTransactions();
         updateDashboard();
-        showSuccessMessage('Transação removida com sucesso!');
+        showSuccessMessage(t('transactionRemoved'));
     }
 }
 
@@ -753,14 +1216,14 @@ function renderTransactions() {
     const container = document.getElementById('transactionsList');
 
     if (transactions.length === 0) {
-        container.innerHTML = '<p class="empty-message">Nenhuma transação registrada ainda</p>';
+        container.innerHTML = `<p class="empty-message">${t('noTransactions')}</p>`;
         return;
     }
 
     const filtered = getFilteredTransactions();
 
     if (filtered.length === 0) {
-        container.innerHTML = '<p class="empty-message">Nenhuma transação encontrada com os filtros aplicados</p>';
+        container.innerHTML = `<p class="empty-message">${t('noTransactionsFiltered')}</p>`;
         return;
     }
 
@@ -776,7 +1239,7 @@ function renderTransactions() {
 
 function createTransactionHTML(transaction) {
     const dateObj = new Date(transaction.date);
-    const formattedDate = dateObj.toLocaleDateString('pt-BR');
+    const formattedDate = dateObj.toLocaleDateString(currentLanguage === 'en' ? 'en-US' : 'pt-BR');
     const icon = ICONS_MAP[transaction.category] || 'fas fa-circle';
     const symbol = transaction.type === 'ganho' ? '+' : '-';
     const amount = formatCurrency(transaction.amount);
@@ -797,7 +1260,7 @@ function createTransactionHTML(transaction) {
                 <div class="transaction-amount">
                     ${symbol} ${amount}
                 </div>
-                <button class="btn-delete" data-id="${transaction.id}" title="Deletar">
+                <button class="btn-delete" data-id="${transaction.id}" title="${t('delete')}">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -861,12 +1324,27 @@ function updateCategoryOptions() {
 
     const categories = CATEGORIES[type] || [];
 
-    categorySelect.innerHTML = '<option value="">Selecione uma categoria</option>' +
+    categorySelect.innerHTML = `<option value="">${t('selectCategory')}</option>` +
         categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
 
     const allCategories = [...new Set(transactions.map(t => t.category))].sort();
-    filterCategorySelect.innerHTML = '<option value="">Todas as categorias</option>' +
+    filterCategorySelect.innerHTML = `<option value="">${t('allCategories')}</option>` +
         allCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+
+    const transTypeSelect = document.getElementById('transType');
+    if (transTypeSelect) {
+        transTypeSelect.innerHTML =
+            `<option value="ganho">${t('gain')}</option>` +
+            `<option value="gasto">${t('expense')}</option>`;
+    }
+
+    const filterTypeSelect = document.getElementById('filterType');
+    if (filterTypeSelect) {
+        filterTypeSelect.innerHTML =
+            `<option value="">${t('all')}</option>` +
+            `<option value="ganho">${t('gain')}</option>` +
+            `<option value="gasto">${t('expense')}</option>`;
+    }
 }
 
 // ==================== CONTAS A PAGAR/RECEBER ====================
@@ -969,22 +1447,22 @@ function updateProLaboreInfo() {
     const infoBox = document.getElementById('proLaboreInfo');
     if (infoBox && proLabore > 0) {
         infoBox.innerHTML = `
-            <h4>Pró-Labore Configurado</h4>
-            <p><strong>Valor Mensal:</strong> ${formatCurrency(proLabore)}</p>
-            <p><strong>Anual:</strong> ${formatCurrency(proLabore * 12)}</p>
+            <h4>${t('proLaboreConfigured')}</h4>
+            <p><strong>${t('monthlyValue')}:</strong> ${formatCurrency(proLabore)}</p>
+            <p><strong>${t('annualValue')}:</strong> ${formatCurrency(proLabore * 12)}</p>
         `;
     }
 }
 
 // ==================== METAS ====================
 function openMetaModal() {
-    const descricao = prompt('Descrição da meta:');
+    const descricao = prompt(t('metaDescriptionPrompt'));
     if (!descricao) return;
 
-    const valor = parseFloat(prompt('Valor alvo:'));
+    const valor = parseFloat(prompt(t('metaTargetValuePrompt')));
     if (isNaN(valor)) return;
 
-    const dataVencimento = prompt('Data limite (YYYY-MM-DD):');
+    const dataVencimento = prompt(t('metaDeadlinePrompt'));
     if (!dataVencimento) return;
 
     const meta = {
@@ -999,7 +1477,7 @@ function openMetaModal() {
     metas.push(meta);
     saveUserData();
     renderMetas();
-    showSuccessMessage('Meta criada com sucesso!');
+    showSuccessMessage(t('goalCreated'));
 }
 
 function renderMetas() {
@@ -1007,7 +1485,7 @@ function renderMetas() {
     if (!container) return;
 
     if (metas.length === 0) {
-        container.innerHTML = '<p class="empty-message">Nenhuma meta criada</p>';
+        container.innerHTML = `<p class="empty-message">${t('noGoals')}</p>`;
         return;
     }
 
@@ -1018,11 +1496,11 @@ function renderMetas() {
             return `
                 <div class="goal-item">
                     <h4>${m.descricao}</h4>
-                    <p>Meta: ${formatCurrency(m.valor)} | Realizado: ${formatCurrency(m.realizado)}</p>
+                    <p>${t('goal')}: ${formatCurrency(m.valor)} | ${t('achieved')}: ${formatCurrency(m.realizado)}</p>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${percentual}%"></div>
                     </div>
-                    <p class="text-muted">${percentual}% completo</p>
+                    <p class="text-muted">${percentual}% ${t('goalProgress')}</p>
                 </div>
             `;
         }).join('');
@@ -1030,16 +1508,16 @@ function renderMetas() {
 
 // ==================== FORNECEDORES ====================
 function openFornecedorModal() {
-    const nome = prompt('Nome do fornecedor:');
+    const nome = prompt(t('supplierNamePrompt'));
     if (!nome) return;
 
-    const contato = prompt('Contato (telefone/email):');
+    const contato = prompt(t('supplierContactPrompt'));
     if (!contato) return;
 
-    const categoria = prompt('Categoria (produto/serviço):');
+    const categoria = prompt(t('supplierCategoryPrompt'));
     if (!categoria) return;
 
-    const prazo = prompt('Prazo de pagamento (ex: 30 dias):');
+    const prazo = prompt(t('supplierPaymentTermsPrompt'));
     if (!prazo) return;
 
     const fornecedor = {
@@ -1054,7 +1532,7 @@ function openFornecedorModal() {
     fornecedores.push(fornecedor);
     saveUserData();
     renderFornecedores();
-    showSuccessMessage('Fornecedor adicionado!');
+    showSuccessMessage(t('supplierAdded'));
 }
 
 function renderFornecedores() {
@@ -1066,11 +1544,11 @@ function renderFornecedores() {
         .map(f => `
             <div class="supplier-card">
                 <h3>${f.nome}</h3>
-                <p><strong>Categoria:</strong> ${f.categoria}</p>
-                <p><strong>Contato:</strong> ${f.contato}</p>
-                <p><strong>Prazo:</strong> ${f.prazo}</p>
+                <p><strong>${t('category')}:</strong> ${f.categoria}</p>
+                <p><strong>${t('contact')}:</strong> ${f.contato}</p>
+                <p><strong>${t('paymentTerms')}:</strong> ${f.prazo}</p>
                 <button class="btn btn-small btn-danger" onclick="deleteFornecedor(${f.id})">
-                    <i class="fas fa-trash"></i> Deletar
+                    <i class="fas fa-trash"></i> ${t('delete')}
                 </button>
             </div>
         `).join('');
@@ -1152,7 +1630,7 @@ function generateMonthlyComparison() {
             labels: dates.map(d => d.toLocaleDateString('pt-BR', { month: 'short' })),
             datasets: [
                 {
-                    label: 'Ganhos',
+                    label: t('income'),
                     data: income,
                     borderColor: '#10b981',
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -1160,7 +1638,7 @@ function generateMonthlyComparison() {
                     fill: true
                 },
                 {
-                    label: 'Gastos',
+                    label: t('expenses'),
                     data: expense,
                     borderColor: '#ff4757',
                     backgroundColor: 'rgba(255, 71, 87, 0.1)',
@@ -1196,12 +1674,12 @@ function generateBimonthlyComparison() {
             labels: data.map(d => d.period),
             datasets: [
                 {
-                    label: 'Ganhos',
+                    label: t('income'),
                     data: data.map(d => d.income),
                     backgroundColor: '#10b981'
                 },
                 {
-                    label: 'Gastos',
+                    label: t('expenses'),
                     data: data.map(d => d.expense),
                     backgroundColor: '#ff4757'
                 }
@@ -1234,12 +1712,12 @@ function generateSemesterComparison() {
             labels: data.map(d => d.period),
             datasets: [
                 {
-                    label: 'Ganhos',
+                    label: t('income'),
                     data: data.map(d => d.income),
                     backgroundColor: '#10b981'
                 },
                 {
-                    label: 'Gastos',
+                    label: t('expenses'),
                     data: data.map(d => d.expense),
                     backgroundColor: '#ff4757'
                 }
@@ -1272,12 +1750,12 @@ function generateAnnualComparison() {
             labels: data.map(d => d.year),
             datasets: [
                 {
-                    label: 'Ganhos',
+                    label: t('income'),
                     data: data.map(d => d.income),
                     backgroundColor: '#10b981'
                 },
                 {
-                    label: 'Gastos',
+                    label: t('expenses'),
                     data: data.map(d => d.expense),
                     backgroundColor: '#ff4757'
                 }
@@ -1527,21 +2005,21 @@ function generateReport() {
 
     reportModal.innerHTML = `
         <div style="display: data-theme: dark; color: #333;">
-            <h2 style="margin-top: 0; color: #7c3aed;">Relatório Financeiro</h2>
-            <p><strong>Gerado em:</strong> ${reports.generatedAt}</p>
+            <h2 style="margin-top: 0; color: #7c3aed;">${t('financialReport')}</h2>
+            <p><strong>${t('generatedAt')}:</strong> ${reports.generatedAt}</p>
 
             <hr style="margin: 20px 0;">
 
-            <h3 style="color: #7c3aed;">RESUMO GERAL</h3>
-            <p><strong>Total de Ganhos:</strong> ${formatCurrency(reports.totalIncome)}</p>
-            <p><strong>Total de Gastos:</strong> ${formatCurrency(reports.totalExpense)}</p>
-            <p><strong>Saldo:</strong> ${formatCurrency(reports.balance)}</p>
-            <p><strong>Gasto Mensal Médio:</strong> ${formatCurrency(reports.monthlyAverage)}</p>
-            <p><strong>Total de Transações:</strong> ${reports.transactionCount}</p>
+            <h3 style="color: #7c3aed;">${t('generalSummary')}</h3>
+            <p><strong>${t('totalIncomeLabel')}:</strong> ${formatCurrency(reports.totalIncome)}</p>
+            <p><strong>${t('totalExpenseLabel')}:</strong> ${formatCurrency(reports.totalExpense)}</p>
+            <p><strong>${t('balanceLabel')}:</strong> ${formatCurrency(reports.balance)}</p>
+            <p><strong>${t('monthlyAverageExpense')}:</strong> ${formatCurrency(reports.monthlyAverage)}</p>
+            <p><strong>${t('totalTransactionsLabel')}:</strong> ${reports.transactionCount}</p>
 
             <hr style="margin: 20px 0;">
 
-            <h3 style="color: #7c3aed;">GASTO POR CATEGORIA</h3>
+            <h3 style="color: #7c3aed;">${t('expenseByCategory')}</h3>
             ${Object.entries(reports.categories).map(([cat, val]) =>
                 `<p><strong>${cat}:</strong> ${formatCurrency(val)}</p>`
             ).join('')}
@@ -1559,7 +2037,7 @@ function generateReport() {
                     <i class="fas fa-file-csv"></i> CSV
                 </button>
                 <button onclick="document.querySelector('[data-report-modal]').remove()" style="flex: 1; padding: 10px; background: #6b7280; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
-                    Fechar
+                    ${t('close')}
                 </button>
             </div>
         </div>
@@ -1576,17 +2054,17 @@ function exportPDF() {
     const element = document.createElement('div');
     element.style.cssText = 'padding: 20px; background: white; color: black;';
     element.innerHTML = `
-        <h2>Relatório Financeiro FinCore</h2>
-        <p>Gerado em: ${reports.generatedAt}</p>
+        <h2>${t('financialReport')} FinCore</h2>
+        <p>${t('generatedAt')}: ${reports.generatedAt}</p>
 
-        <h3>RESUMO GERAL</h3>
-        <p>Total de Ganhos: ${formatCurrency(reports.totalIncome)}</p>
-        <p>Total de Gastos: ${formatCurrency(reports.totalExpense)}</p>
-        <p>Saldo: ${formatCurrency(reports.balance)}</p>
-        <p>Gasto Mensal Médio: ${formatCurrency(reports.monthlyAverage)}</p>
-        <p>Total de Transações: ${reports.transactionCount}</p>
+        <h3>${t('generalSummary')}</h3>
+        <p>${t('totalIncomeLabel')}: ${formatCurrency(reports.totalIncome)}</p>
+        <p>${t('totalExpenseLabel')}: ${formatCurrency(reports.totalExpense)}</p>
+        <p>${t('balanceLabel')}: ${formatCurrency(reports.balance)}</p>
+        <p>${t('monthlyAverageExpense')}: ${formatCurrency(reports.monthlyAverage)}</p>
+        <p>${t('totalTransactionsLabel')}: ${reports.transactionCount}</p>
 
-        <h3>GASTO POR CATEGORIA</h3>
+        <h3>${t('expenseByCategory')}</h3>
         ${Object.entries(reports.categories).map(([cat, val]) =>
             `<p>${cat}: ${formatCurrency(val)}</p>`
         ).join('')}
@@ -1601,7 +2079,7 @@ function exportPDF() {
     };
 
     html2pdf().set(opt).from(element).save();
-    showSuccessMessage('Relatório em PDF baixado com sucesso!');
+    showSuccessMessage(t('reportPdfDownloaded'));
     document.querySelector('[data-report-modal]').remove();
 }
 
@@ -1610,15 +2088,15 @@ function exportExcel() {
     const wb = XLSX.utils.book_new();
 
     const resumoData = [
-        ['Relatório Financeiro FinCore'],
-        ['Gerado em:', reports.generatedAt],
+        [`${t('financialReport')} FinCore`],
+        [`${t('generatedAt')}:`, reports.generatedAt],
         [],
-        ['RESUMO GERAL'],
-        ['Total de Ganhos', formatCurrency(reports.totalIncome)],
-        ['Total de Gastos', formatCurrency(reports.totalExpense)],
-        ['Saldo', formatCurrency(reports.balance)],
-        ['Gasto Mensal Médio', formatCurrency(reports.monthlyAverage)],
-        ['Total de Transações', reports.transactionCount]
+        [t('generalSummary')],
+        [t('totalIncomeLabel'), formatCurrency(reports.totalIncome)],
+        [t('totalExpenseLabel'), formatCurrency(reports.totalExpense)],
+        [t('balanceLabel'), formatCurrency(reports.balance)],
+        [t('monthlyAverageExpense'), formatCurrency(reports.monthlyAverage)],
+        [t('totalTransactionsLabel'), reports.transactionCount]
     ];
 
     const wsResumo = XLSX.utils.aoa_to_sheet(resumoData);
@@ -1648,16 +2126,16 @@ function exportExcel() {
 function exportCSV() {
     const reports = window.currentReportData;
 
-    let csvContent = 'Relatório Financeiro FinCore\n';
-    csvContent += `Gerado em: ${reports.generatedAt}\n\n`;
-    csvContent += 'RESUMO GERAL\n';
-    csvContent += `Total de Ganhos,${reports.totalIncome}\n`;
-    csvContent += `Total de Gastos,${reports.totalExpense}\n`;
-    csvContent += `Saldo,${reports.balance}\n`;
-    csvContent += `Gasto Mensal Médio,${reports.monthlyAverage}\n`;
-    csvContent += `Total de Transações,${reports.transactionCount}\n\n`;
-    csvContent += 'GASTO POR CATEGORIA\n';
-    csvContent += 'Categoria,Valor\n';
+    let csvContent = `${t('financialReport')} FinCore\n`;
+    csvContent += `${t('generatedAt')}: ${reports.generatedAt}\n\n`;
+    csvContent += `${t('generalSummary')}\n`;
+    csvContent += `${t('totalIncomeLabel')},${reports.totalIncome}\n`;
+    csvContent += `${t('totalExpenseLabel')},${reports.totalExpense}\n`;
+    csvContent += `${t('balanceLabel')},${reports.balance}\n`;
+    csvContent += `${t('monthlyAverageExpense')},${reports.monthlyAverage}\n`;
+    csvContent += `${t('totalTransactionsLabel')},${reports.transactionCount}\n\n`;
+    csvContent += `${t('expenseByCategory')}\n`;
+    csvContent += `${t('category')},${t('amount')}\n`;
 
     Object.entries(reports.categories).forEach(([cat, val]) => {
         csvContent += `"${cat}",${val}\n`;
@@ -1695,19 +2173,28 @@ function renderCalendar(year, month) {
 
     if (!monthYearDisplay || !calendarTable) return;
 
-    const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-                       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    const monthNames = [
+        t('monthJanuary'), t('monthFebruary'), t('monthMarch'), t('monthApril'),
+        t('monthMay'), t('monthJune'), t('monthJuly'), t('monthAugust'),
+        t('monthSeptember'), t('monthOctober'), t('monthNovember'), t('monthDecember')
+    ];
+
+    const weekDayNames = [
+        t('dayShortSun'), t('dayShortMon'), t('dayShortTue'), t('dayShortWed'),
+        t('dayShortThu'), t('dayShortFri'), t('dayShortSat')
+    ];
 
     monthYearDisplay.textContent = `${monthNames[month]} ${year}`;
 
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
+    const headerCells = weekDayNames.map(dayName => `<th>${dayName}</th>`).join('');
+
     let html = `
         <thead>
             <tr>
-                <th>Dom</th><th>Seg</th><th>Ter</th><th>Qua</th>
-                <th>Qui</th><th>Sex</th><th>Sab</th>
+                ${headerCells}
             </tr>
         </thead>
         <tbody>
@@ -1823,21 +2310,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const confirm = document.getElementById('confirmPassword').value;
 
             if (newPass.length < 6) {
-                alert('A nova senha deve ter pelo menos 6 caracteres!');
+                alert(t('passwordMinLength6'));
                 return;
             }
 
             if (newPass !== confirm) {
-                alert('As senhas não conferem!');
+                alert(t('passwordsDontMatch'));
                 return;
             }
 
             try {
                 await Auth.updatePassword(newPass);
-                showSuccessMessage('Senha alterada com sucesso!');
+                showSuccessMessage(t('passwordChanged'));
                 cancelChangePassword();
             } catch (error) {
-                alert('Erro ao alterar senha.');
+                alert(t('passwordChangeError'));
             }
         });
     }
@@ -2303,6 +2790,7 @@ window.toggleTheme = toggleTheme;
 window.toggleAudioReader = toggleAudioReader;
 window.toggleLibras = toggleLibras;
 window.increaseFontSize = increaseFontSize;
+window.t = t;
 window.closeAccessibilityBanner = closeAccessibilityBanner;
 window.editSlogan = editSlogan;
 window.cancelEditSlogan = cancelEditSlogan;
