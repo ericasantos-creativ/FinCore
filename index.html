@@ -186,7 +186,8 @@
           <main class="main-content">
               <!-- DASHBOARD -->
               <section id="dashboard-section" class="content-section">
-                  <div class="cards-container">
+                  <div id="companyDashboards"></div>
+                  <div class="cards-container" id="overallDashboard" style="display: none;">
                       <div class="card card-balance">
                           <div class="card-icon">
                               <i class="fas fa-piggy-bank"></i>
@@ -224,6 +225,7 @@
                   <!-- ADICIONAR TRANSAÇÃO -->
                   <div class="add-transaction">
                       <h2 data-i18n="addTransaction">Adicionar Transação</h2>
+                      <p id="transEmpresaLabel" class="text-muted" style="display: none;"></p>
                       <form id="transactionForm" class="form-transaction">
                           <div class="form-row">
                               <div class="form-group">
@@ -244,6 +246,13 @@
                               <div class="form-group">
                                   <label for="transDescription" data-i18n="description">Descrição</label>
                                   <input type="text" id="transDescription" data-i18n="examples" placeholder="Ex: Salário, Compras..." required>
+                              </div>
+                          </div>
+
+                          <div class="form-row">
+                              <div class="form-group" id="transEmpresaGroup" style="display: none;">
+                                  <label for="transEmpresa">Empresa</label>
+                                  <select id="transEmpresa"></select>
                               </div>
                           </div>
 
@@ -316,34 +325,14 @@
               <section id="relatorios-section" class="content-section" style="display: none;">
                   <div class="section-header">
                       <h2 data-i18n="reportsAndAnalysis">Relatórios e Análises</h2>
-                  </div>
-                  <div class="reports-container">
-                      <div class="report-card">
-                          <h3 data-i18n="monthlyComparison">Comparativo Mensal</h3>
-                          <canvas id="monthlyChart"></canvas>
-                      </div>
-                      <div class="report-card">
-                          <h3 data-i18n="bimonthlyComparison">Comparativo Bimestral</h3>
-                          <canvas id="bimonthlyChart"></canvas>
-                      </div>
-                      <div class="report-card">
-                          <h3 data-i18n="semesterComparison">Comparativo Semestral</h3>
-                          <canvas id="semesterChart"></canvas>
-                      </div>
-                      <div class="report-card">
-                          <h3 data-i18n="annualComparison">Comparativo Anual</h3>
-                          <canvas id="annualChart"></canvas>
-                      </div>
-                      <div class="report-card">
-                          <h3 data-i18n="scenarioAnalysis">Análise de Cenários</h3>
-                          <div id="scenarioAnalysis"></div>
-                      </div>
-                      <div class="report-card">
-                          <h3 data-i18n="categoryDistribution">Distribuição por Categoria</h3>
-                          <canvas id="categoryChart"></canvas>
+                      <div class="filter-group" id="reportsEmpresaFilterGroup" style="min-width: 220px;">
+                          <label for="reportsEmpresaFilter">Empresa</label>
+                          <select id="reportsEmpresaFilter"></select>
                       </div>
                   </div>
-                  <button id="generateReportBtn" class="btn btn-primary"><i class="fas fa-download"></i> Gerar Relatório</button>
+                      </div>
+                  </div>
+                  <div id="reportsCompanies"></div>
               </section>
 
               <!-- SEÇÃO CONTAS A PAGAR/RECEBER -->
@@ -366,6 +355,10 @@
                               <div class="form-group">
                                   <label data-i18n="supplierLabel">Fornecedor</label>
                                   <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome do fornecedor" required>
+                              </div>
+                              <div class="form-group" id="contasPagarEmpresaGroup" style="display: none;">
+                                  <label>Empresa</label>
+                                  <select id="contasPagarEmpresa"></select>
                               </div>
                               <div class="form-group">
                                   <label data-i18n="amountLabel">Valor</label>
@@ -391,6 +384,10 @@
                                   <label data-i18n="clientLabel">Cliente</label>
                                   <input type="text" data-i18n="clientPlaceholder" placeholder="Nome do cliente" required>
                               </div>
+                              <div class="form-group" id="contasReceberEmpresaGroup" style="display: none;">
+                                  <label>Empresa</label>
+                                  <select id="contasReceberEmpresa"></select>
+                              </div>
                               <div class="form-group">
                                   <label data-i18n="amountLabel">Valor</label>
                                   <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
@@ -407,6 +404,10 @@
                   <div id="proLabore" class="tab-content">
                       <form id="formProLabore">
                           <div class="form-row">
+                              <div class="form-group" id="proLaboreEmpresaGroup" style="display: none;">
+                                  <label>Empresa</label>
+                                  <select id="proLaboreEmpresa"></select>
+                              </div>
                               <div class="form-group">
                                   <label>Valor Mensal (Pró-Labore Fixo)</label>
                                   <input type="number" id="proLaboreValor" step="0.01" placeholder="0.00" required>
@@ -485,6 +486,7 @@
                       <h2 data-i18n="suppliersListTitle">Lista de Fornecedores</h2>
                       <button class="btn btn-success" id="addFornecedorBtn"><i class="fas fa-plus"></i> <span data-i18n="newSupplier">Novo Fornecedor</span></button>
                   </div>
+                  </div>
                   <form id="formFornecedor">
                       <div class="form-row">
                           <div class="form-group">
@@ -493,7 +495,7 @@
                           </div>
                           <div class="form-group">
                               <label data-i18n="contact">Contato</label>
-                              <input type="text" data-i18n="contactPlaceholder" placeholder="Telefone/Email" required>
+                              <input type="tel" id="fornecedorContato" data-i18n="contactPlaceholder" placeholder="(65)99999-9999" inputmode="tel" pattern="\(\d{2}\)\d{5}-\d{4}" required>
                           </div>
                           <div class="form-group">
                               <label data-i18n="category">Categoria</label>
@@ -501,7 +503,7 @@
                           </div>
                           <div class="form-group">
                               <label data-i18n="paymentTerms">Prazo de Pagamento</label>
-                              <input type="text" data-i18n="paymentTermsPlaceholder" placeholder="Ex: 30 dias" required>
+                              <input type="number" id="fornecedorPrazo" data-i18n="paymentTermsPlaceholder" placeholder="Dias (ex: 30)" min="1" step="1" required>
                           </div>
                           <button type="submit" class="btn btn-success"><span data-i18n="add">Adicionar</span></button>
                       </div>

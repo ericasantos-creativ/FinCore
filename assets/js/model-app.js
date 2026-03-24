@@ -313,11 +313,44 @@ const TRANSLATIONS = {
         'amountPlaceholder': '0.00',
         'dueDateLabel': 'Data Vencimento',
         'dueDatePlaceholder': 'dd/mm/aaaa',
-        'registerBtn': 'Registrar'
-    },
-    'en': {
-        // Header
-        'audioReaderTitle': 'Activate audio reader',
+        'registerBtn': 'Registrar',
+        
+        // Confirmations
+        'confirmExit': 'Deseja realmente sair?',
+        'confirmDeleteCompany': 'Deseja realmente deletar esta empresa?',
+        'confirmDeleteSupplier': 'Deletar fornecedor?',
+        'revokeAccessConfirm': 'Tem certeza que deseja revogar o acesso?',
+        'loginWithAnotherAccount': 'Deseja fazer login com outra conta? Você será desconectado.',
+        'deleteAccountConfirm': 'Tem certeza que deseja deletar sua conta? Esta ação é irreversível!',
+        'deleteAccountFinalWarning': 'Esta é sua última chance! Todos os seus dados serão perdidos!',
+        
+        // Alerts
+        'phoneFormatError': 'Digite o telefone no formato (65)99999-9999',
+        'paymentTermsNumberError': 'Digite o prazo em dias (apenas números)',
+        'companyNotFound': 'Empresa não encontrada.',
+        'invalidEmail': 'Digite um email válido!',
+        'cannotShareWithSelf': 'Você não pode compartilhar com você mesmo!',
+        
+        // Success messages
+        'accountCreatedSuccess': 'Conta criada com sucesso!',
+        'companyDeletedSuccess': 'Empresa deletada!',
+        'supplierAdded': 'Fornecedor adicionado!',
+        'supplierDeletedSuccess': 'Fornecedor deletado!',
+        'investmentRegisteredSuccess': 'Investimento registrado!',
+        'reportExcelDownloadedSuccess': 'Relatório em EXCEL baixado com sucesso!',
+        'reportCsvDownloadedSuccess': 'Relatório em CSV baixado com sucesso!',
+        'sloganUpdatedSuccess': 'Slogan atualizado com sucesso!',
+        'accessRevokedSuccess': 'Acesso revogado!',
+        'accountDeletedSuccess': 'Conta deletada com sucesso!',
+        'accountPayableAddedSuccess': 'Conta a pagar adicionada!',
+        'accountReceivableAddedSuccess': 'Conta a receber adicionada!',
+
+        // Accessibility
+        'audioReaderActive': 'Desativar leitor de áudio',
+        'librasActive': 'Desativar intérprete de LIBRAS',
+        'languageChanged': 'Idioma alterado para Português',
+        'fontSizeMessage': 'Tamanho da fonte:',
+        'librasWindowMessage': 'Intérprete de LIBRAS\n<small>Aguardando ativação de texto</small>',
         'librasTitle': 'Activate LIBRAS interpreter',
         'fontSizeTitle': 'Increase font size',
         'themeToggleTitle': 'Toggle theme',
@@ -509,6 +542,36 @@ const TRANSLATIONS = {
         'dueDateLabel': 'Due date',
         'dueDatePlaceholder': 'yyyy-mm-dd',
         'registerBtn': 'Register',
+        
+        // Confirmations
+        'confirmExit': 'Do you really want to exit?',
+        'confirmDeleteCompany': 'Do you really want to delete this company?',
+        'confirmDeleteSupplier': 'Delete supplier?',
+        'revokeAccessConfirm': 'Are you sure you want to revoke access?',
+        'loginWithAnotherAccount': 'Do you want to login with another account? You will be logged out.',
+        'deleteAccountConfirm': 'Are you sure you want to delete your account? This action is irreversible!',
+        'deleteAccountFinalWarning': 'This is your last chance! All your data will be lost!',
+        
+        // Alerts
+        'phoneFormatError': 'Enter the phone in format (65)99999-9999',
+        'paymentTermsNumberError': 'Enter the payment terms in days (numbers only)',
+        'companyNotFound': 'Company not found.',
+        'invalidEmail': 'Enter a valid email!',
+        'cannotShareWithSelf': 'You cannot share with yourself!',
+        
+        // Success messages
+        'accountCreatedSuccess': 'Account created successfully!',
+        'companyDeletedSuccess': 'Company deleted!',
+        'supplierAdded': 'Supplier added!',
+        'supplierDeletedSuccess': 'Supplier deleted!',
+        'investmentRegisteredSuccess': 'Investment registered!',
+        'reportExcelDownloadedSuccess': 'Excel report downloaded successfully!',
+        'reportCsvDownloadedSuccess': 'CSV report downloaded successfully!',
+        'sloganUpdatedSuccess': 'Slogan updated successfully!',
+        'accessRevokedSuccess': 'Access revoked!',
+        'accountDeletedSuccess': 'Account deleted successfully!',
+        'accountPayableAddedSuccess': 'Payable account added!',
+        'accountReceivableAddedSuccess': 'Receivable account added!',
 
         // Accessibility
         'audioReaderActive': 'Deactivate audio reader',
@@ -737,8 +800,23 @@ function getStoredUser() {
     }
 }
 
+function getLastUserEmail() {
+    return storageGet('lastUserEmail');
+}
+
 // ==================== INICIALIZAÇÃO ====================
 async function initApp() {
+    const loginScreen = document.getElementById('loginScreen');
+    const mainScreen = document.getElementById('mainScreen');
+    if (loginScreen) {
+        loginScreen.classList.remove('active');
+        loginScreen.style.display = 'none';
+    }
+    if (mainScreen) {
+        mainScreen.classList.remove('active');
+        mainScreen.style.display = 'none';
+    }
+
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations()
             .then((regs) => Promise.all(regs.map((reg) => reg.unregister())))
@@ -759,7 +837,15 @@ async function initApp() {
                 loadUserData();
                 setTimeout(() => transitionFromSplash('main'), 1600);
             } else {
-                setTimeout(() => transitionFromSplash('login'), 1600);
+                const lastEmail = getLastUserEmail();
+                if (lastEmail) {
+                    currentUser = { email: lastEmail, name: lastEmail.split('@')[0] || 'Usuário' };
+                    storageSet('currentUser', JSON.stringify(currentUser));
+                    loadUserData();
+                    setTimeout(() => transitionFromSplash('main'), 1600);
+                } else {
+                    setTimeout(() => transitionFromSplash('login'), 1600);
+                }
             }
             return;
         }
@@ -843,6 +929,13 @@ function setupEventListeners() {
         document.getElementById('generateReportBtn').addEventListener('click', generateReport);
     }
 
+    const reportsFilter = document.getElementById('reportsEmpresaFilter');
+    if (reportsFilter) {
+        reportsFilter.addEventListener('change', () => {
+            renderReportsByCompany();
+        });
+    }
+
     if (document.getElementById('formContasPagar')) {
         document.getElementById('formContasPagar').addEventListener('submit', handleAddContaPagar);
     }
@@ -851,6 +944,17 @@ function setupEventListeners() {
     }
     if (document.getElementById('formProLabore')) {
         document.getElementById('formProLabore').addEventListener('submit', handleSetProLabore);
+    }
+
+    if (document.getElementById('formFornecedor')) {
+        document.getElementById('formFornecedor').addEventListener('submit', handleAddFornecedor);
+    }
+
+    const fornecedorContato = document.getElementById('fornecedorContato');
+    if (fornecedorContato) {
+        fornecedorContato.addEventListener('input', () => {
+            fornecedorContato.value = formatPhoneValue(fornecedorContato.value);
+        });
     }
 }
 
@@ -862,7 +966,7 @@ async function handleLogin(e) {
     const password = document.getElementById('loginPassword').value;
 
     if (!email || !password) {
-        alert('Por favor, preencha todos os campos');
+        alert(t('fillAllFields'));
         return;
     }
 
@@ -870,6 +974,7 @@ async function handleLogin(e) {
         clearLegacyAuthStorage();
         currentUser = { email, name: email.split('@')[0] || 'Usuário' };
         storageSet('currentUser', JSON.stringify(currentUser));
+        storageSet('lastUserEmail', email);
         loadUserData();
         showMainScreen();
         clearLoginForm();
@@ -920,6 +1025,7 @@ async function handleRegister(e) {
         clearLegacyAuthStorage();
         currentUser = { email, name };
         storageSet('currentUser', JSON.stringify(currentUser));
+        storageSet('lastUserEmail', email);
         loadUserData();
         showMainScreen();
         clearRegisterForm();
@@ -947,14 +1053,14 @@ async function handleRegister(e) {
         loadUserData();
         showMainScreen();
         clearRegisterForm();
-        showSuccessMessage('Conta criada com sucesso!');
+        showSuccessMessage(t('accountCreatedSuccess'));
     } catch (error) {
         alert(error.message || 'Erro ao criar conta.');
     }
 }
 
 async function handleLogout() {
-    if (confirm('Deseja realmente sair?')) {
+    if (confirm(t('confirmExit'))) {
         if (!DEMO_AUTH) {
             try {
                 await Auth.logout();
@@ -1030,6 +1136,7 @@ function showMainScreen() {
     document.getElementById('userName').textContent = currentUser.name;
     setTodayDate();
     updateCategoryOptions();
+    updateTransactionEmpresaOptions();
     updateDashboard();
     showSection('dashboard');
 }
@@ -1053,6 +1160,7 @@ function showSection(section) {
     if (section === 'dashboard') {
         updateDashboard();
     } else if (section === 'transacoes') {
+        updateTransactionEmpresaOptions();
         renderTransactions();
     } else if (section === 'empresas') {
         renderEmpresas();
@@ -1065,12 +1173,19 @@ function showSection(section) {
     } else if (section === 'perfil') {
         renderProfile();
     } else if (section === 'relatorios') {
+        updateReportsEmpresaOptions();
         setTimeout(initCharts, 300);
     } else if (section === 'contas') {
+        updateContasEmpresaOptions();
         loadContasData();
     } else if (section === 'calendario') {
         initCalendar();
     }
+}
+
+function isSectionVisible(sectionId) {
+    const el = document.getElementById(sectionId);
+    return !!el && el.style.display !== 'none';
 }
 
 // ==================== EMPRESAS ====================
@@ -1083,18 +1198,28 @@ function renderEmpresas() {
         return;
     }
 
-    container.innerHTML = empresas.map(emp => `
-        <div class="empresa-card" onclick="selectEmpresa(${emp.id})">
-            <h3>${emp.nome}</h3>
-            <p class="text-muted">${emp.tipo}</p>
-            <p><strong>${t('cnpjCpfLabel')}:</strong> ${emp.documento}</p>
-            <p><strong>${t('balanceLabel')}:</strong> ${formatCurrency(emp.saldo || 0)}</p>
-            <div class="card-actions">
-                <button class="btn btn-small" onclick="editEmpresa(${emp.id}, event)"><i class="fas fa-edit"></i> ${t('edit')}</button>
-                <button class="btn btn-small btn-danger" onclick="deleteEmpresa(${emp.id}, event)"><i class="fas fa-trash"></i> ${t('delete')}</button>
+    container.innerHTML = empresas.map(emp => {
+        const income = transactions
+            .filter(t => t.type === 'ganho' && isSameEmpresaId(t.empresaId, emp.id))
+            .reduce((sum, t) => sum + t.amount, 0);
+        const expenses = transactions
+            .filter(t => t.type === 'gasto' && isSameEmpresaId(t.empresaId, emp.id))
+            .reduce((sum, t) => sum + t.amount, 0);
+        const balance = income - expenses;
+
+        return `
+            <div class="empresa-card" onclick="selectEmpresa(${emp.id})">
+                <h3>${emp.nome}</h3>
+                <p class="text-muted">${emp.tipo}</p>
+                <p><strong>${t('cnpjCpfLabel')}:</strong> ${emp.documento}</p>
+                <p><strong>${t('balanceLabel')}:</strong> ${formatCurrency(balance)}</p>
+                <div class="card-actions">
+                    <button class="btn btn-small" onclick="editEmpresa(${emp.id}, event)"><i class="fas fa-edit"></i> ${t('edit')}</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteEmpresa(${emp.id}, event)"><i class="fas fa-trash"></i> ${t('delete')}</button>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function selectEmpresa(id) {
@@ -1110,8 +1235,23 @@ function openEmpresaModal() {
     const nome = prompt('Nome da Empresa/Negócio:');
     if (!nome) return;
 
-    const tipo = prompt('Tipo (PJ - Pessoa Jurídica / PF - Pessoa Física):');
+    let tipo = prompt('Tipo (PJ - Pessoa Jurídica / PF - Pessoa Física):');
     if (!tipo) return;
+    tipo = tipo.trim().toLowerCase();
+    const tipoMap = {
+        pj: 'PJ',
+        'pessoa juridica': 'PJ',
+        'pessoa jurídica': 'PJ',
+        pf: 'PF',
+        'pessoa fisica': 'PF',
+        'pessoa física': 'PF'
+    };
+    while (!tipoMap[tipo]) {
+        tipo = prompt('Digite somente: PJ, PF, Pessoa Juridica ou Pessoa Fisica.');
+        if (!tipo) return;
+        tipo = tipo.trim().toLowerCase();
+    }
+    tipo = tipoMap[tipo];
 
     const documento = prompt('CNPJ/CPF:');
     if (!documento) return;
@@ -1129,7 +1269,13 @@ function openEmpresaModal() {
     empresas.push(empresa);
     saveUserData();
     renderEmpresas();
+    updateTransactionEmpresaOptions();
+    updateContasEmpresaOptions();
     updateDashboard();
+    if (isSectionVisible('relatorios-section')) {
+        updateReportsEmpresaOptions();
+        renderReportsByCompany();
+    }
     showSuccessMessage(t('companyCreated'));
 }
 
@@ -1144,18 +1290,30 @@ function editEmpresa(id, e) {
         emp.nome = trimmed;
         saveUserData();
         renderEmpresas();
+        updateTransactionEmpresaOptions();
+        updateContasEmpresaOptions();
+        if (isSectionVisible('relatorios-section')) {
+            updateReportsEmpresaOptions();
+            renderReportsByCompany();
+        }
         showSuccessMessage(t('companyUpdated'));
     }
 }
 
 function deleteEmpresa(id, e) {
     if (e) e.stopPropagation();
-    if (confirm('Deseja realmente deletar esta empresa?')) {
+    if (confirm(t('confirmDeleteCompany'))) {
         empresas = empresas.filter(e => e.id !== id);
         if (currentEmpresa?.id === id) currentEmpresa = null;
         saveUserData();
         renderEmpresas();
-        showSuccessMessage('Empresa deletada!');
+        updateTransactionEmpresaOptions();
+        updateContasEmpresaOptions();
+        if (isSectionVisible('relatorios-section')) {
+            updateReportsEmpresaOptions();
+            renderReportsByCompany();
+        }
+        showSuccessMessage(t('companyDeletedSuccess'));
     }
 }
 
@@ -1167,6 +1325,9 @@ function handleAddTransaction(e) {
     const description = document.getElementById('transDescription').value.trim();
     const amount = parseFloat(document.getElementById('transAmount').value);
     const date = document.getElementById('transDate').value;
+    const empresaSelect = document.getElementById('transEmpresa');
+    const selectedEmpresaId = empresaSelect && empresaSelect.value ? parseInt(empresaSelect.value, 10) : null;
+    const empresaId = selectedEmpresaId || currentEmpresa?.id || getFallbackEmpresaId();
 
     if (!category || !description || !amount || !date) {
         alert(t('fillAllFields'));
@@ -1186,7 +1347,7 @@ function handleAddTransaction(e) {
         amount,
         date,
         timestamp: new Date().getTime(),
-        empresaId: currentEmpresa?.id,
+        empresaId,
         fixed: false,
         variable: false
     };
@@ -1195,11 +1356,63 @@ function handleAddTransaction(e) {
     saveUserData();
     renderTransactions();
     updateDashboard();
+    if (isSectionVisible('relatorios-section')) {
+        renderReportsByCompany();
+    }
 
     document.getElementById('transactionForm').reset();
     setTodayDate();
     updateCategoryOptions();
+    updateTransactionEmpresaOptions();
     showSuccessMessage(t('transactionAdded'));
+}
+
+function updateTransactionEmpresaOptions() {
+    const group = document.getElementById('transEmpresaGroup');
+    const select = document.getElementById('transEmpresa');
+    const label = document.getElementById('transEmpresaLabel');
+    if (!group || !select) return;
+
+    if (!empresas || empresas.length === 0) {
+        group.style.display = 'none';
+        select.innerHTML = '';
+        if (label) label.style.display = 'none';
+        return;
+    }
+
+    if (empresas.length === 1) {
+        const only = empresas[0];
+        group.style.display = 'none';
+        select.innerHTML = `<option value="${only.id}">${only.nome}</option>`;
+        if (label) {
+            label.textContent = `Empresa selecionada: ${only.nome}`;
+            label.style.display = 'block';
+        }
+        return;
+    }
+
+    group.style.display = 'block';
+    const options = empresas
+        .map(emp => `<option value="${emp.id}">${emp.nome}</option>`)
+        .join('');
+    select.innerHTML = options;
+
+    const fallbackId = currentEmpresa?.id || getFallbackEmpresaId();
+    if (fallbackId) {
+        select.value = String(fallbackId);
+    }
+
+    if (label) {
+        const selected = empresas.find(emp => String(emp.id) === select.value);
+        label.textContent = selected ? `Empresa selecionada: ${selected.nome}` : '';
+        label.style.display = selected ? 'block' : 'none';
+    }
+}
+
+function getFallbackEmpresaId() {
+    if (!empresas || empresas.length === 0) return null;
+    const ordered = [...empresas].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    return ordered[0]?.id || null;
 }
 
 function deleteTransaction(id) {
@@ -1208,6 +1421,9 @@ function deleteTransaction(id) {
         saveUserData();
         renderTransactions();
         updateDashboard();
+        if (isSectionVisible('relatorios-section')) {
+            renderReportsByCompany();
+        }
         showSuccessMessage(t('transactionRemoved'));
     }
 }
@@ -1243,6 +1459,7 @@ function createTransactionHTML(transaction) {
     const icon = ICONS_MAP[transaction.category] || 'fas fa-circle';
     const symbol = transaction.type === 'ganho' ? '+' : '-';
     const amount = formatCurrency(transaction.amount);
+    const companyName = empresas.find(e => e.id === transaction.empresaId)?.nome || 'Sem empresa';
 
     return `
         <div class="transaction-item ${transaction.type}">
@@ -1253,6 +1470,7 @@ function createTransactionHTML(transaction) {
                 <div class="transaction-info">
                     <h4>${transaction.description}</h4>
                     <p>${formattedDate}</p>
+                    <span class="transaction-company">Empresa: ${companyName}</span>
                     <span class="transaction-category">${transaction.category}</span>
                 </div>
             </div>
@@ -1270,6 +1488,9 @@ function createTransactionHTML(transaction) {
 
 // ==================== DASHBOARD ====================
 function updateDashboard() {
+    normalizeTransactionsEmpresaIds();
+    renderCompanyDashboards();
+
     const income = transactions
         .filter(t => t.type === 'ganho' && (!currentEmpresa || t.empresaId === currentEmpresa.id))
         .reduce((sum, t) => sum + t.amount, 0);
@@ -1287,6 +1508,88 @@ function updateDashboard() {
     if (currentEmpresa) {
         currentEmpresa.saldo = balance;
     }
+}
+
+function isSameEmpresaId(a, b) {
+    if (a === null || a === undefined || b === null || b === undefined) return false;
+    return String(a) === String(b);
+}
+
+function normalizeTransactionsEmpresaIds() {
+    if (!empresas || empresas.length === 0) return;
+    const fallbackId = currentEmpresa?.id || getFallbackEmpresaId();
+    if (!fallbackId) return;
+
+    let updated = false;
+    transactions.forEach((t) => {
+        if (!t.empresaId) {
+            t.empresaId = fallbackId;
+            updated = true;
+        }
+    });
+
+    if (updated) {
+        saveUserData();
+    }
+}
+
+function renderCompanyDashboards() {
+    const container = document.getElementById('companyDashboards');
+    if (!container) return;
+
+    if (!empresas || empresas.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+
+    const ordered = [...empresas].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+    container.innerHTML = ordered.map((emp) => {
+        const income = transactions
+            .filter(t => t.type === 'ganho' && isSameEmpresaId(t.empresaId, emp.id))
+            .reduce((sum, t) => sum + t.amount, 0);
+
+        const expenses = transactions
+            .filter(t => t.type === 'gasto' && isSameEmpresaId(t.empresaId, emp.id))
+            .reduce((sum, t) => sum + t.amount, 0);
+
+        const balance = income - expenses;
+
+        return `
+            <div class="company-dashboard">
+                <h3 class="company-dashboard-title">Empresa: ${emp.nome}</h3>
+                <div class="cards-container company-cards">
+                    <div class="card card-balance">
+                        <div class="card-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Saldo</h3>
+                            <p class="amount">${formatCurrency(balance)}</p>
+                        </div>
+                    </div>
+                    <div class="card card-income">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Ganhos</h3>
+                            <p class="amount income">${formatCurrency(income)}</p>
+                        </div>
+                    </div>
+                    <div class="card card-expense">
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Gastos</h3>
+                            <p class="amount expense">${formatCurrency(expenses)}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // ==================== FILTROS ====================
@@ -1352,6 +1655,8 @@ function handleAddContaPagar(e) {
     e.preventDefault();
     const form = e.target;
     const inputs = form.querySelectorAll('input');
+    const empresaSelect = document.getElementById('contasPagarEmpresa');
+    const empresaId = empresaSelect && empresaSelect.value ? parseInt(empresaSelect.value, 10) : (currentEmpresa?.id || getFallbackEmpresaId());
 
     const conta = {
         id: Date.now(),
@@ -1360,20 +1665,22 @@ function handleAddContaPagar(e) {
         valor: parseFloat(inputs[2].value),
         dataVencimento: inputs[3].value,
         status: 'pendente',
-        empresaId: currentEmpresa?.id
+        empresaId
     };
 
     contasPagar.push(conta);
     saveUserData();
     loadContasData();
     form.reset();
-    showSuccessMessage('Conta a pagar adicionada!');
+    showSuccessMessage(t('accountPayableAddedSuccess'));
 }
 
 function handleAddContaReceber(e) {
     e.preventDefault();
     const form = e.target;
     const inputs = form.querySelectorAll('input');
+    const empresaSelect = document.getElementById('contasReceberEmpresa');
+    const empresaId = empresaSelect && empresaSelect.value ? parseInt(empresaSelect.value, 10) : (currentEmpresa?.id || getFallbackEmpresaId());
 
     const conta = {
         id: Date.now(),
@@ -1382,23 +1689,64 @@ function handleAddContaReceber(e) {
         valor: parseFloat(inputs[2].value),
         dataVencimento: inputs[3].value,
         status: 'pendente',
-        empresaId: currentEmpresa?.id
+        empresaId
     };
 
     contasReceber.push(conta);
     saveUserData();
     loadContasData();
     form.reset();
-    showSuccessMessage('Conta a receber adicionada!');
+    showSuccessMessage(t('accountReceivableAddedSuccess'));
 }
 
 function handleSetProLabore(e) {
     e.preventDefault();
+    const empresaSelect = document.getElementById('proLaboreEmpresa');
+    const empresaId = empresaSelect && empresaSelect.value ? parseInt(empresaSelect.value, 10) : (currentEmpresa?.id || getFallbackEmpresaId());
     const valor = parseFloat(document.getElementById('proLaboreValor').value);
     proLabore = valor;
+    if (empresaId) {
+        currentEmpresa = empresas.find(e => e.id === empresaId) || currentEmpresa;
+    }
     saveUserData();
     showSuccessMessage(`Pró-Labore fixo definido em ${formatCurrency(valor)}`);
     updateProLaboreInfo();
+}
+
+function updateContasEmpresaOptions() {
+    const groups = [
+        { groupId: 'contasPagarEmpresaGroup', selectId: 'contasPagarEmpresa' },
+        { groupId: 'contasReceberEmpresaGroup', selectId: 'contasReceberEmpresa' },
+        { groupId: 'proLaboreEmpresaGroup', selectId: 'proLaboreEmpresa' }
+    ];
+
+    if (!empresas || empresas.length === 0) {
+        groups.forEach(({ groupId, selectId }) => {
+            const group = document.getElementById(groupId);
+            const select = document.getElementById(selectId);
+            if (group) group.style.display = 'none';
+            if (select) select.innerHTML = '';
+        });
+        return;
+    }
+
+    const shouldShow = empresas.length > 1;
+    const options = empresas
+        .map(emp => `<option value="${emp.id}">${emp.nome}</option>`)
+        .join('');
+
+    groups.forEach(({ groupId, selectId }) => {
+        const group = document.getElementById(groupId);
+        const select = document.getElementById(selectId);
+        if (!group || !select) return;
+        group.style.display = shouldShow ? 'block' : 'none';
+        select.innerHTML = options;
+
+        const fallbackId = currentEmpresa?.id || getFallbackEmpresaId();
+        if (fallbackId) {
+            select.value = String(fallbackId);
+        }
+    });
 }
 
 function loadContasData() {
@@ -1554,12 +1902,65 @@ function renderFornecedores() {
         `).join('');
 }
 
+function handleAddFornecedor(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input');
+    const nome = inputs[0].value.trim();
+    const contatoRaw = formatPhoneValue(inputs[1].value.trim());
+    const categoria = inputs[2].value.trim();
+    const prazoRaw = inputs[3].value.trim();
+
+    if (!nome || !contatoRaw || !categoria || !prazoRaw) {
+        alert(t('fillAllFields'));
+        return;
+    }
+
+    const phonePattern = /^\(\d{2}\)\d{5}-\d{4}$/;
+    if (!phonePattern.test(contatoRaw)) {
+        alert(t('phoneFormatError'));
+        return;
+    }
+
+    const prazo = parseInt(prazoRaw, 10);
+    if (Number.isNaN(prazo) || prazo <= 0) {
+        alert(t('paymentTermsNumberError'));
+        return;
+    }
+
+    const fornecedor = {
+        id: Date.now(),
+        nome,
+        contato: contatoRaw,
+        categoria,
+        prazo: `${prazo} dias`,
+        empresaId: currentEmpresa?.id || getFallbackEmpresaId()
+    };
+
+    fornecedores.push(fornecedor);
+    saveUserData();
+    renderFornecedores();
+    form.reset();
+    showSuccessMessage(t('supplierAdded'));
+}
+
+function formatPhoneValue(value) {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+    if (digits.length <= 2) {
+        return digits ? `(${digits}` : '';
+    }
+    if (digits.length <= 7) {
+        return `(${digits.slice(0, 2)})${digits.slice(2)}`;
+    }
+    return `(${digits.slice(0, 2)})${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
 function deleteFornecedor(id) {
-    if (confirm('Deletar fornecedor?')) {
+    if (confirm(t('confirmDeleteSupplier'))) {
         fornecedores = fornecedores.filter(f => f.id !== id);
         saveUserData();
         renderFornecedores();
-        showSuccessMessage('Fornecedor deletado!');
+        showSuccessMessage(t('supplierDeletedSuccess'));
     }
 }
 
@@ -1586,7 +1987,7 @@ function openInvestimentoModal() {
     investimentos.push(investimento);
     saveUserData();
     renderInvestimentos();
-    showSuccessMessage('Investimento registrado!');
+    showSuccessMessage(t('investmentRegisteredSuccess'));
 }
 
 function renderInvestimentos() {
@@ -1607,21 +2008,115 @@ function renderInvestimentos() {
 
 // ==================== GRÁFICOS ====================
 function initCharts() {
-    generateMonthlyComparison();
-    generateBimonthlyComparison();
-    generateSemesterComparison();
-    generateAnnualComparison();
-    generateCategoryChart();
-    generateScenarioAnalysis();
+    renderReportsByCompany();
 }
 
-function generateMonthlyComparison() {
-    const container = document.getElementById('monthlyChart');
+function updateReportsEmpresaOptions() {
+    const select = document.getElementById('reportsEmpresaFilter');
+    const group = document.getElementById('reportsEmpresaFilterGroup');
+    if (!select || !group) return;
+
+    if (!empresas || empresas.length <= 1) {
+        group.style.display = 'none';
+        select.innerHTML = '';
+        return;
+    }
+
+    group.style.display = 'block';
+    const options = ['<option value="all">Todas as empresas</option>']
+        .concat(empresas.map(emp => `<option value="${emp.id}">${emp.nome}</option>`))
+        .join('');
+    select.innerHTML = options;
+
+    if (!select.value) {
+        select.value = 'all';
+    }
+}
+
+function renderReportsByCompany() {
+    const container = document.getElementById('reportsCompanies');
+    if (!container) return;
+
+    if (!empresas || empresas.length === 0) {
+        container.innerHTML = `<p class="empty-message">${t('noCompanies')}</p>`;
+        return;
+    }
+
+    const ordered = [...empresas].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    const filterSelect = document.getElementById('reportsEmpresaFilter');
+    const selectedId = filterSelect && filterSelect.value && filterSelect.value !== 'all'
+        ? parseInt(filterSelect.value, 10)
+        : null;
+
+    const filteredCompanies = selectedId
+        ? ordered.filter((emp) => emp.id === selectedId)
+        : ordered;
+
+    const withTransactions = filteredCompanies.filter((emp) =>
+        transactions.some((t) => t.empresaId === emp.id)
+    );
+
+    if (withTransactions.length === 0) {
+        container.innerHTML = selectedId
+            ? '<p class="empty-message">Esta empresa não possui transações registradas para gerar relatórios.</p>'
+            : '<p class="empty-message">Nenhuma empresa possui transações registradas para gerar relatórios.</p>';
+        return;
+    }
+
+    container.innerHTML = withTransactions.map((emp) => `
+        <div class="company-dashboard">
+            <div class="section-header">
+                <h3 class="company-dashboard-title">Empresa: ${emp.nome}</h3>
+                <button class="btn btn-small btn-primary" onclick="generateReportForCompany(${emp.id})">
+                    <i class="fas fa-download"></i> Gerar Relatório
+                </button>
+            </div>
+            <div class="reports-container">
+                <div class="report-card">
+                    <h3>Comparativo Mensal</h3>
+                    <canvas id="monthlyChart-${emp.id}"></canvas>
+                </div>
+                <div class="report-card">
+                    <h3>Comparativo Bimestral</h3>
+                    <canvas id="bimonthlyChart-${emp.id}"></canvas>
+                </div>
+                <div class="report-card">
+                    <h3>Comparativo Semestral</h3>
+                    <canvas id="semesterChart-${emp.id}"></canvas>
+                </div>
+                <div class="report-card">
+                    <h3>Comparativo Anual</h3>
+                    <canvas id="annualChart-${emp.id}"></canvas>
+                </div>
+                <div class="report-card">
+                    <h3>Análise de Cenários</h3>
+                    <div id="scenarioAnalysis-${emp.id}"></div>
+                </div>
+                <div class="report-card">
+                    <h3>Distribuição por Categoria</h3>
+                    <canvas id="categoryChart-${emp.id}"></canvas>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    withTransactions.forEach((emp) => {
+        generateMonthlyComparison(emp.id, `monthlyChart-${emp.id}`);
+        generateBimonthlyComparison(emp.id, `bimonthlyChart-${emp.id}`);
+        generateSemesterComparison(emp.id, `semesterChart-${emp.id}`);
+        generateAnnualComparison(emp.id, `annualChart-${emp.id}`);
+        generateCategoryChart(emp.id, `categoryChart-${emp.id}`);
+        generateScenarioAnalysis(emp.id, `scenarioAnalysis-${emp.id}`);
+    });
+}
+
+function generateMonthlyComparison(companyId, canvasId) {
+    const container = document.getElementById(canvasId || 'monthlyChart');
     if (!container) return;
 
     const dates = getLast12Months();
-    const income = dates.map(date => getMonthIncome(date));
-    const expense = dates.map(date => getMonthExpense(date));
+    const income = dates.map(date => getMonthIncome(date, companyId));
+    const expense = dates.map(date => getMonthExpense(date, companyId));
 
     const ctx = container.getContext('2d');
     new Chart(ctx, {
@@ -1656,15 +2151,15 @@ function generateMonthlyComparison() {
     });
 }
 
-function generateBimonthlyComparison() {
-    const container = document.getElementById('bimonthlyChart');
+function generateBimonthlyComparison(companyId, canvasId) {
+    const container = document.getElementById(canvasId || 'bimonthlyChart');
     if (!container) return;
 
     const bimonths = getLast6Bimonths();
     const data = bimonths.map(bm => ({
         period: bm,
-        income: getBimonthIncome(bm),
-        expense: getBimonthExpense(bm)
+        income: getBimonthIncome(bm, companyId),
+        expense: getBimonthExpense(bm, companyId)
     }));
 
     const ctx = container.getContext('2d');
@@ -1694,15 +2189,15 @@ function generateBimonthlyComparison() {
     });
 }
 
-function generateSemesterComparison() {
-    const container = document.getElementById('semesterChart');
+function generateSemesterComparison(companyId, canvasId) {
+    const container = document.getElementById(canvasId || 'semesterChart');
     if (!container) return;
 
     const semesters = getLastSemesters();
     const data = semesters.map(sem => ({
         period: sem,
-        income: getSemesterIncome(sem),
-        expense: getSemesterExpense(sem)
+        income: getSemesterIncome(sem, companyId),
+        expense: getSemesterExpense(sem, companyId)
     }));
 
     const ctx = container.getContext('2d');
@@ -1732,15 +2227,15 @@ function generateSemesterComparison() {
     });
 }
 
-function generateAnnualComparison() {
-    const container = document.getElementById('annualChart');
+function generateAnnualComparison(companyId, canvasId) {
+    const container = document.getElementById(canvasId || 'annualChart');
     if (!container) return;
 
     const years = getLastYears();
     const data = years.map(year => ({
         year,
-        income: getYearIncome(year),
-        expense: getYearExpense(year)
+        income: getYearIncome(year, companyId),
+        expense: getYearExpense(year, companyId)
     }));
 
     const ctx = container.getContext('2d');
@@ -1770,11 +2265,11 @@ function generateAnnualComparison() {
     });
 }
 
-function generateCategoryChart() {
-    const container = document.getElementById('categoryChart');
+function generateCategoryChart(companyId, canvasId) {
+    const container = document.getElementById(canvasId || 'categoryChart');
     if (!container) return;
 
-    const categoryData = getExpensesByCategory();
+    const categoryData = getExpensesByCategory(companyId);
     const ctx = container.getContext('2d');
     new Chart(ctx, {
         type: 'doughnut',
@@ -1797,13 +2292,13 @@ function generateCategoryChart() {
     });
 }
 
-function generateScenarioAnalysis() {
-    const container = document.getElementById('scenarioAnalysis');
+function generateScenarioAnalysis(companyId, containerId) {
+    const container = document.getElementById(containerId || 'scenarioAnalysis');
     if (!container) return;
 
-    const currentBalance = getTotalBalance();
-    const monthlyAvg = getMonthlyAverageExpense();
-    const months = Math.floor(currentBalance / monthlyAvg) || 0;
+    const currentBalance = getTotalBalance(companyId);
+    const monthlyAvg = getMonthlyAverageExpense(companyId);
+    const months = monthlyAvg > 0 ? Math.floor(currentBalance / monthlyAvg) : 0;
 
     container.innerHTML = `
         <div style="padding: 20px;">
@@ -1862,19 +2357,27 @@ function getLastYears() {
     return years;
 }
 
-function getMonthIncome(date) {
+function getMonthIncome(date, companyId) {
     return transactions
-        .filter(t => t.type === 'ganho' && new Date(t.date).getMonth() === date.getMonth())
+        .filter(t => {
+            const tDate = new Date(t.date);
+            const matchCompany = companyId ? t.empresaId === companyId : true;
+            return t.type === 'ganho' && tDate.getMonth() === date.getMonth() && matchCompany;
+        })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getMonthExpense(date) {
+function getMonthExpense(date, companyId) {
     return transactions
-        .filter(t => t.type === 'gasto' && new Date(t.date).getMonth() === date.getMonth())
+        .filter(t => {
+            const tDate = new Date(t.date);
+            const matchCompany = companyId ? t.empresaId === companyId : true;
+            return t.type === 'gasto' && tDate.getMonth() === date.getMonth() && matchCompany;
+        })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getBimonthIncome(bmStr) {
+function getBimonthIncome(bmStr, companyId) {
     const [month, year] = bmStr.split('/').map(Number);
     const startMonth = (month - 1) * 2;
     const endMonth = startMonth + 1;
@@ -1885,13 +2388,14 @@ function getBimonthIncome(bmStr) {
             const tDate = new Date(t.date);
             const tMonth = tDate.getMonth();
             const tYear = tDate.getFullYear();
-            return t.type === 'ganho' && tYear === fullYear &&
-                   (tMonth === startMonth || tMonth === endMonth);
+                 const matchCompany = companyId ? t.empresaId === companyId : true;
+                 return t.type === 'ganho' && tYear === fullYear &&
+                     (tMonth === startMonth || tMonth === endMonth) && matchCompany;
         })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getBimonthExpense(bmStr) {
+        function getBimonthExpense(bmStr, companyId) {
     const [month, year] = bmStr.split('/').map(Number);
     const startMonth = (month - 1) * 2;
     const endMonth = startMonth + 1;
@@ -1902,13 +2406,14 @@ function getBimonthExpense(bmStr) {
             const tDate = new Date(t.date);
             const tMonth = tDate.getMonth();
             const tYear = tDate.getFullYear();
-            return t.type === 'gasto' && tYear === fullYear &&
-                   (tMonth === startMonth || tMonth === endMonth);
+                 const matchCompany = companyId ? t.empresaId === companyId : true;
+                 return t.type === 'gasto' && tYear === fullYear &&
+                     (tMonth === startMonth || tMonth === endMonth) && matchCompany;
         })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getSemesterIncome(semStr) {
+        function getSemesterIncome(semStr, companyId) {
     const [sem, year] = semStr.split('/').map(Number);
     const startMonth = (sem - 1) * 6;
     const endMonth = startMonth + 5;
@@ -1918,13 +2423,14 @@ function getSemesterIncome(semStr) {
             const tDate = new Date(t.date);
             const tMonth = tDate.getMonth();
             const tYear = tDate.getFullYear();
-            return t.type === 'ganho' && tYear === year &&
-                   tMonth >= startMonth && tMonth <= endMonth;
+                 const matchCompany = companyId ? t.empresaId === companyId : true;
+                 return t.type === 'ganho' && tYear === year &&
+                     tMonth >= startMonth && tMonth <= endMonth && matchCompany;
         })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getSemesterExpense(semStr) {
+        function getSemesterExpense(semStr, companyId) {
     const [sem, year] = semStr.split('/').map(Number);
     const startMonth = (sem - 1) * 6;
     const endMonth = startMonth + 5;
@@ -1934,44 +2440,58 @@ function getSemesterExpense(semStr) {
             const tDate = new Date(t.date);
             const tMonth = tDate.getMonth();
             const tYear = tDate.getFullYear();
+            const matchCompany = companyId ? t.empresaId === companyId : true;
             return t.type === 'gasto' && tYear === year &&
-                   tMonth >= startMonth && tMonth <= endMonth;
+                   tMonth >= startMonth && tMonth <= endMonth && matchCompany;
         })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getYearIncome(year) {
+function getYearIncome(year, companyId) {
     return transactions
-        .filter(t => t.type === 'ganho' && new Date(t.date).getFullYear() === year)
+        .filter(t => {
+            const matchCompany = companyId ? t.empresaId === companyId : true;
+            return t.type === 'ganho' && new Date(t.date).getFullYear() === year && matchCompany;
+        })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getYearExpense(year) {
+function getYearExpense(year, companyId) {
     return transactions
-        .filter(t => t.type === 'gasto' && new Date(t.date).getFullYear() === year)
+        .filter(t => {
+            const matchCompany = companyId ? t.empresaId === companyId : true;
+            return t.type === 'gasto' && new Date(t.date).getFullYear() === year && matchCompany;
+        })
         .reduce((sum, t) => sum + t.amount, 0);
 }
 
-function getExpensesByCategory() {
+function getExpensesByCategory(companyId) {
     const categories = {};
     transactions
-        .filter(t => t.type === 'gasto')
+        .filter(t => t.type === 'gasto' && (companyId ? t.empresaId === companyId : true))
         .forEach(t => {
             categories[t.category] = (categories[t.category] || 0) + t.amount;
         });
     return categories;
 }
 
-function getTotalBalance() {
-    const income = transactions.filter(t => t.type === 'ganho').reduce((sum, t) => sum + t.amount, 0);
-    const expense = transactions.filter(t => t.type === 'gasto').reduce((sum, t) => sum + t.amount, 0);
+function getTotalBalance(companyId) {
+    const income = transactions
+        .filter(t => t.type === 'ganho' && (companyId ? t.empresaId === companyId : true))
+        .reduce((sum, t) => sum + t.amount, 0);
+    const expense = transactions
+        .filter(t => t.type === 'gasto' && (companyId ? t.empresaId === companyId : true))
+        .reduce((sum, t) => sum + t.amount, 0);
     return income - expense;
 }
 
-function getMonthlyAverageExpense() {
+function getMonthlyAverageExpense(companyId) {
     const currentMonth = new Date().getMonth();
     const monthExpenses = transactions
-        .filter(t => t.type === 'gasto' && new Date(t.date).getMonth() === currentMonth)
+        .filter(t => {
+            const matchCompany = companyId ? t.empresaId === companyId : true;
+            return t.type === 'gasto' && new Date(t.date).getMonth() === currentMonth && matchCompany;
+        })
         .reduce((sum, t) => sum + t.amount, 0);
     return monthExpenses || 0;
 }
@@ -1987,6 +2507,33 @@ function generateReport() {
         categories: getExpensesByCategory(),
         generatedAt: new Date().toLocaleString('pt-BR')
     };
+
+    openReportModal(reports, 'Relatório Financeiro');
+}
+
+function generateReportForCompany(companyId) {
+    const company = empresas.find((emp) => emp.id === companyId);
+    if (!company) {
+        alert(t('companyNotFound'));
+        return;
+    }
+
+    const companyTransactions = transactions.filter((t) => t.empresaId === companyId);
+    const reports = {
+        totalIncome: companyTransactions.filter(t => t.type === 'ganho').reduce((sum, t) => sum + t.amount, 0),
+        totalExpense: companyTransactions.filter(t => t.type === 'gasto').reduce((sum, t) => sum + t.amount, 0),
+        balance: getTotalBalance(companyId),
+        monthlyAverage: getMonthlyAverageExpense(companyId),
+        transactionCount: companyTransactions.length,
+        categories: getExpensesByCategory(companyId),
+        generatedAt: new Date().toLocaleString('pt-BR'),
+        companyName: company.nome
+    };
+
+    openReportModal(reports, `Relatório Financeiro — ${company.nome}`);
+}
+
+function openReportModal(reports, title) {
 
     const reportModal = document.createElement('div');
     reportModal.style.cssText = `
@@ -2005,10 +2552,8 @@ function generateReport() {
 
     reportModal.innerHTML = `
         <div style="display: data-theme: dark; color: #333;">
-            <h2 style="margin-top: 0; color: #7c3aed;">${t('financialReport')}</h2>
+            <h2 style="margin-top: 0; color: #7c3aed;">${title || t('financialReport')}</h2>
             <p><strong>${t('generatedAt')}:</strong> ${reports.generatedAt}</p>
-
-            <hr style="margin: 20px 0;">
 
             <h3 style="color: #7c3aed;">${t('generalSummary')}</h3>
             <p><strong>${t('totalIncomeLabel')}:</strong> ${formatCurrency(reports.totalIncome)}</p>
@@ -2119,7 +2664,7 @@ function exportExcel() {
     XLSX.utils.book_append_sheet(wb, wsTrans, 'Transações');
 
     XLSX.writeFile(wb, `relatorio-${new Date().toISOString().split('T')[0]}.xlsx`);
-    showSuccessMessage('Relatório em EXCEL baixado com sucesso!');
+    showSuccessMessage(t('reportExcelDownloadedSuccess'));
     document.querySelector('[data-report-modal]').remove();
 }
 
@@ -2157,14 +2702,19 @@ function exportCSV() {
     link.click();
     document.body.removeChild(link);
 
-    showSuccessMessage('Relatório em CSV baixado com sucesso!');
+    showSuccessMessage(t('reportCsvDownloadedSuccess'));
     document.querySelector('[data-report-modal]').remove();
 }
 
 // ==================== CALENDÁRIO ====================
+let calendarYear = null;
+let calendarMonth = null;
+
 function initCalendar() {
     const today = new Date();
-    renderCalendar(today.getFullYear(), today.getMonth());
+    calendarYear = today.getFullYear();
+    calendarMonth = today.getMonth();
+    renderCalendar(calendarYear, calendarMonth);
 }
 
 function renderCalendar(year, month) {
@@ -2224,11 +2774,29 @@ function renderCalendar(year, month) {
 }
 
 function previousMonth() {
-    // Implementar navegação anterior
+    if (calendarYear === null || calendarMonth === null) {
+        initCalendar();
+        return;
+    }
+    calendarMonth -= 1;
+    if (calendarMonth < 0) {
+        calendarMonth = 11;
+        calendarYear -= 1;
+    }
+    renderCalendar(calendarYear, calendarMonth);
 }
 
 function nextMonth() {
-    // Implementar navegação próxima
+    if (calendarYear === null || calendarMonth === null) {
+        initCalendar();
+        return;
+    }
+    calendarMonth += 1;
+    if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear += 1;
+    }
+    renderCalendar(calendarYear, calendarMonth);
 }
 
 // ==================== TABS ====================
@@ -2284,7 +2852,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userProfile.slogan = slogan;
                 saveUserData();
                 document.getElementById('currentSlogan').textContent = slogan;
-                showSuccessMessage('Slogan atualizado com sucesso!');
+                showSuccessMessage(t('sloganUpdatedSuccess'));
                 cancelEditSlogan();
             }
         });
@@ -2350,12 +2918,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const expiry = document.getElementById('shareExpiry').value;
 
             if (!email) {
-                alert('Digite um email válido!');
+                alert(t('invalidEmail'));
                 return;
             }
 
             if (email === currentUser.email) {
-                alert('Você não pode compartilhar com você mesmo!');
+                alert(t('cannotShareWithSelf'));
                 return;
             }
 
@@ -2407,27 +2975,31 @@ function renderSharedAccounts() {
 }
 
 function removeShareAccess(shareId) {
-    if (confirm('Tem certeza que deseja revogar o acesso?')) {
+    if (confirm(t('revokeAccessConfirm'))) {
         userProfile.sharedAccounts = userProfile.sharedAccounts.filter(s => s.id !== shareId);
         saveUserData();
-        showSuccessMessage('Acesso revogado!');
+        showSuccessMessage(t('accessRevokedSuccess'));
         renderSharedAccounts();
     }
 }
 
 function switchAccount() {
-    if (confirm('Deseja fazer login com outra conta? Você será desconectado.')) {
+    if (confirm(t('loginWithAnotherAccount'))) {
         handleLogout();
     }
 }
 
 function deleteAccount() {
-    if (confirm('Tem certeza que deseja deletar sua conta? Esta ação é irreversível!')) {
-        if (confirm('Esta é sua última chance! Todos os seus dados serão perdidos!')) {
+    if (confirm(t('deleteAccountConfirm'))) {
+        if (confirm(t('deleteAccountFinalWarning'))) {
             const userKey = `user_${currentUser.email}`;
             storageRemove(userKey);
             storageRemove('currentUser');
-            alert('Conta deletada com sucesso!');
+            const lastEmail = getLastUserEmail();
+            if (lastEmail && lastEmail === currentUser.email) {
+                storageRemove('lastUserEmail');
+            }
+            alert(t('accountDeletedSuccess'));
             location.reload();
         }
     }
@@ -2804,6 +3376,7 @@ window.deleteAccount = deleteAccount;
 window.selectEmpresa = selectEmpresa;
 window.editEmpresa = editEmpresa;
 window.deleteEmpresa = deleteEmpresa;
+window.generateReportForCompany = generateReportForCompany;
 window.exportPDF = exportPDF;
 window.exportExcel = exportExcel;
 window.exportCSV = exportCSV;
