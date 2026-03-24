@@ -778,6 +778,7 @@ let investimentos = [];
 let fornecedores = [];
 let custosFixos = [];
 let custosVariaveis = [];
+let capitalGiro = [];
 let proLabore = 0;
 
 function clearLegacyAuthStorage() {
@@ -802,6 +803,51 @@ function getStoredUser() {
 
 function getLastUserEmail() {
     return storageGet('lastUserEmail');
+}
+
+async function hashPassword(value) {
+    if (!('crypto' in window) || !window.crypto.subtle) {
+        return `plain:${value}`;
+    }
+    const encoder = new TextEncoder();
+    const data = encoder.encode(value);
+    const digest = await window.crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(digest));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return `sha256:${hashHex}`;
+}
+
+function getStoredPasswordHash(email) {
+    return storageGet(`user_pass_${email}`);
+}
+
+async function verifyPassword(email, password) {
+    const stored = getStoredPasswordHash(email);
+    if (!stored) return false;
+    const current = await hashPassword(password);
+    return stored === current;
+}
+
+function setLoginEmail(email) {
+    const input = document.getElementById('loginEmail');
+    if (input && email) {
+        input.value = email;
+    }
+}
+
+function updateLoginEmailVisibility() {
+    const emailGroup = document.getElementById('loginEmailGroup');
+    const emailHint = document.getElementById('loginEmailHint');
+    const lastEmail = getLastUserEmail();
+    if (emailGroup) {
+        emailGroup.style.display = lastEmail ? 'none' : 'block';
+    }
+    if (emailHint) {
+        emailHint.style.display = lastEmail ? 'block' : 'none';
+    }
+    if (lastEmail) {
+        setLoginEmail(lastEmail);
+    }
 }
 
 // ==================== INICIALIZAÇÃO ====================
@@ -832,21 +878,12 @@ async function initApp() {
     try {
         if (DEMO_AUTH) {
             const stored = getStoredUser();
-            if (stored?.email) {
-                currentUser = stored;
-                loadUserData();
-                setTimeout(() => transitionFromSplash('main'), 1600);
-            } else {
-                const lastEmail = getLastUserEmail();
-                if (lastEmail) {
-                    currentUser = { email: lastEmail, name: lastEmail.split('@')[0] || 'Usuário' };
-                    storageSet('currentUser', JSON.stringify(currentUser));
-                    loadUserData();
-                    setTimeout(() => transitionFromSplash('main'), 1600);
-                } else {
-                    setTimeout(() => transitionFromSplash('login'), 1600);
-                }
+            const lastEmail = stored?.email || getLastUserEmail();
+            if (lastEmail) {
+                setLoginEmail(lastEmail);
             }
+            updateLoginEmailVisibility();
+            setTimeout(() => transitionFromSplash('login'), 1600);
             return;
         }
 
@@ -883,6 +920,26 @@ function setupEventListeners() {
     document.getElementById('registerBtn').addEventListener('click', handleRegister);
     document.getElementById('logoutBtn').addEventListener('click', handleLogout);
 
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+
+    const loginEmailInput = document.getElementById('loginEmail');
+    const loginPasswordInput = document.getElementById('loginPassword');
+    const handleLoginEnter = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleLogin(event);
+        }
+    };
+    if (loginEmailInput) {
+        loginEmailInput.addEventListener('keydown', handleLoginEnter);
+    }
+    if (loginPasswordInput) {
+        loginPasswordInput.addEventListener('keydown', handleLoginEnter);
+    }
+
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -902,12 +959,90 @@ function setupEventListeners() {
         document.getElementById('addEmpresaBtn').addEventListener('click', openEmpresaModal);
     }
 
+    const empresaForm = document.getElementById('empresaForm');
+    if (empresaForm) {
+        empresaForm.addEventListener('submit', handleEmpresaFormSubmit);
+    }
+
+    const empresaDocInput = document.getElementById('empresaDocumento');
+    if (empresaDocInput) {
+        empresaDocInput.addEventListener('input', () => {
+            empresaDocInput.value = formatDocumento(empresaDocInput.value);
+        });
+    }
+
+    const closeEmpresaBtn = document.getElementById('closeEmpresaModal');
+    if (closeEmpresaBtn) {
+        closeEmpresaBtn.addEventListener('click', closeEmpresaModal);
+    }
+
+    const cancelEmpresaBtn = document.getElementById('cancelEmpresaModal');
+    if (cancelEmpresaBtn) {
+        cancelEmpresaBtn.addEventListener('click', closeEmpresaModal);
+    }
+
+    const empresaModal = document.getElementById('empresaModal');
+    if (empresaModal) {
+        empresaModal.addEventListener('click', (event) => {
+            if (event.target === empresaModal) {
+                closeEmpresaModal();
+            }
+        });
+    }
+
     if (document.getElementById('addMetaBtn')) {
         document.getElementById('addMetaBtn').addEventListener('click', openMetaModal);
     }
 
     if (document.getElementById('addInvestimentoBtn')) {
         document.getElementById('addInvestimentoBtn').addEventListener('click', openInvestimentoModal);
+    }
+
+    if (document.getElementById('formCustosFixos')) {
+        document.getElementById('formCustosFixos').addEventListener('submit', handleAddCustosFixos);
+    }
+
+    if (document.getElementById('formCustosVariaveis')) {
+        document.getElementById('formCustosVariaveis').addEventListener('submit', handleAddCustosVariaveis);
+    }
+
+    if (document.getElementById('formCapitalGiro')) {
+        document.getElementById('formCapitalGiro').addEventListener('submit', handleAddCapitalGiro);
+    }
+
+    const metasEmpresa = document.getElementById('metasEmpresa');
+    if (metasEmpresa) {
+        metasEmpresa.addEventListener('change', () => {
+            renderMetas();
+        });
+    }
+
+    const investimentosEmpresa = document.getElementById('investimentosEmpresa');
+    if (investimentosEmpresa) {
+        investimentosEmpresa.addEventListener('change', () => {
+            renderInvestimentos();
+        });
+    }
+
+    const custosFixosEmpresa = document.getElementById('custosFixosEmpresa');
+    if (custosFixosEmpresa) {
+        custosFixosEmpresa.addEventListener('change', () => {
+            renderCustosFixos();
+        });
+    }
+
+    const custosVariaveisEmpresa = document.getElementById('custosVariaveisEmpresa');
+    if (custosVariaveisEmpresa) {
+        custosVariaveisEmpresa.addEventListener('change', () => {
+            renderCustosVariaveis();
+        });
+    }
+
+    const capitalGiroEmpresa = document.getElementById('capitalGiroEmpresa');
+    if (capitalGiroEmpresa) {
+        capitalGiroEmpresa.addEventListener('change', () => {
+            renderCapitalGiro();
+        });
     }
 
     if (document.getElementById('addFornecedorBtn')) {
@@ -964,17 +1099,28 @@ async function handleLogin(e) {
 
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
+    const effectiveEmail = email || getLastUserEmail();
 
+<<<<<<< Updated upstream
     if (!email || !password) {
         alert(t('fillAllFields'));
+=======
+    if (!effectiveEmail || !password) {
+        alert('Por favor, preencha todos os campos');
+>>>>>>> Stashed changes
         return;
     }
 
     if (DEMO_AUTH) {
+        const isValid = await verifyPassword(effectiveEmail, password);
+        if (!isValid) {
+            alert('Senha inválida!');
+            return;
+        }
         clearLegacyAuthStorage();
-        currentUser = { email, name: email.split('@')[0] || 'Usuário' };
+        currentUser = { email: effectiveEmail, name: effectiveEmail.split('@')[0] || 'Usuário' };
         storageSet('currentUser', JSON.stringify(currentUser));
-        storageSet('lastUserEmail', email);
+        storageSet('lastUserEmail', effectiveEmail);
         loadUserData();
         showMainScreen();
         clearLoginForm();
@@ -982,11 +1128,11 @@ async function handleLogin(e) {
     }
 
     try {
-        await Auth.login(email, password);
+        await Auth.login(effectiveEmail, password);
         const user = await Auth.getCurrentUser();
         clearLegacyAuthStorage();
         currentUser = {
-            email: user?.email || email,
+            email: user?.email || effectiveEmail,
             name: user?.nome || user?.email || 'Usuário'
         };
         storageSet('currentUser', JSON.stringify(currentUser));
@@ -1022,14 +1168,17 @@ async function handleRegister(e) {
     }
 
     if (DEMO_AUTH) {
-        clearLegacyAuthStorage();
-        currentUser = { email, name };
-        storageSet('currentUser', JSON.stringify(currentUser));
+        const passHash = await hashPassword(password);
+        storageSet(`user_pass_${email}`, passHash);
         storageSet('lastUserEmail', email);
-        loadUserData();
-        showMainScreen();
         clearRegisterForm();
+<<<<<<< Updated upstream
         showSuccessMessage(t('accountCreated'));
+=======
+        showSuccessMessage('Conta criada! Faça login com sua senha.');
+        toggleLoginRegister(e);
+        updateLoginEmailVisibility();
+>>>>>>> Stashed changes
         return;
     }
 
@@ -1137,6 +1286,8 @@ function showMainScreen() {
     setTodayDate();
     updateCategoryOptions();
     updateTransactionEmpresaOptions();
+    updateMetasEmpresaOptions();
+    updateInvestimentosEmpresaOptions();
     updateDashboard();
     showSection('dashboard');
 }
@@ -1165,9 +1316,14 @@ function showSection(section) {
     } else if (section === 'empresas') {
         renderEmpresas();
     } else if (section === 'metas') {
+        updateMetasEmpresaOptions();
         renderMetas();
     } else if (section === 'investimentos') {
+        updateInvestimentosEmpresaOptions();
         renderInvestimentos();
+        renderCustosFixos();
+        renderCustosVariaveis();
+        renderCapitalGiro();
     } else if (section === 'fornecedores') {
         renderFornecedores();
     } else if (section === 'perfil') {
@@ -1232,29 +1388,56 @@ function selectEmpresa(id) {
 }
 
 function openEmpresaModal() {
-    const nome = prompt('Nome da Empresa/Negócio:');
-    if (!nome) return;
+    const modal = document.getElementById('empresaModal');
+    if (!modal) return;
+    const form = document.getElementById('empresaForm');
+    const nameInput = document.getElementById('empresaNome');
+    const typeSelect = document.getElementById('empresaTipo');
+    const docInput = document.getElementById('empresaDocumento');
+    if (form) form.reset();
+    if (typeSelect) typeSelect.value = '';
+    if (docInput) docInput.value = '';
+    modal.style.display = 'flex';
+    if (nameInput) nameInput.focus();
+}
 
-    let tipo = prompt('Tipo (PJ - Pessoa Jurídica / PF - Pessoa Física):');
-    if (!tipo) return;
-    tipo = tipo.trim().toLowerCase();
-    const tipoMap = {
-        pj: 'PJ',
-        'pessoa juridica': 'PJ',
-        'pessoa jurídica': 'PJ',
-        pf: 'PF',
-        'pessoa fisica': 'PF',
-        'pessoa física': 'PF'
-    };
-    while (!tipoMap[tipo]) {
-        tipo = prompt('Digite somente: PJ, PF, Pessoa Juridica ou Pessoa Fisica.');
-        if (!tipo) return;
-        tipo = tipo.trim().toLowerCase();
+function closeEmpresaModal() {
+    const modal = document.getElementById('empresaModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function formatDocumento(value) {
+    const digits = value.replace(/\D/g, '').slice(0, 14);
+    if (digits.length > 11) {
+        return digits;
     }
-    tipo = tipoMap[tipo];
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `${digits.slice(0, 3)}.${digits.slice(3)}`;
+    if (digits.length <= 9) return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6)}`;
+    return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9)}`;
+}
 
-    const documento = prompt('CNPJ/CPF:');
-    if (!documento) return;
+function handleEmpresaFormSubmit(e) {
+    e.preventDefault();
+    const nameInput = document.getElementById('empresaNome');
+    const typeSelect = document.getElementById('empresaTipo');
+    const docInput = document.getElementById('empresaDocumento');
+    if (!nameInput || !typeSelect || !docInput) return;
+
+    const nome = nameInput.value.trim();
+    const tipo = typeSelect.value;
+    const rawDigits = docInput.value.replace(/\D/g, '');
+    const documento = formatDocumento(rawDigits);
+
+    if (!nome || !tipo) {
+        alert('Preencha todos os campos.');
+        return;
+    }
+
+    if (rawDigits.length !== 11 && rawDigits.length !== 14) {
+        alert('Digite 11 numeros para CPF ou 14 numeros para CNPJ.');
+        return;
+    }
 
     const empresa = {
         id: Date.now(),
@@ -1276,7 +1459,12 @@ function openEmpresaModal() {
         updateReportsEmpresaOptions();
         renderReportsByCompany();
     }
+<<<<<<< Updated upstream
     showSuccessMessage(t('companyCreated'));
+=======
+    closeEmpresaModal();
+    showSuccessMessage('Empresa criada com sucesso! Selecione para ver dados específicos.');
+>>>>>>> Stashed changes
 }
 
 function editEmpresa(id, e) {
@@ -1406,6 +1594,83 @@ function updateTransactionEmpresaOptions() {
         const selected = empresas.find(emp => String(emp.id) === select.value);
         label.textContent = selected ? `Empresa selecionada: ${selected.nome}` : '';
         label.style.display = selected ? 'block' : 'none';
+    }
+}
+
+function getSelectedEmpresaId(selectId) {
+    const select = document.getElementById(selectId);
+    if (!select || !select.value) return null;
+    const value = parseInt(select.value, 10);
+    return Number.isNaN(value) ? null : value;
+}
+
+function resolveEmpresaId(selectId) {
+    return getSelectedEmpresaId(selectId) || currentEmpresa?.id || getFallbackEmpresaId();
+}
+
+function getEmpresaNameById(empresaId) {
+    if (!empresaId) return 'Sem empresa';
+    const empresa = empresas.find(emp => isSameEmpresaId(emp.id, empresaId));
+    return empresa ? empresa.nome : 'Sem empresa';
+}
+
+function updateInvestimentosEmpresaOptions() {
+    const groups = [
+        { groupId: 'investimentosEmpresaGroup', selectId: 'investimentosEmpresa' },
+        { groupId: 'custosFixosEmpresaGroup', selectId: 'custosFixosEmpresa' },
+        { groupId: 'custosVariaveisEmpresaGroup', selectId: 'custosVariaveisEmpresa' },
+        { groupId: 'capitalGiroEmpresaGroup', selectId: 'capitalGiroEmpresa' }
+    ];
+
+    if (!empresas || empresas.length === 0) {
+        groups.forEach(({ groupId, selectId }) => {
+            const group = document.getElementById(groupId);
+            const select = document.getElementById(selectId);
+            if (group) group.style.display = 'none';
+            if (select) select.innerHTML = '';
+        });
+        return;
+    }
+
+    const shouldShow = empresas.length > 1;
+    const options = empresas
+        .map(emp => `<option value="${emp.id}">${emp.nome}</option>`)
+        .join('');
+
+    groups.forEach(({ groupId, selectId }) => {
+        const group = document.getElementById(groupId);
+        const select = document.getElementById(selectId);
+        if (!group || !select) return;
+        group.style.display = shouldShow ? 'block' : 'none';
+        select.innerHTML = options;
+
+        const fallbackId = currentEmpresa?.id || getFallbackEmpresaId();
+        if (fallbackId) {
+            select.value = String(fallbackId);
+        }
+    });
+}
+
+function updateMetasEmpresaOptions() {
+    const group = document.getElementById('metasEmpresaGroup');
+    const select = document.getElementById('metasEmpresa');
+    if (!group || !select) return;
+
+    if (!empresas || empresas.length === 0) {
+        group.style.display = 'none';
+        select.innerHTML = '';
+        return;
+    }
+
+    const shouldShow = empresas.length > 1;
+    group.style.display = shouldShow ? 'block' : 'none';
+    select.innerHTML = empresas
+        .map(emp => `<option value="${emp.id}">${emp.nome}</option>`)
+        .join('');
+
+    const fallbackId = currentEmpresa?.id || getFallbackEmpresaId();
+    if (fallbackId) {
+        select.value = String(fallbackId);
     }
 }
 
@@ -1819,7 +2084,7 @@ function openMetaModal() {
         valor,
         realizado: 0,
         dataVencimento,
-        empresaId: currentEmpresa?.id
+        empresaId: resolveEmpresaId('metasEmpresa')
     };
 
     metas.push(meta);
@@ -1837,8 +2102,10 @@ function renderMetas() {
         return;
     }
 
+    const filterEmpresaId = getSelectedEmpresaId('metasEmpresa') || currentEmpresa?.id;
+
     container.innerHTML = metas
-        .filter(m => !currentEmpresa || m.empresaId === currentEmpresa.id)
+        .filter(m => !filterEmpresaId || isSameEmpresaId(m.empresaId, filterEmpresaId))
         .map(m => {
             const percentual = (m.realizado / m.valor * 100).toFixed(0);
             return `
@@ -1848,7 +2115,12 @@ function renderMetas() {
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${percentual}%"></div>
                     </div>
+<<<<<<< Updated upstream
                     <p class="text-muted">${percentual}% ${t('goalProgress')}</p>
+=======
+                    <p class="text-muted">Empresa: ${getEmpresaNameById(m.empresaId)}</p>
+                    <p class="text-muted">${percentual}% completo</p>
+>>>>>>> Stashed changes
                 </div>
             `;
         }).join('');
@@ -1981,11 +2253,12 @@ function openInvestimentoModal() {
         valor,
         tipo,
         dataAquisicao: new Date().toISOString().split('T')[0],
-        empresaId: currentEmpresa?.id
+        empresaId: resolveEmpresaId('investimentosEmpresa')
     };
 
     investimentos.push(investimento);
     saveUserData();
+    activateTab('investimentos-ativos');
     renderInvestimentos();
     showSuccessMessage(t('investmentRegisteredSuccess'));
 }
@@ -1994,16 +2267,241 @@ function renderInvestimentos() {
     const container = document.getElementById('investimentosList');
     if (!container) return;
 
-    container.innerHTML = investimentos
-        .filter(i => !currentEmpresa || i.empresaId === currentEmpresa.id)
+    const tab = document.getElementById('investimentos-ativos');
+    const filterEmpresaId = getSelectedEmpresaId('investimentosEmpresa') || currentEmpresa?.id;
+    const filtered = investimentos
+        .filter(i => !filterEmpresaId || isSameEmpresaId(i.empresaId, filterEmpresaId));
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<p class="empty-message">Nenhum investimento registrado.</p>';
+        if (tab) tab.classList.add('is-empty');
+        return;
+    }
+
+    if (tab) tab.classList.remove('is-empty');
+
+    container.innerHTML = filtered
         .map(i => `
             <div class="investment-item">
                 <h4>${i.descricao}</h4>
                 <p>Tipo: ${i.tipo}</p>
                 <p>Valor: ${formatCurrency(i.valor)}</p>
+                <p class="text-muted">Empresa: ${getEmpresaNameById(i.empresaId)}</p>
                 <p class="text-muted">Data: ${new Date(i.dataAquisicao).toLocaleDateString('pt-BR')}</p>
             </div>
         `).join('');
+}
+
+function parseValueInput(value) {
+    if (typeof value !== 'string') return null;
+    const normalized = value.replace(/\./g, '').replace(',', '.').replace(/[^0-9.-]/g, '');
+    const parsed = parseFloat(normalized);
+    return Number.isNaN(parsed) ? null : parsed;
+}
+
+function handleAddCustosFixos(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input');
+    const descricao = inputs[0].value.trim();
+    const valor = parseFloat(inputs[1].value);
+    const empresaId = resolveEmpresaId('custosFixosEmpresa');
+
+    if (!descricao || Number.isNaN(valor)) {
+        alert('Preencha descricao e valor corretamente.');
+        return;
+    }
+
+    custosFixos.push({
+        id: Date.now(),
+        descricao,
+        valor,
+        empresaId
+    });
+
+    saveUserData();
+    renderCustosFixos();
+    form.reset();
+    showSuccessMessage('Custo fixo adicionado!');
+}
+
+function handleAddCustosVariaveis(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input');
+    const descricao = inputs[0].value.trim();
+    const valorTexto = inputs[1].value.trim();
+    const valorNumero = parseValueInput(valorTexto);
+    const empresaId = resolveEmpresaId('custosVariaveisEmpresa');
+
+    if (!descricao || !valorTexto) {
+        alert('Preencha descricao e valor corretamente.');
+        return;
+    }
+
+    custosVariaveis.push({
+        id: Date.now(),
+        descricao,
+        valorTexto,
+        valorNumero,
+        empresaId
+    });
+
+    saveUserData();
+    renderCustosVariaveis();
+    form.reset();
+    showSuccessMessage('Custo variavel adicionado!');
+}
+
+function handleAddCapitalGiro(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input');
+    const descricao = inputs[0].value.trim();
+    const valor = parseFloat(inputs[1].value);
+    const empresaId = resolveEmpresaId('capitalGiroEmpresa');
+
+    if (!descricao || Number.isNaN(valor)) {
+        alert('Preencha descricao e valor corretamente.');
+        return;
+    }
+
+    capitalGiro.push({
+        id: Date.now(),
+        descricao,
+        valor,
+        empresaId,
+        data: new Date().toISOString().split('T')[0]
+    });
+
+    saveUserData();
+    renderCapitalGiro();
+    form.reset();
+    showSuccessMessage('Capital de giro adicionado!');
+}
+
+function renderCustosFixos() {
+    const container = document.getElementById('custosFizosList');
+    if (!container) return;
+
+    const filterEmpresaId = getSelectedEmpresaId('custosFixosEmpresa') || currentEmpresa?.id;
+    const filtered = custosFixos
+        .filter(c => !filterEmpresaId || isSameEmpresaId(c.empresaId, filterEmpresaId));
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<p class="empty-message">Nenhum custo fixo registrado.</p>';
+        return;
+    }
+
+    container.innerHTML = filtered
+        .map(c => `
+            <div class="cost-item">
+                <div class="cost-item-header">
+                    <h4>${c.descricao}</h4>
+                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="fixo" title="Deletar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <p>Valor: ${formatCurrency(c.valor)}</p>
+                <p class="text-muted">Empresa: ${getEmpresaNameById(c.empresaId)}</p>
+            </div>
+        `).join('');
+
+    container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => deleteCusto(btn.dataset.costId, btn.dataset.costType));
+    });
+}
+
+function renderCustosVariaveis() {
+    const container = document.getElementById('custosVariaveisList');
+    if (!container) return;
+
+    const filterEmpresaId = getSelectedEmpresaId('custosVariaveisEmpresa') || currentEmpresa?.id;
+    const filtered = custosVariaveis
+        .filter(c => !filterEmpresaId || isSameEmpresaId(c.empresaId, filterEmpresaId));
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<p class="empty-message">Nenhum custo variavel registrado.</p>';
+        return;
+    }
+
+    container.innerHTML = filtered
+        .map(c => `
+            <div class="cost-item">
+                <div class="cost-item-header">
+                    <h4>${c.descricao}</h4>
+                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="variavel" title="Deletar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <p>Valor: ${c.valorTexto}</p>
+                <p class="text-muted">Empresa: ${getEmpresaNameById(c.empresaId)}</p>
+            </div>
+        `).join('');
+
+    container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => deleteCusto(btn.dataset.costId, btn.dataset.costType));
+    });
+}
+
+function renderCapitalGiro() {
+    const container = document.getElementById('capitalGiroList');
+    const analysis = document.getElementById('capitalGiroAnalysis');
+    if (!container || !analysis) return;
+
+    const filterEmpresaId = getSelectedEmpresaId('capitalGiroEmpresa') || currentEmpresa?.id;
+    const filtered = capitalGiro
+        .filter(c => !filterEmpresaId || isSameEmpresaId(c.empresaId, filterEmpresaId));
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<p class="empty-message">Nenhum capital de giro registrado.</p>';
+        analysis.innerHTML = '';
+        return;
+    }
+
+    const total = filtered.reduce((sum, item) => sum + item.valor, 0);
+    container.innerHTML = filtered
+        .map(c => `
+            <div class="cost-item">
+                <div class="cost-item-header">
+                    <h4>${c.descricao}</h4>
+                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="capital" title="Deletar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <p>Valor: ${formatCurrency(c.valor)}</p>
+                <p class="text-muted">Empresa: ${getEmpresaNameById(c.empresaId)}</p>
+                <p class="text-muted">Data: ${new Date(c.data).toLocaleDateString('pt-BR')}</p>
+            </div>
+        `).join('');
+
+    analysis.innerHTML = `
+        <strong>Total de Capital de Giro:</strong> ${formatCurrency(total)}
+    `;
+
+    container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => deleteCusto(btn.dataset.costId, btn.dataset.costType));
+    });
+}
+
+function deleteCusto(id, type) {
+    const parsedId = parseInt(id, 10);
+    if (Number.isNaN(parsedId)) return;
+    if (!confirm('Deletar registro?')) return;
+
+    if (type === 'fixo') {
+        custosFixos = custosFixos.filter(c => c.id !== parsedId);
+        renderCustosFixos();
+    } else if (type === 'variavel') {
+        custosVariaveis = custosVariaveis.filter(c => c.id !== parsedId);
+        renderCustosVariaveis();
+    } else if (type === 'capital') {
+        capitalGiro = capitalGiro.filter(c => c.id !== parsedId);
+        renderCapitalGiro();
+    }
+
+    saveUserData();
+    showSuccessMessage('Registro deletado!');
 }
 
 // ==================== GRÁFICOS ====================
@@ -2799,6 +3297,23 @@ function nextMonth() {
     renderCalendar(calendarYear, calendarMonth);
 }
 
+function activateTab(tabId) {
+    const tab = document.getElementById(tabId);
+    if (!tab) return;
+    const container = tab.parentElement?.querySelector('.tabs-container');
+    const button = container ? container.querySelector(`[data-tab="${tabId}"]`) : null;
+    if (button) {
+        switchTab(button);
+        return;
+    }
+
+    const tabsContainer = tab.closest('section')?.querySelector('.tabs-container');
+    if (!tabsContainer) return;
+    tabsContainer.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    tab.parentElement.querySelectorAll('.tab-content').forEach(item => item.classList.remove('active'));
+    tab.classList.add('active');
+}
+
 // ==================== TABS ====================
 function switchTab(button) {
     const tabName = button.dataset.tab;
@@ -2874,6 +3389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('formChangePassword')) {
         document.getElementById('formChangePassword').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const currentPass = document.getElementById('currentPassword').value;
             const newPass = document.getElementById('newPassword').value;
             const confirm = document.getElementById('confirmPassword').value;
 
@@ -2884,6 +3400,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (newPass !== confirm) {
                 alert(t('passwordsDontMatch'));
+                return;
+            }
+
+            if (DEMO_AUTH) {
+                const email = currentUser?.email || getLastUserEmail();
+                if (!email) {
+                    alert('Conta nao encontrada.');
+                    return;
+                }
+                const valid = await verifyPassword(email, currentPass);
+                if (!valid) {
+                    alert('Senha atual incorreta.');
+                    return;
+                }
+                const passHash = await hashPassword(newPass);
+                storageSet(`user_pass_${email}`, passHash);
+                storageSet('lastUserEmail', email);
+                showSuccessMessage('Senha alterada com sucesso!');
+                cancelChangePassword();
                 return;
             }
 
@@ -3018,6 +3553,7 @@ function saveUserData() {
         fornecedores,
         custosFixos,
         custosVariaveis,
+        capitalGiro,
         proLabore,
         currentEmpresa,
         userProfile
@@ -3040,6 +3576,7 @@ function loadUserData() {
         fornecedores = parsed.fornecedores || [];
         custosFixos = parsed.custosFixos || [];
         custosVariaveis = parsed.custosVariaveis || [];
+        capitalGiro = parsed.capitalGiro || [];
         proLabore = parsed.proLabore || 0;
         currentEmpresa = parsed.currentEmpresa || null;
         userProfile = parsed.userProfile || { slogan: '', sharedAccounts: [] };
@@ -3361,6 +3898,7 @@ window.toggleLoginRegister = toggleLoginRegister;
 window.toggleTheme = toggleTheme;
 window.toggleAudioReader = toggleAudioReader;
 window.toggleLibras = toggleLibras;
+window.decreaseFontSize = decreaseFontSize;
 window.increaseFontSize = increaseFontSize;
 window.t = t;
 window.closeAccessibilityBanner = closeAccessibilityBanner;

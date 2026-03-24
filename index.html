@@ -62,25 +62,19 @@
           </div>
           <div class="login-container">
               <div class="login-card">
-                  <div class="login-header">
-                      <i class="fas fa-wallet" aria-hidden="true"></i>
-                      <h1 aria-label="FinCore - Sistema de gestão financeira"> FinCore </h1>
-                      <p>Seu gestor financeiro pessoal</p>
-                  </div>
+                  <div class="login-header" style="display: none;"></div>
 
-                  <div id="loginForm" class="login-form">
-                      <h2>Entrar</h2>
-                    <div class="form-group">
+                  <form id="loginForm" class="login-form" autocomplete="off" novalidate>
+                    <div class="form-group" id="loginEmailGroup">
                         <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+                        <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="off" autocapitalize="none" spellcheck="false">
                     </div>
                     <div class="form-group">
                         <label for="loginPassword">Senha</label>
                         <input type="password" id="loginPassword" placeholder="Sua senha" autocomplete="new-password" spellcheck="false" required>
                     </div>
-                      <button id="loginBtn" class="btn btn-primary">Entrar</button>
-                      <p class="toggle-form">Não tem conta? <a href="#" onclick="toggleLoginRegister(event)">Cadastre-se</a></p>
-                  </div>
+                      <button id="loginBtn" class="btn btn-primary" type="button">Entrar</button>
+                  </form>
 
                   <div id="registerForm" class="login-form" style="display: none;">
                       <h2>Criar Conta</h2>
@@ -100,7 +94,7 @@
                         <label for="registerPassword2">Confirmar Senha</label>
                         <input type="password" id="registerPassword2" placeholder="Confirme a senha" autocomplete="new-password" spellcheck="false" required>
                     </div>
-                      <button id="registerBtn" class="btn btn-primary">Cadastrar</button>
+                      <button id="registerBtn" class="btn btn-primary" type="button">Cadastrar</button>
                       <p class="toggle-form">Já tem conta? <a href="#" onclick="toggleLoginRegister(event)">Faça login</a></p>
                   </div>
               </div>
@@ -135,6 +129,9 @@
                       <button id="fontSizeDecreaseBtn" class="btn btn-small btn-accessibility" title="Diminuir fonte" onclick="decreaseFontSize()">
                           <i class="fas fa-search-minus"></i>
                       </button>
+                      <button id="fontSizeDownBtn" class="btn btn-small btn-accessibility" title="Diminuir fonte" onclick="decreaseFontSize()">
+                          <i class="fas fa-minus"></i>
+                      </button>
                   </div>
                   <div class="user-info">
                       <button id="themeToggleBtn" class="btn btn-small btn-info" title="Alternar tema" onclick="toggleTheme()">
@@ -150,6 +147,7 @@
           <nav class="nav-menu">
               <div class="nav-container">
                   <ul class="nav-list">
+<<<<<<< Updated upstream
                       <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> <span class="nav-text" data-i18n="dashboard">Dashboard</span></a></li>
                       <li><a href="#" class="nav-link" data-section="empresas"><i class="fas fa-building"></i> <span class="nav-text" data-i18n="companies">Empresas</span></a></li>
                       <li><a href="#" class="nav-link" data-section="transacoes"><i class="fas fa-exchange-alt"></i> <span class="nav-text" data-i18n="transactions">Transações</span></a></li>
@@ -160,6 +158,18 @@
                       <li><a href="#" class="nav-link" data-section="fornecedores"><i class="fas fa-truck"></i> <span class="nav-text" data-i18n="suppliers">Fornecedores</span></a></li>
                       <li><a href="#" class="nav-link" data-section="calendario"><i class="fas fa-calendar-alt"></i> <span class="nav-text" data-i18n="calendar">Calendário</span></a></li>
                       <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> <span class="nav-text" data-i18n="profile">Perfil</span></a></li>
+=======
+                      <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                      <li><a href="#" class="nav-link" data-section="empresas">Empresas</a></li>
+                      <li><a href="#" class="nav-link" data-section="transacoes">Transações</a></li>
+                      <li><a href="#" class="nav-link" data-section="relatorios">Relatórios</a></li>
+                      <li><a href="#" class="nav-link" data-section="contas">Contas</a></li>
+                      <li><a href="#" class="nav-link" data-section="metas">Metas</a></li>
+                      <li><a href="#" class="nav-link" data-section="investimentos">Investimentos</a></li>
+                      <li><a href="#" class="nav-link" data-section="fornecedores">Fornecedores</a></li>
+                      <li><a href="#" class="nav-link" data-section="calendario">Calendário</a></li>
+                      <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> Perfil</a></li>
+>>>>>>> Stashed changes
                   </ul>
               </div>
           </nav>
@@ -422,8 +432,17 @@
               <!-- SEÇÃO METAS -->
               <section id="metas-section" class="content-section" style="display: none;">
                   <div class="section-header">
+<<<<<<< Updated upstream
                       <h2 data-i18n="goalsSectionTitle">Definição de Metas</h2>
                       <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> <span data-i18n="newGoal">Nova Meta</span></button>
+=======
+                      <h2>Definição de Metas</h2>
+                      <div class="filter-group" id="metasEmpresaGroup" style="min-width: 220px;">
+                          <label for="metasEmpresa">Empresa</label>
+                          <select id="metasEmpresa"></select>
+                      </div>
+                      <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> Nova Meta</button>
+>>>>>>> Stashed changes
                   </div>
                   <div id="metasList" class="goals-container"></div>
               </section>
@@ -431,8 +450,17 @@
               <!-- SEÇÃO INVESTIMENTOS -->
               <section id="investimentos-section" class="content-section" style="display: none;">
                   <div class="section-header">
+<<<<<<< Updated upstream
                       <h2 data-i18n="investmentsCenterTitle">Central de Investimentos</h2>
                       <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> <span data-i18n="newInvestment">Novo Investimento</span></button>
+=======
+                      <h2>Central de Investimentos</h2>
+                      <div class="filter-group" id="investimentosEmpresaGroup" style="min-width: 220px;">
+                          <label for="investimentosEmpresa">Empresa</label>
+                          <select id="investimentosEmpresa"></select>
+                      </div>
+                      <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> Novo Investimento</button>
+>>>>>>> Stashed changes
                   </div>
                   <div class="tabs-container">
                       <button class="tab-btn active" data-tab="investimentos-ativos" data-i18n="activeInvestments">Investimentos Ativos</button>
@@ -450,6 +478,10 @@
                                   <label data-i18n="descriptionLabel">Descrição</label>
                                   <input type="text" data-i18n="examples" placeholder="Ex: Aluguel, Salário..." required>
                               </div>
+                              <div class="form-group" id="custosFixosEmpresaGroup" style="display: none;">
+                                  <label>Empresa</label>
+                                  <select id="custosFixosEmpresa"></select>
+                              </div>
                               <div class="form-group">
                                   <label data-i18n="monthlyValueLabel">Valor Mensal</label>
                                   <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
@@ -466,6 +498,10 @@
                                   <label data-i18n="descriptionLabel">Descrição</label>
                                   <input type="text" data-i18n="examples" placeholder="Ex: Comissão, Insumos..." required>
                               </div>
+                              <div class="form-group" id="custosVariaveisEmpresaGroup" style="display: none;">
+                                  <label>Empresa</label>
+                                  <select id="custosVariaveisEmpresa"></select>
+                              </div>
                               <div class="form-group">
                                   <label data-i18n="percentageOrValueLabel">Percentual ou Valor</label>
                                   <input type="text" data-i18n="examples" placeholder="Ex: 10% ou R$ 100" required>
@@ -476,6 +512,24 @@
                       <div id="custosVariaveisList" class="costs-list"></div>
                   </div>
                   <div id="capital-giro" class="tab-content">
+                      <form id="formCapitalGiro">
+                          <div class="form-row">
+                              <div class="form-group">
+                                  <label>Descrição</label>
+                                  <input type="text" placeholder="Ex: Caixa Inicial" required>
+                              </div>
+                              <div class="form-group" id="capitalGiroEmpresaGroup" style="display: none;">
+                                  <label>Empresa</label>
+                                  <select id="capitalGiroEmpresa"></select>
+                              </div>
+                              <div class="form-group">
+                                  <label>Valor</label>
+                                  <input type="number" step="0.01" placeholder="0.00" required>
+                              </div>
+                              <button type="submit" class="btn btn-success">Adicionar</button>
+                          </div>
+                      </form>
+                      <div id="capitalGiroList" class="costs-list"></div>
                       <div id="capitalGiroAnalysis" class="info-box"></div>
                   </div>
               </section>
@@ -483,10 +537,15 @@
               <!-- SEÇÃO FORNECEDORES -->
               <section id="fornecedores-section" class="content-section" style="display: none;">
                   <div class="section-header">
+<<<<<<< Updated upstream
                       <h2 data-i18n="suppliersListTitle">Lista de Fornecedores</h2>
                       <button class="btn btn-success" id="addFornecedorBtn"><i class="fas fa-plus"></i> <span data-i18n="newSupplier">Novo Fornecedor</span></button>
                   </div>
                   </div>
+=======
+                      <h2>Lista de Fornecedores</h2>
+                  </div>    
+>>>>>>> Stashed changes
                   <form id="formFornecedor">
                       <div class="form-row">
                           <div class="form-group">
@@ -547,6 +606,7 @@
                           </div>
                           <div class="divider"></div>
 
+<<<<<<< Updated upstream
                           <!-- SLOGAN DA EMPRESA -->
                           <div class="profile-section">
                           <h4><i class="fas fa-lightbulb"></i> <span data-i18n="companySlogan">Slogan da Empresa</span></h4>
@@ -565,6 +625,8 @@
 
                           <div class="divider"></div>
 
+=======
+>>>>>>> Stashed changes
                           <!-- MUDAR SENHA -->
                           <div class="profile-section">
                               <h4><i class="fas fa-lock"></i> <span data-i18n="securityTitle">Segurança</span></h4>
@@ -650,6 +712,41 @@
               </section>
           </main>
       </section>
+
+      <div id="empresaModal" class="modal-overlay" style="display: none;">
+          <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="empresaModalTitle">
+              <div class="modal-header">
+                  <h3 id="empresaModalTitle">Nova Empresa</h3>
+                  <button type="button" class="btn btn-small btn-danger" id="closeEmpresaModal" aria-label="Fechar">
+                      <i class="fas fa-times"></i>
+                  </button>
+              </div>
+              <form id="empresaForm" class="modal-form">
+                  <div class="form-group">
+                      <label for="empresaNome">Nome da Empresa/Negocio</label>
+                      <input type="text" id="empresaNome" placeholder="Nome da empresa" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="empresaTipo">Tipo</label>
+                      <select id="empresaTipo" required>
+                          <option value="">Selecione</option>
+                          <option value="PJ">PJ</option>
+                          <option value="PF">PF</option>
+                          <option value="Pessoa Juridica">Pessoa Juridica</option>
+                          <option value="Pessoa Fisica">Pessoa Fisica</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="empresaDocumento">CPF/CNPJ</label>
+                      <input type="text" id="empresaDocumento" placeholder="CPF (000.000.000-00) ou CNPJ (somente numeros)" inputmode="numeric" autocomplete="off" required>
+                  </div>
+                  <div class="form-actions">
+                      <button type="submit" class="btn btn-success">Salvar</button>
+                      <button type="button" class="btn btn-secondary" id="cancelEmpresaModal">Cancelar</button>
+                  </div>
+              </form>
+          </div>
+      </div>
 
       <!-- Chart.js for reports -->
       <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
