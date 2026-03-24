@@ -679,6 +679,21 @@ body {
     animation: fadeIn 1s ease;
 }
 
+.company-dashboard {
+    margin-bottom: 25px;
+}
+
+.company-dashboard-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 12px 0;
+}
+
+.company-cards {
+    margin-bottom: 0;
+}
+
 .card {
     background: var(--panel);
     border-radius: 16px;
@@ -1108,6 +1123,17 @@ body {
     font-size: 12px;
     font-weight: 600;
     margin-top: 4px;
+}
+
+.transaction-company {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--panel-alt);
+    color: var(--dark);
 }
 
 .transaction-right {
