@@ -26,6 +26,9 @@
       <!-- SPLASH SCREEN / CAPA DE ABERTURA -->
       <section id="splashScreen" class="splash-screen active">
           <div class="splash-background">
+              <video class="splash-video" autoplay muted loop playsinline preload="auto">
+                  <source src="assets/IMAGENS/12647214_1920_1080_30fps%20(2).mp4" type="video/mp4">
+              </video>
               <div class="splash-blob blob-1"></div>
               <div class="splash-blob blob-2"></div>
               <div class="splash-blob blob-3"></div>
@@ -45,6 +48,11 @@
 
       <!-- TELA DE LOGIN -->
       <section id="loginScreen" class="login-screen active" role="main" aria-label="Tela de login do FinCore">
+          <div class="login-background">
+              <video class="login-video" autoplay muted loop playsinline preload="auto">
+                  <source src="assets/IMAGENS/12647214_1920_1080_30fps%20(2).mp4" type="video/mp4">
+              </video>
+          </div>
           <!-- BANNER DE ACESSIBILIDADE -->
           <div id="accessibilityBanner" class="accessibility-banner" style="display: none;">
               <div class="accessibility-banner-content">
@@ -116,8 +124,8 @@
                               <i class="fas fa-globe"></i>
                           </button>
                           <div id="langDropdown" class="lang-dropdown" style="display: none;">
-                              <button onclick="changeLanguage('pt-BR')" class="lang-option active" data-lang="pt-BR">🇧🇷 Português</button>
-                              <button onclick="changeLanguage('en')" class="lang-option" data-lang="en">🇺🇸 English</button>
+                              <button class="lang-option active" data-lang="pt-BR" type="button">🇧🇷 Português</button>
+                              <button class="lang-option" data-lang="en" type="button">🇺🇸 English</button>
                           </div>
                       </div>
                       <button id="audioReaderBtn" class="btn btn-small btn-accessibility" title="Ativar leitor de áudio" onclick="toggleAudioReader()">
@@ -125,9 +133,6 @@
                       </button>
                       <button id="fontSizeBtn" class="btn btn-small btn-accessibility" title="Aumentar fonte" onclick="increaseFontSize()">
                           <i class="fas fa-search-plus"></i>
-                      </button>
-                      <button id="fontSizeDecreaseBtn" class="btn btn-small btn-accessibility" title="Diminuir fonte" onclick="decreaseFontSize()">
-                          <i class="fas fa-search-minus"></i>
                       </button>
                       <button id="fontSizeDownBtn" class="btn btn-small btn-accessibility" title="Diminuir fonte" onclick="decreaseFontSize()">
                           <i class="fas fa-minus"></i>
@@ -147,29 +152,16 @@
           <nav class="nav-menu">
               <div class="nav-container">
                   <ul class="nav-list">
-<<<<<<< Updated upstream
                       <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> <span class="nav-text" data-i18n="dashboard">Dashboard</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="empresas"><i class="fas fa-building"></i> <span class="nav-text" data-i18n="companies">Empresas</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="transacoes"><i class="fas fa-exchange-alt"></i> <span class="nav-text" data-i18n="transactions">Transações</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="relatorios"><i class="fas fa-file-chart-line"></i> <span class="nav-text" data-i18n="reports">Relatórios</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="contas"><i class="fas fa-receipt"></i> <span class="nav-text" data-i18n="payable">Contas</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="metas"><i class="fas fa-target"></i> <span class="nav-text" data-i18n="goals">Metas</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="investimentos"><i class="fas fa-piggy-bank"></i> <span class="nav-text" data-i18n="investments">Investimentos</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="fornecedores"><i class="fas fa-truck"></i> <span class="nav-text" data-i18n="suppliers">Fornecedores</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="calendario"><i class="fas fa-calendar-alt"></i> <span class="nav-text" data-i18n="calendar">Calendário</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="empresas"><span class="nav-text" data-i18n="companies">Empresas</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="transacoes"><span class="nav-text" data-i18n="transactions">Transações</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="relatorios"><span class="nav-text" data-i18n="reports">Relatórios</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="contas"><span class="nav-text" data-i18n="payable">Contas a Pagar</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="metas"><span class="nav-text" data-i18n="goals">Metas</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="investimentos"><span class="nav-text" data-i18n="investments">Investimentos</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="fornecedores"><span class="nav-text" data-i18n="suppliers">Fornecedores</span></a></li>
+                      <li><a href="#" class="nav-link" data-section="calendario"><span class="nav-text" data-i18n="calendar">Calendário</span></a></li>
                       <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> <span class="nav-text" data-i18n="profile">Perfil</span></a></li>
-=======
-                      <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-                      <li><a href="#" class="nav-link" data-section="empresas">Empresas</a></li>
-                      <li><a href="#" class="nav-link" data-section="transacoes">Transações</a></li>
-                      <li><a href="#" class="nav-link" data-section="relatorios">Relatórios</a></li>
-                      <li><a href="#" class="nav-link" data-section="contas">Contas</a></li>
-                      <li><a href="#" class="nav-link" data-section="metas">Metas</a></li>
-                      <li><a href="#" class="nav-link" data-section="investimentos">Investimentos</a></li>
-                      <li><a href="#" class="nav-link" data-section="fornecedores">Fornecedores</a></li>
-                      <li><a href="#" class="nav-link" data-section="calendario">Calendário</a></li>
-                      <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> Perfil</a></li>
->>>>>>> Stashed changes
                   </ul>
               </div>
           </nav>
@@ -261,7 +253,7 @@
 
                           <div class="form-row">
                               <div class="form-group" id="transEmpresaGroup" style="display: none;">
-                                  <label for="transEmpresa">Empresa</label>
+                                  <label for="transEmpresa" data-i18n="companyLabel">Company</label>
                                   <select id="transEmpresa"></select>
                               </div>
                           </div>
@@ -336,7 +328,7 @@
                   <div class="section-header">
                       <h2 data-i18n="reportsAndAnalysis">Relatórios e Análises</h2>
                       <div class="filter-group" id="reportsEmpresaFilterGroup" style="min-width: 220px;">
-                          <label for="reportsEmpresaFilter">Empresa</label>
+                          <label for="reportsEmpresaFilter" data-i18n="companyLabel">Company</label>
                           <select id="reportsEmpresaFilter"></select>
                       </div>
                   </div>
@@ -367,7 +359,7 @@
                                   <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome do fornecedor" required>
                               </div>
                               <div class="form-group" id="contasPagarEmpresaGroup" style="display: none;">
-                                  <label>Empresa</label>
+                                  <label data-i18n="companyLabel">Company</label>
                                   <select id="contasPagarEmpresa"></select>
                               </div>
                               <div class="form-group">
@@ -395,7 +387,7 @@
                                   <input type="text" data-i18n="clientPlaceholder" placeholder="Nome do cliente" required>
                               </div>
                               <div class="form-group" id="contasReceberEmpresaGroup" style="display: none;">
-                                  <label>Empresa</label>
+                                  <label data-i18n="companyLabel">Company</label>
                                   <select id="contasReceberEmpresa"></select>
                               </div>
                               <div class="form-group">
@@ -415,14 +407,14 @@
                       <form id="formProLabore">
                           <div class="form-row">
                               <div class="form-group" id="proLaboreEmpresaGroup" style="display: none;">
-                                  <label>Empresa</label>
+                                  <label data-i18n="companyLabel">Company</label>
                                   <select id="proLaboreEmpresa"></select>
                               </div>
                               <div class="form-group">
-                                  <label>Valor Mensal (Pró-Labore Fixo)</label>
+                                  <label data-i18n="proLaboreMonthlyFixedLabel">Monthly Value (Fixed Pro-Labore)</label>
                                   <input type="number" id="proLaboreValor" step="0.01" placeholder="0.00" required>
                               </div>
-                              <button type="submit" class="btn btn-success">Definir Pró-Labore</button>
+                              <button type="submit" class="btn btn-success" data-i18n="setProLabore">Set Pro-Labore</button>
                           </div>
                       </form>
                       <div id="proLaboreInfo" class="info-box"></div>
@@ -432,17 +424,12 @@
               <!-- SEÇÃO METAS -->
               <section id="metas-section" class="content-section" style="display: none;">
                   <div class="section-header">
-<<<<<<< Updated upstream
                       <h2 data-i18n="goalsSectionTitle">Definição de Metas</h2>
-                      <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> <span data-i18n="newGoal">Nova Meta</span></button>
-=======
-                      <h2>Definição de Metas</h2>
                       <div class="filter-group" id="metasEmpresaGroup" style="min-width: 220px;">
-                          <label for="metasEmpresa">Empresa</label>
+                          <label for="metasEmpresa" data-i18n="companyLabel">Company</label>
                           <select id="metasEmpresa"></select>
                       </div>
-                      <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> Nova Meta</button>
->>>>>>> Stashed changes
+                      <button class="btn btn-success" id="addMetaBtn"><i class="fas fa-plus"></i> <span data-i18n="newGoal">Nova Meta</span></button>
                   </div>
                   <div id="metasList" class="goals-container"></div>
               </section>
@@ -450,17 +437,12 @@
               <!-- SEÇÃO INVESTIMENTOS -->
               <section id="investimentos-section" class="content-section" style="display: none;">
                   <div class="section-header">
-<<<<<<< Updated upstream
                       <h2 data-i18n="investmentsCenterTitle">Central de Investimentos</h2>
-                      <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> <span data-i18n="newInvestment">Novo Investimento</span></button>
-=======
-                      <h2>Central de Investimentos</h2>
                       <div class="filter-group" id="investimentosEmpresaGroup" style="min-width: 220px;">
-                          <label for="investimentosEmpresa">Empresa</label>
+                          <label for="investimentosEmpresa" data-i18n="companyLabel">Company</label>
                           <select id="investimentosEmpresa"></select>
                       </div>
-                      <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> Novo Investimento</button>
->>>>>>> Stashed changes
+                      <button class="btn btn-success" id="addInvestimentoBtn"><i class="fas fa-plus"></i> <span data-i18n="newInvestment">Novo Investimento</span></button>
                   </div>
                   <div class="tabs-container">
                       <button class="tab-btn active" data-tab="investimentos-ativos" data-i18n="activeInvestments">Investimentos Ativos</button>
@@ -479,7 +461,7 @@
                                   <input type="text" data-i18n="examples" placeholder="Ex: Aluguel, Salário..." required>
                               </div>
                               <div class="form-group" id="custosFixosEmpresaGroup" style="display: none;">
-                                  <label>Empresa</label>
+                                  <label data-i18n="companyLabel">Company</label>
                                   <select id="custosFixosEmpresa"></select>
                               </div>
                               <div class="form-group">
@@ -499,7 +481,7 @@
                                   <input type="text" data-i18n="examples" placeholder="Ex: Comissão, Insumos..." required>
                               </div>
                               <div class="form-group" id="custosVariaveisEmpresaGroup" style="display: none;">
-                                  <label>Empresa</label>
+                                  <label data-i18n="companyLabel">Company</label>
                                   <select id="custosVariaveisEmpresa"></select>
                               </div>
                               <div class="form-group">
@@ -515,18 +497,18 @@
                       <form id="formCapitalGiro">
                           <div class="form-row">
                               <div class="form-group">
-                                  <label>Descrição</label>
-                                  <input type="text" placeholder="Ex: Caixa Inicial" required>
+                                  <label data-i18n="descriptionLabel">Description</label>
+                                  <input type="text" data-i18n="capitalInitialExample" placeholder="Ex: Caixa Inicial" required>
                               </div>
                               <div class="form-group" id="capitalGiroEmpresaGroup" style="display: none;">
-                                  <label>Empresa</label>
+                                  <label data-i18n="companyLabel">Company</label>
                                   <select id="capitalGiroEmpresa"></select>
                               </div>
                               <div class="form-group">
-                                  <label>Valor</label>
-                                  <input type="number" step="0.01" placeholder="0.00" required>
+                                  <label data-i18n="amountLabel">Amount</label>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
                               </div>
-                              <button type="submit" class="btn btn-success">Adicionar</button>
+                              <button type="submit" class="btn btn-success" data-i18n="add">Add</button>
                           </div>
                       </form>
                       <div id="capitalGiroList" class="costs-list"></div>
@@ -537,15 +519,8 @@
               <!-- SEÇÃO FORNECEDORES -->
               <section id="fornecedores-section" class="content-section" style="display: none;">
                   <div class="section-header">
-<<<<<<< Updated upstream
                       <h2 data-i18n="suppliersListTitle">Lista de Fornecedores</h2>
-                      <button class="btn btn-success" id="addFornecedorBtn"><i class="fas fa-plus"></i> <span data-i18n="newSupplier">Novo Fornecedor</span></button>
                   </div>
-                  </div>
-=======
-                      <h2>Lista de Fornecedores</h2>
-                  </div>    
->>>>>>> Stashed changes
                   <form id="formFornecedor">
                       <div class="form-row">
                           <div class="form-group">
@@ -605,28 +580,6 @@
                               </div>
                           </div>
                           <div class="divider"></div>
-
-<<<<<<< Updated upstream
-                          <!-- SLOGAN DA EMPRESA -->
-                          <div class="profile-section">
-                          <h4><i class="fas fa-lightbulb"></i> <span data-i18n="companySlogan">Slogan da Empresa</span></h4>
-                              <div id="sloganDisplay" class="slogan-display">
-                                  <p id="currentSlogan" class="slogan-text" data-i18n="noSlogan">Nenhum slogan definido</p>
-                              </div>
-                              <form id="formSlogan" class="form-slogan" style="display: none;">
-                                  <input type="text" id="sloganInput" data-i18n="sloganInputPlaceholder" placeholder="Digite o slogan da sua empresa..." maxlength="200" required>
-                                  <div class="form-actions">
-                                      <button type="submit" class="btn btn-success" data-i18n="save">Salvar</button>
-                                      <button type="button" class="btn btn-secondary" onclick="cancelEditSlogan()" data-i18n="cancel">Cancelar</button>
-                                  </div>
-                              </form>
-                              <button id="editSloganBtn" class="btn btn-primary btn-sm" onclick="editSlogan()"><i class="fas fa-edit"></i> <span data-i18n="edit">Editar</span></button>
-                          </div>
-
-                          <div class="divider"></div>
-
-=======
->>>>>>> Stashed changes
                           <!-- MUDAR SENHA -->
                           <div class="profile-section">
                               <h4><i class="fas fa-lock"></i> <span data-i18n="securityTitle">Segurança</span></h4>

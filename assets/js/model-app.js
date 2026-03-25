@@ -106,6 +106,7 @@ const TRANSLATIONS = {
         'settings': 'Configurações',
         'calendar': 'Calendário',
         'profile': 'Perfil',
+        'companyLabel': 'Empresa',
         'totalBalanceTitle': 'Saldo Total',
         'noCompanies': 'Nenhuma empresa cadastrada. Crie uma para começar!',
         'noCompaniesYet': 'Nenhuma empresa cadastrada ainda.',
@@ -161,6 +162,9 @@ const TRANSLATIONS = {
         'accountsManagement': 'Gestão de Contas',
         'receivableAccounts': 'Contas a Receber',
         'proLabore': 'Pró-Labore',
+        'proLaboreMonthlyFixedLabel': 'Valor Mensal (Pró-Labore Fixo)',
+        'setProLabore': 'Definir Pró-Labore',
+        'capitalInitialExample': 'Ex: Caixa Inicial',
         'proLaboreConfigured': 'Pró-Labore Configurado',
         'monthlyValue': 'Valor Mensal',
         'annualValue': 'Anual',
@@ -314,6 +318,20 @@ const TRANSLATIONS = {
         'dueDateLabel': 'Data Vencimento',
         'dueDatePlaceholder': 'dd/mm/aaaa',
         'registerBtn': 'Registrar',
+        'statusPending': 'Pendente',
+        'statusPaid': 'Pago',
+        'allCompanies': 'Todas as empresas',
+        'noReportsCompany': 'Esta empresa não possui transações registradas para gerar relatórios.',
+        'noReportsAny': 'Nenhuma empresa possui transações registradas para gerar relatórios.',
+        'generateReport': 'Gerar Relatório',
+        'scenarioAnalysisTitle': 'Análise de Cenários Financeiros',
+        'currentBalanceLabel': 'Saldo Atual',
+        'avgMonthlyExpenseLabel': 'Gasto Médio Mensal',
+        'monthsAutonomyLabel': 'Meses de Autonomia',
+        'optimisticScenarioLabel': 'Cenário Otimista (+15% de ganhos)',
+        'pessimisticScenarioLabel': 'Cenário Pessimista (-15% de ganhos)',
+        'autonomyLabel': 'Autonomia',
+        'monthsLabel': 'meses',
         
         // Confirmations
         'confirmExit': 'Deseja realmente sair?',
@@ -345,12 +363,10 @@ const TRANSLATIONS = {
         'accountPayableAddedSuccess': 'Conta a pagar adicionada!',
         'accountReceivableAddedSuccess': 'Conta a receber adicionada!',
 
+    },
+    'en': {
         // Accessibility
-        'audioReaderActive': 'Desativar leitor de áudio',
-        'librasActive': 'Desativar intérprete de LIBRAS',
-        'languageChanged': 'Idioma alterado para Português',
-        'fontSizeMessage': 'Tamanho da fonte:',
-        'librasWindowMessage': 'Intérprete de LIBRAS\n<small>Aguardando ativação de texto</small>',
+        'audioReaderTitle': 'Activate audio reader',
         'librasTitle': 'Activate LIBRAS interpreter',
         'fontSizeTitle': 'Increase font size',
         'themeToggleTitle': 'Toggle theme',
@@ -387,6 +403,7 @@ const TRANSLATIONS = {
         'settings': 'Settings',
         'calendar': 'Calendar',
         'profile': 'Profile',
+        'companyLabel': 'Company',
         'totalBalanceTitle': 'Total Balance',
         'noCompanies': 'No company registered. Create one to start!',
         'noCompaniesYet': 'No company registered yet.',
@@ -437,6 +454,9 @@ const TRANSLATIONS = {
         'payableAccounts': 'Payable Accounts',
         'receivableAccounts': 'Receivable Accounts',
         'proLabore': 'Pro-Labore',
+        'proLaboreMonthlyFixedLabel': 'Monthly Value (Fixed Pro-Labore)',
+        'setProLabore': 'Set Pro-Labore',
+        'capitalInitialExample': 'Ex: Initial Cash',
         'proLaboreConfigured': 'Pro-Labore Configured',
         'monthlyValue': 'Monthly Value',
         'annualValue': 'Annual',
@@ -542,6 +562,20 @@ const TRANSLATIONS = {
         'dueDateLabel': 'Due date',
         'dueDatePlaceholder': 'yyyy-mm-dd',
         'registerBtn': 'Register',
+        'statusPending': 'Pending',
+        'statusPaid': 'Paid',
+        'allCompanies': 'All companies',
+        'noReportsCompany': 'This company has no transactions recorded to generate reports.',
+        'noReportsAny': 'No company has transactions recorded to generate reports.',
+        'generateReport': 'Generate Report',
+        'scenarioAnalysisTitle': 'Financial Scenario Analysis',
+        'currentBalanceLabel': 'Current Balance',
+        'avgMonthlyExpenseLabel': 'Average Monthly Expense',
+        'monthsAutonomyLabel': 'Months of Autonomy',
+        'optimisticScenarioLabel': 'Optimistic Scenario (+15% income)',
+        'pessimisticScenarioLabel': 'Pessimistic Scenario (-15% income)',
+        'autonomyLabel': 'Autonomy',
+        'monthsLabel': 'months',
         
         // Confirmations
         'confirmExit': 'Do you really want to exit?',
@@ -593,9 +627,12 @@ function toggleLanguageDropdown() {
     }
 }
 
-function changeLanguage(lang) {
+function applyLanguage(lang, options = { showMessage: false, persist: true }) {
     currentLanguage = lang;
-    storageSet('language', lang);
+    if (options.persist) {
+        storageSet('language', lang);
+    }
+    document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'pt-BR');
 
     document.querySelectorAll('.lang-option').forEach(opt => {
         opt.classList.remove('active');
@@ -604,7 +641,8 @@ function changeLanguage(lang) {
         }
     });
 
-    document.getElementById('langDropdown').style.display = 'none';
+    const dropdown = document.getElementById('langDropdown');
+    if (dropdown) dropdown.style.display = 'none';
 
     if (audioReaderActive && speechSynthesisUtterance) {
         speechSynthesisUtterance.lang = lang === 'en' ? 'en-US' : 'pt-BR';
@@ -612,10 +650,101 @@ function changeLanguage(lang) {
 
     updateUILanguage();
 
-    showSuccessMessage(t('languageChanged'));
+    const businessesTitle = document.querySelector('[data-i18n="myBusinesses"]');
+    if (businessesTitle) {
+        businessesTitle.textContent = lang === 'en' ? 'My Businesses' : 'Meus Negócios';
+    }
+    const newCompanyBtn = document.querySelector('[data-i18n="newCompany"]');
+    if (newCompanyBtn) {
+        newCompanyBtn.textContent = lang === 'en' ? 'New Company' : 'Nova Empresa';
+    }
+
+    const isEnglish = lang === 'en';
+    const textMap = [
+        { selector: '[data-i18n="addTransaction"]', pt: 'Adicionar Transação', en: 'Add Transaction' },
+        { selector: 'label[for="transType"]', pt: 'Tipo', en: 'Type' },
+        { selector: 'label[for="transCategory"]', pt: 'Categoria', en: 'Category' },
+        { selector: 'label[for="transDescription"]', pt: 'Descrição', en: 'Description' },
+        { selector: 'label[for="transEmpresa"]', pt: 'Empresa', en: 'Company' },
+        { selector: 'label[for="transAmount"]', pt: 'Valor (R$)', en: 'Amount (R$)' },
+        { selector: 'label[for="transDate"]', pt: 'Data', en: 'Date' },
+        { selector: '[data-i18n="transactionHistory"]', pt: 'Histórico de Transações', en: 'Transaction History' },
+        { selector: 'label[for="filterType"]', pt: 'Filtrar por Tipo:', en: 'Filter by type:' },
+        { selector: 'label[for="filterCategory"]', pt: 'Filtrar por Categoria:', en: 'Filter by category:' },
+        { selector: '#clearFilters', pt: 'Limpar Filtros', en: 'Clear Filters' }
+    ];
+    textMap.forEach(item => {
+        const el = document.querySelector(item.selector);
+        if (el) el.textContent = isEnglish ? item.en : item.pt;
+    });
+
+    const transDescriptionInput = document.getElementById('transDescription');
+    if (transDescriptionInput) {
+        transDescriptionInput.placeholder = isEnglish ? 'Ex: Salary, Shopping...' : 'Ex: Salário, Compras...';
+    }
+
+    const transType = document.getElementById('transType');
+    if (transType) {
+        const ganho = transType.querySelector('option[value="ganho"]');
+        const gasto = transType.querySelector('option[value="gasto"]');
+        if (ganho) ganho.textContent = isEnglish ? 'Gain' : 'Ganho';
+        if (gasto) gasto.textContent = isEnglish ? 'Expense' : 'Gasto';
+    }
+
+    const transCategory = document.getElementById('transCategory');
+    if (transCategory) {
+        const placeholder = transCategory.querySelector('option[value=""]');
+        if (placeholder) {
+            placeholder.textContent = isEnglish ? 'Select a category' : 'Selecione uma categoria';
+        }
+    }
+
+    const addBtn = document.querySelector('#transactionForm .btn.btn-success span');
+    if (addBtn) {
+        addBtn.textContent = isEnglish ? 'Add' : 'Adicionar';
+    }
+
+    const filterType = document.getElementById('filterType');
+    if (filterType) {
+        const all = filterType.querySelector('option[value=""]');
+        const ganho = filterType.querySelector('option[value="ganho"]');
+        const gasto = filterType.querySelector('option[value="gasto"]');
+        if (all) all.textContent = isEnglish ? 'All' : 'Todos';
+        if (ganho) ganho.textContent = isEnglish ? 'Gain' : 'Ganhos';
+        if (gasto) gasto.textContent = isEnglish ? 'Expense' : 'Gastos';
+    }
+
+    const filterCategory = document.getElementById('filterCategory');
+    if (filterCategory) {
+        const allCategories = filterCategory.querySelector('option[value=""]');
+        if (allCategories) {
+            allCategories.textContent = isEnglish ? 'All categories' : 'Todas as categorias';
+        }
+    }
+
+    const searchInput = document.getElementById('searchTransaction');
+    if (searchInput) {
+        searchInput.placeholder = isEnglish ? 'Search by description...' : 'Buscar por descrição...';
+    }
+
+    if (options.showMessage) {
+        showSuccessMessage(t('languageChanged'));
+    }
+}
+
+function changeLanguage(lang) {
+    applyLanguage(lang, { showMessage: true, persist: true });
 }
 
 function updateUILanguage() {
+    const activeLangBtn = document.querySelector('.lang-option.active');
+    if (activeLangBtn) {
+        const activeLang = activeLangBtn.getAttribute('data-lang');
+        if (activeLang === 'pt-BR' || activeLang === 'en') {
+            currentLanguage = activeLang;
+        }
+    }
+
     const audioBtn = document.getElementById('audioReaderBtn');
     if (audioBtn) {
         audioBtn.title = audioReaderActive ? t('audioReaderActive') : t('audioReaderTitle');
@@ -872,6 +1001,7 @@ async function initApp() {
 
     initializeTheme();
     initAccessibility();
+    applyLanguage('pt-BR', { showMessage: false, persist: true });
 
     setupEventListeners();
 
@@ -919,6 +1049,14 @@ function setupEventListeners() {
     document.getElementById('loginBtn').addEventListener('click', handleLogin);
     document.getElementById('registerBtn').addEventListener('click', handleRegister);
     document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+    document.querySelectorAll('.lang-option').forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const lang = btn.getAttribute('data-lang') || 'pt-BR';
+            applyLanguage(lang, { showMessage: true, persist: true });
+        });
+    });
 
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
@@ -1101,13 +1239,8 @@ async function handleLogin(e) {
     const password = document.getElementById('loginPassword').value;
     const effectiveEmail = email || getLastUserEmail();
 
-<<<<<<< Updated upstream
-    if (!email || !password) {
-        alert(t('fillAllFields'));
-=======
     if (!effectiveEmail || !password) {
         alert('Por favor, preencha todos os campos');
->>>>>>> Stashed changes
         return;
     }
 
@@ -1172,13 +1305,9 @@ async function handleRegister(e) {
         storageSet(`user_pass_${email}`, passHash);
         storageSet('lastUserEmail', email);
         clearRegisterForm();
-<<<<<<< Updated upstream
-        showSuccessMessage(t('accountCreated'));
-=======
         showSuccessMessage('Conta criada! Faça login com sua senha.');
         toggleLoginRegister(e);
         updateLoginEmailVisibility();
->>>>>>> Stashed changes
         return;
     }
 
@@ -1459,12 +1588,8 @@ function handleEmpresaFormSubmit(e) {
         updateReportsEmpresaOptions();
         renderReportsByCompany();
     }
-<<<<<<< Updated upstream
-    showSuccessMessage(t('companyCreated'));
-=======
     closeEmpresaModal();
     showSuccessMessage('Empresa criada com sucesso! Selecione para ver dados específicos.');
->>>>>>> Stashed changes
 }
 
 function editEmpresa(id, e) {
@@ -1822,14 +1947,14 @@ function renderCompanyDashboards() {
 
         return `
             <div class="company-dashboard">
-                <h3 class="company-dashboard-title">Empresa: ${emp.nome}</h3>
+                <h3 class="company-dashboard-title">${t('companyLabel')}: ${emp.nome}</h3>
                 <div class="cards-container company-cards">
                     <div class="card card-balance">
                         <div class="card-icon">
                             <i class="fas fa-piggy-bank"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Saldo</h3>
+                            <h3>${t('balanceLabel')}</h3>
                             <p class="amount">${formatCurrency(balance)}</p>
                         </div>
                     </div>
@@ -1838,7 +1963,7 @@ function renderCompanyDashboards() {
                             <i class="fas fa-arrow-up"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Ganhos</h3>
+                            <h3>${t('income')}</h3>
                             <p class="amount income">${formatCurrency(income)}</p>
                         </div>
                     </div>
@@ -1847,7 +1972,7 @@ function renderCompanyDashboards() {
                             <i class="fas fa-arrow-down"></i>
                         </div>
                         <div class="card-content">
-                            <h3>Gastos</h3>
+                            <h3>${t('expenses')}</h3>
                             <p class="amount expense">${formatCurrency(expenses)}</p>
                         </div>
                     </div>
@@ -2016,6 +2141,11 @@ function updateContasEmpresaOptions() {
 
 function loadContasData() {
     const pagarContainer = document.getElementById('contasPagarList');
+    const dateLocale = currentLanguage === 'en' ? 'en-US' : 'pt-BR';
+    const getStatusLabel = (status) => {
+        if (status === 'pago') return t('statusPaid');
+        return t('statusPending');
+    };
     if (pagarContainer) {
         pagarContainer.innerHTML = contasPagar
             .filter(c => !currentEmpresa || c.empresaId === currentEmpresa.id)
@@ -2023,12 +2153,12 @@ function loadContasData() {
                 <div class="account-item">
                     <div>
                         <h4>${c.descricao}</h4>
-                        <p>Fornecedor: ${c.fornecedor}</p>
-                        <p>Vencimento: ${new Date(c.dataVencimento).toLocaleDateString('pt-BR')}</p>
+                        <p><strong>${t('supplierLabel')}:</strong> ${c.fornecedor}</p>
+                        <p><strong>${t('dueDateLabel')}:</strong> ${new Date(c.dataVencimento).toLocaleDateString(dateLocale)}</p>
                     </div>
                     <div>
                         <strong>${formatCurrency(c.valor)}</strong>
-                        <span class="status-badge status-${c.status}">${c.status}</span>
+                        <span class="status-badge status-${c.status}">${getStatusLabel(c.status)}</span>
                     </div>
                 </div>
             `).join('');
@@ -2042,12 +2172,12 @@ function loadContasData() {
                 <div class="account-item">
                     <div>
                         <h4>${c.descricao}</h4>
-                        <p>Cliente: ${c.cliente}</p>
-                        <p>Vencimento: ${new Date(c.dataVencimento).toLocaleDateString('pt-BR')}</p>
+                        <p><strong>${t('clientLabel')}:</strong> ${c.cliente}</p>
+                        <p><strong>${t('dueDateLabel')}:</strong> ${new Date(c.dataVencimento).toLocaleDateString(dateLocale)}</p>
                     </div>
                     <div>
                         <strong>${formatCurrency(c.valor)}</strong>
-                        <span class="status-badge status-${c.status}">${c.status}</span>
+                        <span class="status-badge status-${c.status}">${getStatusLabel(c.status)}</span>
                     </div>
                 </div>
             `).join('');
@@ -2521,7 +2651,7 @@ function updateReportsEmpresaOptions() {
     }
 
     group.style.display = 'block';
-    const options = ['<option value="all">Todas as empresas</option>']
+    const options = [`<option value="all">${t('allCompanies')}</option>`]
         .concat(empresas.map(emp => `<option value="${emp.id}">${emp.nome}</option>`))
         .join('');
     select.innerHTML = options;
@@ -2556,42 +2686,42 @@ function renderReportsByCompany() {
 
     if (withTransactions.length === 0) {
         container.innerHTML = selectedId
-            ? '<p class="empty-message">Esta empresa não possui transações registradas para gerar relatórios.</p>'
-            : '<p class="empty-message">Nenhuma empresa possui transações registradas para gerar relatórios.</p>';
+            ? `<p class="empty-message">${t('noReportsCompany')}</p>`
+            : `<p class="empty-message">${t('noReportsAny')}</p>`;
         return;
     }
 
     container.innerHTML = withTransactions.map((emp) => `
         <div class="company-dashboard">
             <div class="section-header">
-                <h3 class="company-dashboard-title">Empresa: ${emp.nome}</h3>
+                <h3 class="company-dashboard-title">${t('companyLabel')}: ${emp.nome}</h3>
                 <button class="btn btn-small btn-primary" onclick="generateReportForCompany(${emp.id})">
-                    <i class="fas fa-download"></i> Gerar Relatório
+                    <i class="fas fa-download"></i> ${t('generateReport')}
                 </button>
             </div>
             <div class="reports-container">
                 <div class="report-card">
-                    <h3>Comparativo Mensal</h3>
+                    <h3>${t('monthlyComparison')}</h3>
                     <canvas id="monthlyChart-${emp.id}"></canvas>
                 </div>
                 <div class="report-card">
-                    <h3>Comparativo Bimestral</h3>
+                    <h3>${t('bimonthlyComparison')}</h3>
                     <canvas id="bimonthlyChart-${emp.id}"></canvas>
                 </div>
                 <div class="report-card">
-                    <h3>Comparativo Semestral</h3>
+                    <h3>${t('semesterComparison')}</h3>
                     <canvas id="semesterChart-${emp.id}"></canvas>
                 </div>
                 <div class="report-card">
-                    <h3>Comparativo Anual</h3>
+                    <h3>${t('annualComparison')}</h3>
                     <canvas id="annualChart-${emp.id}"></canvas>
                 </div>
                 <div class="report-card">
-                    <h3>Análise de Cenários</h3>
+                    <h3>${t('scenarioAnalysis')}</h3>
                     <div id="scenarioAnalysis-${emp.id}"></div>
                 </div>
                 <div class="report-card">
-                    <h3>Distribuição por Categoria</h3>
+                    <h3>${t('categoryDistribution')}</h3>
                     <canvas id="categoryChart-${emp.id}"></canvas>
                 </div>
             </div>
@@ -2617,10 +2747,11 @@ function generateMonthlyComparison(companyId, canvasId) {
     const expense = dates.map(date => getMonthExpense(date, companyId));
 
     const ctx = container.getContext('2d');
+    const monthLocale = currentLanguage === 'en' ? 'en-US' : 'pt-BR';
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: dates.map(d => d.toLocaleDateString('pt-BR', { month: 'short' })),
+            labels: dates.map(d => d.toLocaleDateString(monthLocale, { month: 'short' })),
             datasets: [
                 {
                     label: t('income'),
@@ -2800,16 +2931,16 @@ function generateScenarioAnalysis(companyId, containerId) {
 
     container.innerHTML = `
         <div style="padding: 20px;">
-            <h4>Análise de Cenários Financeiros</h4>
-            <p><strong>Saldo Atual:</strong> ${formatCurrency(currentBalance)}</p>
-            <p><strong>Gasto Médio Mensal:</strong> ${formatCurrency(monthlyAvg)}</p>
-            <p><strong>Meses de Autonomia:</strong> ${months} meses</p>
+            <h4>${t('scenarioAnalysisTitle')}</h4>
+            <p><strong>${t('currentBalanceLabel')}:</strong> ${formatCurrency(currentBalance)}</p>
+            <p><strong>${t('avgMonthlyExpenseLabel')}:</strong> ${formatCurrency(monthlyAvg)}</p>
+            <p><strong>${t('monthsAutonomyLabel')}:</strong> ${months} ${t('monthsLabel')}</p>
             <hr style="margin: 15px 0;">
-            <p><strong>Cenário Otimista (+15% de ganhos):</strong></p>
-            <p>Autonomia: ${Math.ceil(months * 1.15)} meses</p>
+            <p><strong>${t('optimisticScenarioLabel')}:</strong></p>
+            <p>${t('autonomyLabel')}: ${Math.ceil(months * 1.15)} ${t('monthsLabel')}</p>
             <hr style="margin: 15px 0;">
-            <p><strong>Cenário Pessimista (-15% de ganhos):</strong></p>
-            <p>Autonomia: ${Math.floor(months * 0.85)} meses</p>
+            <p><strong>${t('pessimisticScenarioLabel')}:</strong></p>
+            <p>${t('autonomyLabel')}: ${Math.floor(months * 0.85)} ${t('monthsLabel')}</p>
         </div>
     `;
 }
@@ -3802,7 +3933,19 @@ function decreaseFontSize() {
 }
 
 function applyFontSize() {
-    document.documentElement.style.fontSize = (16 * currentFontSize) + 'px';
+    const baseSize = 16;
+    document.documentElement.style.fontSize = baseSize + 'px';
+    if (!document.body) {
+        return;
+    }
+
+    if ('zoom' in document.body.style) {
+        document.body.style.zoom = String(currentFontSize);
+    } else {
+        document.body.style.transform = currentFontSize === 1 ? '' : `scale(${currentFontSize})`;
+        document.body.style.transformOrigin = currentFontSize === 1 ? '' : 'top left';
+        document.body.style.width = currentFontSize === 1 ? '' : `${100 / currentFontSize}%`;
+    }
 }
 
 function readCurrentPageContent() {
