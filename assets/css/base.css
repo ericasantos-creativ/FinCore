@@ -1,10 +1,10 @@
 /* Base Styles */
 
-body {
+.legacy-body {
   font-family: var(--font-primary);
   color: var(--color-text-primary);
-  background: radial-gradient(1200px 700px at 15% -10%, rgba(138, 91, 255, 0.26), transparent 60%),
-    radial-gradient(900px 500px at 85% 0%, rgba(192, 140, 255, 0.18), transparent 55%),
+  background: radial-gradient(1200px 700px at 15% -10%, rgba(30, 144, 255, 0.15), transparent 60%),
+    radial-gradient(900px 500px at 85% 0%, rgba(0, 191, 255, 0.1), transparent 55%),
     var(--color-bg-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -69,13 +69,13 @@ a {
 .btn--primary {
   background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
   color: #fff;
-  box-shadow: 0 10px 24px rgba(46, 123, 255, 0.35);
+  box-shadow: 0 10px 24px rgba(30, 144, 255, 0.25);
 }
 
 .btn--secondary {
   border: 1px solid var(--color-accent-primary);
   color: var(--color-accent-primary);
-  background: rgba(26, 107, 255, 0.08);
+  background: rgba(30, 144, 255, 0.08);
 }
 
 .btn--danger {
@@ -101,7 +101,7 @@ a {
   width: 100%;
 }
 
-.card {
+.card-legacy {
   background: linear-gradient(145deg, rgba(15, 20, 34, 0.95), rgba(10, 15, 25, 0.85));
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 18px;

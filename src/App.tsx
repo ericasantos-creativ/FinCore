@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import type { FC } from 'react';
 
 type Conta = {
   id: string;
@@ -166,7 +167,7 @@ export default function App() {
         <div style={{ display: 'flex', gap: 8 }}>
           <input
             value={novaContaNome}
-            onChange={(e) => setNovaContaNome(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNovaContaNome(e.target.value)}
             placeholder="Nome da conta"
           />
           <button onClick={() => addConta(novaContaNome)}>Nova Conta</button>
@@ -176,15 +177,15 @@ export default function App() {
       <section style={{ marginTop: 24 }}>
         <h2>Nova Transacao</h2>
         <div style={{ display: 'grid', gap: 8, maxWidth: 420 }}>
-          <select value={transacaoContaId} onChange={(e) => setTransacaoContaId(e.target.value)}>
+          <select value={transacaoContaId} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTransacaoContaId(e.target.value)}>
             <option value="">Selecione uma conta</option>
-            {contas.map((conta) => (
+            {contas.map((conta: Conta) => (
               <option key={conta.id} value={conta.id}>
                 {conta.nome}
               </option>
             ))}
           </select>
-          <select value={transacaoTipo} onChange={(e) => setTransacaoTipo(e.target.value as 'receita' | 'despesa')}>
+          <select value={transacaoTipo} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTransacaoTipo(e.target.value as 'receita' | 'despesa')}>
             <option value="receita">Receita</option>
             <option value="despesa">Despesa</option>
           </select>
@@ -192,13 +193,13 @@ export default function App() {
             type="number"
             step="0.01"
             value={transacaoValor}
-            onChange={(e) => setTransacaoValor(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTransacaoValor(e.target.value)}
             placeholder="Valor"
           />
-          <input type="date" value={transacaoData} onChange={(e) => setTransacaoData(e.target.value)} />
+          <input type="date" value={transacaoData} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTransacaoData(e.target.value)} />
           <input
             value={transacaoDescricao}
-            onChange={(e) => setTransacaoDescricao(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTransacaoDescricao(e.target.value)}
             placeholder="Descricao"
           />
           <button
@@ -225,7 +226,7 @@ export default function App() {
           <div>Nenhuma conta cadastrada ainda</div>
         ) : (
           <ul>
-            {contas.map((conta) => (
+            {contas.map((conta: Conta) => (
               <li key={conta.id}>
                 {conta.nome} - R$ {conta.saldo.toFixed(2)}
               </li>
@@ -240,7 +241,7 @@ export default function App() {
           <div>Nenhuma transacao registrada ainda</div>
         ) : (
           <ul>
-            {transacoes.map((tx) => (
+            {transacoes.map((tx: Transacao) => (
               <li key={tx.id}>
                 {tx.data} - {tx.descricao} - {tx.tipo} - R$ {tx.valor.toFixed(2)}
               </li>
