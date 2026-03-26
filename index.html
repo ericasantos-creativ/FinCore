@@ -1,32 +1,87 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1A6BFF" />
-  <title>FinCore — Controle Financeiro</title>
+<html lang="pt-BR" data-theme="dark"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="FinCore - Sistema completo de gestão financeira com múltiplas empresas, análises e relatórios.">
+    <meta name="theme-color" content="#0B0E14">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FinCore">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <title>FinCore - Sistema de Gestão Financeira</title>
 
-  <!DOCTYPE html>
-  <html lang="pt-BR" data-theme="light">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-      <meta name="description" content="FinCore - Sistema completo de gestão financeira com múltiplas empresas, análises e relatórios.">
-      <meta name="theme-color" content="#7c3aed">
-      <meta name="apple-mobile-web-app-capable" content="yes">
-      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-      <meta name="apple-mobile-web-app-title" content="FinCore">
-      <link rel="manifest" href="manifest.json">
-      <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-      <title>FinCore - Sistema de Gestão Financeira</title>
+    <!-- Original CSS (Mantido por compatibilidade com rotas/layouts base) -->
     <link rel="stylesheet" href="assets/css/style.css?v=2">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind & Fonts do Stitch -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Sora:wght@300;400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 950: '#020617' },
+                        blue: { 400: '#60a5fa', 500: '#3b82f6' }
+                    },
+                    fontFamily: {
+                        'headline': ['Space Grotesk'],
+                        'body': ['Space Grotesk'],
+                        'label': ['Sora']
+                    },
+                    borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+        .blue-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 100%);
+        }
+    </style><style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(54, 57, 64, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(39, 146, 255, 0.2);
+        }
+    </style>
+<style>
+  .bg-background { background-color: #10131a; }
+  .bg-surface-container-lowest { background-color: #0b0e14; }
+  .bg-surface-dim { background-color: #10131a; }
+  .text-on-background { color: #e1e2eb; }
+  .text-primary-container { color: #2792ff; }
+  .bg-primary-container { background-color: #2792ff; }
+  .text-primary { color: #a5c8ff; }
+  .bg-surface-container { background-color: #1d2026; }
+  .text-on-surface { color: #e1e2eb; }
+  .text-on-surface-variant { color: #c0c7d6; }
+  .text-on-primary-fixed { color: #001c3a; }
+</style>
+</head>
+  <body class="bg-slate-950 text-slate-200 font-body antialiased min-h-screen">
       <!-- SPLASH SCREEN / CAPA DE ABERTURA -->
       <section id="splashScreen" class="splash-screen active">
           <div class="splash-background">
-              <video class="splash-video" autoplay muted loop playsinline preload="auto">
+              <video class="splash-video" autoplay="" muted="" loop="" playsinline="" preload="auto">
                   <source src="assets/IMAGENS/12647214_1920_1080_30fps%20(2).mp4" type="video/mp4">
               </video>
               <div class="splash-blob blob-1"></div>
@@ -47,78 +102,193 @@
       </section>
 
       <!-- TELA DE LOGIN -->
-      <section id="loginScreen" class="login-screen active" role="main" aria-label="Tela de login do FinCore">
-          <div class="login-background">
-              <video class="login-video" autoplay muted loop playsinline preload="auto">
-                  <source src="assets/IMAGENS/12647214_1920_1080_30fps%20(2).mp4" type="video/mp4">
-              </video>
-          </div>
-          <!-- BANNER DE ACESSIBILIDADE -->
-          <div id="accessibilityBanner" class="accessibility-banner" style="display: none;">
-              <div class="accessibility-banner-content">
-                  <p>
-                      <i class="fas fa-universal-access"></i>
-                      <strong>Recursos de Acessibilidade Disponíveis:</strong>
-                  </p>
-                  <ul>
-                      <li><i class="fas fa-volume-up"></i> <strong>Leitor de Áudio:</strong> Lê em voz alta o conteúdo da página</li>
-                      <li><i class="fas fa-hands"></i> <strong>Intérprete LIBRAS:</strong> Exibe intérprete de Língua Brasileira de Sinais</li>
-                      <li><i class="fas fa-text-height"></i> <strong>Aumentar Fonte:</strong> Aumenta o tamanho da letra</li>
-                  </ul>
-                  <button onclick="closeAccessibilityBanner()" class="btn btn-small"><i class="fas fa-times"></i> Fechar</button>
-              </div>
-          </div>
-          <div class="login-container">
-              <div class="login-card">
-                  <div class="login-header" style="display: none;"></div>
-
-                  <form id="loginForm" class="login-form" autocomplete="off" novalidate>
-                    <div class="form-group" id="loginEmailGroup">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="off" autocapitalize="none" spellcheck="false">
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Senha</label>
-                        <input type="password" id="loginPassword" placeholder="Sua senha" autocomplete="new-password" spellcheck="false" required>
-                    </div>
-                      <button id="loginBtn" class="btn btn-primary" type="button">Entrar</button>
-                  </form>
-
-                  <div id="registerForm" class="login-form" style="display: none;">
-                      <h2>Criar Conta</h2>
-                    <div class="form-group">
-                        <label for="registerName">Nome</label>
-                        <input type="text" id="registerName" placeholder="Seu nome" autocomplete="off" spellcheck="false" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" placeholder="seu@email.com" autocomplete="off" autocapitalize="none" spellcheck="false" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword">Senha</label>
-                        <input type="password" id="registerPassword" placeholder="Crie uma senha" autocomplete="new-password" spellcheck="false" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword2">Confirmar Senha</label>
-                        <input type="password" id="registerPassword2" placeholder="Confirme a senha" autocomplete="new-password" spellcheck="false" required>
-                    </div>
-                      <button id="registerBtn" class="btn btn-primary" type="button">Cadastrar</button>
-                      <p class="toggle-form">Já tem conta? <a href="#" onclick="toggleLoginRegister(event)">Faça login</a></p>
-                  </div>
-              </div>
-          </div>
-      </section>
+      <section id="loginScreen" class="login-screen active w-full min-h-screen z-50 absolute top-0 left-0 bg-[#10131a]" role="main" aria-label="Tela de login do FinCore"><div class="flex min-h-screen w-full"><section class="hidden md:flex flex-1 relative flex-col justify-between p-12 bg-surface-container-lowest overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-primary-container blur-[120px]"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] rounded-full bg-on-primary-fixed-variant blur-[100px]"></div>
+</div>
+<!-- Header -->
+<div class="relative z-10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">security</span>
+<h1 class="font-headline text-2xl font-bold tracking-tighter text-primary">FinCore</h1>
+</div>
+</div>
+<!-- Center Content -->
+<div class="relative z-10 max-w-lg">
+<h2 class="font-headline text-6xl font-bold tracking-tight text-on-surface mb-6 leading-[0.9]">
+                    Institutional <span class="text-primary-container">Precision</span>
+</h2>
+<div class="space-y-6">
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                        Institutional Grade Security. Access your sovereign assets with 256-bit encryption.
+                    </p>
+<!-- Live Market Synthesis Inset -->
+<div class="p-6 rounded bg-surface-container border border-outline-variant/15 glass-panel">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label text-xs uppercase tracking-widest text-primary">Live Market Synthesis</span>
+<span class="flex items-center gap-2 text-[10px] font-label text-slate-500">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                REAL-TIME FEED
+                            </span>
+</div>
+<img alt="FinCore Market Synthesis Graph" class="w-full h-32 object-cover opacity-80 mix-blend-screen grayscale contrast-125" data-alt="Abstract financial data visualization with glowing blue neon lines on a deep black grid background, futuristic fintech aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUltIfNd3B-X_ha1K-ppDBGNcuRndmLeEICT3mKoz8oSBGnEmV7Ek69pK0mT9w2rcTMOK3i-05wc9M8zjkaYV0dC5EctLiHwxJJ4JQ26JI1QP05tMeL5WkK6u2LMAU6Ahk0-DKE3PDhJKXJN6sum6HupNkcGyc0VjepqCngegB1wOWfE3IJHBuT_nQM18AaZqnjhjY-7vxzbxtWvtVBRszuvOC_pxi9INX4krhxIy7rlVgb2dS3Kv8ChZ7yl1AnX03pqK88didPOk">
+<div class="grid grid-cols-3 gap-4 mt-4">
+<div>
+<p class="font-label text-[10px] text-slate-500 uppercase">Latency</p>
+<p class="font-headline text-sm font-bold text-on-surface">1.2ms</p>
+</div>
+<div>
+<p class="font-label text-[10px] text-slate-500 uppercase">Uptime</p>
+<p class="font-headline text-sm font-bold text-on-surface">99.998%</p>
+</div>
+<div>
+<p class="font-label text-[10px] text-slate-500 uppercase">Status</p>
+<p class="font-headline text-sm font-bold text-emerald-400">OPTIMAL</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<div class="relative z-10 flex gap-8">
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">System Entropy</span>
+<span class="font-headline text-xs text-on-surface-variant font-medium">0x8F22...4E11</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">Server Cluster</span>
+<span class="font-headline text-xs text-on-surface-variant font-medium">OMEGA-7-FRANKFURT</span>
+</div>
+</div>
+</section><section class="w-full md:w-1/2 flex flex-col items-center justify-center p-8 bg-surface-dim">
+<div class="w-full max-w-md">
+<!-- Mobile Logo -->
+<div class="md:hidden flex items-center gap-2 mb-12">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">security</span>
+<h1 class="font-headline text-xl font-bold tracking-tighter text-primary">FinCore</h1>
+</div>
+<header class="mb-10">
+<h3 class="font-headline text-3xl font-bold text-on-surface tracking-tight mb-2 uppercase">Terminal Access</h3>
+<p class="text-on-surface-variant text-sm font-medium">Enter your credentials to authorize a secure session.</p>
+</header>
+<form class="space-y-6" id="loginForm">
+<!-- Operator Identity Field -->
+<div class="space-y-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400 ml-1" for="identity">Operator Identity</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">account_circle</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="loginEmail" placeholder="operator@fincore.int" type="email">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div>
+<!-- Access Cipher Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-end px-1">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400" for="cipher">Access Cipher</label>
+<a class="text-[10px] font-label uppercase tracking-widest text-primary hover:text-primary-container transition-colors" href="#">Forgot Key?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">key</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="loginPassword" placeholder="••••••••••••" type="password">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center">
+<label class="relative flex items-center cursor-pointer group">
+<input class="peer sr-only" type="checkbox">
+<div class="w-4 h-4 rounded-sm border border-outline-variant bg-surface-container-lowest peer-checked:bg-primary-container peer-checked:border-primary-container transition-all"></div>
+<span class="material-symbols-outlined absolute text-on-primary-fixed text-[12px] opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+<span class="ml-3 font-label text-[11px] uppercase tracking-widest text-slate-400 group-hover:text-on-surface-variant transition-colors">Remember this terminal</span>
+</label>
+</div>
+<!-- Primary Action -->
+<div class="pt-4 space-y-4">
+<button class="glow-button w-full bg-primary-container text-on-primary-fixed font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2" type="button" id="loginBtn">ENTRAR <span class="material-symbols-outlined text-lg">login</span></button>
+<button class="w-full border border-outline-variant/30 text-primary font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:bg-surface-container-highest active:scale-[0.98]" type="button" id="toggleToRegister" onclick="toggleLoginRegister(event)">
+                            Apply for Access
+                        </button>
+</div>
+</form>
+<!-- Support Links -->
+<footer class="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="font-label text-[10px] uppercase tracking-widest text-slate-500 hover:text-primary transition-colors" href="#">Security Protocol</a>
+<a class="font-label text-[10px] uppercase tracking-widest text-slate-500 hover:text-primary transition-colors" href="#">Support</a>
+<a class="font-label text-[10px] uppercase tracking-widest text-slate-500 hover:text-primary transition-colors" href="#">Institutional Status</a>
+</footer>
+<form class="space-y-6" id="registerForm" style="display: none;">
+<!-- Operator Identity Field -->
+<div class="space-y-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400 ml-1" for="identity">Operator Identity</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">account_circle</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="registerName" placeholder="Seu nome" type="text">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div><div class="space-y-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400 ml-1" for="identity">Operator Identity</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">account_circle</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="registerEmail" placeholder="operator@fincore.int" type="email">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div>
+<!-- Access Cipher Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-end px-1">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400" for="cipher">Access Cipher</label>
+<a class="text-[10px] font-label uppercase tracking-widest text-primary hover:text-primary-container transition-colors" href="#">Forgot Key?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">key</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="registerPassword" placeholder="••••••••••••" type="password">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div>
+<!-- Options -->
+<div class="space-y-2">
+<div class="flex justify-between items-end px-1">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400" for="cipher">Access Cipher</label>
+<a class="text-[10px] font-label uppercase tracking-widest text-primary hover:text-primary-container transition-colors" href="#">Forgot Key?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">key</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="registerPassword2" placeholder="••••••••••••" type="password">
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div><div class="flex items-center">
+<label class="relative flex items-center cursor-pointer group">
+<input class="peer sr-only" type="checkbox">
+<div class="w-4 h-4 rounded-sm border border-outline-variant bg-surface-container-lowest peer-checked:bg-primary-container peer-checked:border-primary-container transition-all"></div>
+<span class="material-symbols-outlined absolute text-on-primary-fixed text-[12px] opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+<span class="ml-3 font-label text-[11px] uppercase tracking-widest text-slate-400 group-hover:text-on-surface-variant transition-colors">Remember this terminal</span>
+</label>
+</div>
+<!-- Primary Action -->
+<div class="pt-4 space-y-4">
+<button class="glow-button w-full bg-primary-container text-on-primary-fixed font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2" type="button" id="registerBtn">CADASTRAR <span class="material-symbols-outlined text-lg">person_add</span></button>
+<button class="w-full border border-outline-variant/30 text-primary font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:bg-surface-container-highest active:scale-[0.98]" type="button" id="toggleToLogin" onclick="toggleLoginRegister(event)">
+                            Apply for Access
+                        </button>
+</div>
+</form></div>
+</section></div></section>
 
       <!-- TELA PRINCIPAL -->
       <section id="mainScreen" class="main-screen">
           <!-- HEADER -->
-          <header class="header">
-              <div class="header-content">
-                  <div class="logo">
-                      <i class="fas fa-chart-pie"></i>
-                      <span>FinCore</span>
-                  </div>
-                  <div class="accessibility-panel">
+          <header class="fixed top-0 w-full z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md font-sans antialiased shadow-lg shadow-blue-500/10 flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter text-blue-500">FinCore Azul</span>
+<!-- Central Search Bar (Positioned left-center per JSON/Requirement) -->
+<div class="hidden md:flex items-center bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 w-80 group focus-within:border-blue-500/50 transition-all">
+<span class="material-symbols-outlined text-slate-500 text-sm mr-2">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 placeholder:text-slate-600 w-full" placeholder="Search transactions, reports..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4"><div class="flex items-center gap-2 mr-4">
                       <div class="language-selector">
                           <button id="langBtn" class="btn btn-small btn-accessibility" title="Alterar idioma" onclick="toggleLanguageDropdown()">
                               <i class="fas fa-globe"></i>
@@ -137,34 +307,59 @@
                       <button id="fontSizeDownBtn" class="btn btn-small btn-accessibility" title="Diminuir fonte" onclick="decreaseFontSize()">
                           <i class="fas fa-minus"></i>
                       </button>
-                  </div>
-                  <div class="user-info">
+                  </div><div class="flex items-center gap-2">
                       <button id="themeToggleBtn" class="btn btn-small btn-info" title="Alternar tema" onclick="toggleTheme()">
                           <i class="fas fa-moon"></i>
                       </button>
                       <span id="userName">Usuário</span>
                       <button id="logoutBtn" class="btn btn-small btn-danger">Sair</button>
-                  </div>
-              </div>
-          </header>
+                  </div></div>
+</header>
 
           <!-- NAVIGATION MENU -->
-          <nav class="nav-menu">
-              <div class="nav-container">
-                  <ul class="nav-list">
-                      <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i> <span class="nav-text" data-i18n="dashboard">Dashboard</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="empresas"><span class="nav-text" data-i18n="companies">Empresas</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="transacoes"><span class="nav-text" data-i18n="transactions">Transações</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="relatorios"><span class="nav-text" data-i18n="reports">Relatórios</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="contas"><span class="nav-text" data-i18n="payable">Contas a Pagar</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="metas"><span class="nav-text" data-i18n="goals">Metas</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="investimentos"><span class="nav-text" data-i18n="investments">Investimentos</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="fornecedores"><span class="nav-text" data-i18n="suppliers">Fornecedores</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="calendario"><span class="nav-text" data-i18n="calendar">Calendário</span></a></li>
-                      <li><a href="#" class="nav-link" data-section="perfil"><i class="fas fa-user-cog"></i> <span class="nav-text" data-i18n="profile">Perfil</span></a></li>
-                  </ul>
-              </div>
-          </nav>
+          <div class="flex pt-16 w-full min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 border-r border-slate-800 bg-slate-950 flex flex-col py-20 z-40 hidden md:flex">
+<div class="px-6 mb-8">
+<h2 class="text-xl font-bold text-blue-500">FinCore</h2>
+<p class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Premium Finance</p>
+</div>
+<nav class="flex-1 space-y-1"><a class="nav-link active flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-blue-500 border-r-2 border-blue-500 bg-blue-500/5" href="#" data-section="dashboard">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="empresas">
+<span class="material-symbols-outlined">store</span>
+<span>Empresas</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="transacoes">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>Transações</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="relatorios">
+<span class="material-symbols-outlined">insights</span>
+<span>Relatórios</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="contas">
+<span class="material-symbols-outlined">account_balance</span>
+<span>Contas a Pagar</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="metas">
+<span class="material-symbols-outlined">track_changes</span>
+<span>Metas</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="investimentos">
+<span class="material-symbols-outlined">trending_up</span>
+<span>Investimentos</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="fornecedores">
+<span class="material-symbols-outlined">local_shipping</span>
+<span>Fornecedores</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="calendario">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Calendário</span>
+</a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="perfil">
+<span class="material-symbols-outlined">person</span>
+<span>Perfil</span>
+</a></nav>
+<div class="px-6 py-4 mt-auto">
+<div class="glass-card p-4 rounded-xl border-blue-500/20">
+<p class="text-xs text-blue-400 font-semibold mb-1">PRO PLAN</p>
+<p class="text-[10px] text-slate-400 leading-tight">Your account is secured with 256-bit encryption.</p>
+</div>
+</div>
+</aside><main class="flex-1 md:ml-64 p-8 min-h-[calc(100vh-4rem)] relative w-full overflow-y-auto main-wrapper"></main></div>
 
           <!-- INTÉRPRETE DE LIBRAS -->
           <div id="librasWindow" class="libras-window" style="display: none;">
@@ -187,40 +382,205 @@
           <!-- MAIN CONTENT -->
           <main class="main-content">
               <!-- DASHBOARD -->
-              <section id="dashboard-section" class="content-section">
-                  <div id="companyDashboards"></div>
-                  <div class="cards-container" id="overallDashboard" style="display: none;">
-                      <div class="card card-balance">
-                          <div class="card-icon">
-                              <i class="fas fa-piggy-bank"></i>
-                          </div>
-                          <div class="card-content">
-                              <h3 data-i18n="totalBalanceTitle">Saldo Total</h3>
-                              <p class="amount" id="totalBalance">R$ 0,00</p>
-                          </div>
-                      </div>
-
-                      <div class="card card-income">
-                          <div class="card-icon">
-                              <i class="fas fa-arrow-up"></i>
-                          </div>
-                          <div class="card-content">
-                              <h3 data-i18n="income">Ganhos</h3>
-                              <p class="amount income" id="totalIncome">R$ 0,00</p>
-                          </div>
-                      </div>
-
-                      <div class="card card-expense">
-                          <div class="card-icon">
-                              <i class="fas fa-arrow-down"></i>
-                          </div>
-                          <div class="card-content">
-                              <h3 data-i18n="expenses">Gastos</h3>
-                              <p class="amount expense" id="totalExpense">R$ 0,00</p>
-                          </div>
-                      </div>
-                  </div>
-              </section>
+              <section id="dashboard-section" class="screen px-4 pb-8 w-full"><header class="mb-8">
+<h1 class="text-3xl font-headline font-bold text-slate-100">Executive Overview</h1>
+<p class="text-slate-400 text-sm mt-1">Real-time monitoring of your financial ecosystem.</p>
+</header><div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="overallDashboard">
+<!-- Current Balance -->
+<div class="glass-card p-6 rounded-xl blue-glow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl text-blue-500">account_balance_wallet</span>
+</div>
+<p class="text-slate-400 text-sm font-label mb-2">Current Balance</p>
+<h3 class="text-3xl font-headline font-bold text-white" id="totalBalance">$124,592.00</h3>
+<div class="mt-4 flex items-center gap-2 text-xs">
+<span class="flex items-center text-emerald-400 font-semibold bg-emerald-400/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs mr-1">trending_up</span>+2.4%
+                        </span>
+<span class="text-slate-500">vs last month</span>
+</div>
+</div>
+<!-- Monthly Income -->
+<div class="glass-card p-6 rounded-xl blue-glow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl text-blue-500">payments</span>
+</div>
+<p class="text-slate-400 text-sm font-label mb-2">Monthly Income</p>
+<h3 class="text-3xl font-headline font-bold text-white" id="totalIncome">$12,840.50</h3>
+<div class="mt-4 flex items-center gap-2 text-xs">
+<span class="flex items-center text-emerald-400 font-semibold bg-emerald-400/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs mr-1">trending_up</span>+12%
+                        </span>
+<span class="text-slate-500">vs last month</span>
+</div>
+</div>
+<!-- Monthly Expenses -->
+<div class="glass-card p-6 rounded-xl blue-glow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-5xl text-blue-500">shopping_cart</span>
+</div>
+<p class="text-slate-400 text-sm font-label mb-2">Monthly Expenses</p>
+<h3 class="text-3xl font-headline font-bold text-white" id="totalExpense">$4,210.80</h3>
+<div class="mt-4 flex items-center gap-2 text-xs">
+<span class="flex items-center text-rose-400 font-semibold bg-rose-400/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-xs mr-1">trending_down</span>-5%
+                        </span>
+<span class="text-slate-500">savings efficiency</span>
+</div>
+</div>
+</div><div id="companyDashboards" class="mt-8 w-full"></div><div class="mt-8 border-t border-slate-800 pt-8"><h2 class="text-xl text-slate-300 mb-4">Módulos Extras (Design Estático)</h2><header class="mb-8">
+<h1 class="text-3xl font-headline font-bold text-slate-100">Executive Overview</h1>
+<p class="text-slate-400 text-sm mt-1">Real-time monitoring of your financial ecosystem.</p>
+</header><div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<!-- Large Line Chart Card -->
+<div class="lg:col-span-2 glass-card rounded-xl p-6 blue-glow">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline font-bold text-lg">Cash Flow</h4>
+<select class="bg-slate-900 border-slate-800 text-xs rounded-lg text-slate-300 focus:ring-blue-500 focus:border-blue-500">
+<option>Last 6 Months</option>
+<option>Last Year</option>
+</select>
+</div>
+<div class="h-64 w-full relative">
+<!-- Simulated Chart -->
+<div class="absolute inset-0 flex items-end justify-between px-2">
+<div class="w-full h-full flex flex-col justify-end">
+<div class="w-full h-full flex items-end gap-1">
+<div class="flex-1 bg-blue-500/20 border-t-2 border-blue-500 rounded-t h-[40%] chart-gradient"></div>
+<div class="flex-1 bg-blue-500/20 border-t-2 border-blue-500 rounded-t h-[60%] chart-gradient"></div>
+<div class="flex-1 bg-blue-500/20 border-t-2 border-blue-500 rounded-t h-[55%] chart-gradient"></div>
+<div class="flex-1 bg-blue-500/20 border-t-2 border-blue-500 rounded-t h-[85%] chart-gradient"></div>
+<div class="flex-1 bg-blue-500/20 border-t-2 border-blue-500 rounded-t h-[75%] chart-gradient"></div>
+<div class="flex-1 bg-blue-500/20 border-t-2 border-blue-500 rounded-t h-[95%] chart-gradient"></div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-500 mt-4 px-2">
+<span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pie Chart Card -->
+<div class="glass-card rounded-xl p-6 blue-glow">
+<h4 class="font-headline font-bold text-lg mb-6">Expense Breakdown</h4>
+<div class="flex flex-col items-center">
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+<circle cx="18" cy="18" fill="transparent" r="15.915" stroke="#1e293b" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.915" stroke="#3b82f6" stroke-dasharray="45 55" stroke-dashoffset="0" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.915" stroke="#60a5fa" stroke-dasharray="25 75" stroke-dashoffset="-45" stroke-width="3"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.915" stroke="#1d4ed8" stroke-dasharray="30 70" stroke-dashoffset="-70" stroke-width="3"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-xs text-slate-500 uppercase">Total</span>
+<span class="text-xl font-bold">$4.2k</span>
+</div>
+</div>
+<div class="w-full mt-6 space-y-3">
+<div class="flex justify-between items-center text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+<span class="text-slate-300">Housing</span>
+</div>
+<span class="font-semibold">45%</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-400"></span>
+<span class="text-slate-300">Food &amp; Drinks</span>
+</div>
+<span class="font-semibold">25%</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-blue-700"></span>
+<span class="text-slate-300">Transport</span>
+</div>
+<span class="font-semibold">30%</span>
+</div>
+</div>
+</div>
+</div>
+</div><div class="glass-card rounded-xl overflow-hidden blue-glow">
+<div class="p-6 border-b border-slate-800 flex justify-between items-center">
+<h4 class="font-headline font-bold text-lg">Recent Transactions</h4>
+<button class="text-blue-500 text-sm font-semibold hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-slate-500 text-xs font-label uppercase tracking-wider bg-slate-900/50">
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Description</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4 text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-800/50">
+<tr class="hover:bg-blue-500/5 transition-colors group">
+<td class="px-6 py-4 text-sm text-slate-400">Oct 24, 2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined text-sm">cloud</span>
+</div>
+<span class="font-medium text-slate-200">Amazon Web Services</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-400 text-[10px] font-bold uppercase">Software</span>
+</td>
+<td class="px-6 py-4 text-right font-semibold text-rose-400">-$1,240.00</td>
+</tr>
+<tr class="hover:bg-blue-500/5 transition-colors group">
+<td class="px-6 py-4 text-sm text-slate-400">Oct 23, 2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined text-sm">apartment</span>
+</div>
+<span class="font-medium text-slate-200">Stripe Payout</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2 py-1 rounded bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase">Revenue</span>
+</td>
+<td class="px-6 py-4 text-right font-semibold text-emerald-400">+$8,500.00</td>
+</tr>
+<tr class="hover:bg-blue-500/5 transition-colors group">
+<td class="px-6 py-4 text-sm text-slate-400">Oct 22, 2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined text-sm">local_cafe</span>
+</div>
+<span class="font-medium text-slate-200">Blue Bottle Coffee</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-400 text-[10px] font-bold uppercase">Food &amp; Drink</span>
+</td>
+<td class="px-6 py-4 text-right font-semibold text-rose-400">-$6.50</td>
+</tr>
+<tr class="hover:bg-blue-500/5 transition-colors group">
+<td class="px-6 py-4 text-sm text-slate-400">Oct 21, 2023</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined text-sm">directions_car</span>
+</div>
+<span class="font-medium text-slate-200">Uber Technologies</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-400 text-[10px] font-bold uppercase">Transport</span>
+</td>
+<td class="px-6 py-4 text-right font-semibold text-rose-400">-$34.20</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
 
               <!-- SEÇÃO TRANSAÇÕES -->
               <section id="transacoes-section" class="content-section" style="display: none;">
@@ -232,7 +592,7 @@
                           <div class="form-row">
                               <div class="form-group">
                                   <label for="transType" data-i18n="type">Tipo</label>
-                                  <select id="transType" required>
+                                  <select id="transType" required="">
                                       <option value="ganho" data-i18n="gain">Ganho</option>
                                       <option value="gasto" data-i18n="expense">Gasto</option>
                                   </select>
@@ -240,14 +600,14 @@
 
                               <div class="form-group">
                                   <label for="transCategory" data-i18n="category">Categoria</label>
-                                  <select id="transCategory" required>
+                                  <select id="transCategory" required="">
                                       <option value="" data-i18n="selectCategory">Selecione uma categoria</option>
                                   </select>
                               </div>
 
                               <div class="form-group">
                                   <label for="transDescription" data-i18n="description">Descrição</label>
-                                  <input type="text" id="transDescription" data-i18n="examples" placeholder="Ex: Salário, Compras..." required>
+                                  <input type="text" id="transDescription" data-i18n="examples" placeholder="Ex: Salário, Compras..." required="">
                               </div>
                           </div>
 
@@ -261,12 +621,12 @@
                           <div class="form-row">
                               <div class="form-group">
                                   <label for="transAmount" data-i18n="amount">Valor (R$)</label>
-                                  <input type="number" id="transAmount" placeholder="0.00" data-i18n="placeholderAmount" step="0.01" required>
+                                  <input type="number" id="transAmount" placeholder="0.00" data-i18n="placeholderAmount" step="0.01" required="">
                               </div>
 
                               <div class="form-group">
                                   <label for="transDate" data-i18n="date">Data</label>
-                                  <input type="date" id="transDate" required>
+                                  <input type="date" id="transDate" required="">
                               </div>
 
                               <div class="form-group">
@@ -315,13 +675,179 @@
               </section>
 
               <!-- SEÇÃO EMPRESAS -->
-              <section id="empresas-section" class="content-section" style="display: none;">
-                  <div class="section-header">
-                      <h2 data-i18n="myBusinesses">Meus Negócios</h2>
-                      <button class="btn btn-success" id="addEmpresaBtn"><i class="fas fa-plus"></i> <span data-i18n="newCompany">Nova Empresa</span></button>
-                  </div>
-                  <div id="empresasList" class="grid-container"></div>
-              </section>
+              <section id="empresas-section" class="content-section px-4 pb-8 w-full hidden" style="display: none;"><div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-3xl font-headline font-bold tracking-tight text-white mb-1">Companies</h2>
+<p class="text-zinc-500 text-sm">Managing 1,284 enterprise entities across 4 continents.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-semibold rounded hover:bg-zinc-800 hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">ios_share</span>
+                    Export
+                </button>
+<button class="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded shadow-lg shadow-blue-500/20 hover:bg-blue-500 transition-all active:scale-95" id="addEmpresaBtn">
+<span class="material-symbols-outlined text-lg">add</span>
+                    New Company
+                </button>
+</div>
+</div><div id="empresasList" class="w-full mb-8 space-y-4 grid-container"></div><div class="mt-8 border-t border-slate-800 pt-8 mt-12"><h2 class="text-xl text-slate-300 mb-4 opacity-50">Módulos Extras (Design Estático - Lista)</h2><div class="opacity-50 pointer-events-none"></div><div><div class="bg-zinc-900/30 border border-zinc-800 rounded-xl overflow-hidden backdrop-blur-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-zinc-800 bg-zinc-900/50">
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Company Name</th>
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Revenue</th>
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Last Activity</th>
+<th class="px-6 py-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-zinc-800/50">
+<!-- Row 1 -->
+<tr class="hover:bg-blue-500/5 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Nvidia" class="w-full h-full object-contain" data-alt="Corporate minimalist logo of a technology company on a clean square background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFrUIeNxYe9aSGljh9agP8cNssrH2CwJTvU9JY114rVPm46sY6KLKdsWidjFvONdGZTp8G2xXZvifmTwOa5o2r3P81k96Srszdif8Z84m4p6m18TPaFIR23M7vEnVwqQM7JVi7vj0cYfAhBmuZ-HFjI2GDdgaZUpw5wN9IF8yIu0bHqTTQzeHCtq9EL4K8YwLFDicCJMe8q2XDokpLjDqgjbkBwvxkVMcNZUkacrTt_kYd-MKqyPMHGcJ5JZBIOusB_IjdL-OrK05_">
+</div>
+<div>
+<p class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">NVIDIA Corporation</p>
+<p class="text-xs text-zinc-500">Semiconductors • Santa Clara, CA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase">
+<span class="w-1 h-1 rounded-full bg-green-400"></span>
+                                Active
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$2.21B</p>
+<p class="text-[10px] text-green-400">+12.4% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Oct 24, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-600 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 (Selected state) -->
+<tr class="bg-blue-500/10 transition-colors cursor-pointer group border-l-2 border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Microsoft" class="w-full h-full object-contain" data-alt="Corporate minimalist logo of a leading software giant on a clean square background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5cTg6Wb2jfEbEJQbyQvybzQghAwi90DadM7w_4vEpB6FG0sPhVtlZmFXotSzmiys98REIwNjIbSS9xBGITe4X9e-g3XHvKyx2m1crHtABgE5bqluEw_4lnENkQbV6dwbryRYQgPFpmPRvO8lv70ivN9z1nZ8Hf1DOr7HU-n-ASSShhMIxF5UZPQaaUhMnMGi4YZvOGq6rLLEfpqes0OytrUJJMZyyC12Qq-TGgOHikNZ3nQWxva7QC2k_wYBZWq_F8kGkDiQHNOXc">
+</div>
+<div>
+<p class="font-bold text-blue-400">Microsoft Corp</p>
+<p class="text-xs text-zinc-500">Software • Redmond, WA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase">
+<span class="w-1 h-1 rounded-full bg-green-400"></span>
+                                Active
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$3.12B</p>
+<p class="text-[10px] text-green-400">+8.1% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Oct 26, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-300">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-blue-500/5 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Stripe" class="w-full h-full object-contain" data-alt="Modern logo of a global payment processing firm on a clean square background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhwElxa6bD1Z1dHBKe_WnaqC0Tj22s6sC4JiB6Iwd15GNliaeRkEMz5Y_QP_EDUgmI54ezV5wCU-xonj1i6G4jsqIpyukeIER_pme0vEh8empC4-3u7Y3iZ60EzTkRwRReQDkSMQlgxp6_W-cEHgaGKez8LyOcWRMGztzf3MiikkFAVDQ-QK4SI28lCoChwJOuvadDZ85jxqqUBESWnXKOttdxR-8C7pLwcROgfV2ChKUUms_a9pzwFovY3BIOAK0VHizWwqGylEaF">
+</div>
+<div>
+<p class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">Stripe Inc.</p>
+<p class="text-xs text-zinc-500">FinTech • San Francisco, CA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-zinc-800 text-zinc-500 border border-zinc-700 uppercase">
+<span class="w-1 h-1 rounded-full bg-zinc-600"></span>
+                                Inactive
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$950M</p>
+<p class="text-[10px] text-zinc-500">+1.2% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Sep 12, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-600 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-blue-500/5 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Amazon" class="w-full h-full object-contain" data-alt="Iconic corporate logo of a global e-commerce and cloud leader" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP1kjGCfQ6T73gao9NeYHwGrZNaX6a4Be_pHYIaBV77RXFGOGTZxX7vr4zaLV6weBrz8XJrHTPndesHNIKmvb_rsfxrELFALjEkPOvvfHEFdivu-YZU14bF3A0TkIhmKprurdAydUvxstREK45G6MqnvJW2P2-M8Nfydo0ZKhHYfwSIza3xmKPeAZpa3Lc0xyB9B-Sc8Np7IF-nwuiimhA6WFwSLUOf6OOvixo9Yv1VBVLQ5_sTVmp-HHgUsXl98-bVs-0AsBbkBno">
+</div>
+<div>
+<p class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">Amazon Web Services</p>
+<p class="text-xs text-zinc-500">Cloud Infrastructure • Seattle, WA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase">
+<span class="w-1 h-1 rounded-full bg-green-400"></span>
+                                Active
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$1.84B</p>
+<p class="text-[10px] text-green-400">+15.7% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Oct 25, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-600 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 flex items-center justify-between bg-zinc-950/50">
+<p class="text-xs text-zinc-500">Showing 1-10 of 1,284 results</p>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold">1</button>
+<button class="w-8 h-8 rounded hover:bg-zinc-800 text-zinc-500 text-xs font-bold transition-colors">2</button>
+<button class="w-8 h-8 rounded hover:bg-zinc-800 text-zinc-500 text-xs font-bold transition-colors">3</button>
+<button class="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div></div></div></section>
 
               <!-- SEÇÃO RELATÓRIOS -->
               <section id="relatorios-section" class="content-section" style="display: none;">
@@ -332,8 +858,8 @@
                           <select id="reportsEmpresaFilter"></select>
                       </div>
                   </div>
-                      </div>
-                  </div>
+                      
+                  
                   <div id="reportsCompanies"></div>
               </section>
 
@@ -352,11 +878,11 @@
                           <div class="form-row">
                               <div class="form-group">
                                   <label data-i18n="descriptionLabel">Descrição</label>
-                                  <input type="text" data-i18n="descriptionExample" placeholder="Ex: Aluguel, Fornecedor..." required>
+                                  <input type="text" data-i18n="descriptionExample" placeholder="Ex: Aluguel, Fornecedor..." required="">
                               </div>
                               <div class="form-group">
                                   <label data-i18n="supplierLabel">Fornecedor</label>
-                                  <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome do fornecedor" required>
+                                  <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome do fornecedor" required="">
                               </div>
                               <div class="form-group" id="contasPagarEmpresaGroup" style="display: none;">
                                   <label data-i18n="companyLabel">Company</label>
@@ -364,11 +890,11 @@
                               </div>
                               <div class="form-group">
                                   <label data-i18n="amountLabel">Valor</label>
-                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required="">
                               </div>
                               <div class="form-group">
                                   <label data-i18n="dueDateLabel">Data Vencimento</label>
-                                  <input type="date" data-i18n="dueDatePlaceholder" required>
+                                  <input type="date" data-i18n="dueDatePlaceholder" required="">
                               </div>
                               <button type="submit" class="btn btn-success" data-i18n="registerBtn">Registrar</button>
                           </div>
@@ -380,11 +906,11 @@
                           <div class="form-row">
                               <div class="form-group">
                                   <label data-i18n="descriptionLabel">Descrição</label>
-                                  <input type="text" data-i18n="descriptionExample" placeholder="Ex: Venda, Aluguel..." required>
+                                  <input type="text" data-i18n="descriptionExample" placeholder="Ex: Venda, Aluguel..." required="">
                               </div>
                               <div class="form-group">
                                   <label data-i18n="clientLabel">Cliente</label>
-                                  <input type="text" data-i18n="clientPlaceholder" placeholder="Nome do cliente" required>
+                                  <input type="text" data-i18n="clientPlaceholder" placeholder="Nome do cliente" required="">
                               </div>
                               <div class="form-group" id="contasReceberEmpresaGroup" style="display: none;">
                                   <label data-i18n="companyLabel">Company</label>
@@ -392,11 +918,11 @@
                               </div>
                               <div class="form-group">
                                   <label data-i18n="amountLabel">Valor</label>
-                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required="">
                               </div>
                               <div class="form-group">
                                   <label data-i18n="dueDateLabel">Data Vencimento</label>
-                                  <input type="date" data-i18n="dueDatePlaceholder" required>
+                                  <input type="date" data-i18n="dueDatePlaceholder" required="">
                               </div>
                               <button type="submit" class="btn btn-success" data-i18n="registerBtn">Registrar</button>
                           </div>
@@ -412,7 +938,7 @@
                               </div>
                               <div class="form-group">
                                   <label data-i18n="proLaboreMonthlyFixedLabel">Monthly Value (Fixed Pro-Labore)</label>
-                                  <input type="number" id="proLaboreValor" step="0.01" placeholder="0.00" required>
+                                  <input type="number" id="proLaboreValor" step="0.01" placeholder="0.00" required="">
                               </div>
                               <button type="submit" class="btn btn-success" data-i18n="setProLabore">Set Pro-Labore</button>
                           </div>
@@ -458,7 +984,7 @@
                           <div class="form-row">
                               <div class="form-group">
                                   <label data-i18n="descriptionLabel">Descrição</label>
-                                  <input type="text" data-i18n="examples" placeholder="Ex: Aluguel, Salário..." required>
+                                  <input type="text" data-i18n="examples" placeholder="Ex: Aluguel, Salário..." required="">
                               </div>
                               <div class="form-group" id="custosFixosEmpresaGroup" style="display: none;">
                                   <label data-i18n="companyLabel">Company</label>
@@ -466,7 +992,7 @@
                               </div>
                               <div class="form-group">
                                   <label data-i18n="monthlyValueLabel">Valor Mensal</label>
-                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required="">
                               </div>
                               <button type="submit" class="btn btn-success"><span data-i18n="add">Adicionar</span></button>
                           </div>
@@ -478,7 +1004,7 @@
                           <div class="form-row">
                               <div class="form-group">
                                   <label data-i18n="descriptionLabel">Descrição</label>
-                                  <input type="text" data-i18n="examples" placeholder="Ex: Comissão, Insumos..." required>
+                                  <input type="text" data-i18n="examples" placeholder="Ex: Comissão, Insumos..." required="">
                               </div>
                               <div class="form-group" id="custosVariaveisEmpresaGroup" style="display: none;">
                                   <label data-i18n="companyLabel">Company</label>
@@ -486,7 +1012,7 @@
                               </div>
                               <div class="form-group">
                                   <label data-i18n="percentageOrValueLabel">Percentual ou Valor</label>
-                                  <input type="text" data-i18n="examples" placeholder="Ex: 10% ou R$ 100" required>
+                                  <input type="text" data-i18n="examples" placeholder="Ex: 10% ou R$ 100" required="">
                               </div>
                               <button type="submit" class="btn btn-success"><span data-i18n="add">Adicionar</span></button>
                           </div>
@@ -498,7 +1024,7 @@
                           <div class="form-row">
                               <div class="form-group">
                                   <label data-i18n="descriptionLabel">Description</label>
-                                  <input type="text" data-i18n="capitalInitialExample" placeholder="Ex: Caixa Inicial" required>
+                                  <input type="text" data-i18n="capitalInitialExample" placeholder="Ex: Caixa Inicial" required="">
                               </div>
                               <div class="form-group" id="capitalGiroEmpresaGroup" style="display: none;">
                                   <label data-i18n="companyLabel">Company</label>
@@ -506,7 +1032,7 @@
                               </div>
                               <div class="form-group">
                                   <label data-i18n="amountLabel">Amount</label>
-                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required>
+                                  <input type="number" step="0.01" data-i18n="amountPlaceholder" placeholder="0.00" required="">
                               </div>
                               <button type="submit" class="btn btn-success" data-i18n="add">Add</button>
                           </div>
@@ -525,19 +1051,19 @@
                       <div class="form-row">
                           <div class="form-group">
                               <label data-i18n="nameLabel">Nome</label>
-                              <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome da empresa" required>
+                              <input type="text" data-i18n="supplierPlaceholder" placeholder="Nome da empresa" required="">
                           </div>
                           <div class="form-group">
                               <label data-i18n="contact">Contato</label>
-                              <input type="tel" id="fornecedorContato" data-i18n="contactPlaceholder" placeholder="(65)99999-9999" inputmode="tel" pattern="\(\d{2}\)\d{5}-\d{4}" required>
+                              <input type="tel" id="fornecedorContato" data-i18n="contactPlaceholder" placeholder="(65)99999-9999" inputmode="tel" pattern="\(\d{2}\)\d{5}-\d{4}" required="">
                           </div>
                           <div class="form-group">
                               <label data-i18n="category">Categoria</label>
-                              <input type="text" data-i18n="categoryPlaceholder" placeholder="Produto/Serviço" required>
+                              <input type="text" data-i18n="categoryPlaceholder" placeholder="Produto/Serviço" required="">
                           </div>
                           <div class="form-group">
                               <label data-i18n="paymentTerms">Prazo de Pagamento</label>
-                              <input type="number" id="fornecedorPrazo" data-i18n="paymentTermsPlaceholder" placeholder="Dias (ex: 30)" min="1" step="1" required>
+                              <input type="number" id="fornecedorPrazo" data-i18n="paymentTermsPlaceholder" placeholder="Dias (ex: 30)" min="1" step="1" required="">
                           </div>
                           <button type="submit" class="btn btn-success"><span data-i18n="add">Adicionar</span></button>
                       </div>
@@ -589,15 +1115,15 @@
                               <form id="formChangePassword" class="form-password" style="display: none;">
                                   <div class="form-group">
                                       <label for="currentPassword" data-i18n="currentPassword">Senha Atual</label>
-                                      <input type="password" id="currentPassword" data-i18n="currentPasswordPlaceholder" placeholder="Sua senha atual" required>
+                                      <input type="password" id="currentPassword" data-i18n="currentPasswordPlaceholder" placeholder="Sua senha atual" required="">
                                   </div>
                                   <div class="form-group">
                                       <label for="newPassword" data-i18n="newPassword">Nova Senha</label>
-                                      <input type="password" id="newPassword" data-i18n="newPasswordPlaceholder" placeholder="Nova senha" required>
+                                      <input type="password" id="newPassword" data-i18n="newPasswordPlaceholder" placeholder="Nova senha" required="">
                                   </div>
                                   <div class="form-group">
                                       <label for="confirmPassword" data-i18n="confirmNewPassword">Confirmar Nova Senha</label>
-                                      <input type="password" id="confirmPassword" data-i18n="confirmPasswordPlaceholder" placeholder="Confirme a senha" required>
+                                      <input type="password" id="confirmPassword" data-i18n="confirmPasswordPlaceholder" placeholder="Confirme a senha" required="">
                                   </div>
                                   <div class="form-actions">
                                       <button type="submit" class="btn btn-success" data-i18n="confirm">Confirmar</button>
@@ -618,11 +1144,11 @@
                               <form id="formShareAccount" class="form-share" style="display: none;">
                                   <div class="form-group">
                                       <label for="shareEmail">Email do Terceiro</label>
-                                      <input type="email" id="shareEmail" placeholder="email@example.com" required>
+                                      <input type="email" id="shareEmail" placeholder="email@example.com" required="">
                                   </div>
                                   <div class="form-group">
                                       <label for="sharePermission">Nível de Acesso</label>
-                                      <select id="sharePermission" required>
+                                      <select id="sharePermission" required="">
                                           <option value="view">Visualização (Apenas leitura)</option>
                                           <option value="edit">Edição (Pode modificar)</option>
                                           <option value="admin">Administração (Acesso completo)</option>
@@ -677,11 +1203,11 @@
               <form id="empresaForm" class="modal-form">
                   <div class="form-group">
                       <label for="empresaNome">Nome da Empresa/Negocio</label>
-                      <input type="text" id="empresaNome" placeholder="Nome da empresa" required>
+                      <input type="text" id="empresaNome" placeholder="Nome da empresa" required="">
                   </div>
                   <div class="form-group">
                       <label for="empresaTipo">Tipo</label>
-                      <select id="empresaTipo" required>
+                      <select id="empresaTipo" required="">
                           <option value="">Selecione</option>
                           <option value="PJ">PJ</option>
                           <option value="PF">PF</option>
@@ -691,7 +1217,7 @@
                   </div>
                   <div class="form-group">
                       <label for="empresaDocumento">CPF/CNPJ</label>
-                      <input type="text" id="empresaDocumento" placeholder="CPF (000.000.000-00) ou CNPJ (somente numeros)" inputmode="numeric" autocomplete="off" required>
+                      <input type="text" id="empresaDocumento" placeholder="CPF (000.000.000-00) ou CNPJ (somente numeros)" inputmode="numeric" autocomplete="off" required="">
                   </div>
                   <div class="form-actions">
                       <button type="submit" class="btn btn-success">Salvar</button>
@@ -717,5 +1243,8 @@
       </script>
 
     <script type="module" src="assets/js/model-app.js?v=2"></script>
-    </body>
-    </html>
+    
+    
+
+
+</body></html>
