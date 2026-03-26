@@ -583,9 +583,7 @@
 </div></div></section>
 
               <!-- SEÇÃO TRANSAÇÕES -->
-              <section id="transacoes-section" class="content-section" style="display: none;">
-                  <!-- ADICIONAR TRANSAÇÃO -->
-                  <div class="add-transaction">
+              <section id="transacoes-section" class="content-section px-4 pb-8 w-full hidden" style="display: none;"><div class="w-full space-y-6"><div class="add-transaction">
                       <h2 data-i18n="addTransaction">Adicionar Transação</h2>
                       <p id="transEmpresaLabel" class="text-muted" style="display: none;"></p>
                       <form id="transactionForm" class="form-transaction">
@@ -636,10 +634,7 @@
                               </div>
                           </div>
                       </form>
-                  </div>
-
-                  <!-- FILTROS E HISTÓRICO -->
-                  <div class="transactions-section">
+                  </div><div class="transactions-section">
                       <div class="section-header">
                           <h2 data-i18n="transactionHistory">Histórico de Transações</h2>
                       </div>
@@ -671,8 +666,223 @@
                       <div class="transactions-list" id="transactionsList">
                           <p class="empty-message">Nenhuma transação registrada ainda</p>
                       </div>
-                  </div>
-              </section>
+                  </div></div><div class="mt-12 border-t border-slate-800 pt-8 mt-12 opacity-50 pointer-events-none"><h2 class="text-xl text-slate-300 mb-4">Módulos Extras (Tabela de Transações - Design Estático)</h2><div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+<!-- Left Side: Table & Filters -->
+<div class="flex-1 space-y-6">
+<!-- Header Section -->
+<div class="flex items-center justify-between">
+<div>
+<h1 class="text-3xl font-bold font-headline tracking-tight text-slate-100">Transactions</h1>
+<p class="text-slate-400 text-sm mt-1">Manage and track your financial movements</p>
+</div>
+<button class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg font-label font-semibold flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-xl">add</span>
+                        Add Transaction
+                    </button>
+</div>
+<!-- Filter Row -->
+<div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 flex flex-wrap gap-4 items-center">
+<div class="flex items-center gap-2 bg-slate-950 px-3 py-2 rounded-lg border border-slate-800">
+<span class="material-symbols-outlined text-slate-400 text-sm">calendar_today</span>
+<span class="text-xs text-slate-300 font-label">Oct 01, 2023 - Oct 31, 2023</span>
+</div>
+<select class="bg-slate-950 border-slate-800 text-slate-300 text-xs rounded-lg px-3 py-2 focus:ring-blue-500 focus:border-blue-500">
+<option>All Types</option>
+<option>Debit</option>
+<option>Credit</option>
+</select>
+<select class="bg-slate-950 border-slate-800 text-slate-300 text-xs rounded-lg px-3 py-2 focus:ring-blue-500 focus:border-blue-500">
+<option>All Accounts</option>
+<option>Business Checking</option>
+<option>Investment Portfolio</option>
+</select>
+<select class="bg-slate-950 border-slate-800 text-slate-300 text-xs rounded-lg px-3 py-2 focus:ring-blue-500 focus:border-blue-500">
+<option>Status: All</option>
+<option>Completed</option>
+<option>Pending</option>
+<option>Failed</option>
+</select>
+<button class="ml-auto text-blue-400 text-xs font-semibold hover:underline">Clear Filters</button>
+</div>
+<!-- Transactions Table -->
+<div class="bg-slate-900/30 border border-slate-800 rounded-xl overflow-hidden backdrop-blur-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-900/50 border-b border-slate-800">
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Description</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Category</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-800/50">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">Oct 24, 2023</td>
+<td class="px-6 py-4">
+<div class="font-medium text-slate-200">Apple Store Online</div>
+<div class="text-xs text-slate-500">Order #AZ-99210</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-bold uppercase tracking-wider">Technology</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400">
+                                        Completed
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right font-headline font-bold text-slate-100">-$1,299.00</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">Oct 23, 2023</td>
+<td class="px-6 py-4">
+<div class="font-medium text-slate-200">Stripe Payout</div>
+<div class="text-xs text-slate-500">Sales Oct 15-22</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-bold uppercase tracking-wider">Revenue</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400">
+                                        Completed
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right font-headline font-bold text-emerald-400">+$4,550.20</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">Oct 22, 2023</td>
+<td class="px-6 py-4">
+<div class="font-medium text-slate-200">AWS Cloud Services</div>
+<div class="text-xs text-slate-500">Monthly Usage Fees</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-bold uppercase tracking-wider">Operations</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400">
+                                        Pending
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right font-headline font-bold text-slate-100">-$422.15</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">Oct 21, 2023</td>
+<td class="px-6 py-4">
+<div class="font-medium text-slate-200">Uber Trip</div>
+<div class="text-xs text-slate-500">Travel Expense</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-bold uppercase tracking-wider">Transport</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400">
+                                        Completed
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right font-headline font-bold text-slate-100">-$24.50</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400">Oct 20, 2023</td>
+<td class="px-6 py-4">
+<div class="font-medium text-slate-200">Failed Refund Attempt</div>
+<div class="text-xs text-slate-500">Internal Transfer Error</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-[10px] font-bold uppercase tracking-wider">Other</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-500/10 text-rose-400">
+                                        Failed
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right font-headline font-bold text-slate-100">$0.00</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 bg-slate-900/50 border-t border-slate-800 flex items-center justify-between">
+<span class="text-xs text-slate-500">Showing 5 of 142 transactions</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-slate-700 text-slate-400 text-xs hover:bg-slate-800">Previous</button>
+<button class="px-3 py-1 rounded border border-slate-700 text-slate-400 text-xs hover:bg-slate-800">Next</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Sidebar Insights -->
+<div class="w-full lg:w-80 space-y-6">
+<!-- Summary Card -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl relative overflow-hidden group">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-blue-600/10 rounded-full blur-3xl group-hover:bg-blue-600/20 transition-all"></div>
+<h3 class="font-label text-sm font-semibold text-slate-400 mb-4">Monthly Summary</h3>
+<div class="space-y-4">
+<div>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Total Inflow</p>
+<p class="text-xl font-headline font-bold text-emerald-400">+$24,850.00</p>
+</div>
+<div class="pt-4 border-t border-slate-800/50">
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Total Outflow</p>
+<p class="text-xl font-headline font-bold text-slate-100">-$12,310.45</p>
+</div>
+<div class="pt-4 border-t border-slate-800">
+<p class="text-[10px] text-blue-400 uppercase tracking-widest mb-1">Net Balance</p>
+<p class="text-2xl font-headline font-black text-blue-500">+$12,539.55</p>
+</div>
+</div>
+</div>
+<!-- Quick Insights / Category Pie -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+<h3 class="font-label text-sm font-semibold text-slate-400 mb-6">Category Distribution</h3>
+<div class="relative flex justify-center mb-6">
+<!-- Simulated Pie Chart with CSS -->
+<div class="w-32 h-32 rounded-full border-[10px] border-blue-500 flex items-center justify-center relative" style="border-right-color: #1e293b; border-bottom-color: #334155; transform: rotate(15deg);">
+<div class="text-center -rotate-[15deg]">
+<span class="block text-xs text-slate-500 uppercase font-bold tracking-tighter">Top</span>
+<span class="block font-headline font-bold text-lg text-slate-100">Cloud</span>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-blue-500"></div>
+<span class="text-slate-400">Technology</span>
+</div>
+<span class="text-slate-200 font-bold">45%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-slate-600"></div>
+<span class="text-slate-400">Operations</span>
+</div>
+<span class="text-slate-200 font-bold">28%</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-slate-800"></div>
+<span class="text-slate-400">Other</span>
+</div>
+<span class="text-slate-200 font-bold">27%</span>
+</div>
+</div>
+<button class="w-full mt-6 py-2 text-xs font-semibold text-blue-400 border border-blue-500/20 rounded-lg hover:bg-blue-500/10 transition-colors">
+                        View Detailed Report
+                    </button>
+</div>
+<!-- Promo/Quick Action -->
+<div class="rounded-xl overflow-hidden relative h-40 group cursor-pointer">
+<img alt="Financial analytics" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close up of a premium matte black credit card with glowing blue holographic details on a glass surface with dark ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFF2DOZpeCYguyw6n9YOCfE9T121L6RWUA825LJxZpXUDjiDyMCuodRMJ5flqcYnFn1RSsmqGDWAvCnZvvKSwAyTbuOK0ED0Nq-C32SJg3qspHqPW7bw1LZ_BselivIyaE4PINK0Kg6wih6frOVMtbP3y7HDwnEzs2IatRs73YcYmutolZjHoSiVscylFWAvdlMLq7gqexeLq6KLFFdSuEUNnL3dS6aCnWHcNZNd0Kjc_3k1613kpNLQtowrqvgfi8pYhgzy3izTGd">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent p-6 flex flex-col justify-end">
+<p class="text-blue-400 text-[10px] font-bold tracking-widest uppercase">Upgrade Plan</p>
+<h4 class="text-white font-headline font-bold text-sm">Unlock AI Predictions</h4>
+</div>
+</div>
+</div>
+</div></div></section>
 
               <!-- SEÇÃO EMPRESAS -->
               <section id="empresas-section" class="content-section px-4 pb-8 w-full hidden" style="display: none;"><div class="flex items-center justify-between mb-8">
@@ -850,18 +1060,274 @@
 </div></div></div></section>
 
               <!-- SEÇÃO RELATÓRIOS -->
-              <section id="relatorios-section" class="content-section" style="display: none;">
-                  <div class="section-header">
+              <section id="relatorios-section" class="content-section px-4 pb-8 w-full hidden" style="display: none;"><div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold text-white">Revenue by Category</h4>
+<p class="text-slate-500 text-sm">Aggregated earnings per operational sector</p>
+</div>
+<div class="flex gap-2">
+<span class="flex items-center gap-2 text-xs text-slate-400">
+<span class="w-3 h-3 rounded-full bg-blue-500"></span> Current
+                            </span>
+<span class="flex items-center gap-2 text-xs text-slate-400">
+<span class="w-3 h-3 rounded-full bg-slate-700"></span> Projected
+                            </span>
+</div>
+</div><div class="w-full space-y-6 z-10 relative"><div class="section-header">
                       <h2 data-i18n="reportsAndAnalysis">Relatórios e Análises</h2>
                       <div class="filter-group" id="reportsEmpresaFilterGroup" style="min-width: 220px;">
                           <label for="reportsEmpresaFilter" data-i18n="companyLabel">Company</label>
                           <select id="reportsEmpresaFilter"></select>
                       </div>
-                  </div>
-                      
-                  
-                  <div id="reportsCompanies"></div>
-              </section>
+                  </div><div id="reportsCompanies"></div></div><div class="mt-12 border-t border-slate-800 pt-8 mt-12 opacity-50 relative pointer-events-none"><h2 class="text-xl text-slate-300 mb-4">Design do Relatório (Stitch Layout Mockup)</h2><section class="px-8 py-6 flex items-center justify-between border-b border-slate-800/50">
+<div>
+<h2 class="text-3xl font-headline font-bold text-white tracking-tight">Reports</h2>
+<p class="text-slate-500 text-sm mt-1">Financial performance and risk assessment analysis.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-700 text-slate-300 text-sm font-medium hover:bg-slate-900 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                    Export to CSV
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors shadow-lg shadow-blue-900/20">
+<span class="material-symbols-outlined text-sm" data-icon="picture_as_pdf">picture_as_pdf</span>
+                    Export to PDF
+                </button>
+</div>
+</section><div class="flex-1 flex overflow-hidden">
+<!-- Left Panel: Report Builder & Presets -->
+<aside class="w-80 border-r border-slate-800/50 flex flex-col overflow-y-auto bg-slate-950/50">
+<!-- Report Builder -->
+<div class="p-6 border-b border-slate-800/50">
+<h3 class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-4">Report Builder</h3>
+<div class="space-y-4">
+<div class="space-y-1.5">
+<label class="text-[10px] text-slate-500 font-semibold uppercase">Date Range</label>
+<div class="relative">
+<select class="w-full bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-300 py-2 pl-3 pr-8 appearance-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+<option>Last 30 Days</option>
+<option>Last Quarter</option>
+<option>Fiscal Year 2023</option>
+<option>Custom Range</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-slate-500 pointer-events-none text-lg" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] text-slate-500 font-semibold uppercase">Account Type</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 rounded bg-blue-500/10 border border-blue-500/50 text-blue-400 text-xs">Treasury</button>
+<button class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-slate-500 text-xs hover:border-slate-500">Operational</button>
+<button class="px-3 py-1.5 rounded bg-slate-900 border border-slate-700 text-slate-500 text-xs hover:border-slate-500">Investment</button>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] text-slate-500 font-semibold uppercase">Metric</label>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-blue-500/20" type="checkbox">
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">Gross Revenue</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-blue-500/20" type="checkbox">
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">Operating Margin</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-blue-500/20" type="checkbox">
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">Liability Ratio</span>
+</label>
+</div>
+</div>
+<button class="w-full py-2.5 mt-2 bg-slate-100 text-slate-900 text-sm font-bold rounded-lg hover:bg-white transition-all active:scale-[0.98]">
+                            Apply Filters
+                        </button>
+</div>
+</div>
+<!-- Presets -->
+<div class="p-6">
+<h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Quick Presets</h3>
+<div class="space-y-1">
+<button class="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-slate-900 group transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-500" data-icon="insert_chart" style="font-variation-settings: 'FILL' 1;">insert_chart</span>
+<span class="text-sm text-slate-300 group-hover:text-white">Monthly Performance</span>
+</div>
+<span class="material-symbols-outlined text-slate-700 text-xs" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-slate-900 group transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-500" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-sm text-slate-300 group-hover:text-white">Risk Analysis</span>
+</div>
+<span class="material-symbols-outlined text-slate-700 text-xs" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-slate-900 group transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="text-sm text-slate-300 group-hover:text-white">Capital Flow</span>
+</div>
+<span class="material-symbols-outlined text-slate-700 text-xs" data-icon="chevron_right">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-slate-900 group transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-purple-500" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="text-sm text-slate-300 group-hover:text-white">Compliance Audit</span>
+</div>
+<span class="material-symbols-outlined text-slate-700 text-xs" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Chart Canvas -->
+<section class="flex-1 overflow-y-auto p-8 space-y-8 bg-gradient-to-br from-slate-950 to-slate-900">
+<!-- Revenue by Category (Bar Chart) -->
+<div class="glass-panel p-6 rounded-xl shadow-xl">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold text-white">Revenue by Category</h4>
+<p class="text-slate-500 text-sm">Aggregated earnings per operational sector</p>
+</div>
+<div class="flex gap-2">
+<span class="flex items-center gap-2 text-xs text-slate-400">
+<span class="w-3 h-3 rounded-full bg-blue-500"></span> Current
+                            </span>
+<span class="flex items-center gap-2 text-xs text-slate-400">
+<span class="w-3 h-3 rounded-full bg-slate-700"></span> Projected
+                            </span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-4 px-4 border-b border-slate-800 pb-2">
+<!-- Bar Item 1 -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-slate-800 rounded-t h-[40%] group-hover:bg-slate-700 transition-colors"></div>
+<div class="w-full bg-blue-600 rounded-t h-[65%] group-hover:bg-blue-500 transition-colors relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-100 text-slate-950 text-[10px] font-bold px-2 py-1 rounded">$42.5k</div>
+</div>
+</div>
+<span class="text-[10px] text-slate-500 font-label">FinTech</span>
+</div>
+<!-- Bar Item 2 -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-slate-800 rounded-t h-[30%] group-hover:bg-slate-700 transition-colors"></div>
+<div class="w-full bg-blue-600 rounded-t h-[45%] group-hover:bg-blue-500 transition-colors relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-100 text-slate-950 text-[10px] font-bold px-2 py-1 rounded">$28.1k</div>
+</div>
+</div>
+<span class="text-[10px] text-slate-500 font-label">SaaS</span>
+</div>
+<!-- Bar Item 3 -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-slate-800 rounded-t h-[55%] group-hover:bg-slate-700 transition-colors"></div>
+<div class="w-full bg-blue-600 rounded-t h-[85%] group-hover:bg-blue-500 transition-colors relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-100 text-slate-950 text-[10px] font-bold px-2 py-1 rounded">$62.9k</div>
+</div>
+</div>
+<span class="text-[10px] text-slate-500 font-label">Retail</span>
+</div>
+<!-- Bar Item 4 -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-slate-800 rounded-t h-[20%] group-hover:bg-slate-700 transition-colors"></div>
+<div class="w-full bg-blue-600 rounded-t h-[35%] group-hover:bg-blue-500 transition-colors relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-100 text-slate-950 text-[10px] font-bold px-2 py-1 rounded">$15.4k</div>
+</div>
+</div>
+<span class="text-[10px] text-slate-500 font-label">Services</span>
+</div>
+<!-- Bar Item 5 -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-slate-800 rounded-t h-[45%] group-hover:bg-slate-700 transition-colors"></div>
+<div class="w-full bg-blue-600 rounded-t h-[75%] group-hover:bg-blue-500 transition-colors relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-100 text-slate-950 text-[10px] font-bold px-2 py-1 rounded">$54.2k</div>
+</div>
+</div>
+<span class="text-[10px] text-slate-500 font-label">Logistics</span>
+</div>
+</div>
+</div>
+<!-- Growth Trend (Line Chart) -->
+<div class="glass-panel p-6 rounded-xl shadow-xl overflow-hidden relative">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold text-white">Growth Trend</h4>
+<p class="text-slate-500 text-sm">Quarter-over-quarter asset value progression</p>
+</div>
+<div class="text-right">
+<div class="text-2xl font-bold text-emerald-400 leading-none">+12.4%</div>
+<div class="text-[10px] text-slate-500 uppercase font-label">Annualized Yield</div>
+</div>
+</div>
+<div class="h-64 relative">
+<!-- Background Grid -->
+<div class="absolute inset-0 flex flex-col justify-between">
+<div class="border-b border-slate-800/50 w-full h-0"></div>
+<div class="border-b border-slate-800/50 w-full h-0"></div>
+<div class="border-b border-slate-800/50 w-full h-0"></div>
+<div class="border-b border-slate-800/50 w-full h-0"></div>
+<div class="border-b border-slate-800/50 w-full h-0"></div>
+</div>
+<!-- SVG Line Chart Mock -->
+<svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 1000 256">
+<defs>
+<linearGradient id="lineGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(59, 130, 246, 0.4); stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(59, 130, 246, 0); stop-opacity:1"></stop>
+</linearGradient>
+</defs>
+<!-- Shadow Path -->
+<path d="M0,180 Q100,200 200,140 T400,100 T600,160 T800,80 T1000,40 V256 H0 Z" fill="url(#lineGradient)"></path>
+<!-- Main Line -->
+<path d="M0,180 Q100,200 200,140 T400,100 T600,160 T800,80 T1000,40" fill="none" stroke="#3b82f6" stroke-linecap="round" stroke-width="4"></path>
+<!-- Key Points -->
+<circle cx="200" cy="140" fill="#3b82f6" r="5" stroke="#020617" stroke-width="2"></circle>
+<circle cx="600" cy="160" fill="#3b82f6" r="5" stroke="#020617" stroke-width="2"></circle>
+<circle cx="800" cy="80" fill="#3b82f6" r="5" stroke="#020617" stroke-width="2"></circle>
+<circle cx="1000" cy="40" fill="#60a5fa" r="5" stroke="#020617" stroke-width="2"></circle>
+</svg>
+<!-- X-Axis Labels -->
+<div class="absolute -bottom-1 w-full flex justify-between px-2">
+<span class="text-[10px] text-slate-500 font-label">Jan</span>
+<span class="text-[10px] text-slate-500 font-label">Feb</span>
+<span class="text-[10px] text-slate-500 font-label">Mar</span>
+<span class="text-[10px] text-slate-500 font-label">Apr</span>
+<span class="text-[10px] text-slate-500 font-label">May</span>
+<span class="text-[10px] text-slate-500 font-label">Jun</span>
+</div>
+</div>
+</div>
+<!-- Footer Summary Grid -->
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-slate-900/40 p-5 rounded-lg border border-slate-800 flex flex-col">
+<span class="text-xs text-slate-500 font-label uppercase mb-1">Active Assets</span>
+<span class="text-xl font-headline font-bold text-white">$2,440,920</span>
+<div class="mt-4 flex items-center gap-2 text-xs text-emerald-500">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span>8% from previous quarter</span>
+</div>
+</div>
+<div class="bg-slate-900/40 p-5 rounded-lg border border-slate-800 flex flex-col">
+<span class="text-xs text-slate-500 font-label uppercase mb-1">Operational Cost</span>
+<span class="text-xl font-headline font-bold text-white">$142,500</span>
+<div class="mt-4 flex items-center gap-2 text-xs text-rose-500">
+<span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+<span>Reduced by 2.4%</span>
+</div>
+</div>
+<div class="bg-slate-900/40 p-5 rounded-lg border border-slate-800 flex flex-col">
+<span class="text-xs text-slate-500 font-label uppercase mb-1">Report Health</span>
+<span class="text-xl font-headline font-bold text-white">Optimal</span>
+<div class="mt-4 flex items-center gap-2 text-xs text-blue-400">
+<span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+<span>All metrics verified</span>
+</div>
+</div>
+</div>
+</section>
+</div></div></section>
 
               <!-- SEÇÃO CONTAS A PAGAR/RECEBER -->
               <section id="contas-section" class="content-section" style="display: none;">
