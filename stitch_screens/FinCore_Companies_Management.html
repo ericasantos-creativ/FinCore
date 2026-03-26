@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Sora:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: "#3b82f6",
+                dark: "#2563eb",
+              },
+              zinc: {
+                950: "#09090b",
+                900: "#18181b",
+                800: "#27272a",
+              }
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Space Grotesk"],
+              "label": ["Sora"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-body selection:bg-blue-500/30">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-64 border-r border-zinc-800 bg-zinc-950 flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-zinc-950" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<div>
+<h1 class="text-blue-500 font-bold italic text-sm tracking-wide">FinCore</h1>
+<p class="text-[10px] text-zinc-500 uppercase tracking-widest">Enterprise Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all duration-150 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-blue-400">dashboard</span>
+<span class="text-sm font-medium tracking-wide">Dashboard</span>
+</a>
+<!-- Companies is ACTIVE -->
+<a class="flex items-center gap-3 px-4 py-3 text-blue-400 bg-blue-500/10 border-r-4 border-blue-500 transition-all duration-150" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">domain</span>
+<span class="text-sm font-medium tracking-wide">Companies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all duration-150 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-blue-400">insights</span>
+<span class="text-sm font-medium tracking-wide">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all duration-150 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-blue-400">receipt_long</span>
+<span class="text-sm font-medium tracking-wide">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all duration-150 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-blue-400">assessment</span>
+<span class="text-sm font-medium tracking-wide">Reports</span>
+</a>
+</nav>
+<div class="px-4 py-6 mt-auto border-t border-zinc-900 space-y-4">
+<!-- Sidebar Filters Section -->
+<div class="space-y-4 px-2">
+<p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">Filters</p>
+<div class="space-y-3">
+<div>
+<label class="text-[11px] text-zinc-400 block mb-1.5 font-label">Status</label>
+<select class="w-full bg-zinc-900 border-zinc-800 text-xs text-zinc-300 rounded focus:ring-blue-500 focus:border-blue-500">
+<option>All Statuses</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+</div>
+<div>
+<label class="text-[11px] text-zinc-400 block mb-1.5 font-label">Region</label>
+<select class="w-full bg-zinc-900 border-zinc-800 text-xs text-zinc-300 rounded focus:ring-blue-500 focus:border-blue-500">
+<option>Global</option>
+<option>Americas</option>
+<option>Europe</option>
+<option>Asia</option>
+</select>
+</div>
+<div>
+<label class="text-[11px] text-zinc-400 block mb-1.5 font-label">Tier</label>
+<select class="w-full bg-zinc-900 border-zinc-800 text-xs text-zinc-300 rounded focus:ring-blue-500 focus:border-blue-500">
+<option>Enterprise</option>
+<option>Mid-Market</option>
+</select>
+</div>
+</div>
+</div>
+<div class="pt-4 space-y-1">
+<a class="flex items-center gap-3 px-2 py-2 text-zinc-500 hover:text-blue-400 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="text-sm font-medium">Support</span>
+</a>
+<a class="flex items-center gap-3 px-2 py-2 text-zinc-500 hover:text-red-400 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 z-40 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md flex items-center justify-between h-16 px-8 ml-64 w-[calc(100%-16rem)] shadow-sm shadow-blue-500/10">
+<div class="flex items-center flex-1">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-lg">search</span>
+<input class="bg-zinc-900/50 border-zinc-800 text-sm rounded-lg w-full pl-10 pr-4 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-zinc-300" placeholder="Search across entities..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 border-r border-zinc-800 pr-6">
+<button class="relative text-zinc-400 hover:text-blue-400 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-blue-500 rounded-full border-2 border-zinc-950"></span>
+</button>
+<button class="text-zinc-400 hover:text-blue-400 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold text-zinc-100">Alexandre Viana</p>
+<p class="text-[10px] text-zinc-500">Global Admin</p>
+</div>
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-zinc-800 object-cover" data-alt="Professional headshot of a businessman in a dark suit with soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm5lBxhAtv4txbU7CDfKeTgz08qn2mIAb5PufK95RVqqsHpCnk6lbelsrf6lnS7gi7vlkQ-PMbFN7ZXGxI1IB5mU837sbn5fa3E3YqXcaS0sPZulQNHu6QG9aMPkq8NADycEaLbvoJW8okc_KF1BrJDSqMVkrFb4_Q_TpNKXq8HZWCCzaiNo4qHK9MpJL1jEmUwSRhoCHd_7jVqmES2oBZOrOcNkQLjGaDePKFABj6Oz5l6AotAjf_cIdCKQ-vdLRmkQG3MONyZHzy"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-8 pr-[380px]">
+<!-- Action Header -->
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-3xl font-headline font-bold tracking-tight text-white mb-1">Companies</h2>
+<p class="text-zinc-500 text-sm">Managing 1,284 enterprise entities across 4 continents.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-semibold rounded hover:bg-zinc-800 hover:text-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">ios_share</span>
+                    Export
+                </button>
+<button class="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded shadow-lg shadow-blue-500/20 hover:bg-blue-500 transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">add</span>
+                    New Company
+                </button>
+</div>
+</div>
+<!-- Table Card -->
+<div class="bg-zinc-900/30 border border-zinc-800 rounded-xl overflow-hidden backdrop-blur-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-zinc-800 bg-zinc-900/50">
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Company Name</th>
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Revenue</th>
+<th class="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Last Activity</th>
+<th class="px-6 py-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-zinc-800/50">
+<!-- Row 1 -->
+<tr class="hover:bg-blue-500/5 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Nvidia" class="w-full h-full object-contain" data-alt="Corporate minimalist logo of a technology company on a clean square background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFrUIeNxYe9aSGljh9agP8cNssrH2CwJTvU9JY114rVPm46sY6KLKdsWidjFvONdGZTp8G2xXZvifmTwOa5o2r3P81k96Srszdif8Z84m4p6m18TPaFIR23M7vEnVwqQM7JVi7vj0cYfAhBmuZ-HFjI2GDdgaZUpw5wN9IF8yIu0bHqTTQzeHCtq9EL4K8YwLFDicCJMe8q2XDokpLjDqgjbkBwvxkVMcNZUkacrTt_kYd-MKqyPMHGcJ5JZBIOusB_IjdL-OrK05_"/>
+</div>
+<div>
+<p class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">NVIDIA Corporation</p>
+<p class="text-xs text-zinc-500">Semiconductors • Santa Clara, CA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase">
+<span class="w-1 h-1 rounded-full bg-green-400"></span>
+                                Active
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$2.21B</p>
+<p class="text-[10px] text-green-400">+12.4% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Oct 24, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-600 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 (Selected state) -->
+<tr class="bg-blue-500/10 transition-colors cursor-pointer group border-l-2 border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Microsoft" class="w-full h-full object-contain" data-alt="Corporate minimalist logo of a leading software giant on a clean square background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5cTg6Wb2jfEbEJQbyQvybzQghAwi90DadM7w_4vEpB6FG0sPhVtlZmFXotSzmiys98REIwNjIbSS9xBGITe4X9e-g3XHvKyx2m1crHtABgE5bqluEw_4lnENkQbV6dwbryRYQgPFpmPRvO8lv70ivN9z1nZ8Hf1DOr7HU-n-ASSShhMIxF5UZPQaaUhMnMGi4YZvOGq6rLLEfpqes0OytrUJJMZyyC12Qq-TGgOHikNZ3nQWxva7QC2k_wYBZWq_F8kGkDiQHNOXc"/>
+</div>
+<div>
+<p class="font-bold text-blue-400">Microsoft Corp</p>
+<p class="text-xs text-zinc-500">Software • Redmond, WA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase">
+<span class="w-1 h-1 rounded-full bg-green-400"></span>
+                                Active
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$3.12B</p>
+<p class="text-[10px] text-green-400">+8.1% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Oct 26, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-300">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-blue-500/5 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Stripe" class="w-full h-full object-contain" data-alt="Modern logo of a global payment processing firm on a clean square background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhwElxa6bD1Z1dHBKe_WnaqC0Tj22s6sC4JiB6Iwd15GNliaeRkEMz5Y_QP_EDUgmI54ezV5wCU-xonj1i6G4jsqIpyukeIER_pme0vEh8empC4-3u7Y3iZ60EzTkRwRReQDkSMQlgxp6_W-cEHgaGKez8LyOcWRMGztzf3MiikkFAVDQ-QK4SI28lCoChwJOuvadDZ85jxqqUBESWnXKOttdxR-8C7pLwcROgfV2ChKUUms_a9pzwFovY3BIOAK0VHizWwqGylEaF"/>
+</div>
+<div>
+<p class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">Stripe Inc.</p>
+<p class="text-xs text-zinc-500">FinTech • San Francisco, CA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-zinc-800 text-zinc-500 border border-zinc-700 uppercase">
+<span class="w-1 h-1 rounded-full bg-zinc-600"></span>
+                                Inactive
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$950M</p>
+<p class="text-[10px] text-zinc-500">+1.2% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Sep 12, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-600 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-blue-500/5 transition-colors cursor-pointer group border-l-2 border-l-transparent hover:border-l-blue-500">
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
+<img alt="Amazon" class="w-full h-full object-contain" data-alt="Iconic corporate logo of a global e-commerce and cloud leader" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP1kjGCfQ6T73gao9NeYHwGrZNaX6a4Be_pHYIaBV77RXFGOGTZxX7vr4zaLV6weBrz8XJrHTPndesHNIKmvb_rsfxrELFALjEkPOvvfHEFdivu-YZU14bF3A0TkIhmKprurdAydUvxstREK45G6MqnvJW2P2-M8Nfydo0ZKhHYfwSIza3xmKPeAZpa3Lc0xyB9B-Sc8Np7IF-nwuiimhA6WFwSLUOf6OOvixo9Yv1VBVLQ5_sTVmp-HHgUsXl98-bVs-0AsBbkBno"/>
+</div>
+<div>
+<p class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">Amazon Web Services</p>
+<p class="text-xs text-zinc-500">Cloud Infrastructure • Seattle, WA</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase">
+<span class="w-1 h-1 rounded-full bg-green-400"></span>
+                                Active
+                            </span>
+</td>
+<td class="px-6 py-5">
+<p class="font-label font-bold text-zinc-200">$1.84B</p>
+<p class="text-[10px] text-green-400">+15.7% YoY</p>
+</td>
+<td class="px-6 py-5 text-zinc-400 text-sm">
+                            Oct 25, 2023
+                        </td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 text-zinc-600 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 flex items-center justify-between bg-zinc-950/50">
+<p class="text-xs text-zinc-500">Showing 1-10 of 1,284 results</p>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold">1</button>
+<button class="w-8 h-8 rounded hover:bg-zinc-800 text-zinc-500 text-xs font-bold transition-colors">2</button>
+<button class="w-8 h-8 rounded hover:bg-zinc-800 text-zinc-500 text-xs font-bold transition-colors">3</button>
+<button class="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Detail Drawer (Fixed Right Panel) -->
+<aside class="fixed top-16 right-0 w-[380px] h-[calc(100%-4rem)] bg-zinc-900 border-l border-zinc-800 z-30 flex flex-col overflow-y-auto">
+<div class="p-6 border-b border-zinc-800 bg-zinc-900/50 sticky top-0 backdrop-blur-md">
+<div class="flex items-start justify-between mb-4">
+<div class="w-16 h-16 rounded-xl bg-white p-3 shadow-2xl">
+<img alt="Microsoft" class="w-full h-full object-contain" data-alt="Detailed view of a famous tech logo on a high-quality white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtQmI19zf0MwJx9YOsqniuxBe7sVq79-LtVtfe9aMi-EbOG3qHx2sAz30CODKDswEux4KIT-Tt0V7NY_RlSIYOX2sb4jKyfNx4IBpil8RozlZCOI9O4fxWCihbqM9DwRcMNSjrWT9YYmv7jGpqPWVnb2UlbE3KkosHstERxLCoaLwxoipuOjem7yN5R0E22_70x5dBYXYU1l3lXVLOXAKB6PoZ36rbmuRAYh9ebmjvxLDzAp-v61YXvCusfPc5VdOJYpevXOy5ZY85"/>
+</div>
+<button class="p-1.5 text-zinc-500 hover:text-white">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<h3 class="text-xl font-headline font-bold text-white">Microsoft Corporation</h3>
+<p class="text-xs text-blue-400 font-medium mb-4">Enterprise Account • Tier 1</p>
+<div class="flex items-center gap-2">
+<button class="flex-1 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-500 transition-all">Edit Company</button>
+<button class="p-2 bg-zinc-800 text-zinc-400 rounded-lg hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</button>
+</div>
+</div>
+<div class="p-6 space-y-8">
+<!-- KPIs -->
+<section>
+<h4 class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4">Core Performance</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 bg-zinc-950/50 border border-zinc-800 rounded-xl">
+<p class="text-[10px] text-zinc-500 mb-1">Growth Index</p>
+<p class="text-xl font-headline font-bold text-green-400">+18.4%</p>
+<div class="w-full bg-zinc-800 h-1 mt-2 rounded-full">
+<div class="bg-green-400 h-full rounded-full" style="width: 84%"></div>
+</div>
+</div>
+<div class="p-4 bg-zinc-950/50 border border-zinc-800 rounded-xl">
+<p class="text-[10px] text-zinc-500 mb-1">Market Cap</p>
+<p class="text-xl font-headline font-bold text-zinc-100">$3.12T</p>
+<p class="text-[10px] text-zinc-600 mt-2">Rank #1 Global</p>
+</div>
+</div>
+</section>
+<!-- Contacts -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Key Contacts</h4>
+<button class="text-[10px] font-bold text-blue-400 hover:underline uppercase">View All</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 bg-zinc-800/30 rounded-lg border border-transparent hover:border-zinc-700 transition-all group">
+<img alt="Contact" class="w-8 h-8 rounded-full border border-zinc-700" data-alt="Modern professional woman with a soft smile in a bright office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6f3b3M2E2FlJnLTGmzTNNYcy_v0WJ5KgTbWYrLtqKDOsleoGL81YJQAs-mvUbY1Zm61ETc9KTP8wQ45cdsiHvcFLeQ1wjaW0VFGlEvb_qv01K-57IZtJBJSoQSWFK4IC3_Dkw6nJprW_vqUUUZn0DvBJ6eVb3_50RjTAsrKi3wQFtvDeiWZkGTBBJZOYWgtGTAtx2CgNeiO0wfNvboWsrRVbFzNUC3LE-xRq3Kl3vA2G-6eMxg8ucideeIfnBie6f4fPvl1zOlVbP"/>
+<div class="flex-1">
+<p class="text-xs font-bold text-zinc-100">Sarah Chen</p>
+<p class="text-[10px] text-zinc-500">VP of Strategic Partnerships</p>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-blue-400">
+<span class="material-symbols-outlined text-lg">mail</span>
+</button>
+</div>
+<div class="flex items-center gap-3 p-3 bg-zinc-800/30 rounded-lg border border-transparent hover:border-zinc-700 transition-all group">
+<img alt="Contact" class="w-8 h-8 rounded-full border border-zinc-700" data-alt="Confident male executive in business attire looking into the camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB82ZsmFnyjEEwgP7-Mcwa4QrlKzp4zKGmXmZUjaCaaOpO3N9S_nWZ_uMAlMWZoQFeUOAgKFFWJEbS-Zxny3FXaSRD90v4lK6AZbTm9AzS_CoIcMMGy9K-pS78khZLyjlV9OywKmvbUzc7VAP1PwwojizNwZ784KfjzkB3yV3x2ETt_J_glNKSO6oKugTdLQVuUir5wqB0F2_n-DeeXpvKSFZQEy6-aPI0Qf1F_Wau0cZ__-SlPg_NKtMwrEmF3DoIzOzV4k8Jfeuzy"/>
+<div class="flex-1">
+<p class="text-xs font-bold text-zinc-100">David Miller</p>
+<p class="text-[10px] text-zinc-500">Regional CTO - EMEA</p>
+</div>
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-blue-400">
+<span class="material-symbols-outlined text-lg">mail</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Info -->
+<section>
+<h4 class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4">Company Details</h4>
+<div class="space-y-4">
+<div>
+<p class="text-[10px] text-zinc-600 uppercase font-bold tracking-tighter mb-1">HQ Location</p>
+<p class="text-xs text-zinc-300 leading-relaxed">One Microsoft Way, Redmond, WA 98052, United States</p>
+</div>
+<div>
+<p class="text-[10px] text-zinc-600 uppercase font-bold tracking-tighter mb-1">Industry Sector</p>
+<p class="text-xs text-zinc-300">Software, Cloud, Hardware, AI</p>
+</div>
+<div class="pt-4 border-t border-zinc-800/50">
+<div class="flex items-center justify-between text-[11px] mb-2">
+<span class="text-zinc-500">Data Integrity</span>
+<span class="text-blue-400 font-bold">98% Verified</span>
+</div>
+<div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+<div class="bg-blue-500 h-full w-[98%]"></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</aside>
+</body></html>

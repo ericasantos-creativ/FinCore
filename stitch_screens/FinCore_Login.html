@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinCore | Institutional Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #131313;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .security-pulse {
+            animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary": "#ffb688",
+              "on-primary-container": "#002a53",
+              "primary-fixed-dim": "#a5c8ff",
+              "inverse-on-surface": "#313030",
+              "on-secondary-fixed-variant": "#284871",
+              "on-secondary-fixed": "#001c3a",
+              "tertiary-container": "#e37103",
+              "on-primary-fixed-variant": "#004786",
+              "primary-container": "#2792ff",
+              "primary-fixed": "#d4e3ff",
+              "on-surface": "#e5e2e1",
+              "on-error": "#690005",
+              "on-surface-variant": "#c0c7d6",
+              "surface-container-highest": "#353534",
+              "on-secondary-container": "#9cbaea",
+              "error": "#ffb4ab",
+              "inverse-surface": "#e5e2e1",
+              "surface-container-lowest": "#0e0e0e",
+              "on-secondary": "#0c3159",
+              "surface-dim": "#131313",
+              "on-tertiary": "#512400",
+              "error-container": "#93000a",
+              "on-error-container": "#ffdad6",
+              "primary": "#a5c8ff",
+              "surface-container": "#201f1f",
+              "background": "#131313",
+              "tertiary-fixed-dim": "#ffb688",
+              "surface-container-high": "#2a2a2a",
+              "on-primary": "#00315f",
+              "surface-bright": "#3a3939",
+              "on-primary-fixed": "#001c3a",
+              "on-tertiary-fixed-variant": "#733600",
+              "secondary-fixed": "#d4e3ff",
+              "surface": "#131313",
+              "on-tertiary-container": "#471e00",
+              "on-tertiary-fixed": "#311300",
+              "secondary-container": "#2b4a74",
+              "surface-container-low": "#1c1b1b",
+              "secondary-fixed-dim": "#aac8f9",
+              "tertiary-fixed": "#ffdbc7",
+              "surface-variant": "#353534",
+              "inverse-primary": "#005faf",
+              "surface-tint": "#a5c8ff",
+              "outline": "#8a919f",
+              "secondary": "#aac8f9",
+              "outline-variant": "#404753",
+              "on-background": "#e5e2e1"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Space Grotesk"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Header (Shared Component Mapping) -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-transparent flex justify-between items-center px-8 py-6 max-w-7xl mx-auto left-1/2 -translate-x-1/2">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 bg-primary rounded-full security-pulse shadow-[0_0_12px_rgba(165,200,255,0.6)]"></div>
+<span class="text-2xl font-bold tracking-tighter text-slate-100 font-headline">FinCore</span>
+</div>
+<div class="hidden md:flex items-center gap-8 font-['Space_Grotesk'] text-xs uppercase tracking-widest">
+<a class="text-slate-400 hover:text-blue-300 transition-colors duration-300" href="#">Network Status</a>
+<a class="text-slate-400 hover:text-blue-300 transition-colors duration-300" href="#">Institutional Support</a>
+</div>
+</nav>
+<main class="flex-grow flex items-center justify-center relative px-6 py-20">
+<!-- Background Decorative Element -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+<div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-secondary-container/10 blur-[100px] rounded-full"></div>
+</div>
+<div class="w-full max-w-5xl grid lg:grid-cols-2 gap-0 bg-surface-container-low rounded-xl shadow-2xl overflow-hidden relative z-10">
+<!-- Left Side: Visual/Branding -->
+<div class="hidden lg:block relative overflow-hidden bg-surface-container-lowest p-12 flex flex-col justify-between border-r border-outline-variant/10">
+<div class="space-y-6 relative z-10">
+<h1 class="text-4xl font-bold tracking-tighter leading-tight text-on-surface font-headline">
+                        Sovereign Control Over <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Digital Liquidity.</span>
+</h1>
+<p class="text-outline text-lg max-w-md font-light">
+                        Access the institutional-grade gateway for high-frequency asset management and secure vault operations.
+                    </p>
+</div>
+<div class="relative z-10 mt-auto">
+<div class="flex gap-4 items-center p-4 bg-surface-container-high/40 rounded-lg backdrop-blur-sm border border-outline-variant/5">
+<div class="w-10 h-10 flex items-center justify-center rounded bg-primary-container/20 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<p class="text-xs uppercase tracking-widest text-outline font-bold">Security Level</p>
+<p class="text-on-surface font-medium">AES-256 Encrypted Session</p>
+</div>
+</div>
+</div>
+<!-- Abstract Illustration Background -->
+<div class="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none">
+<img alt="Financial Data Abstract" class="w-full h-full object-cover grayscale brightness-50" data-alt="abstract 3D financial grid structure with glowing blue lines and data particles on a deep dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWWDTPcCHkEH6uG_Qjf_MjK4AVo5E5EdVTUgOJ5MKvDkZIkqQaPRGnfwx_WiagTJi-rLh34r82m4W2cJ1csG1y-aE4RAd1DBCiQQ8K_-WTG3T2GyXszSjtWxj3-UkivTm53ukmfm_7ttS7bF_rUlUaLnM6aJI0AAnqWrFY8rgZzoReqKc9wwtIqAcBHTIwMzmvLlZGmFSplZ4Uu_-n7KTbsSCNpsJafRrajAZOJYr6iaiqVCMwTC0FjYPdmyoBBsMKJq3I6nKoqjFA"/>
+</div>
+</div>
+<!-- Right Side: Login Form -->
+<div class="p-8 md:p-16 flex flex-col justify-center bg-surface-container-low">
+<div class="max-w-sm mx-auto w-full space-y-8">
+<div class="space-y-2">
+<h2 class="text-2xl font-semibold tracking-tight text-on-surface">Institutional Sign In</h2>
+<p class="text-outline text-sm">Please enter your authorized credentials.</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="block text-[10px] uppercase tracking-[0.2em] text-outline font-bold" for="email">
+                                Organization Email
+                            </label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-sm">alternate_email</span>
+<input class="w-full pl-11 pr-4 py-3 bg-surface-container-highest border-none rounded text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40 transition-all duration-300" id="email" placeholder="name@fincore.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="block text-[10px] uppercase tracking-[0.2em] text-outline font-bold" for="password">
+                                    Access Key
+                                </label>
+<a class="text-[10px] uppercase tracking-wider text-primary hover:text-primary-fixed transition-colors" href="#">Forgot Key?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-sm">lock</span>
+<input class="w-full pl-11 pr-12 py-3 bg-surface-container-highest border-none rounded text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40 transition-all duration-300" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface-variant transition-colors" type="button">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-3 py-2">
+<input class="w-4 h-4 rounded-sm bg-surface-container-highest border-outline-variant text-primary focus:ring-0 focus:ring-offset-0" id="remember" type="checkbox"/>
+<label class="text-sm text-outline select-none" for="remember">Remember this terminal</label>
+</div>
+<button class="w-full py-4 bg-gradient-to-br from-primary-container to-primary text-on-primary-fixed font-bold rounded shadow-[0_8px_24px_rgba(39,146,255,0.2)] hover:shadow-[0_12px_32px_rgba(39,146,255,0.3)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2" type="submit">
+<span>Authorize Entry</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+<div class="pt-8 border-t border-outline-variant/10 flex flex-col items-center gap-4">
+<p class="text-sm text-outline">New to the institutional network?</p>
+<a class="px-6 py-2 border border-outline-variant/20 rounded text-sm font-medium hover:bg-surface-container-high transition-colors" href="#">Apply for Access</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component Mapping) -->
+<footer class="fixed bottom-0 w-full bg-transparent flex justify-between items-center px-8 py-4 opacity-60 z-50">
+<div class="text-slate-100 font-headline font-bold text-sm">FinCore Institutional</div>
+<div class="flex gap-6 font-['Space_Grotesk'] text-[10px] uppercase tracking-widest text-slate-500">
+<a class="hover:text-slate-200 transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-slate-200 transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-slate-200 transition-colors" href="#">Security Vault</a>
+</div>
+<div class="text-slate-500 font-['Space_Grotesk'] text-[10px] uppercase tracking-widest">
+            © 2024 FinCore Institutional.
+        </div>
+</footer>
+</body></html>

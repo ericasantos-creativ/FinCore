@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Sora:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            50: '#e6f4ff',
+                            100: '#bae0ff',
+                            200: '#91d5ff',
+                            300: '#69c0ff',
+                            400: '#40a9ff',
+                            500: '#1E90FF',
+                            600: '#096dd9',
+                            700: '#0050b3',
+                            800: '#003a8c',
+                            900: '#002766',
+                        },
+                        slate: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Space Grotesk"],
+                        "label": ["Sora"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #020617;
+        }
+    </style>
+</head>
+<body class="font-body text-slate-200 antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/50 shadow-lg shadow-blue-900/10 flex justify-between items-center px-6 h-16 w-full font-sans antialiased text-slate-200">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-blue-500">FinCore</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-slate-400 hover:text-blue-300 transition-colors active:scale-95 duration-150" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-blue-300 transition-colors active:scale-95 duration-150" href="#">Reports</a>
+<a class="text-blue-400 border-b-2 border-blue-500 pb-1 hover:text-blue-300 transition-colors active:scale-95 duration-150" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5">
+<span class="material-symbols-outlined text-slate-500 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 text-slate-300" placeholder="Search" type="text"/>
+</div>
+<button class="text-slate-400 hover:text-blue-300 transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-slate-400 hover:text-blue-300 transition-colors"><span class="material-symbols-outlined">help</span></button>
+<div class="w-8 h-8 rounded-full bg-blue-900/50 border border-blue-500/30 overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="professional corporate headshot of a person with friendly expression in a modern office environment with soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaDX7h2ov1vMAML__oOumOSmR6BYs9l6G3jgWR89spPA14-9gFR4idFoFp48-r9JrGHqlcuhY9zdDshJjK4sVUSqQy7jCg7fwT4ab3JIGejMG6ZzPeYt32VfVtrQcmD4-8MxTmIX_ulijgQ1wix76N6GeqBCpr-HovUxsR0flvg-WMLxduaet6lAuqbLC_IXLBKAnDPUS6xkrw0AXNPiKz0cVFkrnQxUwZTVQ7V4sK3AHEtY4YOw3uHbSA2XwY66PQLAdeWVBslBO1"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-slate-950 border-r border-slate-800/50 flex flex-col py-4 gap-2 text-sm font-medium tracking-wide">
+<div class="px-6 py-4 mb-4">
+<h2 class="text-slate-200 font-bold text-lg">Settings</h2>
+<p class="text-slate-500 text-xs">Manage your workspace</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span>Account</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span>Notifications</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded bg-blue-600/10 text-blue-400 border-r-4 border-blue-500 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Billing</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<span>Integrations</span>
+</a>
+</nav>
+<div class="px-3 border-t border-slate-900 pt-4 mt-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-8 min-h-screen">
+<div class="max-w-5xl mx-auto space-y-8">
+<!-- Header Section -->
+<header>
+<h1 class="text-3xl font-headline font-bold text-white tracking-tight">Billing &amp; Subscriptions</h1>
+<p class="text-slate-400 mt-1">Manage your plan, payment methods, and connected tools.</p>
+</header>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Billing Summary Card (Left Col - Span 2) -->
+<section class="lg:col-span-2 space-y-6">
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-sm overflow-hidden relative group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-blue-500/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-8">
+<div>
+<span class="bg-blue-500/10 text-blue-400 text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">Current Plan</span>
+<h3 class="text-2xl font-bold text-white">FinCore Pro</h3>
+<p class="text-slate-400 text-sm">$49.00 / billed monthly</p>
+</div>
+<button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">Upgrade Plan</button>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+<p class="text-slate-500 text-xs mb-1">Seats Used</p>
+<p class="text-white font-bold text-lg">8/10</p>
+</div>
+<div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+<p class="text-slate-500 text-xs mb-1">Invoices</p>
+<p class="text-white font-bold text-lg">12 Total</p>
+</div>
+<div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+<p class="text-slate-500 text-xs mb-1">Next Bill</p>
+<p class="text-white font-bold text-lg">Oct 24</p>
+</div>
+</div>
+</div>
+<!-- Payment Method -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+<h4 class="text-lg font-bold text-white mb-4">Payment Method</h4>
+<div class="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 rounded-lg">
+<div class="flex items-center gap-4">
+<div class="w-12 h-8 bg-slate-800 rounded flex items-center justify-center">
+<span class="font-black italic text-blue-500 tracking-tighter">VISA</span>
+</div>
+<div>
+<p class="text-white font-semibold">Visa ending in 4242</p>
+<p class="text-slate-500 text-xs">Expires 12/26</p>
+</div>
+</div>
+<button class="text-blue-500 hover:text-blue-400 font-medium text-sm">Edit</button>
+</div>
+</div>
+<!-- Notification Toggles -->
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+<h4 class="text-lg font-bold text-white mb-4">Preferences</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-white font-medium">System Alerts</p>
+<p class="text-slate-500 text-sm">Get notified about security and core system updates.</p>
+</div>
+<div class="relative inline-flex h-6 w-11 items-center rounded-full bg-blue-500">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-white transition"></span>
+</div>
+</div>
+<div class="h-px bg-slate-800"></div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-white font-medium">Email Updates</p>
+<p class="text-slate-500 text-sm">Receive weekly summary reports and feature news.</p>
+</div>
+<div class="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-700">
+<span class="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-white transition"></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Integrations (Right Col - Span 1) -->
+<section class="space-y-6">
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h4 class="text-lg font-bold text-white">Integrations</h4>
+<a class="text-blue-500 text-xs font-semibold hover:underline" href="#">Browse Store</a>
+</div>
+<div class="space-y-4">
+<!-- Slack Integration -->
+<div class="group bg-slate-950 border border-slate-800 p-4 rounded-xl hover:border-blue-500/50 transition-colors">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden">
+<img alt="Slack Icon" class="w-6 h-6" data-alt="vibrant purple slack icon in a minimal square frame with rounded corners" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN2hfXqXFH9fbLYvK-9QH6zmvha1lJP0zSDY9YdV_U_NIajz-zcK_tW7fXS-UgSTgpP3fgKrbJGJmDxyMYf8BQLAhMW8TzF4_aX8EK8-MIa4GcwZjrqO1GBvXgUkgfOpRdnl582QRld3lUiZisO9PoTLE42AVtMJW2oKFU0bOvy6RPBAa9xSZnuE6wYK-VFB0pUIvjvg0m93Z5EekfC2zoYPN_67ieNejQc6_JI5wwu_nI3yg_5Y22ye0VsHrOPZ92gQzuOE0BoB1g"/>
+</div>
+<div class="flex-1">
+<p class="text-white font-semibold leading-none">Slack</p>
+<p class="text-slate-500 text-[10px] mt-1">Status: Connected</p>
+</div>
+<span class="material-symbols-outlined text-green-500 text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed mb-4">Send financial alerts directly to team channels.</p>
+<button class="w-full py-2 bg-slate-900 border border-slate-800 rounded text-xs font-semibold text-slate-300 group-hover:bg-slate-800 transition-colors">Configure</button>
+</div>
+<!-- Google Drive Integration -->
+<div class="group bg-slate-950 border border-slate-800 p-4 rounded-xl hover:border-blue-500/50 transition-colors">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden">
+<img alt="Google Drive Icon" class="w-6 h-6" data-alt="google drive icon featuring green yellow and blue colors in a clean flat design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVtq1GVarDBruljuPDlORpajWjfvyrz5TmteXsYPbUB9vUbZf0vBVx24ho2rL_JILCyvso1mrZhj2JEgnAaNf4XygfuIa56bJGyPaSbQhJy-ycJ4DwE-8OaLCJbevYELzjAuxjfYh00A1K_Cdq4lO79tQcaAERRPsjRr5w4WAJk1RQmgmHG-w5SSRke19HHyjF3k4kujR6SLoRlw1AR6SWRWS9YkFdWw4OksFQxxcUFpSD-YyH8g93SwfSMW9hRNJRhr-DOjmSDwsb"/>
+</div>
+<div class="flex-1">
+<p class="text-white font-semibold leading-none">Google Drive</p>
+<p class="text-slate-500 text-[10px] mt-1">Status: Connected</p>
+</div>
+<span class="material-symbols-outlined text-green-500 text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed mb-4">Auto-sync invoices and reports to secure storage.</p>
+<button class="w-full py-2 bg-slate-900 border border-slate-800 rounded text-xs font-semibold text-slate-300 group-hover:bg-slate-800 transition-colors">Configure</button>
+</div>
+<!-- AWS Integration -->
+<div class="group bg-slate-950 border border-slate-800 p-4 rounded-xl hover:border-blue-500/50 transition-colors opacity-75 grayscale hover:grayscale-0 hover:opacity-100">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden">
+<img alt="AWS Icon" class="w-6 h-6" data-alt="amazon web services logo featuring orange smile arrow on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-ui8Tl37uXVJ83D8rirj2aS-VouhZiNQ2vTZsbZVS43PbUGg_nxFBF-_hFFsIm1uvrp59H4Tm7qFoEHvRoXqXWu7_KtqG53U24UuDaeR54nGCDM2IHb3HIivX0gYowEkCMBDJpgdhk9yGunult9vilTsOAxL6ftaRpFudbAUFCOzW9K_mRlMbZkl_lFo_qtFQo6rugUquR1FG8LDA-aSD_mjJ_hMpARHUFJdWuGv_WhyU1DP_5IOTBK1nZA81wPD2u5R3GF2dHj1J"/>
+</div>
+<div class="flex-1">
+<p class="text-white font-semibold leading-none">AWS S3</p>
+<p class="text-slate-500 text-[10px] mt-1">Status: Disconnected</p>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm">radio_button_unchecked</span>
+</div>
+<p class="text-slate-400 text-xs leading-relaxed mb-4">Store large dataset exports in your own buckets.</p>
+<button class="w-full py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded text-xs font-semibold hover:bg-blue-500/30 transition-colors">Connect</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

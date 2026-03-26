@@ -1,0 +1,1 @@
+const fs = require('fs'); const html = fs.readFileSync('index.html', 'utf8'); const rx = /data-i18n="([^"]+)"/g; let keys = []; let m; while(m = rx.exec(html)) keys.push(m[1]); const js = fs.readFileSync('assets/js/model-app.js', 'utf8'); const missing = keys.filter(k => !js.includes(''' + k + ':')); console.log([...new Set(missing)]);

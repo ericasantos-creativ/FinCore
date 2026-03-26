@@ -333,34 +333,34 @@
 </div>
 <nav class="flex-1 space-y-1"><a class="nav-link active flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-blue-500 border-r-2 border-blue-500 bg-blue-500/5" href="#" data-section="dashboard">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-<span>Dashboard</span>
+<span data-i18n="dashboard">Dashboard</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="empresas">
 <span class="material-symbols-outlined">store</span>
-<span>Empresas</span>
+<span data-i18n="companies">Empresas</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="transacoes">
 <span class="material-symbols-outlined">receipt_long</span>
-<span>Transações</span>
+<span data-i18n="transactions">Transações</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="relatorios">
 <span class="material-symbols-outlined">insights</span>
-<span>Relatórios</span>
+<span data-i18n="reports">Relatórios</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="contas">
 <span class="material-symbols-outlined">account_balance</span>
-<span>Contas a Pagar</span>
+<span data-i18n="payable">Contas a Pagar</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="metas">
 <span class="material-symbols-outlined">track_changes</span>
-<span>Metas</span>
+<span data-i18n="goals">Metas</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="investimentos">
 <span class="material-symbols-outlined">trending_up</span>
-<span>Investimentos</span>
+<span data-i18n="investments">Investimentos</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="fornecedores">
 <span class="material-symbols-outlined">local_shipping</span>
-<span>Fornecedores</span>
+<span data-i18n="suppliers">Fornecedores</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="calendario">
 <span class="material-symbols-outlined">calendar_month</span>
-<span>Calendário</span>
+<span data-i18n="calendar">Calendário</span>
 </a><a class="nav-link flex items-center gap-3 px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-in-out text-slate-500 hover:bg-slate-900 hover:text-slate-200" href="#" data-section="perfil">
 <span class="material-symbols-outlined">person</span>
-<span>Perfil</span>
+<span data-i18n="profile">Perfil</span>
 </a></nav>
 <div class="px-6 py-4 mt-auto">
 <div class="glass-card p-4 rounded-xl border-blue-500/20">
@@ -368,7 +368,7 @@
 <p class="text-[10px] text-slate-400 leading-tight">Your account is secured with 256-bit encryption.</p>
 </div>
 </div>
-</aside><main class="flex-1 md:ml-64 p-8 min-h-[calc(100vh-4rem)] relative w-full overflow-y-auto main-wrapper"></main></div>
+</aside>
 
           <!-- INTÉRPRETE DE LIBRAS -->
           <div id="librasWindow" class="libras-window" style="display: none;">
@@ -389,9 +389,9 @@
           </div>
 
           <!-- MAIN CONTENT -->
-          <main class="main-content">
+          <main class="main-content flex-1 md:ml-64 p-4 md:p-8 min-h-[calc(100vh-4rem)] relative w-full overflow-y-auto flex flex-col">
               <!-- DASHBOARD -->
-              <section id="dashboard-section" class="screen px-4 pb-8 w-full"><header class="mb-8">
+              <section id="dashboard-section" class="content-section screen px-4 pb-8 w-full max-w-7xl mx-auto"><header class="mb-8">
 <h1 class="text-3xl font-headline font-bold text-slate-100">Executive Overview</h1>
 <p class="text-slate-400 text-sm mt-1">Real-time monitoring of your financial ecosystem.</p>
 </header><div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="overallDashboard">
@@ -592,7 +592,7 @@
 </div></div></section>
 
               <!-- SEÇÃO TRANSAÇÕES -->
-              <section id="transacoes-section" class="content-section px-4 pb-8 w-full hidden" style="display: none;"><div class="w-full space-y-6"><div class="add-transaction">
+              <section id="transacoes-section" class="content-section px-4 pb-8 w-full hidden max-w-7xl mx-auto" style="display: none;"><div class="w-full space-y-6"><div class="add-transaction">
                       <h2 data-i18n="addTransaction">Adicionar Transação</h2>
                       <p id="transEmpresaLabel" class="text-muted" style="display: none;"></p>
                       <form id="transactionForm" class="form-transaction">
@@ -894,7 +894,7 @@
 </div></div></section>
 
               <!-- SEÇÃO EMPRESAS -->
-              <section id="empresas-section" class="content-section px-4 pb-8 w-full hidden" style="display: none;"><div class="flex items-center justify-between mb-8">
+              <section id="empresas-section" class="content-section px-4 pb-8 w-full hidden max-w-7xl mx-auto" style="display: none;"><div class="flex items-center justify-between mb-8">
 <div>
 <h2 class="text-3xl font-headline font-bold tracking-tight text-white mb-1">Companies</h2>
 <p class="text-zinc-500 text-sm">Managing 1,284 enterprise entities across 4 continents.</p>
@@ -1069,7 +1069,7 @@
 </div></div></div></section>
 
               <!-- SEÇÃO RELATÓRIOS -->
-              <section id="relatorios-section" class="content-section px-4 pb-8 w-full hidden" style="display: none;"><div class="flex items-center justify-between mb-8">
+              <section id="relatorios-section" class="content-section px-4 pb-8 w-full hidden max-w-7xl mx-auto" style="display: none;"><div class="flex items-center justify-between mb-8">
 <div>
 <h4 class="text-lg font-bold text-white">Revenue by Category</h4>
 <p class="text-slate-500 text-sm">Aggregated earnings per operational sector</p>
@@ -1339,7 +1339,7 @@
 </div></div></section>
 
               <!-- SEÇÃO CONTAS A PAGAR/RECEBER -->
-              <section id="contas-section" class="content-section" style="display: none;">
+              <section id="contas-section" class="content-section max-w-7xl mx-auto w-full" style="display: none;">
                   <div class="section-header">
                       <h2 data-i18n="accountsManagement">Gestão de Contas</h2>
                   </div>
@@ -1423,7 +1423,7 @@
               </section>
 
               <!-- SEÇÃO METAS -->
-              <section id="metas-section" class="content-section" style="display: none;">
+              <section id="metas-section" class="content-section max-w-7xl mx-auto w-full" style="display: none;">
                   <div class="section-header">
                       <h2 data-i18n="goalsSectionTitle">Definição de Metas</h2>
                       <div class="filter-group" id="metasEmpresaGroup" style="min-width: 220px;">
@@ -1436,7 +1436,7 @@
               </section>
 
               <!-- SEÇÃO INVESTIMENTOS -->
-              <section id="investimentos-section" class="content-section" style="display: none;">
+              <section id="investimentos-section" class="content-section max-w-7xl mx-auto w-full" style="display: none;">
                   <div class="section-header">
                       <h2 data-i18n="investmentsCenterTitle">Central de Investimentos</h2>
                       <div class="filter-group" id="investimentosEmpresaGroup" style="min-width: 220px;">
@@ -1518,7 +1518,7 @@
               </section>
 
               <!-- SEÇÃO FORNECEDORES -->
-              <section id="fornecedores-section" class="content-section" style="display: none;">
+              <section id="fornecedores-section" class="content-section max-w-7xl mx-auto w-full" style="display: none;">
                   <div class="section-header">
                       <h2 data-i18n="suppliersListTitle">Lista de Fornecedores</h2>
                   </div>
@@ -1547,7 +1547,7 @@
               </section>
 
               <!-- SEÇÃO CALENDÁRIO -->
-              <section id="calendario-section" class="content-section" style="display: none;">
+              <section id="calendario-section" class="content-section max-w-7xl mx-auto w-full" style="display: none;">
                   <div class="section-header">
                       <h2 data-i18n="calendarTitle">Calendário de Pagamentos e Recebimentos</h2>
                   </div>
@@ -1563,7 +1563,7 @@
               </section>
 
               <!-- SEÇÃO PERFIL -->
-              <section id="perfil-section" class="content-section" style="display: none;">
+              <section id="perfil-section" class="content-section max-w-7xl mx-auto w-full" style="display: none;">
                   <div class="section-header">
                       <h2 data-i18n="myProfile">Meu Perfil</h2>
                   </div>
@@ -1665,6 +1665,7 @@
                   </div>
               </section>
           </main>
+          </div>
       </section>
 
       <div id="empresaModal" class="modal-overlay" style="display: none;">

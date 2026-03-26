@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinCore | Institutional Access</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#45474c",
+                        "on-primary-container": "#002a53",
+                        "inverse-surface": "#e1e2eb",
+                        "secondary-fixed": "#e2e2e8",
+                        "outline-variant": "#404753",
+                        "tertiary-container": "#8b919f",
+                        "surface-container-low": "#191c22",
+                        "on-tertiary-container": "#242a35",
+                        "on-secondary-fixed": "#191c20",
+                        "inverse-on-surface": "#2e3037",
+                        "on-primary-fixed": "#001c3a",
+                        "surface-container": "#1d2026",
+                        "on-tertiary-fixed": "#161c27",
+                        "on-secondary-container": "#b7b8be",
+                        "on-tertiary": "#2b313c",
+                        "on-primary-fixed-variant": "#004786",
+                        "on-tertiary-fixed-variant": "#414753",
+                        "background": "#10131a",
+                        "tertiary": "#c1c6d6",
+                        "surface-bright": "#363940",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c1c6d6",
+                        "on-surface-variant": "#c0c7d6",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-background": "#e1e2eb",
+                        "surface-dim": "#10131a",
+                        "secondary": "#c5c6cc",
+                        "outline": "#8a919f",
+                        "on-secondary": "#2e3035",
+                        "tertiary-fixed": "#dde2f2",
+                        "on-primary": "#00315f",
+                        "on-surface": "#e1e2eb",
+                        "inverse-primary": "#005faf",
+                        "surface-tint": "#a5c8ff",
+                        "secondary-container": "#47494e",
+                        "primary-container": "#2792ff",
+                        "primary": "#a5c8ff",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#32353c",
+                        "primary-fixed": "#d4e3ff",
+                        "secondary-fixed-dim": "#c5c6cc",
+                        "surface-variant": "#32353c",
+                        "surface": "#10131a",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#272a31"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(54, 57, 64, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(39, 146, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-white">
+<main class="min-h-screen flex overflow-hidden">
+<!-- Left Panel: Brand & Visuals -->
+<section class="hidden md:flex flex-1 relative flex-col justify-between p-12 bg-surface-container-lowest overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-primary-container blur-[120px]"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] rounded-full bg-on-primary-fixed-variant blur-[100px]"></div>
+</div>
+<!-- Header -->
+<div class="relative z-10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">security</span>
+<h1 class="font-headline text-2xl font-bold tracking-tighter text-primary">FinCore</h1>
+</div>
+</div>
+<!-- Center Content -->
+<div class="relative z-10 max-w-lg">
+<h2 class="font-headline text-6xl font-bold tracking-tight text-on-surface mb-6 leading-[0.9]">
+                    Institutional <span class="text-primary-container">Precision</span>
+</h2>
+<div class="space-y-6">
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                        Institutional Grade Security. Access your sovereign assets with 256-bit encryption.
+                    </p>
+<!-- Live Market Synthesis Inset -->
+<div class="p-6 rounded bg-surface-container border border-outline-variant/15 glass-panel">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label text-xs uppercase tracking-widest text-primary">Live Market Synthesis</span>
+<span class="flex items-center gap-2 text-[10px] font-label text-slate-500">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                REAL-TIME FEED
+                            </span>
+</div>
+<img alt="FinCore Market Synthesis Graph" class="w-full h-32 object-cover opacity-80 mix-blend-screen grayscale contrast-125" data-alt="Abstract financial data visualization with glowing blue neon lines on a deep black grid background, futuristic fintech aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUltIfNd3B-X_ha1K-ppDBGNcuRndmLeEICT3mKoz8oSBGnEmV7Ek69pK0mT9w2rcTMOK3i-05wc9M8zjkaYV0dC5EctLiHwxJJ4JQ26JI1QP05tMeL5WkK6u2LMAU6Ahk0-DKE3PDhJKXJN6sum6HupNkcGyc0VjepqCngegB1wOWfE3IJHBuT_nQM18AaZqnjhjY-7vxzbxtWvtVBRszuvOC_pxi9INX4krhxIy7rlVgb2dS3Kv8ChZ7yl1AnX03pqK88didPOk"/>
+<div class="grid grid-cols-3 gap-4 mt-4">
+<div>
+<p class="font-label text-[10px] text-slate-500 uppercase">Latency</p>
+<p class="font-headline text-sm font-bold text-on-surface">1.2ms</p>
+</div>
+<div>
+<p class="font-label text-[10px] text-slate-500 uppercase">Uptime</p>
+<p class="font-headline text-sm font-bold text-on-surface">99.998%</p>
+</div>
+<div>
+<p class="font-label text-[10px] text-slate-500 uppercase">Status</p>
+<p class="font-headline text-sm font-bold text-emerald-400">OPTIMAL</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<div class="relative z-10 flex gap-8">
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">System Entropy</span>
+<span class="font-headline text-xs text-on-surface-variant font-medium">0x8F22...4E11</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase tracking-[0.2em] text-slate-500 mb-1">Server Cluster</span>
+<span class="font-headline text-xs text-on-surface-variant font-medium">OMEGA-7-FRANKFURT</span>
+</div>
+</div>
+</section>
+<!-- Right Panel: Login Form -->
+<section class="w-full md:w-1/2 flex flex-col items-center justify-center p-8 bg-surface-dim">
+<div class="w-full max-w-md">
+<!-- Mobile Logo -->
+<div class="md:hidden flex items-center gap-2 mb-12">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">security</span>
+<h1 class="font-headline text-xl font-bold tracking-tighter text-primary">FinCore</h1>
+</div>
+<header class="mb-10">
+<h3 class="font-headline text-3xl font-bold text-on-surface tracking-tight mb-2 uppercase">Terminal Access</h3>
+<p class="text-on-surface-variant text-sm font-medium">Enter your credentials to authorize a secure session.</p>
+</header>
+<form class="space-y-6">
+<!-- Operator Identity Field -->
+<div class="space-y-2">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400 ml-1" for="identity">Operator Identity</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">account_circle</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="identity" placeholder="operator@fincore.int" type="email"/>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div>
+<!-- Access Cipher Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-end px-1">
+<label class="font-label text-[10px] uppercase tracking-widest text-slate-400" for="cipher">Access Cipher</label>
+<a class="text-[10px] font-label uppercase tracking-widest text-primary hover:text-primary-container transition-colors" href="#">Forgot Key?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">key</span>
+<input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="cipher" placeholder="••••••••••••" type="password"/>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center">
+<label class="relative flex items-center cursor-pointer group">
+<input class="peer sr-only" type="checkbox"/>
+<div class="w-4 h-4 rounded-sm border border-outline-variant bg-surface-container-lowest peer-checked:bg-primary-container peer-checked:border-primary-container transition-all"></div>
+<span class="material-symbols-outlined absolute text-on-primary-fixed text-[12px] opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+<span class="ml-3 font-label text-[11px] uppercase tracking-widest text-slate-400 group-hover:text-on-surface-variant transition-colors">Remember this terminal</span>
+</label>
+</div>
+<!-- Primary Action -->
+<div class="pt-4 space-y-4">
+<button class="glow-button w-full bg-primary-container text-on-primary-fixed font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2" type="submit">
+                            AUTHORIZE ENTRY
+                            <span class="material-symbols-outlined text-lg">shield_with_heart</span>
+</button>
+<button class="w-full border border-outline-variant/30 text-primary font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:bg-surface-container-highest active:scale-[0.98]" type="button">
+                            Apply for Access
+                        </button>
+</div>
+</form>
+<!-- Support Links -->
+<footer class="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="font-label text-[10px] uppercase tracking-widest text-slate-500 hover:text-primary transition-colors" href="#">Security Protocol</a>
+<a class="font-label text-[10px] uppercase tracking-widest text-slate-500 hover:text-primary transition-colors" href="#">Support</a>
+<a class="font-label text-[10px] uppercase tracking-widest text-slate-500 hover:text-primary transition-colors" href="#">Institutional Status</a>
+</footer>
+</div>
+</section>
+</main>
+<!-- Global Footer Component Logic -->
+<div class="fixed bottom-0 left-0 right-0 pointer-events-none">
+<div class="bg-surface-container-lowest/80 backdrop-blur-md border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center w-full px-8 py-4 gap-4 pointer-events-auto">
+<span class="font-label text-[10px] tracking-widest uppercase text-slate-500">© 2024 FinCore Intelligence Systems</span>
+<div class="flex gap-6">
+<a class="font-label text-[10px] tracking-widest uppercase text-slate-500 hover:text-primary transition-all underline decoration-primary/30" href="#">Privacy Policy</a>
+<a class="font-label text-[10px] tracking-widest uppercase text-slate-500 hover:text-primary transition-all underline decoration-primary/30" href="#">Terms of Service</a>
+<a class="font-label text-[10px] tracking-widest uppercase text-slate-500 hover:text-primary transition-all underline decoration-primary/30" href="#">Security Protocol</a>
+</div>
+</div>
+</div>
+</body></html>

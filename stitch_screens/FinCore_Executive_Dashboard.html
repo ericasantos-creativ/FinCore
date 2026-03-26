@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinCore | CYANIDE KINETIC</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#282a2e",
+                        "secondary-fixed-dim": "#bdc2ff",
+                        "primary-container": "#00e5ff",
+                        "tertiary-container": "#bfd0ff",
+                        "on-tertiary-fixed": "#001945",
+                        "surface-container-low": "#1a1c20",
+                        "outline": "#849396",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#e0e0ff",
+                        "on-background": "#e2e2e8",
+                        "secondary-container": "#343d96",
+                        "on-tertiary-container": "#2455af",
+                        "primary": "#c3f5ff",
+                        "error-container": "#93000a",
+                        "surface-container": "#1e2024",
+                        "on-tertiary-fixed-variant": "#00429c",
+                        "tertiary-fixed": "#d9e2ff",
+                        "on-surface": "#e2e2e8",
+                        "inverse-surface": "#e2e2e8",
+                        "surface-container-lowest": "#0c0e12",
+                        "background": "#111318",
+                        "tertiary-fixed-dim": "#b0c6ff",
+                        "inverse-primary": "#006875",
+                        "on-primary-container": "#00626e",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#9cf0ff",
+                        "on-secondary-fixed": "#000767",
+                        "tertiary": "#e8ecff",
+                        "secondary": "#bdc2ff",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-secondary": "#1b247f",
+                        "on-surface-variant": "#bac9cc",
+                        "on-primary": "#00363d",
+                        "surface-tint": "#00daf3",
+                        "on-primary-fixed": "#001f24",
+                        "outline-variant": "#3b494c",
+                        "surface-dim": "#111318",
+                        "surface": "#111318",
+                        "on-secondary-container": "#a8afff",
+                        "inverse-on-surface": "#2f3035",
+                        "on-tertiary": "#002d6f",
+                        "surface-container-highest": "#333539",
+                        "on-primary-fixed-variant": "#004f58",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#333539",
+                        "surface-bright": "#37393e",
+                        "on-secondary-fixed-variant": "#343d96"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-space { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #c3f5ff 0%, #00e5ff 100%);
+        }
+        .glow-sm {
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopNavBar Large -->
+<header class="bg-[#111318] flex justify-between items-center w-full px-8 py-4 max-w-none shadow-[0_0_20px_rgba(0,229,255,0.08)] sticky top-0 z-50">
+<div class="flex items-center gap-12 flex-1">
+<span class="text-2xl font-bold tracking-tighter text-[#c3f5ff] uppercase font-['Space_Grotesk']">CYANIDE KINETIC</span>
+<!-- Search Bar -->
+<div class="relative w-full max-w-md hidden md:block">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-sm">search</span>
+</div>
+<input class="bg-surface-container-lowest border-none text-on-surface text-sm rounded-lg focus:ring-1 focus:ring-primary block w-full pl-10 p-2.5 font-['Space_Grotesk'] tracking-tight" placeholder="Institutional Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-[#bac9cc] hover:text-[#00e5ff] transition-colors duration-300 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-primary ring-2 ring-background"></span>
+</button>
+<button class="text-[#bac9cc] hover:text-[#00e5ff] transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional male executive in a dark minimalist setting with dramatic cyan lighting highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_jjqfXo0q2Ee5sfXltu3Gx-GCyYj2HWYtcbBGq8HmokfP2GJDNXlFzF70RhOU77nVVQaUN3L38zKe233g6x8WpIvYFk6TlVtRW8cJ6Lv56zCOnlOrykN6nLB7RzayCeGuIgF_f8IpF9mgkCmHxDcCn6ZMHOKRT7ePdJqIf3qBRNgA06cxg-8WFSULqW7rgg22oO5qP7Dq41ekAk3x7GsG4w6kPHNlyAxumUbxDy1iKbmW8ahLV9OPS-lAqbX-IdPlFKgO0XSyufnD"/>
+</div>
+</div>
+</header>
+<!-- TopNavBar Small (Navigation Links) -->
+<nav class="bg-[#1a1c20] flex gap-12 items-center w-full px-8 pt-4 sticky top-[72px] z-40">
+<a class="text-[#00e5ff] border-b-2 border-[#00e5ff] pb-2 font-['Space_Grotesk'] font-medium uppercase text-xs tracking-widest glow-sm" href="#">Dashboard</a>
+<a class="text-[#849396] pb-2 font-['Space_Grotesk'] font-medium uppercase text-xs tracking-widest hover:text-[#c3f5ff] hover:border-b-2 hover:border-[#c3f5ff]/50 transition-all" href="#">Accounts</a>
+<a class="text-[#849396] pb-2 font-['Space_Grotesk'] font-medium uppercase text-xs tracking-widest hover:text-[#c3f5ff] hover:border-b-2 hover:border-[#c3f5ff]/50 transition-all" href="#">Transactions</a>
+<a class="text-[#849396] pb-2 font-['Space_Grotesk'] font-medium uppercase text-xs tracking-widest hover:text-[#c3f5ff] hover:border-b-2 hover:border-[#c3f5ff]/50 transition-all" href="#">Insights</a>
+<a class="text-[#849396] pb-2 font-['Space_Grotesk'] font-medium uppercase text-xs tracking-widest hover:text-[#c3f5ff] hover:border-b-2 hover:border-[#c3f5ff]/50 transition-all" href="#">Security</a>
+</nav>
+<main class="px-16 py-12 space-y-12">
+<!-- KPI Cards Section: Asymmetric Cluster -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<div class="md:col-span-5 bg-surface-container p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 kinetic-gradient opacity-5 blur-3xl group-hover:opacity-10 transition-opacity"></div>
+<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest mb-2">Total Balance</p>
+<h2 class="text-primary text-4xl font-headline font-bold">$1,240,592.00</h2>
+<div class="mt-4 flex items-center gap-2 text-primary-fixed-dim text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span>Institutional Liquidity Active</span>
+</div>
+</div>
+<div class="md:col-span-4 bg-surface-container p-6 rounded-xl border-l-2 border-primary-container/20">
+<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest mb-2">Monthly Revenue</p>
+<h2 class="text-on-surface text-3xl font-headline font-semibold">+$12,840.50</h2>
+<p class="text-primary-fixed-dim text-xs mt-4">+4.2% from last cycle</p>
+</div>
+<div class="md:col-span-3 bg-surface-container p-6 rounded-xl">
+<p class="text-on-surface-variant font-label text-xs uppercase tracking-widest mb-2">Active Vaults</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-on-surface text-4xl font-headline font-bold">14</h2>
+<span class="text-outline text-sm">/ 20 cap</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 mt-6 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[70%]"></div>
+</div>
+</div>
+</section>
+<!-- Main Section: Cash Flow Chart -->
+<section class="bg-surface-container p-8 rounded-xl shadow-[0_0_40px_rgba(0,0,0,0.2)]">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h3 class="text-xl font-headline font-bold text-primary tracking-tight">Cash Flow Dynamics</h3>
+<p class="text-on-surface-variant text-sm">Real-time aggregate of global institutional movement (6M)</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-lg bg-surface-container-highest text-xs font-label uppercase text-primary border border-primary/20">Line</button>
+<button class="px-4 py-1.5 rounded-lg text-xs font-label uppercase text-outline hover:text-on-surface transition-colors">Candle</button>
+</div>
+</div>
+<div class="h-80 w-full relative">
+<!-- Visual placeholder for a sophisticated glowing chart -->
+<svg class="w-full h-full overflow-visible" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="chartGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00e5ff" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#00e5ff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#3b494c" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="50" y2="50"></line>
+<line stroke="#3b494c" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="150" y2="150"></line>
+<line stroke="#3b494c" stroke-dasharray="4" stroke-width="0.5" x1="0" x2="1000" y1="250" y2="250"></line>
+<!-- Area -->
+<path d="M0,280 Q100,240 200,260 T400,180 T600,120 T800,160 T1000,60 L1000,300 L0,300 Z" fill="url(#chartGradient)"></path>
+<!-- Main Line -->
+<path class="drop-shadow-[0_0_8px_rgba(0,229,255,0.6)]" d="M0,280 Q100,240 200,260 T400,180 T600,120 T800,160 T1000,60" fill="none" stroke="#00e5ff" stroke-linecap="round" stroke-width="3"></path>
+<!-- Active Node -->
+<circle class="drop-shadow-[0_0_12px_rgba(0,229,255,1)]" cx="600" cy="120" fill="#00e5ff" r="6"></circle>
+</svg>
+<div class="absolute bottom-[-2rem] w-full flex justify-between px-2 text-[10px] font-label text-outline uppercase tracking-widest">
+<span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span>
+</div>
+</div>
+</section>
+<!-- Secondary Section: Two Columns -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+<!-- Left: Transactions Table -->
+<div class="lg:col-span-2">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-headline font-bold text-on-surface uppercase tracking-tight">Recent Transactions</h3>
+<button class="text-xs text-primary font-label uppercase hover:underline">View All History</button>
+</div>
+<div class="bg-surface-container rounded-xl overflow-hidden">
+<table class="w-full text-left text-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant border-none">
+<th class="px-6 py-4 font-label font-medium uppercase text-xs tracking-widest">Date</th>
+<th class="px-6 py-4 font-label font-medium uppercase text-xs tracking-widest">Description</th>
+<th class="px-6 py-4 font-label font-medium uppercase text-xs tracking-widest">Category</th>
+<th class="px-6 py-4 font-label font-medium uppercase text-xs tracking-widest text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-outline font-label">OCT 24, 2023</td>
+<td class="px-6 py-4 font-medium">Equities Transfer - NASDAQ</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-secondary-container/30 text-secondary">Securities</span>
+</td>
+<td class="px-6 py-4 text-right font-headline text-primary font-bold">-$42,000.00</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-outline font-label">OCT 23, 2023</td>
+<td class="px-6 py-4 font-medium">Vault Yield Distribution</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary-container/20 text-primary-container">Dividend</span>
+</td>
+<td class="px-6 py-4 text-right font-headline text-on-surface font-bold">+$1,120.50</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-outline font-label">OCT 21, 2023</td>
+<td class="px-6 py-4 font-medium">Global FX Settlement</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-tertiary-container/10 text-tertiary">Currency</span>
+</td>
+<td class="px-6 py-4 text-right font-headline text-on-surface font-bold">-$15,400.00</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-outline font-label">OCT 19, 2023</td>
+<td class="px-6 py-4 font-medium">Institutional Deposit</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary-container/20 text-primary-container">Deposit</span>
+</td>
+<td class="px-6 py-4 text-right font-headline text-primary-fixed-dim font-bold">+$250,000.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right: Alerts Panel -->
+<div class="space-y-6">
+<h3 class="text-lg font-headline font-bold text-on-surface uppercase tracking-tight px-2">Alerts Panel</h3>
+<div class="space-y-4">
+<!-- Critical Alert -->
+<div class="bg-surface-container-high p-5 rounded-xl border-l-4 border-error shadow-lg">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-error" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface">New Login Detected</h4>
+<p class="text-xs text-on-surface-variant mt-1">London, UK - IP: 192.168.1.42. Review account access logs immediately.</p>
+<button class="mt-3 text-[10px] font-bold text-error uppercase tracking-widest hover:brightness-125">Verify Identity</button>
+</div>
+</div>
+</div>
+<!-- System Alert -->
+<div class="bg-surface-container p-5 rounded-xl border-l-4 border-primary-container">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-container" data-icon="update">update</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface">System Update</h4>
+<p class="text-xs text-on-surface-variant mt-1">Institutional clearing engine v4.2 scheduled for maintenance at 04:00 GMT.</p>
+</div>
+</div>
+</div>
+<!-- Info Alert -->
+<div class="bg-surface-container p-5 rounded-xl border-l-4 border-outline">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-outline" data-icon="info">info</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Tax Document Ready</h4>
+<p class="text-xs text-on-surface-variant mt-1">Your Q3 dividend summary is now available for cryptographic download.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Information Widget -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10">
+<p class="text-[10px] font-label text-outline uppercase tracking-[0.2em] mb-4">Security Status</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="h-2 w-2 rounded-full bg-primary-container animate-pulse"></div>
+<span class="text-xs font-medium text-on-surface">Quantum Encryption Active</span>
+</div>
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Financial Ticker Footer -->
+<footer class="fixed bottom-0 w-full bg-surface-bright/80 backdrop-blur-md border-t border-outline-variant/10 px-8 py-2 z-50">
+<div class="flex items-center gap-8 overflow-hidden whitespace-nowrap">
+<div class="flex items-center gap-2 font-label text-[10px] tracking-widest uppercase text-outline">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                Global Markets Live
+            </div>
+<div class="flex gap-8 animate-marquee">
+<span class="text-xs font-headline"><span class="text-outline">BTC/USD</span> <span class="text-primary-fixed-dim">64,231.00 (+1.2%)</span></span>
+<span class="text-xs font-headline"><span class="text-outline">GOLD/OUNCE</span> <span class="text-primary-fixed-dim">1,942.50 (+0.4%)</span></span>
+<span class="text-xs font-headline"><span class="text-outline">S&amp;P 500</span> <span class="text-error">4,321.10 (-0.1%)</span></span>
+<span class="text-xs font-headline"><span class="text-outline">EUR/USD</span> <span class="text-primary-fixed-dim">1.0542 (+0.02%)</span></span>
+<span class="text-xs font-headline"><span class="text-outline">AAPL</span> <span class="text-primary-fixed-dim">172.10 (+2.1%)</span></span>
+<span class="text-xs font-headline"><span class="text-outline">TSLA</span> <span class="text-error">214.50 (-4.2%)</span></span>
+</div>
+</div>
+</footer>
+<style>
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+    </style>
+</body></html>

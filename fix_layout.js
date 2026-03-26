@@ -1,0 +1,1 @@
+const fs = require('fs'); let layout = fs.readFileSync('assets/css/layout.css', 'utf8'); layout = layout.replace(/\.main-wrapper\s*\{[\s\S]*?\}/g, ''); layout = layout.replace(/\.content-section\s*\{[\s\S]*?\}/g, ''); fs.writeFileSync('assets/css/layout.css', layout);

@@ -1,14 +1,6 @@
 /* Base Styles */
 
-.legacy-body {
-  font-family: var(--font-primary);
-  color: var(--color-text-primary);
-  background: radial-gradient(1200px 700px at 15% -10%, rgba(30, 144, 255, 0.15), transparent 60%),
-    radial-gradient(900px 500px at 85% 0%, rgba(0, 191, 255, 0.1), transparent 55%),
-    var(--color-bg-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+.legacy-
 
 
 h1, h2, h3, h4, h5, h6 {
