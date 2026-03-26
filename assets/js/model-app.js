@@ -972,7 +972,7 @@ function updateLoginEmailVisibility() {
         emailGroup.style.display = lastEmail ? 'none' : 'block';
     }
     if (emailHint) {
-        emailHint.style.display = lastEmail ? 'block' : 'none';
+        emailHint.style.display = lastEmail ? 'flex' : 'none';
     }
     if (lastEmail) {
         setLoginEmail(lastEmail);

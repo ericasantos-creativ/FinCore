@@ -175,7 +175,16 @@
 </header>
 <form class="space-y-6" id="loginForm">
 <!-- Operator Identity Field -->
-<div class="space-y-2">
+<div id="loginEmailHint" style="display: none;" class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded p-4 flex items-center justify-between">
+            <div>
+                <p class="font-label text-[10px] uppercase tracking-widest text-slate-400 mb-1">Conta salva</p>
+                <p class="text-on-surface font-medium text-sm flex items-center gap-2">
+                   <span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+                   Conta atual
+                </p>
+            </div>
+            <button type="button" onclick="document.getElementById('loginEmailGroup').style.display='block'; this.parentNode.style.display='none'; document.getElementById('loginEmail').value='';" class="text-[10px] font-label uppercase tracking-widest text-primary hover:text-primary-container transition-colors">Trocar</button>
+        </div><div class="space-y-2" id="loginEmailGroup">
 <label class="font-label text-[10px] uppercase tracking-widest text-slate-400 ml-1" for="identity">Operator Identity</label>
 <div class="relative group">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">account_circle</span>
