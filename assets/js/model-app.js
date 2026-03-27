@@ -67,6 +67,52 @@ let currentLanguage = storageGet('language') || 'pt-BR';
 
 const TRANSLATIONS = {
     'pt-BR': {
+
+        'instPrecision': 'Precisão <span class="text-primary-container">Institucional</span>',
+        'instSecurity': 'Segurança de Nível Institucional. Acesse seus ativos com criptografia de 256 bits.',
+        'liveMarketSynthesis': 'SÍNTESE DE MERCADO AO VIVO',
+        'realTimeFeed': 'FEED EM TEMPO REAL',
+        'latency': 'LATÊNCIA',
+        'uptime': 'TEMPO ATIVO',
+        'status': 'STATUS',
+        'optimal': 'IDEAL',
+        'systemEntropy': 'ENTROPIA SISTEMA',
+        'serverCluster': 'CLUSTER',
+        'terminalAccess': 'ACESSO AO TERMINAL',
+        'enterCredentials': 'Insira suas credenciais para autorizar uma sessão segura.',
+        'operatorIdentity': 'Conta salva / Identidade',
+        'accessCipher': 'Cifra de Acesso (Senha)',
+        'forgotKey': 'ESQUECEU A CHAVE?',
+        'rememberTerminal': 'Lembrar deste terminal',
+        'applyAccess': 'SOLICITAR ACESSO',
+        'securityProtocol': 'PROTOCOLO DE SEGURANÇA',
+        'support': 'SUPORTE',
+        'institutionalStatus': 'STATUS INSTITUCIONAL',
+
+        'executiveOverview': 'Visão Executiva',
+        'executiveSubtitle': 'Monitoramento em tempo real do seu ecossistema financeiro.',
+        'cashFlow': 'Fluxo de Caixa',
+        'last6Months': 'Últimos 6 Meses',
+        'lastYear': 'Último Ano',
+        'expenseBreakdown': 'Detalhamento de Despesas',
+        'total': 'Total',
+        'housing': 'Moradia',
+        'foodAndDrinks': 'Alimentação & Bebidas',
+        'transport': 'Transporte',
+        'recentTransactions': 'Transações Recentes',
+        'viewAll': 'Ver Tudo',
+        'dateHeader': 'Data',
+        'descHeader': 'Descrição',
+        'catHeader': 'Categoria',
+        'amountHeader': 'Valor',
+        'software': 'Software',
+        'revenue': 'Receita',
+        'foodAndDrink': 'Alimentação',
+        'extraModules': 'Módulos Extras (Design Estático)',
+        'extraModulesTable': 'Módulos Extras (Tabela de Transações - Design Estático)',
+        'extraModulesList': 'Módulos Extras (Design Estático - Lista)',
+        'mockupReport': 'Design do Relatório (Stitch Layout Mockup)',
+
         // Header
         'audioReaderTitle': 'Ativar leitor de áudio',
         'librasTitle': 'Ativar intérprete de LIBRAS',
@@ -363,8 +409,53 @@ const TRANSLATIONS = {
         'accountPayableAddedSuccess': 'Conta a pagar adicionada!',
         'accountReceivableAddedSuccess': 'Conta a receber adicionada!',
 
-    },
-    'en': {
+        },
+    'en-US': {
+        'instPrecision': 'Institutional <span class="text-primary-container">Precision</span>',
+        'instSecurity': 'Institutional Grade Security. Access your sovereign assets with 256-bit encryption.',
+        'liveMarketSynthesis': 'LIVE MARKET SYNTHESIS',
+        'realTimeFeed': 'REAL-TIME FEED',
+        'latency': 'LATENCY',
+        'uptime': 'UPTIME',
+        'status': 'STATUS',
+        'optimal': 'OPTIMAL',
+        'systemEntropy': 'SYSTEM ENTROPY',
+        'serverCluster': 'SERVER CLUSTER',
+        'terminalAccess': 'TERMINAL ACCESS',
+        'enterCredentials': 'Enter your credentials to authorize a secure session.',
+        'operatorIdentity': 'Operator Identity',
+        'accessCipher': 'Access Cipher',
+        'forgotKey': 'FORGOT KEY?',
+        'rememberTerminal': 'Remember this terminal',
+        'applyAccess': 'APPLY FOR ACCESS',
+        'securityProtocol': 'SECURITY PROTOCOL',
+        'support': 'SUPPORT',
+        'institutionalStatus': 'INSTITUTIONAL STATUS',
+
+        'executiveOverview': 'Executive Overview',
+        'executiveSubtitle': 'Real-time monitoring of your financial ecosystem.',
+        'cashFlow': 'Cash Flow',
+        'last6Months': 'Last 6 Months',
+        'lastYear': 'Last Year',
+        'expenseBreakdown': 'Expense Breakdown',
+        'total': 'Total',
+        'housing': 'Housing',
+        'foodAndDrinks': 'Food & Drinks',
+        'transport': 'Transport',
+        'recentTransactions': 'Recent Transactions',
+        'viewAll': 'View All',
+        'dateHeader': 'Date',
+        'descHeader': 'Description',
+        'catHeader': 'Category',
+        'amountHeader': 'Amount',
+        'software': 'Software',
+        'revenue': 'Revenue',
+        'foodAndDrink': 'Food & Drink',
+        'extraModules': 'Extra Modules (Static Design)',
+        'extraModulesTable': 'Extra Modules (Transactions Table - Static Design)',
+        'extraModulesList': 'Extra Modules (Static Design - List)',
+        'mockupReport': 'Report Design (Stitch Layout Mockup)',
+
         // Accessibility
         'audioReaderTitle': 'Activate audio reader',
         'librasTitle': 'Activate LIBRAS interpreter',
@@ -513,12 +604,46 @@ const TRANSLATIONS = {
         'passwordChanged': 'Password changed successfully!',
         'passwordChangeError': 'Error changing password.',
         'companySloganUpdated': 'Slogan updated successfully!',
-
+        'sales': 'Vendas',
+        'costsAndExpenses': 'Custos e Despesas',
+        'cashFlow': 'Fluxo de Caixa',
+        'total': 'Total',
+        'row-count': 'Linha',
+        'price': 'Preço',
+        'currency': 'Moeda',
+        'percentage': 'Percentual',
+        'download': 'Download',
+        'upload': 'Upload',
+        'search': 'Buscar',
+        'open': 'Abrir',
+        'close': 'Fechar',
+        'edit': 'Editar',
+        'delete': 'Deletar',
+        'save': 'Salvar',
+        'reset': 'Redefinir',
+        'language': 'Idioma',
+        'fontSize': 'Tamanho da Fonte',
+        'theme': 'Tema',
+        'profile': 'Perfil',
+        'settings': 'Configurações',
+        'notifications': 'Notificações',
+        'help': 'Ajuda',
+        'logout': 'Sair',
+        'login': 'Entrar',
+        'register': 'Cadastro',
+        'update': 'Atualizar',
+        'confirmExit': 'Deseja realmente sair?',
+        'editProfile': 'Editar Perfil',
+        'password': 'Senha',
+        'email': 'Email',
+        'name': 'Nome',
+        'surname': 'Sobrenome',
+        'address': 'Endereço',
         'examples': 'Ex: Salary, Shopping...',
         'amount': 'Amount (R$)',
         'placeholderAmount': '0.00',
-        'date': 'Date',
-        'add': 'Add',
+        'date': 'Data',
+        'add': 'Adicionar',
         'filterByType': 'Filter by type:',
         'all': 'All',
         'filterByCategory': 'Filter by category:',
@@ -549,19 +674,19 @@ const TRANSLATIONS = {
         'delete': 'Delete',
         'cnpjCpfLabel': 'CNPJ/CPF',
         'balanceLabel': 'Balance',
-        'edit': 'Edit',
+        'edit': 'Editar',
         'companySelected': '{company} selected!',
-        'descriptionLabel': 'Description',
+        'descriptionLabel': 'Descrição',
         'descriptionExample': 'Ex: Rent, Supplier...',
         'supplierLabel': 'Supplier',
         'supplierPlaceholder': 'Supplier name',
         'clientLabel': 'Client',
         'clientPlaceholder': 'Client name',
-        'amountLabel': 'Amount',
+        'amountLabel': 'Valor',
         'amountPlaceholder': '0.00',
-        'dueDateLabel': 'Due date',
+        'dueDateLabel': 'Data Vencimento',
         'dueDatePlaceholder': 'yyyy-mm-dd',
-        'registerBtn': 'Register',
+        'registerBtn': 'Registrar',
         'statusPending': 'Pending',
         'statusPaid': 'Paid',
         'allCompanies': 'All companies',
@@ -574,7 +699,7 @@ const TRANSLATIONS = {
         'monthsAutonomyLabel': 'Months of Autonomy',
         'optimisticScenarioLabel': 'Optimistic Scenario (+15% income)',
         'pessimisticScenarioLabel': 'Pessimistic Scenario (-15% income)',
-        'autonomyLabel': 'Autonomy',
+        'autonomyLabel': 'Autonomia',
         'monthsLabel': 'months',
         
         // Confirmations
@@ -602,10 +727,10 @@ const TRANSLATIONS = {
         'reportExcelDownloadedSuccess': 'Excel report downloaded successfully!',
         'reportCsvDownloadedSuccess': 'CSV report downloaded successfully!',
         'sloganUpdatedSuccess': 'Slogan updated successfully!',
-        'accessRevokedSuccess': 'Access revoked!',
-        'accountDeletedSuccess': 'Account deleted successfully!',
-        'accountPayableAddedSuccess': 'Payable account added!',
-        'accountReceivableAddedSuccess': 'Receivable account added!',
+        'accessRevokedSuccess': 'Acesso revogado!',
+        'accountDeletedSuccess': 'Conta deletada com sucesso!',
+        'accountPayableAddedSuccess': 'Conta a pagar adicionada!',
+        'accountReceivableAddedSuccess': 'Conta a receber adicionada!',
 
         // Accessibility
         'audioReaderActive': 'Deactivate audio reader',
@@ -1100,6 +1225,9 @@ function setupEventListeners() {
             e.preventDefault();
             const section = link.dataset.section;
             showSection(section);
+            // Remover classe 'active' de todos e adicionar na aba clicada
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
         });
     });
 
@@ -1510,7 +1638,7 @@ function renderEmpresas() {
         const balance = income - expenses;
 
         return `
-            <div class="empresa-card" onclick="selectEmpresa(${emp.id})">
+            <div class="empresa-card bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 p-6 text-slate-800 dark:text-slate-100 hover:shadow-xl transition-shadow" onclick="selectEmpresa(${emp.id})">
                 <h3>${emp.nome}</h3>
                 <p class="text-muted">${emp.tipo}</p>
                 <p><strong>${t('cnpjCpfLabel')}:</strong> ${emp.documento}</p>
@@ -2262,12 +2390,7 @@ function renderMetas() {
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${percentual}%"></div>
                     </div>
-<<<<<<< Updated upstream
                     <p class="text-muted">${percentual}% ${t('goalProgress')}</p>
-=======
-                    <p class="text-muted">Empresa: ${getEmpresaNameById(m.empresaId)}</p>
-                    <p class="text-muted">${percentual}% completo</p>
->>>>>>> Stashed changes
                 </div>
             `;
         }).join('');
@@ -2309,7 +2432,7 @@ function renderFornecedores() {
     container.innerHTML = fornecedores
         .filter(f => !currentEmpresa || f.empresaId === currentEmpresa.id)
         .map(f => `
-            <div class="supplier-card">
+            <div class="supplier-card bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 p-6 text-slate-800 dark:text-slate-100 hover:shadow-xl transition-shadow">
                 <h3>${f.nome}</h3>
                 <p><strong>${t('category')}:</strong> ${f.categoria}</p>
                 <p><strong>${t('contact')}:</strong> ${f.contato}</p>
@@ -3199,7 +3322,7 @@ function openReportModal(reports, title) {
     reportModal.innerHTML = `
         <div style="display: data-theme: dark; color: #333;">
             <h2 style="margin-top: 0; color: #7c3aed;">${title || t('financialReport')}</h2>
-            <p><strong>${t('generatedAt')}:</strong> ${reports.generatedAt}</p>
+            <p><strong>${t('generatedAt')}: ${reports.generatedAt}</p>
 
             <h3 style="color: #7c3aed;">${t('generalSummary')}</h3>
             <p><strong>${t('totalIncomeLabel')}:</strong> ${formatCurrency(reports.totalIncome)}</p>

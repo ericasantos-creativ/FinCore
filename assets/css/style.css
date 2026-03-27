@@ -63,7 +63,7 @@ body {
                 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,114,227,0.15)" stroke-width="1.5"/></pattern><pattern id="dots" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="30" cy="30" r="1.5" fill="rgba(30,144,255,0.2)"/></pattern><radialGradient id="glow1" cx="30%" cy="30%"><stop offset="0%" style="stop-color:rgba(0,114,227,0.1);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(0,114,227,0);stop-opacity:1" /></radialGradient></defs><rect width="1200" height="600" fill="url(%23grid)"/><rect width="1200" height="600" fill="url(%23dots)"/><circle cx="150" cy="150" r="250" fill="url(%23glow1)" opacity="0.8"/><circle cx="1000" cy="450" r="350" fill="rgba(30,144,255,0.08)" opacity="0.6"/><line x1="0" y1="0" x2="1200" y2="600" stroke="rgba(0,114,227,0.05)" stroke-width="2"/></svg>');
     background-attachment: fixed;
     background-size: cover;
-    color: var(--text);
+    color: var(--color-text-primary);
     line-height: 1.6;
     min-height: 100vh;
 }
@@ -358,7 +358,7 @@ body {
 .login-form h2 {
     font-size: 20px;
     margin-bottom: 25px;
-    color: var(--dark);
+    color: var(--color-text-primary);
 }
 
 .form-group {
@@ -369,7 +369,7 @@ body {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--color-text-primary);
     font-size: 14px;
 }
 
@@ -377,7 +377,7 @@ body {
 .form-group select {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     font-size: 14px;
     font-family: inherit;
@@ -387,19 +387,19 @@ body {
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .toggle-form {
     text-align: center;
     font-size: 14px;
-    color: var(--text-light);
+    color: var(--color-text-secondary);
     margin-top: 20px;
 }
 
 .toggle-form a {
-    color: var(--primary);
+    color: var(--color-accent-primary);
     text-decoration: none;
     font-weight: 600;
     cursor: pointer;
@@ -449,7 +449,7 @@ body {
     gap: 12px;
     font-size: 22px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--color-accent-primary);
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -483,7 +483,7 @@ body {
 
 .user-info span {
     font-weight: 500;
-    color: var(--text);
+    color: var(--color-text-primary);
     margin-left: 12px; /* afasta o nome para a direita */
 }
 
@@ -531,7 +531,7 @@ body {
     top: 100%;
     right: 0;
     background: var(--surface);
-    border: 1px solid var(--primary);
+    border: 1px solid var(--color-accent-primary);
     border-radius: 0.5rem;
     min-width: 150px;
     z-index: 1000;
@@ -545,7 +545,7 @@ body {
     padding: 0.75rem 1rem;
     border: none;
     background: none;
-    color: var(--text);
+    color: var(--color-text-primary);
     text-align: left;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -553,12 +553,12 @@ body {
 }
 
 .lang-option:hover {
-    background: var(--primary);
+    background: var(--color-accent-primary);
     color: white;
 }
 
 .lang-option.active {
-    background: var(--primary);
+    background: var(--color-accent-primary);
     color: white;
     font-weight: bold;
 }
@@ -768,7 +768,7 @@ body {
 .company-dashboard-title {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--color-text-primary);
     margin: 0 0 12px 0;
 }
 
@@ -777,7 +777,7 @@ body {
 }
 
 .card {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 16px;
     padding: 25px;
     box-shadow: var(--shadow-lg);
@@ -815,7 +815,7 @@ body {
 .card:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: var(--glow);
-    border-color: var(--primary);
+    border-color: var(--color-accent-primary);
 }
 
 .card-icon {
@@ -853,7 +853,7 @@ body {
 
 .card-content h3 {
     font-size: 14px;
-    color: var(--text-light);
+    color: var(--color-text-secondary);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -863,7 +863,7 @@ body {
 .card-content .amount {
     font-size: 32px;
     font-weight: 800;
-    color: var(--dark);
+    color: var(--color-text-primary);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -879,7 +879,7 @@ body {
 
 /* ==================== ADD TRANSACTION ==================== */
 .add-transaction {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 16px;
     padding: 30px;
     box-shadow: var(--shadow-lg);
@@ -889,13 +889,13 @@ body {
 }
 
 .add-transaction:hover {
-    border-color: var(--primary);
+    border-color: var(--color-accent-primary);
 }
 
 .add-transaction h2 {
     font-size: 22px;
     margin-bottom: 25px;
-    color: var(--dark);
+    color: var(--color-text-primary);
 }
 
 .form-transaction {
@@ -918,7 +918,7 @@ body {
 .form-group select {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     font-size: 14px;
     font-family: inherit;
@@ -928,7 +928,7 @@ body {
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -957,11 +957,11 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--primary-dark) 100%);
     color: white;
     width: 100%;
     box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-    border: 2px solid var(--primary);
+    border: 2px solid var(--color-accent-primary);
 }
 
 .btn-primary:hover {
@@ -1032,7 +1032,7 @@ body {
 
 /* ==================== TRANSAÇÕES ==================== */
 .transactions-section {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 16px;
     padding: 30px;
     box-shadow: var(--shadow-lg);
@@ -1041,7 +1041,7 @@ body {
 }
 
 .transactions-section:hover {
-    border-color: var(--primary);
+    border-color: var(--color-accent-primary);
 }
 
 .section-header {
@@ -1050,7 +1050,7 @@ body {
 
 .section-header h2 {
     font-size: 22px;
-    color: var(--dark);
+    color: var(--color-text-primary);
 }
 
 .filters {
@@ -1059,7 +1059,7 @@ body {
     gap: 15px;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .filter-group {
@@ -1071,13 +1071,13 @@ body {
 .filter-group label {
     font-weight: 600;
     font-size: 14px;
-    color: var(--dark);
+    color: var(--color-text-primary);
 }
 
 .filter-group input,
 .filter-group select {
     padding: 10px 12px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     font-size: 14px;
     font-family: inherit;
@@ -1087,7 +1087,7 @@ body {
 .filter-group input:focus,
 .filter-group select:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -1099,7 +1099,7 @@ body {
 
 .empty-message {
     text-align: center;
-    color: var(--text-light);
+    color: var(--color-text-secondary);
     padding: 40px 20px;
     font-size: 16px;
 }
@@ -1109,7 +1109,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: var(--panel-alt);
+    background: var(--color-bg-tertiary);
     border-radius: 8px;
     border-left: 4px solid;
     transition: all 0.4s ease;
@@ -1151,11 +1151,11 @@ body {
 }
 
 .transaction-item.ganho {
-    border-left-color: var(--success);
+    border-left-color: var(--color-success);
 }
 
 .transaction-item.ganho {
-    border-left-color: var(--danger);
+    border-left-color: var(--color-danger);
 }
 
 .transaction-item.gasto .transaction-amount {
@@ -1177,28 +1177,28 @@ body {
 
 .transaction-item.ganho .transaction-icon {
     background: rgba(16, 185, 129, 0.1);
-    color: var(--success);
+    color: var(--color-success);
 }
 
 .transaction-item.gasto .transaction-icon {
     background: rgba(239, 68, 68, 0.1);
-    color: var(--danger);
+    color: var(--color-danger);
 }
 
 .transaction-info h4 {
     font-size: 16px;
-    color: var(--dark);
+    color: var(--color-text-primary);
     margin-bottom: 4px;
 }
 
 .transaction-info p {
     font-size: 13px;
-    color: var(--text-light);
+    color: var(--color-text-secondary);
 }
 
 .transaction-category {
     display: inline-block;
-    background: var(--primary);
+    background: var(--color-accent-primary);
     color: white;
     padding: 4px 12px;
     border-radius: 20px;
@@ -1214,8 +1214,8 @@ body {
     border-radius: 12px;
     font-size: 12px;
     font-weight: 600;
-    background: var(--panel-alt);
-    color: var(--dark);
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
 }
 
 .transaction-right {
@@ -1232,11 +1232,11 @@ body {
 }
 
 .transaction-item.ganho .transaction-amount {
-    color: var(--success);
+    color: var(--color-success);
 }
 
 transaction-item.gasto .transaction-amount {
-    color: var(--danger);
+    color: var(--color-danger);
 }
 
 .btn-delete {
@@ -1262,7 +1262,7 @@ transaction-item.gasto .transaction-amount {
 
 /* ==================== NAVEGAÇÃO ==================== */
 .nav-menu {
-    background: var(--light);
+    background: var(--color-bg-secondary);
     box-shadow: var(--shadow-lg);
     padding: 0;
     position: sticky;
@@ -1292,11 +1292,36 @@ transaction-item.gasto .transaction-amount {
     flex: 0 0 auto;
 }
 
-.legacy-nav-link {}
+/* ====== NAV-LINK CUSTOM ====== */
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #64748b; /* slate-500 */
+    background: transparent;
+    border-right: 2px solid transparent;
+    border-radius: 0 1.5rem 1.5rem 0;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.nav-link:hover {
+    background: #0f172a; /* slate-900 */
+    color: #e1e2eb; /* text-on-background */
+}
+.nav-link.active {
+    color: #3b82f6; /* blue-500 */
+    background: rgba(59, 130, 246, 0.05); /* blue-500/5 */
+    border-right: 2px solid #3b82f6;
+    font-weight: 600;
+    box-shadow: 0 2px 8px 0 rgba(59,130,246,0.04);
+    z-index: 2;
+}
 
-.legacy-nav-link:hover {}
 
-.legacy-nav-link.active {}
+
 
 
 
@@ -1351,7 +1376,7 @@ transaction-item.gasto .transaction-amount {
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid var(--border);
+    border-bottom: 2px solid var(--color-border);
 }
 
 /* ==================== MODAL ==================== */
@@ -1385,7 +1410,7 @@ transaction-item.gasto .transaction-amount {
 
 .modal-header h3 {
     margin: 0;
-    color: var(--text);
+    color: var(--color-text-primary);
     font-size: 18px;
 }
 
@@ -1402,7 +1427,7 @@ transaction-item.gasto .transaction-amount {
 
 .section-header h2 {
     font-size: 24px;
-    color: var(--dark);
+    color: var(--color-text-primary);
 }
 
 /* ==================== GRID CONTAINER ==================== */
@@ -1418,11 +1443,11 @@ transaction-item.gasto .transaction-amount {
 .supplier-card,
 .goal-card,
 .investment-card {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 12px;
     padding: 20px;
     box-shadow: var(--shadow);
-    border-left: 4px solid var(--primary);
+    border-left: 4px solid var(--color-accent-primary);
     transition: all 0.3s ease;
 }
 
@@ -1439,35 +1464,35 @@ transaction-item.gasto .transaction-amount {
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
-    border-bottom: 2px solid var(--border);
+    border-bottom: 2px solid var(--color-border);
     overflow-x: auto;
 }
 
 .tab-btn {
     padding: 12px 20px;
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border: none;
     border-bottom: 3px solid transparent;
     cursor: pointer;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--color-text-primary);
     transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .tab-btn:hover {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
+    color: var(--color-accent-primary);
+    border-bottom-color: var(--color-accent-primary);
 }
 
 .tab-btn.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
+    color: var(--color-accent-primary);
+    border-bottom-color: var(--color-accent-primary);
 }
 
 .tab-content {
     display: none;
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 12px;
     padding: 25px;
     box-shadow: var(--shadow);
@@ -1488,7 +1513,7 @@ transaction-item.gasto .transaction-amount {
 .form-conta,
 .form-meta,
 .form-investimento {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 12px;
     padding: 25px;
     box-shadow: var(--shadow);
@@ -1510,7 +1535,7 @@ transaction-item.gasto .transaction-amount {
 .cost-item,
 .goal-item,
 .investment-item {
-    background: var(--panel-alt);
+    background: var(--color-bg-tertiary);
     border-radius: 8px;
     padding: 15px;
     border-left: 4px solid;
@@ -1518,11 +1543,11 @@ transaction-item.gasto .transaction-amount {
 }
 
 .account-item {
-    border-left-color: var(--info);
+    border-left-color: var(--color-accent-secondary);
 }
 
 .cost-item {
-    border-left-color: var(--warning);
+    border-left-color: var(--color-warning);
 }
 
 .cost-item-header {
@@ -1533,11 +1558,11 @@ transaction-item.gasto .transaction-amount {
 }
 
 .goal-item {
-    border-left-color: var(--success);
+    border-left-color: var(--color-success);
 }
 
 .investment-item {
-    border-left-color: var(--primary);
+    border-left-color: var(--color-accent-primary);
 }
 
 /* ==================== RELATÓRIOS ==================== */
@@ -1550,11 +1575,11 @@ transaction-item.gasto .transaction-amount {
 }
 
 .report-card {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 12px;
     padding: 20px;
     box-shadow: var(--shadow);
-    border-top: 4px solid var(--primary);
+    border-top: 4px solid var(--color-accent-primary);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -1569,7 +1594,7 @@ transaction-item.gasto .transaction-amount {
 .report-card h3 {
     font-size: 18px;
     margin-bottom: 15px;
-    color: var(--dark);
+    color: var(--color-text-primary);
 }
 
 .report-card canvas {
@@ -1586,7 +1611,7 @@ transaction-item.gasto .transaction-amount {
 
 /* ==================== CALENDÁRIO ==================== */
 .calendar-container {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 12px;
     padding: 25px;
     box-shadow: var(--shadow);
@@ -1601,7 +1626,7 @@ transaction-item.gasto .transaction-amount {
 
 .calendar-header h3 {
     font-size: 20px;
-    color: var(--dark);
+    color: var(--color-text-primary);
     margin: 0;
 }
 
@@ -1612,7 +1637,7 @@ transaction-item.gasto .transaction-amount {
 }
 
 .calendar-table th {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: linear-gradient(135deg, var(--color-accent-primary), var(--primary-dark));
     color: white;
     padding: 12px;
     text-align: center;
@@ -1620,7 +1645,7 @@ transaction-item.gasto .transaction-amount {
 }
 
 .calendar-table td {
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     padding: 12px;
     text-align: center;
     height: 60px;
@@ -1634,14 +1659,14 @@ transaction-item.gasto .transaction-amount {
 }
 
 .calendar-table td.other-month {
-    color: var(--text-light);
-    background: var(--light);
+    color: var(--color-text-secondary);
+    background: var(--color-bg-secondary);
 }
 
 .calendar-table td.has-event {
     background: rgba(124, 58, 237, 0.2);
     font-weight: 600;
-    color: var(--primary);
+    color: var(--color-accent-primary);
 }
 
 .calendar-events {
@@ -1649,38 +1674,38 @@ transaction-item.gasto .transaction-amount {
 }
 
 .calendar-event {
-    background: var(--light);
-    border-left: 4px solid var(--primary);
+    background: var(--color-bg-secondary);
+    border-left: 4px solid var(--color-accent-primary);
     padding: 12px 15px;
     margin-bottom: 10px;
     border-radius: 6px;
 }
 
 .calendar-event.pagar {
-    border-left-color: var(--danger);
+    border-left-color: var(--color-danger);
 }
 
 .calendar-event.receber {
-    border-left-color: var(--success);
+    border-left-color: var(--color-success);
 }
 
 /* ==================== INFO BOX ==================== */
 .info-box {
-    background: var(--panel-alt);
-    border-left: 4px solid var(--primary);
+    background: var(--color-bg-tertiary);
+    border-left: 4px solid var(--color-accent-primary);
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;
 }
 
 .info-box h4 {
-    color: var(--primary);
+    color: var(--color-accent-primary);
     margin-bottom: 10px;
     font-size: 16px;
 }
 
 .info-box p {
-    color: var(--text);
+    color: var(--color-text-primary);
     margin-bottom: 8px;
     line-height: 1.6;
 }
@@ -1692,7 +1717,7 @@ transaction-item.gasto .transaction-amount {
 }
 
 .profile-card {
-    background: var(--panel);
+    background: var(--color-bg-secondary);
     border-radius: 12px;
     box-shadow: var(--shadow);
     overflow: hidden;
@@ -1703,7 +1728,7 @@ transaction-item.gasto .transaction-amount {
     align-items: center;
     gap: 20px;
     padding: 30px 25px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: linear-gradient(135deg, var(--color-accent-primary), var(--primary-dark));
     color: white;
 }
 
@@ -1732,13 +1757,13 @@ transaction-item.gasto .transaction-amount {
 
 .divider {
     height: 1px;
-    background: var(--border);
+    background: var(--color-border);
     margin: 20px 0;
 }
 
 .profile-section {
     padding: 25px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .profile-section:last-child {
@@ -1750,23 +1775,23 @@ transaction-item.gasto .transaction-amount {
     align-items: center;
     gap: 10px;
     font-size: 18px;
-    color: var(--dark);
+    color: var(--color-text-primary);
     margin: 0 0 15px 0;
 }
 
 .profile-section h4 i {
-    color: var(--primary);
+    color: var(--color-accent-primary);
 }
 
 .section-description {
-    color: var(--text-light);
+    color: var(--color-text-secondary);
     font-size: 13px;
     margin: 0 0 15px 0;
 }
 
 .slogan-display {
-    background: var(--panel-alt);
-    border: 2px dashed var(--primary);
+    background: var(--color-bg-tertiary);
+    border: 2px dashed var(--color-accent-primary);
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 15px;
@@ -1775,7 +1800,7 @@ transaction-item.gasto .transaction-amount {
 
 .slogan-text {
     font-size: 18px;
-    color: var(--primary);
+    color: var(--color-accent-primary);
     font-weight: 500;
     margin: 0;
     font-style: italic;
@@ -1784,11 +1809,11 @@ transaction-item.gasto .transaction-amount {
 .form-slogan,
 .form-password,
 .form-share {
-    background: var(--panel-alt);
+    background: var(--color-bg-tertiary);
     border-radius: 8px;
     padding: 20px;
     margin: 15px 0;
-    border-left: 4px solid var(--primary);
+    border-left: 4px solid var(--color-accent-primary);
 }
 
 .form-slogan input,
@@ -1797,7 +1822,7 @@ transaction-item.gasto .transaction-amount {
 .form-share select {
     width: 100%;
     padding: 10px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     font-size: 14px;
     margin-bottom: 15px;
@@ -1808,7 +1833,7 @@ transaction-item.gasto .transaction-amount {
 .form-share input:focus,
 .form-share select:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: var(--color-accent-primary);
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
 
@@ -1825,7 +1850,7 @@ transaction-item.gasto .transaction-amount {
 
 .form-group label {
     display: block;
-    color: var(--dark);
+    color: var(--color-text-primary);
     font-weight: 500;
     margin-bottom: 8px;
     font-size: 13px;
@@ -1849,14 +1874,14 @@ transaction-item.gasto .transaction-amount {
 
 .shared-accounts-list {
     margin-top: 20px;
-    background: var(--light);
+    background: var(--color-bg-secondary);
     border-radius: 8px;
     padding: 15px;
 }
 
 .shared-accounts-list h5 {
     margin: 0 0 15px 0;
-    color: var(--dark);
+    color: var(--color-text-primary);
     font-size: 14px;
 }
 
@@ -1868,7 +1893,7 @@ transaction-item.gasto .transaction-amount {
 
 .share-item {
     background: white;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     padding: 12px;
     display: flex;
@@ -1884,18 +1909,18 @@ transaction-item.gasto .transaction-amount {
 
 .share-item-email {
     font-weight: 500;
-    color: var(--dark);
+    color: var(--color-text-primary);
     font-size: 13px;
 }
 
 .share-item-permission {
     font-size: 12px;
-    color: var(--text-light);
+    color: var(--color-text-secondary);
 }
 
 .share-item-expiry {
     font-size: 11px;
-    color: var(--warning);
+    color: var(--color-warning);
 }
 
 .share-item button {
@@ -2145,7 +2170,7 @@ transaction-item.gasto .transaction-amount {
 
     .nav-item {
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--color-border);
         width: 100%;
         padding: 15px 20px;
     }
@@ -2450,4 +2475,77 @@ transaction-item.gasto .transaction-amount {
     .profile-container {
         padding: 0;
     }
+}
+
+
+
+
+.filter-group input, .filter-group select {
+    background-color: var(--color-bg-secondary) !important;
+    color: var(--color-text-primary) !important;
+    border: 1px solid var(--color-border) !important;
+    opacity: 1 !important;
+}
+
+
+
+
+
+
+
+
+
+/* Scoped Fixes for Dashboard Inputs (Fix Transparency) */
+.form-group input, .form-group select, .form-group textarea,
+.filter-group input, .filter-group select,
+.modal-content input, .modal-content select, .modal-content textarea {
+    background-color: var(--color-bg-secondary) !important;
+    color: var(--color-text-primary) !important;
+    border: 1px solid var(--color-border) !important;
+    opacity: 1 !important;
+}
+
+.form-group label, .filter-group label {
+    color: var(--color-text-primary);
+}
+
+.form-group input::placeholder, .form-group textarea::placeholder,
+.filter-group input::placeholder, .modal-content input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+}
+
+
+/* Scoped Fixes for Dashboard Inputs (Fix Transparency) */
+
+.form-group label, .filter-group label {
+    color: var(--color-text-primary);
+}
+
+.form-group input::placeholder, .form-group textarea::placeholder,
+.filter-group input::placeholder, .modal-content input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+}
+
+/* Força o fundo e texto dos itens do dropdown/select a ficarem opacos e visíveis em todos navegadores */
+select, select option, select optgroup {
+  background-color: var(--color-bg-secondary, #10192b) !important;
+  color: var(--color-text-primary, #e1e2eb) !important;
+  opacity: 1 !important;
+}
+
+/* Para selects customizados do Chrome/Edge/Opera */
+select::-webkit-input-placeholder, select option::-webkit-input-placeholder {
+  color: var(--color-text-primary, #e1e2eb) !important;
+  opacity: 1 !important;
+}
+
+select:-webkit-autofill,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg-secondary, #10192b) inset !important;
+  -webkit-text-fill-color: var(--color-text-primary, #e1e2eb) !important;
+  opacity: 1 !important;
 }
