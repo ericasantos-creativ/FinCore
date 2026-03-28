@@ -141,6 +141,9 @@ const TRANSLATIONS = {
         // Dashboard
         'dashboard': 'Dashboard',
         'companies': 'Empresas',
+        'companiesSubtitle': 'Gerenciando 1.284 entidades empresariais em 4 continentes.',
+        'export': 'Exportar',
+        'newCompany': 'Nova Empresa',
         'transactions': 'Transações',
         'payable': 'Contas a Pagar',
         'receivable': 'Contas a Receber',
@@ -372,6 +375,8 @@ const TRANSLATIONS = {
         'generateReport': 'Gerar Relatório',
         'scenarioAnalysisTitle': 'Análise de Cenários Financeiros',
         'currentBalanceLabel': 'Saldo Atual',
+        'monthlyIncomeLabel': 'Receita Mensal',
+        'monthlyExpenseLabel': 'Despesas Mensais',
         'avgMonthlyExpenseLabel': 'Gasto Médio Mensal',
         'monthsAutonomyLabel': 'Meses de Autonomia',
         'optimisticScenarioLabel': 'Cenário Otimista (+15% de ganhos)',
@@ -483,6 +488,9 @@ const TRANSLATIONS = {
         // Dashboard
         'dashboard': 'Dashboard',
         'companies': 'Companies',
+        'companiesSubtitle': 'Managing 1,284 enterprise entities across 4 continents.',
+        'export': 'Export',
+        'newCompany': 'New Company',
         'transactions': 'Transactions',
         'payable': 'Payable Accounts',
         'receivable': 'Receivable Accounts',
@@ -542,7 +550,7 @@ const TRANSLATIONS = {
         'reportExcelDownloaded': 'Excel report downloaded successfully!',
         'reportCsvDownloaded': 'CSV report downloaded successfully!',
         'accountsManagement': 'Accounts Management',
-        'payableAccounts': 'Payable Accounts',
+        'payableAccounts': 'Contas a Pagar',
         'receivableAccounts': 'Receivable Accounts',
         'proLabore': 'Pro-Labore',
         'proLaboreMonthlyFixedLabel': 'Monthly Value (Fixed Pro-Labore)',
@@ -695,6 +703,8 @@ const TRANSLATIONS = {
         'generateReport': 'Generate Report',
         'scenarioAnalysisTitle': 'Financial Scenario Analysis',
         'currentBalanceLabel': 'Current Balance',
+        'monthlyIncomeLabel': 'Monthly Income',
+        'monthlyExpenseLabel': 'Monthly Expenses',
         'avgMonthlyExpenseLabel': 'Average Monthly Expense',
         'monthsAutonomyLabel': 'Months of Autonomy',
         'optimisticScenarioLabel': 'Optimistic Scenario (+15% income)',
@@ -1153,6 +1163,8 @@ async function initApp() {
             const lastEmail = stored?.email || getLastUserEmail();
             if (lastEmail) {
                 setLoginEmail(lastEmail);
+                // Usuário já cadastrado, usar tema escuro da página de senha
+                setTheme('dark');
             }
             updateLoginEmailVisibility();
             setTimeout(() => transitionFromSplash('login'), 1600);
@@ -1218,6 +1230,17 @@ function setupEventListeners() {
     }
     if (loginPasswordInput) {
         loginPasswordInput.addEventListener('keydown', handleLoginEnter);
+    }
+
+    const togglePasswordVisibility = document.getElementById('togglePasswordVisibility');
+    if (togglePasswordVisibility && loginPasswordInput) {
+        togglePasswordVisibility.addEventListener('click', () => {
+            const isHidden = loginPasswordInput.type === 'password';
+            loginPasswordInput.type = isHidden ? 'text' : 'password';
+            togglePasswordVisibility.textContent = isHidden ? '🙈' : '👁';
+            togglePasswordVisibility.setAttribute('aria-label', isHidden ? 'Ocultar senha' : 'Mostrar senha');
+            loginPasswordInput.focus();
+        });
     }
 
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -3989,6 +4012,18 @@ function setTheme(theme) {
             themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
             themeBtn.title = 'Modo escuro';
         }
+    }
+
+    const loginScreen = document.getElementById('loginScreen');
+    if (loginScreen) {
+        loginScreen.classList.remove('theme-light', 'theme-dark');
+        loginScreen.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
+    }
+
+    const mainScreen = document.getElementById('mainScreen');
+    if (mainScreen) {
+        mainScreen.classList.remove('theme-light', 'theme-dark');
+        mainScreen.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
     }
 }
 

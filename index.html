@@ -124,32 +124,7 @@
 <p class="text-on-surface-variant text-lg leading-relaxed">
                         <span data-i18n="instSecurity">Institutional Grade Security. Access your sovereign assets with 256-bit encryption.</span>
                     </p>
-<!-- Live Market Synthesis Inset -->
-<div class="p-6 rounded bg-surface-container border border-outline-variant/15 glass-panel">
-<div class="flex justify-between items-center mb-4">
-<span class="font-label text-xs uppercase tracking-widest text-primary" data-i18n="liveMarketSynthesis">Live Market Synthesis</span>
-<span class="flex items-center gap-2 text-[10px] font-label text-slate-500">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                <span data-i18n="realTimeFeed">REAL-TIME FEED</span>
-                            </span>
-</div>
-<img alt="FinCore Market Synthesis Graph" class="w-full h-32 object-cover opacity-80 mix-blend-screen grayscale contrast-125" data-alt="Abstract financial data visualization with glowing blue neon lines on a deep black grid background, futuristic fintech aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCUltIfNd3B-X_ha1K-ppDBGNcuRndmLeEICT3mKoz8oSBGnEmV7Ek69pK0mT9w2rcTMOK3i-05wc9M8zjkaYV0dC5EctLiHwxJJ4JQ26JI1QP05tMeL5WkK6u2LMAU6Ahk0-DKE3PDhJKXJN6sum6HupNkcGyc0VjepqCngegB1wOWfE3IJHBuT_nQM18AaZqnjhjY-7vxzbxtWvtVBRszuvOC_pxi9INX4krhxIy7rlVgb2dS3Kv8ChZ7yl1AnX03pqK88didPOk">
-<div class="grid grid-cols-3 gap-4 mt-4">
-<div>
-<p class="font-label text-[10px] text-slate-500 uppercase" data-i18n="latency">Latency</p>
-<p class="font-headline text-sm font-bold text-on-surface">1.2ms</p>
-</div>
-<div>
-<p class="font-label text-[10px] text-slate-500 uppercase" data-i18n="uptime">Uptime</p>
-<p class="font-headline text-sm font-bold text-on-surface">99.998%</p>
-</div>
-<div>
-<p class="font-label text-[10px] text-slate-500 uppercase" data-i18n="status">Status</p>
-<p class="font-headline text-sm font-bold text-emerald-400" data-i18n="optimal">OPTIMAL</p>
-</div>
-</div>
-</div>
-</div>
+<!-- Síntese removida -->
 </div>
 <!-- Footer Meta -->
 <div class="relative z-10 flex gap-8">
@@ -201,6 +176,7 @@
 <div class="relative group">
 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">key</span>
 <input class="w-full bg-surface-container-lowest border-0 rounded p-4 pl-12 text-on-surface placeholder:text-slate-600 focus:ring-0 focus:bg-surface-container-high transition-all" id="loginPassword" placeholder="••••••••••••" type="password">
+<button id="togglePasswordVisibility" type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-200" aria-label="Mostrar senha">👁</button>
 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-focus-within:w-full group-focus-within:shadow-[0_2px_10px_rgba(165,200,255,0.4)]"></div>
 </div>
 </div>
@@ -290,12 +266,8 @@
           <!-- HEADER -->
           <header class="fixed top-0 w-full z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md font-sans antialiased shadow-lg shadow-blue-500/10 flex justify-between items-center px-6 h-16 w-full">
 <div class="flex items-center gap-8">
-<span class="text-2xl font-black tracking-tighter text-blue-500">FinCore Azul</span>
-<!-- Central Search Bar (Positioned left-center per JSON/Requirement) -->
-<div class="hidden md:flex items-center bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 w-80 group focus-within:border-blue-500/50 transition-all">
-<span class="material-symbols-outlined text-slate-500 text-sm mr-2">search</span>
-<input class="bg-transparent border-none text-sm focus:ring-0 placeholder:text-slate-600 w-full" placeholder="Search transactions, reports..." type="text">
-</div>
+<span class="text-2xl font-black tracking-tighter text-blue-500">FinCore</span>
+
 </div>
 <div class="flex items-center gap-4"><div class="flex items-center gap-2 mr-4">
                       <div class="language-selector">
@@ -362,12 +334,6 @@
 <span class="material-symbols-outlined">person</span>
 <span data-i18n="profile">Perfil</span>
 </a></nav>
-<div class="px-6 py-4 mt-auto">
-<div class="glass-card p-4 rounded-xl border-blue-500/20">
-<p class="text-xs text-blue-400 font-semibold mb-1">PRO PLAN</p>
-<p class="text-[10px] text-slate-400 leading-tight">Your account is secured with 256-bit encryption.</p>
-</div>
-</div>
 </aside>
 
           <!-- INTÉRPRETE DE LIBRAS -->
@@ -391,7 +357,7 @@
           <!-- MAIN CONTENT -->
           <main class="main-content flex-1 md:ml-64 p-4 md:p-8 min-h-[calc(100vh-4rem)] relative w-full overflow-y-auto flex flex-col">
               <!-- DASHBOARD -->
-              <section id="dashboard-section" class="content-section screen px-4 pb-8 w-full max-w-7xl mx-auto"><header class="mb-8">
+              <section id="dashboard-section" class="content-section screen px-4 pb-8 w-full max-w-7xl mx-auto" lang="pt-br"><header class="mb-8">
 <h1 class="text-3xl font-headline font-bold text-slate-100" data-i18n="executiveOverview" data-i18n="executiveOverview"><span data-i18n="executiveOverview">Executive Overview</span></h1>
 <p class="text-slate-400 text-sm mt-1" data-i18n="executiveSubtitle" data-i18n="executiveSubtitle"><span data-i18n="executiveSubtitle">Real-time monitoring of your financial ecosystem.</span></p>
 </header><div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="overallDashboard">
@@ -400,42 +366,27 @@
 <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-5xl text-blue-500">account_balance_wallet</span>
 </div>
-<p class="text-slate-400 text-sm font-label mb-2">Current Balance</p>
+<p class="text-slate-400 text-sm font-label mb-2" data-i18n="currentBalanceLabel">Current Balance</p>
 <h3 class="text-3xl font-headline font-bold text-white" id="totalBalance">$124,592.00</h3>
-<div class="mt-4 flex items-center gap-2 text-xs">
-<span class="flex items-center text-emerald-400 font-semibold bg-emerald-400/10 px-2 py-0.5 rounded">
-<span class="material-symbols-outlined text-xs mr-1">trending_up</span>+2.4%
-                        </span>
-<span class="text-slate-500">vs last month</span>
-</div>
+<!-- Porcentagem e texto removidos -->
 </div>
 <!-- Monthly Income -->
 <div class="glass-card p-6 rounded-xl blue-glow relative overflow-hidden group">
 <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-5xl text-blue-500">payments</span>
 </div>
-<p class="text-slate-400 text-sm font-label mb-2">Monthly Income</p>
+<p class="text-slate-400 text-sm font-label mb-2" data-i18n="monthlyIncomeLabel" aria-label="Receita Mensal">Receita Mensal</p>
 <h3 class="text-3xl font-headline font-bold text-white" id="totalIncome">$12,840.50</h3>
-<div class="mt-4 flex items-center gap-2 text-xs">
-<span class="flex items-center text-emerald-400 font-semibold bg-emerald-400/10 px-2 py-0.5 rounded">
-<span class="material-symbols-outlined text-xs mr-1">trending_up</span>+12%
-                        </span>
-<span class="text-slate-500">vs last month</span>
-</div>
+<!-- Porcentagem e texto removidos -->
 </div>
 <!-- Monthly Expenses -->
 <div class="glass-card p-6 rounded-xl blue-glow relative overflow-hidden group">
 <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-5xl text-blue-500">shopping_cart</span>
 </div>
-<p class="text-slate-400 text-sm font-label mb-2">Monthly Expenses</p>
+<p class="text-slate-400 text-sm font-label mb-2" data-i18n="monthlyExpenseLabel" aria-label="Despesas Mensais">Despesas Mensais</p>
 <h3 class="text-3xl font-headline font-bold text-white" id="totalExpense">$4,210.80</h3>
-<div class="mt-4 flex items-center gap-2 text-xs">
-<span class="flex items-center text-rose-400 font-semibold bg-rose-400/10 px-2 py-0.5 rounded">
-<span class="material-symbols-outlined text-xs mr-1">trending_down</span>-5%
-                        </span>
-<span class="text-slate-500">savings efficiency</span>
-</div>
+<!-- Porcentagem e texto removidos -->
 </div>
 </div><div id="companyDashboards" class="mt-8 w-full"></div><div class="mt-8 border-t border-slate-800 pt-8 hidden" style="display:none;"><h2 class="text-xl text-slate-300 mb-4"><span data-i18n="extraModules">Módulos Extras (Design Estático)</span></h2><header class="mb-8">
 <h1 class="text-3xl font-headline font-bold text-slate-100" data-i18n="executiveOverview" data-i18n="executiveOverview"><span data-i18n="executiveOverview">Executive Overview</span></h1>
@@ -816,8 +767,8 @@
 <div class="px-6 py-4 bg-slate-900/50 border-t border-slate-800 flex items-center justify-between">
 <span class="text-xs text-slate-500">Showing 5 of 142 transactions</span>
 <div class="flex gap-2">
-<button class="px-3 py-1 rounded border border-slate-700 text-slate-400 text-xs hover:bg-slate-800">Previous</button>
-<button class="px-3 py-1 rounded border border-slate-700 text-slate-400 text-xs hover:bg-slate-800">Next</button>
+<button class="px-3 py-1 rounded border border-slate-700 text-slate-400 hover:bg-slate-800">Previous</button>
+<button class="px-3 py-1 rounded border border-slate-700 text-slate-400 hover:bg-slate-800">Next</button>
 </div>
 </div>
 </div>
@@ -896,20 +847,20 @@
               <!-- SEÇÃO EMPRESAS -->
               <section id="empresas-section" class="content-section px-4 pb-8 w-full hidden max-w-7xl mx-auto" style="display: none;"><div class="flex items-center justify-between mb-8">
 <div>
-<h2 class="text-3xl font-headline font-bold tracking-tight text-white mb-1">Companies</h2>
-<p class="text-zinc-500 text-sm">Managing 1,284 enterprise entities across 4 continents.</p>
+<h2 class="text-3xl font-headline font-bold tracking-tight text-white mb-1" data-i18n="companies">Companies</h2>
+<p class="text-zinc-500 text-sm" data-i18n="companiesSubtitle">Managing 1,284 enterprise entities across 4 continents.</p>
 </div>
 <div class="flex items-center gap-3">
-<button class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-semibold rounded hover:bg-zinc-800 hover:text-white transition-all active:scale-95">
+<button class="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-semibold rounded hover:bg-zinc-800 hover:text-white transition-all active:scale-95" data-i18n="export">
 <span class="material-symbols-outlined text-lg">ios_share</span>
                     Export
                 </button>
-<button class="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded shadow-lg shadow-blue-500/20 hover:bg-blue-500 transition-all active:scale-95" id="addEmpresaBtn">
+<button class="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded shadow-lg shadow-blue-500/20 hover:bg-blue-500 transition-all active:scale-95" id="addEmpresaBtn" data-i18n="newCompany">
 <span class="material-symbols-outlined text-lg">add</span>
                     New Company
                 </button>
 </div>
-</div><div id="empresasList" class="w-full mb-8 space-y-4 grid-container"></div><div class="mt-8 border-t border-slate-800 pt-8 mt-12 hidden" style="display:none;"><h2 class="text-xl text-slate-300 mb-4 opacity-50"><span data-i18n="extraModulesList">Módulos Extras (Design Estático - Lista)</span></h2><div class="opacity-50 pointer-events-none"></div><div><div class="bg-zinc-900/30 border border-zinc-800 rounded-xl overflow-hidden backdrop-blur-sm">
+</div><div id="empresasList" class="w-full mb-8 space-y-4 grid-container"></div><div class="mt-8 border-t border-slate-800 pt-8 mt-12 hidden" style="display:none;"><h2 class="text-xl text-slate-300 mb-4"><span data-i18n="extraModulesList">Módulos Extras (Design Estático - Lista)</span></h2><div class="opacity-50 pointer-events-none"></div><div><div class="bg-zinc-900/30 border border-zinc-800 rounded-xl overflow-hidden backdrop-blur-sm">
 <table class="w-full text-left border-collapse">
 <thead>
 <tr class="border-b border-zinc-800 bg-zinc-900/50">
@@ -1022,7 +973,7 @@
 <td class="px-6 py-5">
 <div class="flex items-center gap-4">
 <div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center p-2 border border-zinc-700">
-<img alt="Amazon" class="w-full h-full object-contain" data-alt="Iconic corporate logo of a global e-commerce and cloud leader" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP1kjGCfQ6T73gao9NeYHwGrZNaX6a4Be_pHYIaBV77RXFGOGTZxX7vr4zaLV6weBrz8XJrHTPndesHNIKmvb_rsfxrELFALjEkPOvvfHEFdivu-YZU14bF3A0TkIhmKprurdAydUvxstREK45G6MqnvJW2P2-M8Nfydo0ZKhHYfwSIza3xmKPeAZpa3Lc0xyB9B-Sc8Np7IF-nwuiimhA6WFwSLUOf6OOvixo9Yv1VBVLQ5_sTVmp-HHgUsXl98-bVs-0AsBbkBno">
+<img alt="Amazon" class="w-full h-full object-contain" data-alt="Iconic corporate logo of a global e-commerce and cloud leader" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP1kjGCfQ6T73gao9NeYHwGrZNaX6a4Be_pHYIaBV77RXFGOGTZxX7vr4zaLV6weBrz8XJrHTPndesHNIKmvb_rsfxrELFALjEkPOvvfHEFdivu-YZU14bF3A0TkIhmKprurdAydUvxstREK45G6MqnvJW2-M8Nfydo0ZKhHYfwSIza3xmKPeAZpa3Lc0xyB9B-Sc8Np7IF-nwuiimhA6WFwSLUOf6OOvixo9Yv1VBVLQ5_sTVmp-HHgUsXl98-bVs-0AsBbkBno">
 </div>
 <div>
 <p class="font-bold text-zinc-100 group-hover:text-blue-400 transition-colors">Amazon Web Services</p>
@@ -1071,15 +1022,15 @@
               <!-- SEÇÃO RELATÓRIOS -->
               <section id="relatorios-section" class="content-section px-4 pb-8 w-full hidden max-w-7xl mx-auto" style="display: none;"><div class="flex items-center justify-between mb-8">
 <div>
-<h4 class="text-lg font-bold text-white">Revenue by Category</h4>
-<p class="text-slate-500 text-sm">Aggregated earnings per operational sector</p>
+<h4 class="text-lg font-bold text-white" data-i18n="revenueByCategory">Revenue by Category</h4>
+<p class="text-slate-500 text-sm" data-i18n="revenueByCategorySubtitle">Aggregated earnings per operational sector</p>
 </div>
 <div class="flex gap-2">
 <span class="flex items-center gap-2 text-xs text-slate-400">
-<span class="w-3 h-3 rounded-full bg-blue-500"></span> Current
+<span class="w-3 h-3 rounded-full bg-blue-500"></span> <span data-i18n="current">Current</span>
                             </span>
 <span class="flex items-center gap-2 text-xs text-slate-400">
-<span class="w-3 h-3 rounded-full bg-slate-700"></span> Projected
+<span class="w-3 h-3 rounded-full bg-slate-700"></span> <span data-i18n="projected">Projected</span>
                             </span>
 </div>
 </div><div class="w-full space-y-6 z-10 relative"><div class="section-header">
@@ -1716,6 +1667,9 @@
           new window.VLibras.Widget('https://vlibras.gov.br/app');
         }
       </script>
+
+      <!-- i18n.js for dynamic translation -->
+      <script src="assets/js/i18n.js"></script>
 
     <script type="module" src="assets/js/model-app.js?v=2"></script>
     
