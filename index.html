@@ -193,7 +193,7 @@
 <div class="pt-4 space-y-4">
 <button class="glow-button w-full bg-primary-container text-on-primary-fixed font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2" type="button" id="loginBtn">ENTRAR <span class="material-symbols-outlined text-lg">login</span></button>
 <button class="w-full border border-outline-variant/30 text-primary font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:bg-surface-container-highest active:scale-[0.98]" type="button" id="toggleToRegister" onclick="toggleLoginRegister(event)">
-                            Apply for Access
+                            <span data-i18n="applyAccess">Apply for Access</span>
                         </button>
 </div>
 </form>
@@ -255,7 +255,7 @@
 <div class="pt-4 space-y-4">
 <button class="glow-button w-full bg-primary-container text-on-primary-fixed font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2" type="button" id="registerBtn">CADASTRAR <span class="material-symbols-outlined text-lg">person_add</span></button>
 <button class="w-full border border-outline-variant/30 text-primary font-headline font-bold text-sm tracking-[0.15em] py-4 rounded uppercase transition-all hover:bg-surface-container-highest active:scale-[0.98]" type="button" id="toggleToLogin" onclick="toggleLoginRegister(event)">
-                            Apply for Access
+                            <span data-i18n="applyAccess">Apply for Access</span>
                         </button>
 </div>
 </form></div>
@@ -1022,15 +1022,15 @@
               <!-- SEÇÃO RELATÓRIOS -->
               <section id="relatorios-section" class="content-section px-4 pb-8 w-full hidden max-w-7xl mx-auto" style="display: none;"><div class="flex items-center justify-between mb-8">
 <div>
-<h4 class="text-lg font-bold text-white" data-i18n="revenueByCategory">Revenue by Category</h4>
-<p class="text-slate-500 text-sm" data-i18n="revenueByCategorySubtitle">Aggregated earnings per operational sector</p>
+<h4 class="text-lg font-bold text-white" data-i18n="revenueByCategory"></h4>
+<p class="text-slate-500 text-sm" data-i18n="revenueByCategorySubtitle"></p>
 </div>
 <div class="flex gap-2">
 <span class="flex items-center gap-2 text-xs text-slate-400">
-<span class="w-3 h-3 rounded-full bg-blue-500"></span> <span data-i18n="current">Current</span>
+<span class="w-3 h-3 rounded-full bg-blue-500"></span> <span data-i18n="current"></span>
                             </span>
 <span class="flex items-center gap-2 text-xs text-slate-400">
-<span class="w-3 h-3 rounded-full bg-slate-700"></span> <span data-i18n="projected">Projected</span>
+<span class="w-3 h-3 rounded-full bg-slate-700"></span> <span data-i18n="projected"></span>
                             </span>
 </div>
 </div><div class="w-full space-y-6 z-10 relative"><div class="section-header">
@@ -1149,10 +1149,10 @@
 </div>
 <div class="flex gap-2">
 <span class="flex items-center gap-2 text-xs text-slate-400">
-<span class="w-3 h-3 rounded-full bg-blue-500"></span> Current
+<span class="w-3 h-3 rounded-full bg-blue-500"></span> <span data-i18n="current"></span>
                             </span>
 <span class="flex items-center gap-2 text-xs text-slate-400">
-<span class="w-3 h-3 rounded-full bg-slate-700"></span> Projected
+<span class="w-3 h-3 rounded-full bg-slate-700"></span> <span data-i18n="projected"></span>
                             </span>
 </div>
 </div>
@@ -1561,10 +1561,10 @@
 
                           <!-- COMPARTILHAR CONTA -->
                           <div class="profile-section">
-                              <h4><i class="fas fa-share-alt"></i> Compartilhar Conta</h4>
-                              <p class="section-description">Permita que terceiros acessem sua conta financeira</p>
+                              <h4><i class="fas fa-share-alt"></i> <span data-i18n="shareAccountTitle"></span></h4>
+                              <p class="section-description" data-i18n="shareAccountDesc"></p>
                               <button id="shareAccountBtn" class="btn btn-info" onclick="openShareAccountForm()">
-                                  <i class="fas fa-user-plus"></i> Compartilhar com Terceiros
+                                  <i class="fas fa-user-plus"></i> <span data-i18n="shareWithThird"></span>
                               </button>
                               <form id="formShareAccount" class="form-share" style="display: none;">
                                   <div class="form-group">
@@ -1600,14 +1600,14 @@
 
                           <!-- MUDAR/TROCAR CONTA -->
                           <div class="profile-section">
-                              <h4><i class="fas fa-sign-in-alt"></i> Conta</h4>
+                              <h4><i class="fas fa-sign-in-alt"></i> <span data-i18n="accountTitle"></span></h4>
                               <p class="section-description">Faça login com outra conta ou crie uma nova</p>
                               <div class="account-actions">
                                   <button id="switchAccountBtn" class="btn btn-secondary" onclick="switchAccount()">
-                                      <i class="fas fa-exchange-alt"></i> Trocar de Conta
+                                      <i class="fas fa-exchange-alt"></i> <span data-i18n="switchAccount"></span>
                                   </button>
                                   <button id="deleteAccountBtn" class="btn btn-danger" onclick="deleteAccount()">
-                                      <i class="fas fa-trash"></i> Deletar Conta
+                                      <i class="fas fa-trash"></i> <span data-i18n="deleteAccount"></span>
                                   </button>
                               </div>
                           </div>

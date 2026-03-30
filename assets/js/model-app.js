@@ -198,6 +198,10 @@ const TRANSLATIONS = {
         'financialReport': 'Relatório Financeiro',
         'generatedAt': 'Gerado em',
         'generalSummary': 'Resumo Geral',
+            'revenueByCategory': 'Receita por Categoria',
+            'revenueByCategorySubtitle': 'Veja a distribuição da receita por categoria',
+            'current': 'Atual',
+            'projected': 'Projetado',
         'totalIncomeLabel': 'Total de Ganhos',
         'totalExpenseLabel': 'Total de Gastos',
         'balanceLabel': 'Saldo',
@@ -413,6 +417,22 @@ const TRANSLATIONS = {
         'accountDeletedSuccess': 'Conta deletada com sucesso!',
         'accountPayableAddedSuccess': 'Conta a pagar adicionada!',
         'accountReceivableAddedSuccess': 'Conta a receber adicionada!',
+
+    // Account Management Section
+    'shareAccountTitle': 'Compartilhar Conta',
+    'shareAccountDesc': 'Permita que terceiros acessem sua conta financeira',
+    'shareWithThird': 'Compartilhar com Terceiros',
+    'accountTitle': 'Conta',
+    'switchAccount': 'Trocar de Conta',
+    'deleteAccount': 'Deletar Conta',
+
+    // Account Management Section
+    'shareAccountTitle': 'Share Account',
+    'shareAccountDesc': 'Allow third parties to access your financial account',
+    'shareWithThird': 'Share with Third Parties',
+    'accountTitle': 'Account',
+    'switchAccount': 'Switch Account',
+    'deleteAccount': 'Delete Account',
 
         },
     'en-US': {
@@ -1807,8 +1827,8 @@ function handleAddTransaction(e) {
     const amount = parseFloat(document.getElementById('transAmount').value);
     const date = document.getElementById('transDate').value;
     const empresaSelect = document.getElementById('transEmpresa');
-    const selectedEmpresaId = empresaSelect && empresaSelect.value ? parseInt(empresaSelect.value, 10) : null;
-    const empresaId = selectedEmpresaId || currentEmpresa?.id || getFallbackEmpresaId();
+    const selectedEmpresaId = empresaSelect && empresaSelect.value ? String(empresaSelect.value) : null;
+    const empresaId = selectedEmpresaId || (currentEmpresa?.id ? String(currentEmpresa.id) : null) || (getFallbackEmpresaId() ? String(getFallbackEmpresaId()) : null);
 
     if (!category || !description || !amount || !date) {
         alert(t('fillAllFields'));
@@ -1828,7 +1848,7 @@ function handleAddTransaction(e) {
         amount,
         date,
         timestamp: new Date().getTime(),
-        empresaId,
+        empresaId: empresaId,
         fixed: false,
         variable: false
     };
@@ -2028,8 +2048,8 @@ function createTransactionHTML(transaction) {
                 <div class="transaction-info">
                     <h4>${transaction.description}</h4>
                     <p>${formattedDate}</p>
-                    <span class="transaction-company">Empresa: ${companyName}</span>
-                    <span class="transaction-category">${transaction.category}</span>
+                    <span class="transaction-company">${t('companyLabel')}: ${companyName}</span>
+                    <span class="transaction-category">${t(transaction.category) || transaction.category}</span>
                 </div>
             </div>
             <div class="transaction-right">
@@ -2160,7 +2180,7 @@ function getFilteredTransactions() {
         const matchType = !typeFilter || t.type === typeFilter;
         const matchCategory = !categoryFilter || t.category === categoryFilter;
         const matchSearch = !searchFilter || t.description.toLowerCase().includes(searchFilter);
-        const matchEmpresa = !currentEmpresa || t.empresaId === currentEmpresa.id;
+        const matchEmpresa = !currentEmpresa || isSameEmpresaId(t.empresaId, currentEmpresa.id);
 
         return matchType && matchCategory && matchSearch && matchEmpresa;
     });
@@ -2186,18 +2206,13 @@ function updateCategoryOptions() {
     const categories = CATEGORIES[type] || [];
 
     categorySelect.innerHTML = `<option value="">${t('selectCategory')}</option>` +
-        categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+        categories.map(cat => `<option value="${cat}">${t(cat) || cat}</option>`).join('');
 
     const allCategories = [...new Set(transactions.map(t => t.category))].sort();
     filterCategorySelect.innerHTML = `<option value="">${t('allCategories')}</option>` +
         allCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
 
-    const transTypeSelect = document.getElementById('transType');
-    if (transTypeSelect) {
-        transTypeSelect.innerHTML =
-            `<option value="ganho">${t('gain')}</option>` +
-            `<option value="gasto">${t('expense')}</option>`;
-    }
+    // Removido: não sobrescrever transTypeSelect aqui para evitar bug de seleção
 
     const filterTypeSelect = document.getElementById('filterType');
     if (filterTypeSelect) {
@@ -2577,10 +2592,10 @@ function renderInvestimentos() {
         .map(i => `
             <div class="investment-item">
                 <h4>${i.descricao}</h4>
-                <p>Tipo: ${i.tipo}</p>
-                <p>Valor: ${formatCurrency(i.valor)}</p>
-                <p class="text-muted">Empresa: ${getEmpresaNameById(i.empresaId)}</p>
-                <p class="text-muted">Data: ${new Date(i.dataAquisicao).toLocaleDateString('pt-BR')}</p>
+                <p>${t('type')}: ${i.tipo}</p>
+                <p>${t('amountLabel')}: ${formatCurrency(i.valor)}</p>
+                <p class="text-muted">${t('companyLabel')}: ${getEmpresaNameById(i.empresaId)}</p>
+                <p class="text-muted">${t('date')}: ${new Date(i.dataAquisicao).toLocaleDateString(currentLanguage === 'en' ? 'en-US' : 'pt-BR')}</p>
             </div>
         `).join('');
 }
@@ -2691,12 +2706,12 @@ function renderCustosFixos() {
             <div class="cost-item">
                 <div class="cost-item-header">
                     <h4>${c.descricao}</h4>
-                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="fixo" title="Deletar">
+                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="fixo" title="${t('delete')}">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-                <p>Valor: ${formatCurrency(c.valor)}</p>
-                <p class="text-muted">Empresa: ${getEmpresaNameById(c.empresaId)}</p>
+                <p>${t('amountLabel')}: ${formatCurrency(c.valor)}</p>
+                <p class="text-muted">${t('companyLabel')}: ${getEmpresaNameById(c.empresaId)}</p>
             </div>
         `).join('');
 
@@ -2723,12 +2738,12 @@ function renderCustosVariaveis() {
             <div class="cost-item">
                 <div class="cost-item-header">
                     <h4>${c.descricao}</h4>
-                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="variavel" title="Deletar">
+                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="variavel" title="${t('delete')}">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-                <p>Valor: ${c.valorTexto}</p>
-                <p class="text-muted">Empresa: ${getEmpresaNameById(c.empresaId)}</p>
+                <p>${t('amountLabel')}: ${c.valorTexto}</p>
+                <p class="text-muted">${t('companyLabel')}: ${getEmpresaNameById(c.empresaId)}</p>
             </div>
         `).join('');
 
@@ -2758,13 +2773,13 @@ function renderCapitalGiro() {
             <div class="cost-item">
                 <div class="cost-item-header">
                     <h4>${c.descricao}</h4>
-                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="capital" title="Deletar">
+                    <button class="btn-delete" data-cost-id="${c.id}" data-cost-type="capital" title="${t('delete')}">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-                <p>Valor: ${formatCurrency(c.valor)}</p>
-                <p class="text-muted">Empresa: ${getEmpresaNameById(c.empresaId)}</p>
-                <p class="text-muted">Data: ${new Date(c.data).toLocaleDateString('pt-BR')}</p>
+                <p>${t('amountLabel')}: ${formatCurrency(c.valor)}</p>
+                <p class="text-muted">${t('companyLabel')}: ${getEmpresaNameById(c.empresaId)}</p>
+                <p class="text-muted">${t('date')}: ${new Date(c.data).toLocaleDateString(currentLanguage === 'en' ? 'en-US' : 'pt-BR')}</p>
             </div>
         `).join('');
 

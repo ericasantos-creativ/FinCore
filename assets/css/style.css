@@ -57,6 +57,14 @@ html[data-theme="light"] .aside {
     --nav-width: 240px;
     --panel: #FFFFFF;
     --panel-alt: #F3F4F6;
+    --color-bg-secondary: #001A33;
+    --color-bg-tertiary: #0A0E27;
+    --color-border: #1A3A52;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #B0B0B0;
+    --color-accent-primary: #0072E3;
+    --color-success: #00C878;
+    --color-danger: #FF4757;
 }
 
 /* Dark Mode Colors */
@@ -243,6 +251,14 @@ html[data-theme="light"] {
     --accent: #2563eb;
     --panel: #ffffff;
     --panel-alt: #f1f5f9;
+    --color-bg-secondary: #ffffff;
+    --color-bg-tertiary: #f1f5f9;
+    --color-border: #cbd5e1;
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #475569;
+    --color-accent-primary: #2563eb;
+    --color-success: #16a34a;
+    --color-danger: #dc2626;
 }
 
 html[data-theme="light"] body {
@@ -803,6 +819,12 @@ body {
     color: white;
 }
 
+html[data-theme="light"] .lang-option.active {
+    background: var(--color-accent-primary);
+    color: #222 !important;
+    font-weight: bold;
+}
+
 .lang-option.active {
     background: var(--color-accent-primary);
     color: white;
@@ -989,14 +1011,23 @@ body {
 .main-content {
     flex: 1;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 40px auto 0 auto;
     width: 100%;
     padding: 40px 20px;
+    background: var(--color-bg-secondary);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--color-border);
 }
 
 /* ==================== DASHBOARD ==================== */
 .dashboard {
     margin-bottom: 50px;
+    background: var(--color-bg-secondary);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--color-border);
+    padding: 32px 24px;
 }
 
 .cards-container {
@@ -1027,7 +1058,7 @@ body {
     border-radius: 16px;
     padding: 25px;
     box-shadow: var(--shadow-lg);
-    border: 2px solid rgba(124, 58, 237, 0.2);
+    border: 2px solid var(--color-border);
     display: flex;
     align-items: center;
     gap: 20px;
@@ -1553,9 +1584,19 @@ transaction-item.gasto .transaction-amount {
     transition: all 0.2s;
     cursor: pointer;
 }
+
 .nav-link:hover {
-    background: #0f172a; /* slate-900 */
-    color: #e1e2eb; /* text-on-background */
+    background: #e6f0fa;
+    color: #2563eb !important;
+    font-weight: 600;
+    text-shadow: 0 1px 6px #b3d8fd33;
+}
+
+html[data-theme="dark"] .nav-link:hover {
+    background: #1e293b !important; /* azul escuro suave */
+    color: #60aaff !important; /* azul claro vibrante */
+    font-weight: 700;
+    text-shadow: 0 1px 8px #60aaff55;
 }
 .nav-link.active {
     color: #3b82f6; /* blue-500 */
@@ -1597,17 +1638,12 @@ transaction-item.gasto .transaction-amount {
         overflow-y: auto;
     }
 
-    
-
-    
-
-    
-
-    .main-content {
+    .main-content, main.main-content, main {
         max-width: none;
-        margin-left: var(--nav-width);
+        margin-left: var(--nav-width) !important;
         padding-left: 32px;
         padding-right: 32px;
+        width: auto;
     }
 }
 
