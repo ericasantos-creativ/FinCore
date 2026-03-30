@@ -1186,7 +1186,9 @@ async function initApp() {
 
     try {
         if (DEMO_AUTH) {
-            // Não mostra email salvo antes do login
+            // Nunca mostra email salvo antes do login
+            storageRemove('lastUserEmail');
+            storageRemove('currentUser');
             setLoginEmail('');
             if (document.getElementById('loginEmailGroup')) document.getElementById('loginEmailGroup').style.display = 'block';
             if (document.getElementById('loginEmailHint')) document.getElementById('loginEmailHint').style.display = 'none';
