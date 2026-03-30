@@ -1155,6 +1155,7 @@ function updateLoginEmailVisibility() {
 async function initApp() {
     const loginScreen = document.getElementById('loginScreen');
     const mainScreen = document.getElementById('mainScreen');
+    // Esconde tudo exceto splash ao iniciar
     if (loginScreen) {
         loginScreen.classList.remove('active');
         loginScreen.style.display = 'none';
@@ -1162,6 +1163,12 @@ async function initApp() {
     if (mainScreen) {
         mainScreen.classList.remove('active');
         mainScreen.style.display = 'none';
+    }
+    // Garante que a splash cubra tudo
+    const splash = document.getElementById('splashScreen');
+    if (splash) {
+        splash.classList.add('active');
+        splash.style.display = 'flex';
     }
 
     if ('serviceWorker' in navigator) {
@@ -1179,14 +1186,11 @@ async function initApp() {
 
     try {
         if (DEMO_AUTH) {
-            const stored = getStoredUser();
-            const lastEmail = stored?.email || getLastUserEmail();
-            if (lastEmail) {
-                setLoginEmail(lastEmail);
-                // Usuário já cadastrado, usar tema escuro da página de senha
-                setTheme('dark');
-            }
-            updateLoginEmailVisibility();
+            // Não mostra email salvo antes do login
+            setLoginEmail('');
+            if (document.getElementById('loginEmailGroup')) document.getElementById('loginEmailGroup').style.display = 'block';
+            if (document.getElementById('loginEmailHint')) document.getElementById('loginEmailHint').style.display = 'none';
+            setTheme('dark');
             setTimeout(() => transitionFromSplash('login'), 1600);
             return;
         }

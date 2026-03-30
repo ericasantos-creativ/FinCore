@@ -369,26 +369,23 @@ h1, h2, h3, h4, h5, h6, p, span, label, a, .font-headline, .font-label, .text-on
 
 /* ==================== SPLASH SCREEN ==================== */
 .splash-screen {
-    display: none;
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     background: linear-gradient(135deg, #000A1A 0%, #001A33 50%, #003D99 100%);
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 2000;
     overflow: hidden;
 }
+}
 
 .splash-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     z-index: 10;
     text-align: center;
     animation: fadeInUp 0.8s ease 0.2s both;
