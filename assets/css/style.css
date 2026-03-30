@@ -373,9 +373,10 @@ h1, h2, h3, h4, h5, h6, p, span, label, a, .font-headline, .font-label, .text-on
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: linear-gradient(135deg, #000A1A 0%, #001A33 50%, #003D99 100%);
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
