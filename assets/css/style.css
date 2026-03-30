@@ -65,6 +65,32 @@ html[data-theme="light"] .aside {
     --color-accent-primary: #0072E3;
     --color-success: #00C878;
     --color-danger: #FF4757;
+    --color-text-muted: #B0B0B0;
+}
+
+html[data-theme="dark"] {
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #B0B0B0;
+    --color-bg-secondary: #001A33;
+    --color-bg-tertiary: #0A0E27;
+    --color-border: #1A3A52;
+    --color-accent-primary: #0072E3;
+    --color-success: #00C878;
+    --color-danger: #FF4757;
+    --color-text-muted: #B0B0B0;
+}
+
+html[data-theme="light"] {
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #475569;
+    --color-bg-secondary: #ffffff;
+    --color-bg-tertiary: #f1f5f9;
+    --color-border: #cbd5e1;
+    --color-accent-primary: #2563eb;
+    --color-success: #16a34a;
+    --color-danger: #dc2626;
+    --color-text-muted: #a0aec0;
+}
 }
 
 /* Dark Mode Colors */
@@ -325,9 +351,20 @@ body {
                 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,114,227,0.15)" stroke-width="1.5"/></pattern><pattern id="dots" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="30" cy="30" r="1.5" fill="rgba(30,144,255,0.2)"/></pattern><radialGradient id="glow1" cx="30%" cy="30%"><stop offset="0%" style="stop-color:rgba(0,114,227,0.1);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(0,114,227,0);stop-opacity:1" /></radialGradient></defs><rect width="1200" height="600" fill="url(%23grid)"/><rect width="1200" height="600" fill="url(%23dots)"/><circle cx="150" cy="150" r="250" fill="url(%23glow1)" opacity="0.8"/><circle cx="1000" cy="450" r="350" fill="rgba(30,144,255,0.08)" opacity="0.6"/><line x1="0" y1="0" x2="1200" y2="600" stroke="rgba(0,114,227,0.05)" stroke-width="2"/></svg>');
     background-attachment: fixed;
     background-size: cover;
-    color: var(--color-text-primary);
+    color: var(--color-text-primary, #fff);
     line-height: 1.6;
     min-height: 100vh;
+    /* Garante contraste para todos os textos */
+}
+
+/* Garante contraste para textos principais e secundários */
+h1, h2, h3, h4, h5, h6, p, span, label, a, .font-headline, .font-label, .text-on-background, .text-on-surface, .text-primary, .text-primary-container, .text-on-primary-fixed {
+    color: var(--color-text-primary, #fff) !important;
+}
+
+.text-muted, .text-on-surface-variant, .text-slate-400, .text-slate-500, .text-slate-600 {
+    color: var(--color-text-secondary, #B0B0B0) !important;
+}
 }
 
 /* ==================== SPLASH SCREEN ==================== */
